@@ -1,0 +1,17 @@
+
+.ant-tabs-nav-list {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.ant-tabs-tab {
+  width: 33%;
+  justify-content: center;
+}
+:where(.css-dev-only-do-not-override-1i9hnpv).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+:where(.css-dev-only-do-not-override-1i9hnpv).ant-tabs .ant-tabs-tab:hover {
+  color: #fff !important;
+}
+:where(.css-dev-only-do-not-override-1i9hnpv).ant-tabs .ant-tabs-ink-bar {
+  background-color: #fff !important;
+}
