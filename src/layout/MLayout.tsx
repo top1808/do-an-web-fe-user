@@ -1,65 +1,27 @@
 'use client';
 
 import React from 'react';
-import HeaderComponent from './Header';
-import FooterComponent from './Footer';
-import { Layout } from 'antd';
-import SideBar from './SideBar';
-import { useAppSelector } from '../redux/hooks';
-
-const { Header, Footer, Sider, Content } = Layout;
+import Header from './Header';
+import Footer from './Footer';
+// import Menu from './Menu';
+import { FloatButton } from 'antd';
 
 interface LayoutProps {
 	children?: React.ReactNode;
 }
 
-const MLayout: React.FC<LayoutProps> = ({ children }) => {
-	const { sideBar } = useAppSelector((state) => state);
-
+const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 	return (
-		<Layout>
-			<Sider
-				theme='light'
-				trigger={null}
-				collapsible
-				style={{
-					overflow: 'auto',
-					position: 'fixed',
-					left: 0,
-					bottom: 0,
-					top: 0,
-					zIndex: 2,
-				}}
-				collapsed={!sideBar?.isOpen}
-			>
-				<SideBar />
-			</Sider>
-			<Layout
-				className='site-layout'
-				style={{ paddingLeft: sideBar?.isOpen ? 200 : 80, transitionDuration: '0.3s' }}
-			>
-				<Header
-					style={{
-						background: '#1EAAE7',
-						padding: '12px 32px',
-						height: 100,
-						position: 'fixed',
-						top: 0,
-						left: sideBar?.isOpen ? 200 : 80,
-						right: 0,
-						zIndex: 1,
-						transitionDuration: '0.3s',
-					}}
-				>
-					<HeaderComponent />
-				</Header>
-				<Content style={{ marginTop: 100 }}>{children}</Content>
-				<Footer>
-					<FooterComponent />
-				</Footer>
-			</Layout>
-		</Layout>
+		<div className='w-full '>
+			<div className='sticky top-0 z-10'>
+				<Header />
+				{/* <Menu /> */}
+			</div>
+			<div className='px-32 min-h-screen mt-1'>{children}</div>
+			<Footer />
+			<FloatButton.BackTop type='primary' />
+		</div>
 	);
 };
 
-export default MLayout;
+export default MLayoutUser;
