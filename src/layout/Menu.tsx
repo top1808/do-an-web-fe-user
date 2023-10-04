@@ -2,7 +2,7 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import Link from 'next/link';
 import React from 'react';
-import styles from '../../styles/headerUser.module.css';
+import styles from '../styles/headerUser.module.css';
 import { usePathname } from 'next/navigation';
 const menuItems = [
 	{

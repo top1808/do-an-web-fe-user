@@ -1,4 +1,4 @@
-import SideBarUser from '@/layout/user/SidebarUser';
+import SideBarUser from '@/layout/SidebarUser';
 import React from 'react';
 
 const AboutPage = () => {

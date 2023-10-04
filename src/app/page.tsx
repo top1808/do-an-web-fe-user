@@ -1,5 +1,6 @@
 import HomeUserComponent from '@/features/home/Index';
-import MLayoutUser from '@/layout/user/MLayout';
+import MLayoutUser from '@/layout/MLayout';
+
 import React from 'react';
 
 const Home = () => {

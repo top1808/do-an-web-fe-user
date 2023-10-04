@@ -11,7 +11,6 @@ import { ToastContainer } from 'react-toastify';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/redux/provider';
-import MLayoutUser from '@/layout/user/MLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 

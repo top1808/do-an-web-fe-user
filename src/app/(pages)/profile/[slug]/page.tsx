@@ -1,8 +1,8 @@
 'use client';
-import ProfileUserComponent from '@/features/user/profile/Index';
-import ChangePass from '@/features/user/profile/components/ChangePass';
-import Notice from '@/features/user/profile/components/Notice';
-import Purchased from '@/features/user/profile/components/Purchased';
+import ProfileUserComponent from '@/features/profile/Index';
+import ChangePass from '@/features/profile/components/ChangePass';
+import Notice from '@/features/profile/components/Notice';
+import Purchased from '@/features/profile/components/Purchased';
 import { notFound, usePathname } from 'next/navigation';
 import React from 'react';
 
