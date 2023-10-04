@@ -1,4 +1,4 @@
-import MLayoutUser from '@/layout/user/MLayout';
+import MLayoutUser from '@/layout/MLayout';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
