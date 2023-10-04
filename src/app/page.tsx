@@ -1,6 +1,13 @@
-import MButton from '@/components/MButton';
-import Image from 'next/image';
+import HomeUserComponent from '@/features/home/Index';
+import MLayoutUser from '@/layout/user/MLayout';
+import React from 'react';
 
-export default function Home() {
-	return <main className='flex min-h-screen flex-col items-center justify-between p-24'>top112323</main>;
-}
+const Home = () => {
+	return (
+		<MLayoutUser>
+			<HomeUserComponent />
+		</MLayoutUser>
+	);
+};
+
+export default Home;

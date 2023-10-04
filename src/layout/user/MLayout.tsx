@@ -3,7 +3,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-// import Menu from './Menu';
+import Menu from './Menu';
 import { FloatButton } from 'antd';
 
 interface LayoutProps {
@@ -15,7 +15,7 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 		<div className='w-full '>
 			<div className='sticky top-0 z-10'>
 				<Header />
-				{/* <Menu /> */}
+				<Menu />
 			</div>
 			<div className='px-32 min-h-screen mt-1'>{children}</div>
 			<Footer />
