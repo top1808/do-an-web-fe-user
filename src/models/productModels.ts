@@ -1,10 +1,10 @@
 import { MenuProps } from 'antd';
 
 export interface Product {
-	_id?: string;
-	name?: string;
-	price?: number;
-	quantity?: number;
+	_id: string;
+	name: string;
+	price: number;
+	quantity: number;
 	category_id?: string[];
 	decription?: string;
 	status?: boolean;

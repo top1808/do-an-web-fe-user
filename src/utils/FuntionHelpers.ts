@@ -1,5 +1,5 @@
 import { Category } from '@/models/categoryModels';
-import { MenuItem } from '@/models/productModels';
+import { MenuItem, Product } from '@/models/productModels';
 
 export const customMoney = (money: number) => {
 	return money.toLocaleString('vi-VN', {
@@ -17,3 +17,8 @@ export function getItem(label: React.ReactNode, key: React.Key, icon?: React.Rea
 		type,
 	} as MenuItem;
 }
+export const caculatorTotalPrice = (data: Product[]) => {
+	return data.reduce((accumulator, value) => {
+		return accumulator + value.quantity * value.price;
+	}, 0);
+};
