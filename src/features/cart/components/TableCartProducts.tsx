@@ -2,7 +2,7 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MButton from '@/components/MButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -11,8 +11,16 @@ import MTitle from '@/components/MTitle';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { InputNumber } from 'antd';
 import { Product } from '@/models/productModels';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
 const image = 'http://runecom06.runtime.vn/Uploads/shop97/images/product/salad_thit_nuong_vi_large.jpg';
 const TableCartProducts = ({ data }: { data: Product[] }) => {
+	const dispatch = useAppDispatch();
+	const { cart } = useAppSelector((state) => state);
+	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
+	useEffect(() => {
+		setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
+	}, [cart.items]);
 	return (
 		<>
 			<MRow className='bg-gray-400 py-2 px-1'>
@@ -87,6 +95,13 @@ const TableCartProducts = ({ data }: { data: Product[] }) => {
 								defaultValue={item.quantity}
 								min={1}
 								max={999}
+								onChange={(value) => {
+									if (value) {
+										const itemUpdate = { ...item };
+										itemUpdate.quantity = value;
+										dispatch(updatingCart(itemUpdate));
+									}
+								}}
 							/>
 						</MCol>
 						<MCol
@@ -96,7 +111,12 @@ const TableCartProducts = ({ data }: { data: Product[] }) => {
 							<MText>{`${customMoney(item.price * item.quantity)}`}</MText>
 						</MCol>
 						<MCol span={2}>
-							<MButton className='border-none'>
+							<MButton
+								className='border-none'
+								onClick={() => {
+									dispatch(removingItemToCart(item._id));
+								}}
+							>
 								<FontAwesomeIcon
 									color='red'
 									icon={faTrash}
@@ -111,7 +131,7 @@ const TableCartProducts = ({ data }: { data: Product[] }) => {
 				level={3}
 				className='text-end pr-2'
 			>
-				{`Tổng tiền: ${customMoney(caculatorTotalPrice(data))}`}
+				{`Tổng tiền: ${summaryMoney}`}
 			</MTitle>
 		</>
 	);

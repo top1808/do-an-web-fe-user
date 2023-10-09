@@ -7,13 +7,14 @@ import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Image, InputNumber, Rate } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomPriceProduct from './CustomPriceProduct';
 import EvaluateProduct from './EvaluateProduct';
 import { useAppDispatch } from '@/redux/hooks';
-import { toast } from 'react-toastify';
-import { CardProductProps } from '@/features/home/components/CardProduct';
-import { addItemToCart } from '@/redux/reducers/cartReducer';
+import { addingItemToCart } from '@/redux/reducers/cartReducer';
+import { useParams } from 'next/navigation';
+import { Product } from '@/models/productModels';
+
 const dataFake = {
 	id: '11241123',
 	name: 'Banh trung thu 2 trung',
@@ -32,7 +33,17 @@ const dataFake = {
 		},
 	],
 };
-const DetailProductComponent: React.FC<CardProductProps> = ({ data }) => {
+const DetailProductComponent = () => {
+	const path = useParams();
+	const [data, setData] = useState<Product>();
+	useEffect(() => {
+		const fetchData = async () => {
+			// fetch data
+			// const res = await fetch(`/products/${path}`);
+			// setData(res);
+		};
+		fetchData();
+	}, []);
 	const dispatch = useAppDispatch();
 	return (
 		<>
@@ -79,12 +90,7 @@ const DetailProductComponent: React.FC<CardProductProps> = ({ data }) => {
 									htmlType='submit'
 									className='bg-red-400 text-white'
 									onClick={() => {
-										try {
-											dispatch(addItemToCart(data));
-											toast.success(`Add ${data.name} successfully added`);
-										} catch {
-											toast.error(`Add ${data.name} failed`);
-										}
+										// dispatch(addingItemToCart(data));
 									}}
 								>
 									<FontAwesomeIcon icon={faCheck} />

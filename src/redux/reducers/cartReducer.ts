@@ -24,7 +24,8 @@ const cartReducer = createSlice({
 			state.items = action.payload;
 			state.status = 'completed';
 		},
-		addingItemToCart: (state) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		addingItemToCart: (state, action: PayloadAction<Product>) => {
 			state.loading = true;
 			state.status = 'pending';
 		},
@@ -43,7 +44,8 @@ const cartReducer = createSlice({
 			state.status = 'failed';
 			toast.error(action.payload);
 		},
-		removingItemToCart: (state) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		removingItemToCart: (state, action: PayloadAction<string>) => {
 			state.loading = true;
 			state.status = 'pending';
 		},
@@ -58,7 +60,8 @@ const cartReducer = createSlice({
 			state.status = 'failed';
 			toast.error(action.payload);
 		},
-		updatingCart: (state) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		updatingCart: (state, action: PayloadAction<Product>) => {
 			state.loading = true;
 			state.status = 'pending';
 		},
@@ -85,12 +88,6 @@ const cartReducer = createSlice({
 			state.status = 'failed';
 			toast.error(action.payload);
 		},
-		// updatetotalPriceAndTotalItems: (state) => {
-		// 	state.totalPrice = caculatorTotalPrice(state.items);
-		// 	state.totalItems = state.items.reduce((accumulator, value) => {
-		// 		return accumulator + value.quantity;
-		// 	}, 0);
-		// },
 	},
 });
 export const {

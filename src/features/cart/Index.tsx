@@ -10,12 +10,15 @@ import TableCartProducts from './components/TableCartProducts';
 import MPagination from '@/components/MPagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartEmty from './components/CartEmty';
+import { gettingCart } from '@/redux/reducers/cartReducer';
 const CartPageComponent = () => {
 	const { cart } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const [pageCurrent, setPageCurrent] = useState(1);
-
-	useEffect(() => {}, [cart]);
+	useEffect(() => {
+		dispatch(gettingCart());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	return (
 		<div className='py-8'>
 			<div>
