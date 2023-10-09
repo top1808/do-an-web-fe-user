@@ -1,3 +1,4 @@
+import MButton from '@/components/MButton';
 import MImage from '@/components/MImage';
 import MText from '@/components/MText';
 import { Product } from '@/models/productModels';
@@ -6,7 +7,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-interface CardProductProps {
+export interface CardProductProps {
 	data: Product;
 }
 const CardProduct: React.FC<CardProductProps> = ({ data }) => {
@@ -22,13 +23,6 @@ const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 				<div style={{ height: '2.4rem' }}>
 					<MText className='text-xl'>{data.name}</MText>
 				</div>
-				{/* <div
-					style={{ height: '1.25rem' }}
-					className='w-1/3 text-sm '
-				>
-					{data.isFlashSale && <MText>Flash sale</MText>}
-				</div> */}
-
 				<div
 					style={{ height: '2.4rem' }}
 					className='flex justify-between items-end'
