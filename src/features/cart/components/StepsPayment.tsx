@@ -6,6 +6,7 @@ import { Steps, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import PaymentPage from './PaymentPage';
+import { useAppSelector } from '@/redux/hooks';
 const items = [
 	{
 		title: 'Giỏ hàng của tôi',
@@ -39,6 +40,7 @@ interface ChildrenProps {
 	children: React.ReactNode;
 }
 const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
+	const { cart } = useAppSelector((state) => state);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
 	const next = () => {
@@ -65,7 +67,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 			</Steps>
 
 			{current === 0 ? <div>{children}</div> : <></>}
-			{current === 1 ? <PaymentPage /> : <></>}
+			{current === 1 ? <PaymentPage data={cart.items} /> : <></>}
 			<div className='mt-6 flex justify-end'>
 				<MButton
 					className='mr-2 bg-red-400 text-white'

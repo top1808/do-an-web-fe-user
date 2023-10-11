@@ -13,16 +13,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<div className='h-screen w-screen overflow-hidden layout-login relative'>
 			<div className='absolute top-6 left-6'>
-				<Link
-					href={'/'}
-					className='text-white'
+				<MButton
+					link='/'
+					type='primary'
 				>
 					<FontAwesomeIcon
 						color='white'
 						icon={faChevronLeft}
-					/>{' '}
-					Back Home
-				</Link>
+					/>
+					&nbsp; Back Home
+				</MButton>
 			</div>
 
 			<div className='flex justify-center items-center h-full	'>{children}</div>
