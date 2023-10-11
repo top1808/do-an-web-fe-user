@@ -3,12 +3,17 @@ import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
+import { FormLogin } from '@/models/authModel';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { login } from '@/redux/reducers/authReducer';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
 import Link from 'next/link';
-import React from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 type FieldType = {
 	username?: string;
@@ -18,13 +23,26 @@ type FieldType = {
 	buttonLogin?: string;
 };
 const UserLogin = () => {
+	const params = useSearchParams();
+	const messageError = params.get('error');
+	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
+	const dispatch = useAppDispatch();
+	const { auth } = useAppSelector((state) => state);
+	const handleClickLogin = (data: FormLogin) => {
+		dispatch(login(data));
+	};
+	useEffect(() => {
+		if (messageError) {
+			toast.error(messageError);
+		}
+	}, [messageError]);
 	return (
 		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4 bg-white py-8 px-4 rounded-lg '>
 			<MTitle className='text-center'>Login</MTitle>
 			<Form
 				name='basic'
 				initialValues={{ remember: true }}
-				onFinish={() => {}}
+				onFinish={handleClickLogin}
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'
@@ -34,6 +52,7 @@ const UserLogin = () => {
 					name='username'
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your username!' }]}
+					initialValue={accountUser?.username || ''}
 				>
 					<Input />
 				</Form.Item>
@@ -43,6 +62,7 @@ const UserLogin = () => {
 					name='password'
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your password!' }]}
+					initialValue={accountUser?.password || ''}
 				>
 					<Input.Password />
 				</Form.Item>
@@ -71,6 +91,7 @@ const UserLogin = () => {
 						type='primary'
 						htmlType='submit'
 						size='large'
+						loading={auth.logging}
 					>
 						Log in
 					</MButton>

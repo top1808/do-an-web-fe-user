@@ -25,7 +25,6 @@ function* watchLoginFlow() {
 	while (true) {
 		const { auth } = yield select((state) => state);
 		const isLoggedIn = auth.isLoggedIn;
-
 		if (!isLoggedIn) {
 			const action: PayloadAction<FormLogin> = yield take(login.type);
 			yield fork(handleLogin, action.payload);
