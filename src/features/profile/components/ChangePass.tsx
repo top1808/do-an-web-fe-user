@@ -16,6 +16,9 @@ const ChangePass = () => {
 						disabled
 					/>
 				</Form.Item>
+				<Form.Item name={'currentPass'}>
+					<MInput placeholder='Nhập mật khẩu hiện tại' />
+				</Form.Item>
 				<Form.Item name={'newpass'}>
 					<MInput placeholder='Nhập mật khẩu mới' />
 				</Form.Item>

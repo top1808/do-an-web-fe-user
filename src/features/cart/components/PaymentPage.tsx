@@ -1,15 +1,19 @@
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
+import MImage from '@/components/MImage';
 import MInput from '@/components/MInput';
 import MRow from '@/components/MRow';
 import MSelect from '@/components/MSelect';
+import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { DataPayment } from '@/models/paymentModels';
+import { Product } from '@/models/productModels';
+import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useState } from 'react';
 
-const PaymentPage = () => {
+const PaymentPage = ({ data }: { data: Product[] }) => {
 	const [value, setValue] = useState('');
 	return (
 		<Form
@@ -19,7 +23,7 @@ const PaymentPage = () => {
 			<MRow justify={'space-between'}>
 				<MCol
 					span={7}
-					style={{ border: '1px solid black' }}
+					className='shadow-lg'
 				>
 					<MTitle
 						level={4}
@@ -30,16 +34,25 @@ const PaymentPage = () => {
 					</MTitle>
 					<div className='p-4'>
 						<h4>THÔNG TIN THANH TOÁN</h4>
-						<Form.Item<DataPayment> name={'nameCustomer'}>
+						<Form.Item<DataPayment>
+							name={'nameCustomer'}
+							rules={[{ required: true, message: 'Please input your name!' }]}
+						>
 							<MInput placeholder='Họ và tên' />
 						</Form.Item>
-						<Form.Item<DataPayment> name='phone'>
+						<Form.Item<DataPayment>
+							name={'phone'}
+							rules={[{ required: true, message: 'Please input your phone!' }]}
+						>
 							<MInput placeholder='Số điện thoại' />
 						</Form.Item>
 						<Form.Item<DataPayment> name='email'>
 							<MInput placeholder='Email' />
 						</Form.Item>
-						<Form.Item<DataPayment> name={'location'}>
+						<Form.Item<DataPayment>
+							name={'location'}
+							rules={[{ required: true, message: 'Please input your address!' }]}
+						>
 							<MInput placeholder='Địa chỉ chi tiết' />
 						</Form.Item>
 						<Form.Item<DataPayment> name='note'>
@@ -49,7 +62,7 @@ const PaymentPage = () => {
 				</MCol>
 				<MCol
 					span={7}
-					style={{ border: '1px solid black' }}
+					className='shadow-lg'
 				>
 					<MTitle
 						level={4}
@@ -81,17 +94,54 @@ const PaymentPage = () => {
 				</MCol>
 				<MCol
 					span={7}
-					style={{ border: '1px solid black' }}
+					className='flex flex-col justify-between shadow-lg'
 				>
-					<MTitle
-						level={4}
-						className='pl-2 xw-full bg-red-600'
-						style={{ color: 'white' }}
-					>
-						3. THÔNG TIN ĐƠN HÀNG
-					</MTitle>
-
-					<MButton htmlType='submit'>OK</MButton>
+					<div>
+						<MTitle
+							level={4}
+							className='pl-2 xw-full bg-red-600'
+							style={{ color: 'white' }}
+						>
+							3. THÔNG TIN ĐƠN HÀNG
+						</MTitle>
+						<div>
+							{data.map((item) => {
+								return (
+									<div
+										key={item._id}
+										className='flex gap-4 p-2 shadow-lg'
+									>
+										<div>
+											<MImage
+												src='http://runecom06.runtime.vn/Uploads/shop97/images/product/my_xao_thap_cam_large.jpg'
+												alt='item-key'
+												preview={false}
+												height={40}
+												width={60}
+											/>
+										</div>
+										<div>
+											<MText className='font-medium'>{item.name}</MText>
+											<div className='flex gap-4'>
+												<MText className='font-medium'>{`Số lượng: ${item.quantity}`}</MText>
+												<MText className='font-medium'>{`Giá: ${customMoney(item.price)}`}</MText>
+											</div>
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					</div>
+					<div className='w-full text-end p-2'>
+						<MText className='p-2 text-end font-bold text-sm'>{`Summary : ${customMoney(caculatorTotalPrice(data))}`}</MText> <br />
+						<MButton
+							className='mt-2'
+							htmlType='submit'
+							type='primary'
+						>
+							OK
+						</MButton>
+					</div>
 				</MCol>
 			</MRow>
 		</Form>

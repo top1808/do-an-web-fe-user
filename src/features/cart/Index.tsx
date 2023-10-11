@@ -11,10 +11,19 @@ import MPagination from '@/components/MPagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartEmty from './components/CartEmty';
 import { gettingCart } from '@/redux/reducers/cartReducer';
+import MBreadcrumb from '@/components/MBreadcrumb';
 const CartPageComponent = () => {
 	const { cart } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const [pageCurrent, setPageCurrent] = useState(1);
+	const breadcrumbItems = [
+		{
+			title: <Link href='/home'>Home</Link>,
+		},
+		{
+			title: 'Cart',
+		},
+	];
 	useEffect(() => {
 		dispatch(gettingCart());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,17 +31,7 @@ const CartPageComponent = () => {
 	return (
 		<div className='py-8'>
 			<div>
-				<Link
-					href={'/home'}
-					className='text-gray-400'
-				>
-					Home
-				</Link>
-				<span className='pl-1'>
-					<FontAwesomeIcon icon={faGreaterThan} />
-					<FontAwesomeIcon icon={faGreaterThan} />
-				</span>
-				<span className='pl-1 text-red-600'>My cart</span>
+				<MBreadcrumb items={breadcrumbItems} />
 			</div>
 			<MTitle level={2}>My cart</MTitle>
 			<div>

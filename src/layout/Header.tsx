@@ -3,13 +3,16 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faCartShopping, faMagnifyingGlass, faPenToSquare, faPhone, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import logo from '../../public/images/logo.png';
+import { useAppSelector } from '@/redux/hooks';
+import MButton from '@/components/MButton';
 
 const Header = () => {
+	const { auth } = useAppSelector((state) => state);
 	return (
 		<header
 			style={{ backgroundColor: '#FA5130' }}
@@ -56,13 +59,22 @@ const Header = () => {
 							</Link>
 						</li>
 						<li>
-							<Link href={'/login'}>
-								<FontAwesomeIcon
-									icon={faUser}
-									color='white'
-								/>
-								Sign in
-							</Link>
+							{!auth.isLoggedIn ? (
+								<Link href={'/login'}>
+									<FontAwesomeIcon
+										icon={faUser}
+										color='white'
+									/>
+									Sign in
+								</Link>
+							) : (
+								<MButton
+									className='bg-gray-400 rounded-full text-white'
+									link='/profile'
+								>
+									{auth.currentUser?.name}
+								</MButton>
+							)}
 						</li>
 					</ul>
 				</MCol>
