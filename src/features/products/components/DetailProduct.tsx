@@ -1,18 +1,21 @@
 'use client';
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
-import MInput from '@/components/MInput';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
-import { customMoney } from '@/utils/FuntionHelpers';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Image, InputNumber, Rate } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomPriceProduct from './CustomPriceProduct';
 import EvaluateProduct from './EvaluateProduct';
-const data = {
+import { useAppDispatch } from '@/redux/hooks';
+import { addingItemToCart } from '@/redux/reducers/cartReducer';
+import { useParams } from 'next/navigation';
+import { Product } from '@/models/productModels';
+
+const dataFake = {
 	id: '11241123',
 	name: 'Banh trung thu 2 trung',
 	price: 10000000,
@@ -20,35 +23,55 @@ const data = {
 	image: 'http://runecom06.runtime.vn/Uploads/shop97/images/product/my_xao_thap_cam_large.jpg',
 	rating: 4.5,
 	countSales: 80,
+	listComments: [
+		{
+			id: '12321312',
+			idUser: '!@3123',
+			name: 'Le Top',
+			content: 'sadasdsadsadasdas',
+			rate: 4.6,
+		},
+	],
 };
 const DetailProductComponent = () => {
+	const path = useParams();
+	const [data, setData] = useState<Product>();
+	useEffect(() => {
+		const fetchData = async () => {
+			// fetch data
+			// const res = await fetch(`/products/${path}`);
+			// setData(res);
+		};
+		fetchData();
+	}, []);
+	const dispatch = useAppDispatch();
 	return (
 		<>
 			<div className='p-8 shadow-xl'>
 				<MRow gutter={12}>
 					<MCol span={8}>
 						<Image
-							src={data.image}
-							alt={data.name}
+							src={dataFake.image}
+							alt={dataFake.name}
 						/>
 					</MCol>
 					<MCol span={16}>
-						<MTitle>{data.name}</MTitle>
+						<MTitle>{dataFake.name}</MTitle>
 						<MRow>
 							<MCol className='flex items-center'>
-								<MTitle level={4}>{data.rating}</MTitle>
+								<MTitle level={4}>{dataFake.rating}</MTitle>
 								<Rate
 									disabled
-									defaultValue={data.rating}
+									defaultValue={dataFake.rating}
 								/>
 							</MCol>
 						</MRow>
 						<CustomPriceProduct
-							price={data.price}
-							sales={data.countSales}
+							price={dataFake.price}
+							sales={dataFake.countSales}
 						/>
-						<MTitle>{`Mã sản phẩm: #${data.id}`}</MTitle>
-						<MText>{data.decription}</MText>
+						<MTitle>{`Mã sản phẩm: #${dataFake.id}`}</MTitle>
+						<MText>{dataFake.decription}</MText>
 						<Form>
 							<Form.Item name={'count'}>
 								<MTitle>Số lượng</MTitle>
@@ -66,6 +89,9 @@ const DetailProductComponent = () => {
 								<MButton
 									htmlType='submit'
 									className='bg-red-400 text-white'
+									onClick={() => {
+										// dispatch(addingItemToCart(data));
+									}}
 								>
 									<FontAwesomeIcon icon={faCheck} />
 									&nbsp; Mua ngay

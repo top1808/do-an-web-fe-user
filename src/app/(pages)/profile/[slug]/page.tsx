@@ -1,5 +1,4 @@
 'use client';
-
 import ProfileUserComponent from '@/features/profile/Index';
 import ChangePass from '@/features/profile/components/ChangePass';
 import Notice from '@/features/profile/components/Notice';
