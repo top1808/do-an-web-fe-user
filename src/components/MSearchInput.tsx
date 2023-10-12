@@ -19,10 +19,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 				onFinish={props.onSearch}
 				className='flex gap-0 h-8 relative'
 			>
-				<Form.Item<FieldType>
-					className='h-full'
-					name={'valuesearch'}
-				>
+				<Form.Item<FieldType> className='h-full'>
 					<MInput
 						className='pl-4 pr-8 h-8  text-lg sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
 						placeholder='Search...'
@@ -36,18 +33,15 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 						size='xl'
 					/>
 				</Form.Item>
-
-				<Form.Item<FieldType>
-					name={'buttonsearch'}
-					className='h-full'
+				<MButton
+					htmlType='submit'
+					className=' bg-red-600 w-10'
 				>
-					<MButton className=' bg-red-600 w-10'>
-						<FontAwesomeIcon
-							color='white'
-							icon={faMagnifyingGlass}
-						/>
-					</MButton>
-				</Form.Item>
+					<FontAwesomeIcon
+						color='white'
+						icon={faMagnifyingGlass}
+					/>
+				</MButton>
 			</Form>
 		</div>
 	);

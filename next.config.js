@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	env: {
-		API_URL: 'http://localhost:8000/v1/',
+		API_URL: 'http://localhost:8000/v2/',
 	},
 };
 

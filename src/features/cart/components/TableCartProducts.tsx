@@ -18,9 +18,24 @@ const TableCartProducts = ({ data }: { data: Product[] }) => {
 	const dispatch = useAppDispatch();
 	const { cart } = useAppSelector((state) => state);
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
+	const [isUpdating, setIsUpdating] = useState<boolean>(false);
+	const [dataUpdating, setDataUpdating] = useState<Product>();
+	const [quantity, setQuantity] = useState<number>(1);
 	useEffect(() => {
 		setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
 	}, [cart.items]);
+	useEffect(() => {
+		if (!isUpdating) clearTimeout;
+		else {
+			if (dataUpdating) {
+				setTimeout(() => {
+					const itemUpdate = dataUpdating;
+					dispatch(updatingCart(itemUpdate));
+				}, 1000);
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isUpdating]);
 	return (
 		<>
 			<MRow className='bg-gray-400 py-2 px-1'>
@@ -95,12 +110,16 @@ const TableCartProducts = ({ data }: { data: Product[] }) => {
 								defaultValue={item.quantity}
 								min={1}
 								max={999}
+								value={quantity}
 								onChange={(value) => {
-									if (value) {
-										const itemUpdate = { ...item };
-										itemUpdate.quantity = value;
-										dispatch(updatingCart(itemUpdate));
-									}
+									value ? setQuantity(value) : setQuantity(1);
+									const temp: Product = { ...item };
+									temp.quantity = quantity;
+									if (isUpdating) setIsUpdating(false);
+									setTimeout(() => {
+										setDataUpdating(temp);
+										setIsUpdating(true);
+									}, 2000);
 								}}
 							/>
 						</MCol>
