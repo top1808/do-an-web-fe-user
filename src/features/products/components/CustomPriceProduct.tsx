@@ -4,7 +4,6 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { customMoney } from '@/utils/FuntionHelpers';
 import React from 'react';
-import EvaluateProduct from './EvaluateProduct';
 
 const CustomPriceProduct = ({ price, sales }: { price: number; sales: number }) => {
 	return (

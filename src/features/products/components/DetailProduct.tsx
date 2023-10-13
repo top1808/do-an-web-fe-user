@@ -6,7 +6,7 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Form, Image, InputNumber, Rate } from 'antd';
+import { Image, InputNumber, Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import CustomPriceProduct from './CustomPriceProduct';
 import EvaluateProduct from './EvaluateProduct';
@@ -15,10 +15,9 @@ import { useParams } from 'next/navigation';
 import { Product } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
-import Link from 'next/link';
 import PaymentPage from '@/features/cart/components/PaymentPage';
 
-const dataFake = {
+export const dataFake = {
 	id: '11241123',
 	name: 'Banh trung thu 2 trung',
 	price: 10000000,
@@ -42,8 +41,21 @@ const DetailProductComponent = () => {
 	const dispatch = useAppDispatch();
 	const [quantity, setQuantity] = useState<number>(1);
 	const [isBuyNow, setIsBuyNow] = useState<boolean>(false);
+	// const [isCallAPI, setIsCallAPI] = useState<boolean>(false);
 	const [dataProduct, setDataProduct] = useState();
-	4;
+
+	const handleFormatter = (value: number | undefined) => {
+		if (value !== undefined) {
+			return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+		}
+		return '1';
+	};
+	const handleParser = (value: string | undefined) => {
+		if (value !== undefined) {
+			return Number(value.replace(/\./g, ''));
+		}
+		return 1;
+	};
 	function handleAddToCart() {
 		const product: Product = {
 			_id: dataFake.id,
@@ -59,6 +71,15 @@ const DetailProductComponent = () => {
 		};
 		fetchData();
 	}, []);
+	// useEffect(() => {
+	// 	if (!isCallAPI) clearTimeout;
+	// 	else {
+	// 		setTimeout(() => {
+	// 			// call API
+	// 			console.log('quantity: ', quantity);
+	// 		}, 1000);
+	// 	}
+	// }, [isCallAPI]);
 	return (
 		<>
 			{!isBuyNow && (
@@ -92,9 +113,17 @@ const DetailProductComponent = () => {
 									<MTitle level={3}>Số lượng</MTitle>
 									<InputNumber
 										min={1}
-										max={999}
+										max={9999}
 										defaultValue={quantity}
-										onChange={(value) => (value ? setQuantity(value) : setQuantity(1))}
+										formatter={handleFormatter}
+										parser={handleParser}
+										onChange={(value) => {
+											value ? setQuantity(value) : setQuantity(1);
+											// if (isCallAPI) setIsCallAPI(false);
+											// setTimeout(() => {
+											// 	setIsCallAPI(true);
+											// }, 2000);
+										}}
 										value={quantity}
 									/>
 									<div className='flex gap-4 pt-4'>
@@ -126,7 +155,12 @@ const DetailProductComponent = () => {
 			{isBuyNow && (
 				<>
 					<div className='py-2'>
-						<MButton onClick={() => setIsBuyNow(false)}>Back</MButton>
+						<MButton
+							type='primary'
+							onClick={() => setIsBuyNow(false)}
+						>
+							Back
+						</MButton>
 					</div>
 					<PaymentPage data={[{ _id: dataFake.id, name: dataFake.name, price: dataFake.price, quantity: quantity }]} />
 				</>
