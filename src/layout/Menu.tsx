@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 const menuItems = [
 	{
 		name: 'Home',
-		route: '/home',
+		route: '/',
 	},
 	{
 		name: 'Products',
@@ -24,7 +24,7 @@ const menuItems = [
 ];
 const Menu = () => {
 	const path = usePathname();
-	const pathName = path === '/' ? '/home' : path;
+	const pathName = path;
 	return (
 		<MRow className='max-sm:hidden sm:flex md:flex lg:flex xl:flex 2xl:flex px-32  bg-yellow-50'>
 			{menuItems.map((item, index) => {

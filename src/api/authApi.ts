@@ -10,9 +10,6 @@ const authApi = {
 	login(body: FormLogin) {
 		return axiosClient.post(URL + '/login', body);
 	},
-	refreshToken() {
-		return axiosClient.post(URL + '/refresh', {});
-	},
 	checkExist(id: string) {
 		return axiosClient.get('/customer/' + id);
 	},
