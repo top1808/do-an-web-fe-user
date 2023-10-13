@@ -3,6 +3,7 @@
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
 import { Provider } from 'react-redux';
+import { SessionProvider } from 'next-auth/react';
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	return (
@@ -11,7 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 				loading={null}
 				persistor={persistor}
 			>
-				{children}
+				<SessionProvider>{children}</SessionProvider>
 			</PersistGate>
 		</Provider>
 	);
