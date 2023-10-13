@@ -1,5 +1,10 @@
-import MLayoutUser from '@/layout/MLayout';
+import Loading from '@/components/Loading';
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
+
+const MLayoutUser = dynamic(() => import('@/layout/MLayout'), {
+	loading: () => <Loading />,
+});
 
 export const metadata: Metadata = {
 	title: 'Login',
