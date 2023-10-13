@@ -13,6 +13,9 @@ const authApi = {
 	refreshToken() {
 		return axiosClient.post(URL + '/refresh', {});
 	},
+	checkExist(id: string) {
+		return axiosClient.get('/customer/' + id);
+	},
 };
 
 export default authApi;

@@ -3,16 +3,66 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faCartShopping, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import logo from '../../public/images/logo.png';
-import { useAppSelector } from '@/redux/hooks';
-import MButton from '@/components/MButton';
+import { signOut, useSession } from 'next-auth/react';
+import { Dropdown, MenuProps } from 'antd';
+import styles from '../styles/layout.module.css';
 
 const Header = () => {
-	const { auth } = useAppSelector((state) => state);
+	const { data: session } = useSession();
+	console.log('🚀 ~ file: Header.tsx:17 ~ Header ~ session:', session);
+
+	const profileItems: MenuProps['items'] = [
+		{
+			label: (
+				<div className='flex items-center gap-2 w-32'>
+					<FontAwesomeIcon
+						icon={faUser}
+						color='#1EAAE8'
+					/>
+					Profile
+				</div>
+			),
+			key: '0',
+		},
+		{
+			label: (
+				<div className='flex items-center gap-2'>
+					<FontAwesomeIcon
+						icon={faEnvelope}
+						color='#2BC255'
+					/>
+					Inbox
+				</div>
+			),
+			key: '1',
+		},
+		{
+			type: 'divider',
+		},
+		{
+			label: (
+				<div
+					className='flex items-center gap-2'
+					onClick={() => {
+						signOut();
+					}}
+				>
+					<FontAwesomeIcon
+						icon={faArrowRightFromBracket}
+						color='#FF2F2E'
+					/>
+					Log out
+				</div>
+			),
+			key: '3',
+		},
+	];
+
 	return (
 		<header
 			style={{ backgroundColor: '#FA5130' }}
@@ -59,7 +109,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li>
-							{!auth.isLoggedIn ? (
+							{!session ? (
 								<Link href={'/login'}>
 									<FontAwesomeIcon
 										icon={faUser}
@@ -68,12 +118,25 @@ const Header = () => {
 									Sign in
 								</Link>
 							) : (
-								<MButton
-									className='bg-gray-400 rounded-full text-white'
-									link='/profile'
+								<Dropdown
+									menu={{ items: profileItems }}
+									trigger={['click']}
 								>
-									{auth.currentUser?.name}
-								</MButton>
+									<a
+										href='#'
+										onClick={(e) => e.preventDefault()}
+										className={styles.userProfileContainer}
+									>
+										<MImage
+											src={session?.user?.image || ''}
+											className={styles.userAvatar}
+											style={{ width: 30, height: 30 }}
+											alt='avt'
+											preview={false}
+										/>
+										<strong className='mx-2'>{session?.user?.name}</strong>
+									</a>
+								</Dropdown>
 							)}
 						</li>
 					</ul>

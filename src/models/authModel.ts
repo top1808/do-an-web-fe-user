@@ -5,7 +5,10 @@ interface FormLogin {
 }
 
 interface FormRegister extends FormLogin {
+	id?: string;
 	email?: string;
+	name?: string;
+	image?: string;
 }
 
 export type { FormLogin, FormRegister };

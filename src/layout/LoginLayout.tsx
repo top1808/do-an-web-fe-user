@@ -1,15 +1,20 @@
+'use client';
 import MButton from '@/components/MButton';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { Metadata } from 'next';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import React, { useEffect } from 'react';
 
-export const metadata: Metadata = {
-	title: 'Login',
-	description: 'Login website',
-};
+const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+	const { data: session } = useSession();
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+	useEffect(() => {
+		if (session) {
+			redirect('/');
+		}
+	}, [session]);
+
 	return (
 		<div className='h-screen w-screen overflow-hidden layout-login relative'>
 			<div className='absolute top-6 left-6'>
@@ -28,4 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<div className='flex justify-center items-center h-full	'>{children}</div>
 		</div>
 	);
-}
+};
+
+export default LoginLayout;

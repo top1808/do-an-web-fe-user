@@ -1,3 +1,4 @@
+'use client';
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';

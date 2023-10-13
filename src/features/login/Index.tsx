@@ -1,15 +1,17 @@
+'use client';
+
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import { FormLogin } from '@/models/authModel';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { login } from '@/redux/reducers/authReducer';
+import { useAppSelector } from '@/redux/hooks';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -23,19 +25,23 @@ type FieldType = {
 	buttonLogin?: string;
 };
 const UserLogin = () => {
-	const params = useSearchParams();
-	const messageError = params.get('error');
-	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
-	const dispatch = useAppDispatch();
 	const { auth } = useAppSelector((state) => state);
+	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
+	const error = useSearchParams().get('error');
+
 	const handleClickLogin = (data: FormLogin) => {
-		dispatch(login(data));
+		signIn('credentials', {
+			username: data.username,
+			password: data.password,
+		});
 	};
+
 	useEffect(() => {
-		if (messageError) {
-			toast.error(messageError);
+		if (error) {
+			toast.error(error);
 		}
-	}, [messageError]);
+	}, [error]);
+
 	return (
 		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4 bg-white py-8 px-4 rounded-lg '>
 			<MTitle className='text-center'>Login</MTitle>
@@ -83,10 +89,7 @@ const UserLogin = () => {
 					</Link>
 				</div>
 
-				<Form.Item<FieldType>
-					name={'buttonLogin'}
-					className='flex justify-center'
-				>
+				<Form.Item<FieldType> className='flex justify-center'>
 					<MButton
 						type='primary'
 						htmlType='submit'
@@ -113,6 +116,7 @@ const UserLogin = () => {
 						type='primary'
 						shape='circle'
 						style={{ width: '3.6rem', height: '3.6rem' }}
+						onClick={() => signIn('facebook')}
 					>
 						<FontAwesomeIcon
 							icon={faFacebook}
@@ -125,6 +129,7 @@ const UserLogin = () => {
 					<MButton
 						shape='circle'
 						style={{ width: '3.6rem', height: '3.6rem', backgroundColor: 'red' }}
+						onClick={() => signIn('google')}
 					>
 						<FontAwesomeIcon
 							color='white'

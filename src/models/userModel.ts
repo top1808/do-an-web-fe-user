@@ -4,7 +4,8 @@ export interface User {
 	password?: string;
 	name?: string;
 	email?: string;
-	id?: string;
-	phone?: string;
+	phoneNumber?: string;
+	address?: string;
+	birthday?: string;
 	accessToken?: string;
 }
