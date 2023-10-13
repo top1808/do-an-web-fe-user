@@ -1,5 +1,3 @@
-'use client';
-
 import UserRegister from '@/features/register/Index';
 import React from 'react';
 
