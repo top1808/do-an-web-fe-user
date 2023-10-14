@@ -11,7 +11,7 @@ const Footer = () => {
 		<footer className='mt-4 px-32 py-8 bg-blue-200'>
 			<MRow justify={'center'}>
 				<MCol>
-					<Link href={'/home'}>
+					<Link href={'/'}>
 						<MImage
 							preview={false}
 							src={logo.src}

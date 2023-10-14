@@ -28,10 +28,12 @@ const SideBarUser: React.FC = () => {
 	return (
 		<>
 			<Menu
+				style={{ borderInlineEnd: 'none' }}
 				defaultSelectedKeys={['dashboard']}
 				mode='inline'
 				items={itemsCategory}
 				onClick={onClick}
+				className='rounded-md font-semibold'
 			/>
 		</>
 	);

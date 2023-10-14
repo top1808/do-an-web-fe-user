@@ -17,7 +17,7 @@ const PageNotFoundUser = () => {
 			<div className='pt-8'>
 				<Link
 					className='text-blue-700 text-xl'
-					href={'/home'}
+					href={'/'}
 				>
 					<MButton
 						type='primary'

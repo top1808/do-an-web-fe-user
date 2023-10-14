@@ -52,11 +52,11 @@ function* onClearCart() {
 		yield put(clearCartFail(error.response.data.message));
 	}
 }
-function* onGetCart(action: CreateAction<string>) {
+function* onGetCart() {
 	try {
-		const _id = action.payload as string;
 		// get cart in databse
-		const response: AxiosResponse = yield call(cartApi.getCart, _id);
+		const response: AxiosResponse = yield call(cartApi.getCart);
+
 		yield put(getCartSuccess(response.data.cart));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {

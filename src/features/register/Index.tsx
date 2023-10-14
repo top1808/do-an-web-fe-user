@@ -1,4 +1,5 @@
 'use client';
+import authApi from '@/api/authApi';
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
@@ -8,16 +9,36 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 import React from 'react';
+import { signIn } from 'next-auth/react';
 
 type FieldType = {
 	username?: string;
 	password?: string;
 	email?: string;
 	confirmPassword?: string;
-	signUp?: string;
 };
 const UserRegister = () => {
+	const handleRegister = async (value: FieldType) => {
+		const dataResigter = {
+			password: value.password,
+			username: value.username,
+			email: value.email,
+			name: value.username,
+		};
+		try {
+			const res = await authApi.register(dataResigter);
+			toast.success(res.data.message);
+			signIn('credentials', {
+				username: dataResigter.username,
+				password: dataResigter.password,
+			});
+			// toast.success();
+		} catch (error: any) {
+			toast.error(error.message);
+		}
+	};
 	return (
 		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4  bg-white py-8 px-0 rounded-lg '>
 			<MTitle className='text-center'>SIGN UP</MTitle>
@@ -26,7 +47,7 @@ const UserRegister = () => {
 				labelCol={{ span: 8 }}
 				wrapperCol={{ span: 16 }}
 				initialValues={{ remember: true }}
-				onFinish={() => {}}
+				onFinish={(value) => handleRegister(value)}
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'

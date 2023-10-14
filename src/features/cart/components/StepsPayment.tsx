@@ -72,7 +72,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 				<MButton
 					className='mr-2 bg-red-400 text-white'
 					onClick={() => {
-						router.push('/home');
+						router.push('/');
 					}}
 				>
 					Tiếp tục mua sắm
