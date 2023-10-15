@@ -12,6 +12,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
 import { useRouter } from 'next/navigation';
+import MBadge from '@/components/MBadge';
 
 const Header = () => {
 	const { data: session } = useSession();
@@ -67,10 +68,7 @@ const Header = () => {
 	];
 
 	return (
-		<header
-			style={{ backgroundColor: '#FA5130' }}
-			className='py-2 px-32'
-		>
+		<header className='py-2 px-32'>
 			<MRow
 				justify={'space-between'}
 				className=' py-2 px-8'
@@ -101,25 +99,41 @@ const Header = () => {
 					xl={8}
 					className='max-sm:mt-2 2xl:0'
 				>
-					<ul className='flex gap-6 h-full text-lg items-center w-full justify-end text-white	'>
+					<ul className='flex gap-12 h-full text-lg items-center w-full justify-end'>
 						<li>
-							<Link href={session?.user ? '/cart' : '/login'}>
-								<FontAwesomeIcon
-									icon={faCartShopping}
-									color='white'
-								/>
-								Cart
+							<Link
+								href={session?.user ? '/cart' : '/login'}
+								className=' p-4 rounded-xl hover:bg-blue-200'
+							>
+								<MBadge
+									count={0}
+									showZero
+									overflowCount={10}
+									size='small'
+								>
+									<FontAwesomeIcon
+										icon={faCartShopping}
+										color='blue'
+										size='xl'
+									/>
+								</MBadge>
 							</Link>
 						</li>
 						<li>
 							{!session ? (
-								<Link href={'/login'}>
-									<FontAwesomeIcon
-										icon={faUser}
-										color='white'
-									/>
-									Sign in
-								</Link>
+								<div>
+									<Link
+										href={'/login'}
+										className='text-blue-400 rounded-xl p-4 hover:bg-blue-100'
+									>
+										<FontAwesomeIcon
+											icon={faUser}
+											color='blue'
+											size='xl'
+										/>
+										&nbsp;Sign in
+									</Link>
+								</div>
 							) : (
 								<Dropdown
 									menu={{ items: profileItems }}

@@ -1,6 +1,5 @@
 'use client';
 import React, { useEffect } from 'react';
-import CarouselBanner from './components/CarouselBanner';
 import Banner from './components/Banner';
 import ListProducts from './components/ListProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -9,6 +8,7 @@ import SideBarUser from '@/layout/SidebarUser';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import MTitle from '@/components/MTitle';
+import CarouselBanner from './components/CarouselBanner';
 
 const HomeUserComponent = () => {
 	const { product } = useAppSelector((state) => state);

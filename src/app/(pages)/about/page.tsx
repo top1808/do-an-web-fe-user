@@ -1,10 +1,10 @@
-import SideBarUser from '@/layout/SidebarUser';
+import { SliderCarousel } from '@/components/Slider';
 import React from 'react';
 
 const AboutPage = () => {
 	return (
 		<div>
-			<SideBarUser />
+			<SliderCarousel />
 		</div>
 	);
 };
