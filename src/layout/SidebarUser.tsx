@@ -1,40 +1,51 @@
 'use client';
-import { MenuItem } from '@/models/productModels';
+import MImage from '@/components/MImage';
+import { Category } from '@/models/categoryModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingCategory } from '@/redux/reducers/categoryReducer';
-import { getItem } from '@/utils/FuntionHelpers';
 import { Menu, type MenuProps } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { category } = useAppSelector((state) => state);
-	const [itemsCategory, setItemsCategory] = useState<MenuItem[]>([]);
 	const onClick: MenuProps['onClick'] = (e) => {
 		console.log('click ', e);
 	};
 	useEffect(() => {
 		dispatch(gettingCategory());
 	}, [dispatch]);
-	useEffect(() => {
-		if (category.data) {
-			setItemsCategory(
-				category.data?.map((item: any) => {
-					return getItem(`${item.name}`, `${item._id}`);
-				}),
-			);
-		}
-	}, [category]);
+
 	return (
 		<>
 			<Menu
-				style={{ borderInlineEnd: 'none' }}
+				style={{ borderInlineEnd: 'none', padding: '10px' }}
 				defaultSelectedKeys={['dashboard']}
 				mode='inline'
-				items={itemsCategory}
 				onClick={onClick}
 				className='rounded-md font-semibold'
-			/>
+			>
+				{category.data?.map((item: Category) => {
+					return (
+						<Menu.Item
+							style={{ height: '50px', padding: '2.4rem 1rem' }}
+							key={item._id}
+							icon={
+								<div className='flex items-center py-4'>
+									<MImage
+										width={60}
+										height={60}
+										src={item?.image}
+										preview={false}
+									/>
+								</div>
+							}
+						>
+							{item.name}
+						</Menu.Item>
+					);
+				})}
+			</Menu>
 		</>
 	);
 };

@@ -13,7 +13,7 @@ import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
 import { useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
-
+import Swal from 'sweetalert2';
 const Header = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
@@ -52,9 +52,7 @@ const Header = () => {
 			label: (
 				<div
 					className='flex items-center gap-2'
-					onClick={() => {
-						signOut();
-					}}
+					onClick={() => handleLogout()}
 				>
 					<FontAwesomeIcon
 						icon={faArrowRightFromBracket}
@@ -67,6 +65,19 @@ const Header = () => {
 		},
 	];
 
+	const handleLogout = () => {
+		Swal.fire({
+			text: 'Do you want to logout  ?',
+			icon: 'question',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Cancel',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				signOut();
+			}
+		});
+	};
 	return (
 		<header className='py-2 px-32'>
 			<MRow

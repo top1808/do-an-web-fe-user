@@ -20,3 +20,44 @@
 	background-color: #f4f7ff;
 	cursor: pointer;
 }
+.sticks-item {
+	display: inline-block;
+	padding-top: 30px;
+	width: 546px;
+	left: 0;
+	opacity: 1;
+}
+#sticks-list {
+	display: block;
+	width: 3822px;
+	transition: 1s;
+}
+.persons {
+	padding: 30px 0;
+	overflow: hidden;
+	width: 546px;
+}
+section#testimonial div div.persons div > img {
+	margin-top: 20px;
+	float: left;
+	width: 50px;
+	height: 50px;
+}
+.persons h4 {
+	margin-top: 20px;
+	float: left;
+	line-height: 50px;
+	margin-left: 10px;
+}
+section#testimonial div div:last-child img {
+	width: 546px;
+	height: 546px;
+}
+section#testimonial ul {
+	margin-top: 10px;
+	justify-content: center;
+}
+section#testimonial li {
+	width: 20px;
+	height: 20px;
+}

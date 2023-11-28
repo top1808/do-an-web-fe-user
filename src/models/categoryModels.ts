@@ -4,4 +4,5 @@ export interface Category {
 	type?: string;
 	description?: string;
 	status?: string;
+	image?: string;
 }

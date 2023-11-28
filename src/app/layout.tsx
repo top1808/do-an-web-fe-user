@@ -3,6 +3,7 @@ import StyledComponentsRegistry from '../lib/AntdRegistry';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
+import 'sweetalert2/src/sweetalert2.scss';
 config.autoAddCss = false;
 
 import 'react-toastify/dist/ReactToastify.css';

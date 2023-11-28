@@ -9,5 +9,6 @@ export interface Product {
 	decription?: string;
 	status?: boolean;
 	totalPrice?: number;
+	image?: string;
 }
 export type MenuItem = Required<MenuProps>['items'][number];

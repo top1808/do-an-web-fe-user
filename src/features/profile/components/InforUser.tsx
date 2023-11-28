@@ -3,7 +3,6 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { useSession } from 'next-auth/react';
 import React from 'react';
-
 const InforUser = () => {
 	const session = useSession();
 	return (
@@ -36,7 +35,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2  '
+				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2'
 			>
 				<MCol span={8}>Phone:</MCol>
 				<MCol span={8}>{session.data?.user.phoneNumber ? session.data?.user.phoneNumber : 'Bạn chưa thêm số điện thoại'}</MCol>
@@ -44,7 +43,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2  '
+				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2 '
 			>
 				<MCol span={8}>Email:</MCol>
 				<MCol span={8}>{session.data?.user.email ? session.data?.user.email : 'Bạn chưa thêm email'}</MCol>
