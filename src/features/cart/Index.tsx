@@ -18,7 +18,7 @@ const CartPageComponent = () => {
 	const [pageCurrent, setPageCurrent] = useState(1);
 	const breadcrumbItems = [
 		{
-			title: <Link href='/home'>Home</Link>,
+			title: <Link href='/'>Home</Link>,
 		},
 		{
 			title: 'Cart',
