@@ -24,6 +24,7 @@ const menuItems = [
 ];
 const Menu = () => {
 	const path = usePathname();
+
 	return (
 		<MRow className='max-sm:hidden sm:flex md:flex lg:flex xl:flex 2xl:flex px-32  bg-yellow-50'>
 			{menuItems.map((item, index) => {
