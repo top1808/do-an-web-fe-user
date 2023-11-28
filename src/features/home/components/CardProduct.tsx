@@ -14,12 +14,14 @@ const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
 		<Link href={`/products/${data._id}`}>
 			<div className='shadow-xl p-2 border-blue-100 w-full  card hover:opacity-70'>
-				<MImage
-					src={'http://runecom06.runtime.vn/Uploads/shop97/images/product/my_xao_thap_cam_large.jpg'}
-					alt={data.name}
-					preview={false}
-					style={{ height: '12rem' }}
-				/>
+				<div className='flex justify-center items-center'>
+					<MImage
+						src={data.image ? data.image : 'https://bizflyportal.mediacdn.vn/bizflyportal/techblog/png15910726485415.jpg'}
+						alt={data.name}
+						preview={false}
+						style={{ height: '12rem' }}
+					/>
+				</div>
 				<div style={{ height: '2.4rem' }}>
 					<MText className='text-xl'>{data.name}</MText>
 				</div>

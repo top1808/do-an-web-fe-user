@@ -13,6 +13,9 @@ const ProductApi = {
 	deleteProduct(id: string) {
 		return axiosClient.delete(URL + '/' + id);
 	},
+	getProductInfo(id: string) {
+		return axiosClient.get(URL + '/' + id);
+	},
 };
 
 export default ProductApi;

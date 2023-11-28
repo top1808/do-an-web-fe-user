@@ -6,7 +6,6 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import { FormLogin } from '@/models/authModel';
-import { useAppSelector } from '@/redux/hooks';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,7 +24,6 @@ type FieldType = {
 	buttonLogin?: string;
 };
 const UserLogin = () => {
-	const { auth } = useAppSelector((state) => state);
 	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
 	const error = useSearchParams().get('error');
 
@@ -94,7 +92,6 @@ const UserLogin = () => {
 						type='primary'
 						htmlType='submit'
 						size='large'
-						loading={auth.logging}
 					>
 						Log in
 					</MButton>

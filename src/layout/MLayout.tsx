@@ -16,7 +16,12 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 				<Header />
 				<Menu />
 			</div>
-			<div className='px-32 min-h-screen mt-1'>{children}</div>
+			<div
+				style={{ backgroundColor: '#F5F5FA' }}
+				className='px-32 min-h-screen mt-1'
+			>
+				{children}
+			</div>
 			<Footer />
 			<FloatButton.BackTop type='primary' />
 		</div>

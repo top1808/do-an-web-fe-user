@@ -3,21 +3,15 @@ import StyledComponentsRegistry from '../lib/AntdRegistry';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
+import 'sweetalert2/src/sweetalert2.scss';
 config.autoAddCss = false;
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/redux/provider';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-	title: 'App',
-	description: 'App',
-};
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (

@@ -6,19 +6,21 @@ import MRow from '@/components/MRow';
 import MSelect from '@/components/MSelect';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
+import { PaymentForm } from '@/models/paymentModel';
 import { DataPayment } from '@/models/paymentModels';
 import { Product } from '@/models/productModels';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useState } from 'react';
-
 const PaymentPage = ({ data }: { data: Product[] }) => {
-	const [value, setValue] = useState('');
+	const initialValues: PaymentForm = {};
+	const [value, setValue] = useState('normal');
 	return (
 		<Form
 			autoComplete='off'
 			onFinish={(values: any) => console.log(values)}
+			initialValues={initialValues}
 		>
 			<MRow justify={'space-between'}>
 				<MCol
@@ -74,7 +76,7 @@ const PaymentPage = ({ data }: { data: Product[] }) => {
 					<Form.Item<DataPayment> name={'deliveryMethod'}>
 						<MSelect
 							className='px-2'
-							defaultValue='normal'
+							defaultValue={'normal'}
 							value={value}
 							onChange={(value: string) => setValue(value)}
 							options={[
@@ -85,7 +87,10 @@ const PaymentPage = ({ data }: { data: Product[] }) => {
 						/>
 					</Form.Item>
 					<Form.Item<DataPayment> name={'paymentMethod'}>
-						<Radio.Group className='px-2'>
+						<Radio.Group
+							className='px-2'
+							defaultValue={'tien-mat'}
+						>
 							<Radio.Button value='tien-mat'>Tiền mặt</Radio.Button>
 							<Radio.Button value='momo'>Momo</Radio.Button>
 							<Radio.Button value='vietcomBank'>VietcomBank</Radio.Button>
