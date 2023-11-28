@@ -1,9 +1,9 @@
-import MSelect from '@/components/MSelect';
 import React from 'react';
 import CardProduct from './CardProduct';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import { Product } from '@/models/productModels';
+import MSelect from '@/components/MSelect';
 
 interface ListProductProps {
 	listProducts: Product[];

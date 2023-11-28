@@ -8,5 +8,7 @@ export interface Product {
 	category_id?: string[];
 	decription?: string;
 	status?: boolean;
+	totalPrice?: number;
+	image?: string;
 }
 export type MenuItem = Required<MenuProps>['items'][number];

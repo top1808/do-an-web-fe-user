@@ -1,4 +1,3 @@
-import { Category } from '@/models/categoryModels';
 import { MenuItem, Product } from '@/models/productModels';
 
 export const customMoney = (money: number) => {

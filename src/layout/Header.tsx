@@ -3,7 +3,7 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faCartShopping, faEnvelope, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
@@ -11,15 +11,19 @@ import logo from '../../public/images/logo.png';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
-
+import { useRouter } from 'next/navigation';
+import MBadge from '@/components/MBadge';
+import Swal from 'sweetalert2';
 const Header = () => {
 	const { data: session } = useSession();
-	console.log('🚀 ~ file: Header.tsx:17 ~ Header ~ session:', session);
-
+	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
 			label: (
-				<div className='flex items-center gap-2 w-32'>
+				<div
+					className='flex items-center gap-2 w-32'
+					onClick={() => router.push('/profile')}
+				>
 					<FontAwesomeIcon
 						icon={faUser}
 						color='#1EAAE8'
@@ -33,10 +37,10 @@ const Header = () => {
 			label: (
 				<div className='flex items-center gap-2'>
 					<FontAwesomeIcon
-						icon={faEnvelope}
+						icon={faBell}
 						color='#2BC255'
 					/>
-					Inbox
+					Nofication
 				</div>
 			),
 			key: '1',
@@ -48,9 +52,7 @@ const Header = () => {
 			label: (
 				<div
 					className='flex items-center gap-2'
-					onClick={() => {
-						signOut();
-					}}
+					onClick={() => handleLogout()}
 				>
 					<FontAwesomeIcon
 						icon={faArrowRightFromBracket}
@@ -63,11 +65,21 @@ const Header = () => {
 		},
 	];
 
+	const handleLogout = () => {
+		Swal.fire({
+			text: 'Do you want to logout  ?',
+			icon: 'question',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Cancel',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				signOut();
+			}
+		});
+	};
 	return (
-		<header
-			style={{ backgroundColor: '#FA5130' }}
-			className='py-2 px-32'
-		>
+		<header className='py-2 px-32'>
 			<MRow
 				justify={'space-between'}
 				className=' py-2 px-8'
@@ -98,25 +110,41 @@ const Header = () => {
 					xl={8}
 					className='max-sm:mt-2 2xl:0'
 				>
-					<ul className='flex gap-6 h-full text-lg items-center w-full justify-end text-white	'>
+					<ul className='flex gap-12 h-full text-lg items-center w-full justify-end'>
 						<li>
-							<Link href={'/cart'}>
-								<FontAwesomeIcon
-									icon={faCartShopping}
-									color='white'
-								/>
-								Cart
+							<Link
+								href={session?.user ? '/cart' : '/login'}
+								className=' p-4 rounded-xl hover:bg-blue-200'
+							>
+								<MBadge
+									count={0}
+									showZero
+									overflowCount={10}
+									size='small'
+								>
+									<FontAwesomeIcon
+										icon={faCartShopping}
+										color='blue'
+										size='xl'
+									/>
+								</MBadge>
 							</Link>
 						</li>
 						<li>
 							{!session ? (
-								<Link href={'/login'}>
-									<FontAwesomeIcon
-										icon={faUser}
-										color='white'
-									/>
-									Sign in
-								</Link>
+								<div>
+									<Link
+										href={'/login'}
+										className='text-blue-400 rounded-xl p-4 hover:bg-blue-100'
+									>
+										<FontAwesomeIcon
+											icon={faUser}
+											color='blue'
+											size='xl'
+										/>
+										&nbsp;Sign in
+									</Link>
+								</div>
 							) : (
 								<Dropdown
 									menu={{ items: profileItems }}

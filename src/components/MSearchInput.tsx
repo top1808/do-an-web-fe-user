@@ -14,17 +14,14 @@ type FieldType = {
 export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 	const [valueSearch, setValueSearch] = useState('');
 	return (
-		<div className='p-1 bg-white rounded'>
+		<div className='p-1 rounded '>
 			<Form
 				onFinish={props.onSearch}
-				className='flex gap-0 h-8 relative'
+				className='flex gap-2 h-8'
 			>
-				<Form.Item<FieldType>
-					className='h-full'
-					name={'valuesearch'}
-				>
+				<Form.Item<FieldType> className='h-full relative'>
 					<MInput
-						className='pl-4 pr-8 h-8  text-lg sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
+						className='pl-8 pr-8 h-8 text-sm sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
 						placeholder='Search...'
 						onChange={(e) => setValueSearch(e.target.value)}
 						value={valueSearch}
@@ -35,19 +32,18 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 						icon={faXmark}
 						size='xl'
 					/>
+					<FontAwesomeIcon
+						color='gray'
+						icon={faMagnifyingGlass}
+						className='absolute top-2 left-2'
+					/>
 				</Form.Item>
-
-				<Form.Item<FieldType>
-					name={'buttonsearch'}
-					className='h-full'
+				<MButton
+					htmlType='submit'
+					type='primary'
 				>
-					<MButton className=' bg-red-600 w-10'>
-						<FontAwesomeIcon
-							color='white'
-							icon={faMagnifyingGlass}
-						/>
-					</MButton>
-				</Form.Item>
+					Tìm kiếm
+				</MButton>
 			</Form>
 		</div>
 	);

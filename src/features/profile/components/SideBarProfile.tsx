@@ -1,13 +1,11 @@
 import MButton from '@/components/MButton';
-import { useAppDispatch } from '@/redux/hooks';
-import { logout } from '@/redux/reducers/authReducer';
 import { faBell, faClockRotateLeft, faKey, faRectangleList, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
 const SideBarProfile = () => {
-	const disptach = useAppDispatch();
 	return (
 		<div className='w1/4'>
 			<div>
@@ -47,7 +45,7 @@ const SideBarProfile = () => {
 						</Link>
 					</li>
 					<li className=' py-2'>
-						<MButton onClick={() => disptach(logout())}>
+						<MButton onClick={() => signOut()}>
 							<FontAwesomeIcon
 								color='purple'
 								icon={faRightFromBracket}

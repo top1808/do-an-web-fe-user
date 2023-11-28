@@ -24,7 +24,6 @@ const handler = NextAuth({
 					if (res.status === 200 && res.data) {
 						return res.data;
 					}
-
 					return null;
 				} catch (error) {
 					const err = error as AxiosError<{ message: string }>;

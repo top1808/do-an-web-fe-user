@@ -3,8 +3,8 @@ import { Product } from '@/models/productModels';
 const URL = '/cart';
 
 const cartApi = {
-	getCart(body: string) {
-		return axiosClient.get(URL + `/${body}`);
+	getCart() {
+		return axiosClient.get(URL);
 	},
 	addItem(body: Product) {
 		return axiosClient.post(URL + '/add', body);
