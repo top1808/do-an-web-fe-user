@@ -77,7 +77,7 @@ const Header = () => {
 					xl={8}
 					className='max-sm:w-36 sm:w-36 md:w-36 lg:w-40 xl:w-60 2xl:w-80'
 				>
-					<Link href={'/home'}>
+					<Link href={'/'}>
 						<MImage
 							preview={false}
 							src={logo.src}
