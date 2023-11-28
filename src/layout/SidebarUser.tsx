@@ -1,52 +1,51 @@
 'use client';
-import { Category } from '@/models/productModels';
-import { convertDataItemsCategory, getItem } from '@/utils/FuntionHelpers';
-import { faServer } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MImage from '@/components/MImage';
+import { Category } from '@/models/categoryModels';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { gettingCategory } from '@/redux/reducers/categoryReducer';
 import { Menu, type MenuProps } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const dataItems: Category[] = [
-	{
-		label: 'Món chính',
-		key: 'qqq',
-		icon: <FontAwesomeIcon icon={faServer} />,
-		children: [
-			{
-				label: 'Cơm',
-				key: 'xxx',
-			},
-			{
-				label: 'Cháo',
-				key: 'zzz',
-			},
-		],
-	},
-	{
-		label: 'Món tráng miệng',
-		key: 'abc',
-		icon: <FontAwesomeIcon icon={faServer} />,
-	},
-	{
-		label: 'Ăn vặt',
-		key: 'eeee',
-		icon: <FontAwesomeIcon icon={faServer} />,
-	},
-];
-const items = convertDataItemsCategory(dataItems);
 const SideBarUser: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const { category } = useAppSelector((state) => state);
 	const onClick: MenuProps['onClick'] = (e) => {
 		console.log('click ', e);
 	};
+	useEffect(() => {
+		dispatch(gettingCategory());
+	}, [dispatch]);
 
 	return (
 		<>
 			<Menu
+				style={{ borderInlineEnd: 'none', padding: '10px' }}
 				defaultSelectedKeys={['dashboard']}
 				mode='inline'
-				items={items}
 				onClick={onClick}
-			/>
+				className='rounded-md font-semibold'
+			>
+				{category.data?.map((item: Category) => {
+					return (
+						<Menu.Item
+							style={{ height: '50px', padding: '2.4rem 1rem' }}
+							key={item._id}
+							icon={
+								<div className='flex items-center py-4'>
+									<MImage
+										width={60}
+										height={60}
+										src={item?.image}
+										preview={false}
+									/>
+								</div>
+							}
+						>
+							{item.name}
+						</Menu.Item>
+					);
+				})}
+			</Menu>
 		</>
 	);
 };

@@ -1,26 +1,35 @@
 'use client';
-
-import { InforProduct } from '@/models/productModels';
-import React from 'react';
-import CarouselBanner from './components/CarouselBanner';
+import React, { useEffect } from 'react';
 import Banner from './components/Banner';
 import ListProducts from './components/ListProducts';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { gettingProduct } from '@/redux/reducers/productReducer';
+import SideBarUser from '@/layout/SidebarUser';
+import MRow from '@/components/MRow';
+import MCol from '@/components/MCol';
+import MTitle from '@/components/MTitle';
+import CarouselBanner from './components/CarouselBanner';
 
-const data: InforProduct = {
-	id: 'asdasdas',
-	name: 'banh trung thu',
-	image: 'http://runecom06.runtime.vn/Uploads/shop97/images/product/salad_thit_nuong_vi_large.jpg',
-	price: 3000,
-	isFlashSale: true,
-	countHeart: 12312,
-};
 const HomeUserComponent = () => {
-	const listProduct: InforProduct[] = [data, data, data, data, data, data, data];
+	const { product } = useAppSelector((state) => state);
+	const dispatch = useAppDispatch();
+	useEffect(() => {
+		dispatch(gettingProduct());
+	}, [dispatch]);
 	return (
-		<div>
+		<div className='w-full'>
 			<CarouselBanner />
 			<Banner />
-			<ListProducts listProducts={listProduct} />
+			<ListProducts listProducts={product.data ? product.data : []} />
+			<MRow className='w-full mt-4'>
+				<MCol span={6}>
+					<MTitle level={3}>Danh mục</MTitle>
+					<div className='p-2 rounded-xl w-full shadow-2xl '>
+						<SideBarUser />
+					</div>
+				</MCol>
+				<MCol span={18}></MCol>
+			</MRow>
 		</div>
 	);
 };

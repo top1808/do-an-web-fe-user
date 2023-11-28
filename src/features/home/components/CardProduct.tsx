@@ -1,40 +1,36 @@
+import MButton from '@/components/MButton';
 import MImage from '@/components/MImage';
 import MText from '@/components/MText';
-import { InforProduct } from '@/models/productModels';
+import { Product } from '@/models/productModels';
 import { customMoney } from '@/utils/FuntionHelpers';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-interface CardProductProps {
-	data: InforProduct;
+export interface CardProductProps {
+	data: Product;
 }
 const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
-		<Link href={`/products/${data.id}`}>
+		<Link href={`/products/${data._id}`}>
 			<div className='shadow-xl p-2 border-blue-100 w-full  card hover:opacity-70'>
-				<MImage
-					src={data.image}
-					alt={data.name}
-					preview={false}
-					style={{ height: '12rem' }}
-				/>
+				<div className='flex justify-center items-center'>
+					<MImage
+						src={data.image ? data.image : 'https://bizflyportal.mediacdn.vn/bizflyportal/techblog/png15910726485415.jpg'}
+						alt={data.name}
+						preview={false}
+						style={{ height: '12rem' }}
+					/>
+				</div>
 				<div style={{ height: '2.4rem' }}>
 					<MText className='text-xl'>{data.name}</MText>
 				</div>
-				<div
-					style={{ height: '1.25rem' }}
-					className='w-1/3 text-sm '
-				>
-					{data.isFlashSale && <MText>Flash sale</MText>}
-				</div>
-
 				<div
 					style={{ height: '2.4rem' }}
 					className='flex justify-between items-end'
 				>
 					<div>
-						<MText className='text-lg'>{customMoney(data.price)}</MText>
+						<MText className='text-lg'>{customMoney(data.price!)}</MText>
 					</div>
 					<div>
 						<MText className='text-md'>
@@ -43,7 +39,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 								color='red'
 							/>
 							&nbsp;
-							{data.countHeart}
+							{data.quantity}
 						</MText>
 					</div>
 				</div>

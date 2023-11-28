@@ -1,5 +1,7 @@
+import MButton from '@/components/MButton';
 import { faBell, faClockRotateLeft, faKey, faRectangleList, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -43,13 +45,13 @@ const SideBarProfile = () => {
 						</Link>
 					</li>
 					<li className=' py-2'>
-						<Link href={'/'}>
+						<MButton onClick={() => signOut()}>
 							<FontAwesomeIcon
 								color='purple'
 								icon={faRightFromBracket}
 							/>
 							&nbsp;&nbsp; Đăng xuất
-						</Link>
+						</MButton>
 					</li>
 				</ul>
 			</div>

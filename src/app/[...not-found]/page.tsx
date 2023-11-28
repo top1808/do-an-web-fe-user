@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
-import NotFoundImage from '../../../public/images/not-found-admin.jpg';
+import NotFoundImage from '../../../public/images/not-found.jpg';
 import Image from 'next/image';
 import MButton from '@/components/MButton';
 
 const PageNotFoundUser = () => {
 	return (
-		<div className=' w-screen h-screen flex flex-col items-center '>
+		<div className='w-screen h-screen flex flex-col items-center '>
 			<div className='w-2/3 h-2/3 '>
 				<Image
 					src={NotFoundImage}
@@ -17,7 +17,7 @@ const PageNotFoundUser = () => {
 			<div className='pt-8'>
 				<Link
 					className='text-blue-700 text-xl'
-					href={'/home'}
+					href='/'
 				>
 					<MButton
 						type='primary'

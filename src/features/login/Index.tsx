@@ -1,14 +1,20 @@
+'use client';
+
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
+import { FormLogin } from '@/models/authModel';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import React from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 type FieldType = {
 	username?: string;
@@ -18,13 +24,29 @@ type FieldType = {
 	buttonLogin?: string;
 };
 const UserLogin = () => {
+	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
+	const error = useSearchParams().get('error');
+
+	const handleClickLogin = (data: FormLogin) => {
+		signIn('credentials', {
+			username: data.username,
+			password: data.password,
+		});
+	};
+
+	useEffect(() => {
+		if (error) {
+			toast.error(error);
+		}
+	}, [error]);
+
 	return (
 		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4 bg-white py-8 px-4 rounded-lg '>
 			<MTitle className='text-center'>Login</MTitle>
 			<Form
 				name='basic'
 				initialValues={{ remember: true }}
-				onFinish={() => {}}
+				onFinish={handleClickLogin}
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'
@@ -34,6 +56,7 @@ const UserLogin = () => {
 					name='username'
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your username!' }]}
+					initialValue={accountUser?.username || ''}
 				>
 					<Input />
 				</Form.Item>
@@ -43,6 +66,7 @@ const UserLogin = () => {
 					name='password'
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your password!' }]}
+					initialValue={accountUser?.password || ''}
 				>
 					<Input.Password />
 				</Form.Item>
@@ -63,10 +87,7 @@ const UserLogin = () => {
 					</Link>
 				</div>
 
-				<Form.Item<FieldType>
-					name={'buttonLogin'}
-					className='flex justify-center'
-				>
+				<Form.Item<FieldType> className='flex justify-center'>
 					<MButton
 						type='primary'
 						htmlType='submit'
@@ -92,6 +113,7 @@ const UserLogin = () => {
 						type='primary'
 						shape='circle'
 						style={{ width: '3.6rem', height: '3.6rem' }}
+						onClick={() => signIn('facebook')}
 					>
 						<FontAwesomeIcon
 							icon={faFacebook}
@@ -104,6 +126,7 @@ const UserLogin = () => {
 					<MButton
 						shape='circle'
 						style={{ width: '3.6rem', height: '3.6rem', backgroundColor: 'red' }}
+						onClick={() => signIn('google')}
 					>
 						<FontAwesomeIcon
 							color='white'

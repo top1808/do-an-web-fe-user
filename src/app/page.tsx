@@ -1,6 +1,27 @@
-import MButton from '@/components/MButton';
-import Image from 'next/image';
+import Loading from '@/components/Loading';
+import HomeUserComponent from '@/features/home/Index';
 
-export default function Home() {
-	return <main className='flex min-h-screen flex-col items-center justify-between p-24'>top112323</main>;
-}
+import MLayoutUser from '@/layout/MLayout';
+import { Metadata } from 'next';
+import React from 'react';
+import homeIcon from '../../public/icons/icons8-home-48.png';
+export const metadata: Metadata = {
+	title: 'Home',
+	description: 'Home page',
+	icons: [
+		{
+			rel: 'icon',
+			url: homeIcon.src,
+		},
+	],
+};
+
+const Home = () => {
+	return (
+		<MLayoutUser>
+			<HomeUserComponent />
+		</MLayoutUser>
+	);
+};
+
+export default Home;

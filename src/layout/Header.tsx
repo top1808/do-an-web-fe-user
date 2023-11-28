@@ -3,28 +3,96 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faCartShopping, faMagnifyingGlass, faPenToSquare, faPhone, faUser, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-// import logo from '../../../public/images/logo.png';
-
+import logo from '../../public/images/logo.png';
+import { signOut, useSession } from 'next-auth/react';
+import { Dropdown, MenuProps } from 'antd';
+import styles from '../styles/layout.module.css';
+import { useRouter } from 'next/navigation';
+import MBadge from '@/components/MBadge';
+import Swal from 'sweetalert2';
 const Header = () => {
+	const { data: session } = useSession();
+	const router = useRouter();
+	const profileItems: MenuProps['items'] = [
+		{
+			label: (
+				<div
+					className='flex items-center gap-2 w-32'
+					onClick={() => router.push('/profile')}
+				>
+					<FontAwesomeIcon
+						icon={faUser}
+						color='#1EAAE8'
+					/>
+					Profile
+				</div>
+			),
+			key: '0',
+		},
+		{
+			label: (
+				<div className='flex items-center gap-2'>
+					<FontAwesomeIcon
+						icon={faBell}
+						color='#2BC255'
+					/>
+					Nofication
+				</div>
+			),
+			key: '1',
+		},
+		{
+			type: 'divider',
+		},
+		{
+			label: (
+				<div
+					className='flex items-center gap-2'
+					onClick={() => handleLogout()}
+				>
+					<FontAwesomeIcon
+						icon={faArrowRightFromBracket}
+						color='#FF2F2E'
+					/>
+					Log out
+				</div>
+			),
+			key: '3',
+		},
+	];
+
+	const handleLogout = () => {
+		Swal.fire({
+			text: 'Do you want to logout  ?',
+			icon: 'question',
+			confirmButtonText: 'Yes',
+			cancelButtonText: 'Cancel',
+			showCancelButton: true,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				signOut();
+			}
+		});
+	};
 	return (
-		<header className='bg-red-300 py-2 px-32'>
+		<header className='py-2 px-32'>
 			<MRow
 				justify={'space-between'}
-				className='bg-red-300 py-2 px-8'
+				className=' py-2 px-8'
 			>
 				<MCol
 					xs={4}
 					xl={8}
 					className='max-sm:w-36 sm:w-36 md:w-36 lg:w-40 xl:w-60 2xl:w-80'
 				>
-					<Link href={'/home'}>
+					<Link href={'/'}>
 						<MImage
 							preview={false}
-							// src={logo.src}
+							src={logo.src}
 						/>
 					</Link>
 				</MCol>
@@ -42,21 +110,62 @@ const Header = () => {
 					xl={8}
 					className='max-sm:mt-2 2xl:0'
 				>
-					<ul className='flex gap-2 h-full text-lg items-center w-full justify-end'>
+					<ul className='flex gap-12 h-full text-lg items-center w-full justify-end'>
 						<li>
-							<Link href={'/'}>
-								<FontAwesomeIcon icon={faPenToSquare} /> Checking Your Orders
+							<Link
+								href={session?.user ? '/cart' : '/login'}
+								className=' p-4 rounded-xl hover:bg-blue-200'
+							>
+								<MBadge
+									count={0}
+									showZero
+									overflowCount={10}
+									size='small'
+								>
+									<FontAwesomeIcon
+										icon={faCartShopping}
+										color='blue'
+										size='xl'
+									/>
+								</MBadge>
 							</Link>
 						</li>
 						<li>
-							<Link href={'/cart'}>
-								<FontAwesomeIcon icon={faCartShopping} /> Cart
-							</Link>
-						</li>
-						<li>
-							<Link href={'/login'}>
-								<FontAwesomeIcon icon={faUser} /> Sign in
-							</Link>
+							{!session ? (
+								<div>
+									<Link
+										href={'/login'}
+										className='text-blue-400 rounded-xl p-4 hover:bg-blue-100'
+									>
+										<FontAwesomeIcon
+											icon={faUser}
+											color='blue'
+											size='xl'
+										/>
+										&nbsp;Sign in
+									</Link>
+								</div>
+							) : (
+								<Dropdown
+									menu={{ items: profileItems }}
+									trigger={['click']}
+								>
+									<a
+										href='#'
+										onClick={(e) => e.preventDefault()}
+										className={styles.userProfileContainer}
+									>
+										<MImage
+											src={session?.user?.image || ''}
+											className={styles.userAvatar}
+											style={{ width: 30, height: 30 }}
+											alt='avt'
+											preview={false}
+										/>
+										<strong className='mx-2'>{session?.user?.name}</strong>
+									</a>
+								</Dropdown>
+							)}
 						</li>
 					</ul>
 				</MCol>
