@@ -46,7 +46,6 @@ const handler = NextAuth({
 				const res: AxiosResponse<{ customer: User }> = await authApi.checkExist(user.id);
 				if (res.data?.customer) return true;
 				await authApi.register({
-					username: user?.email || 'facebook-' + user?.id,
 					id: user?.id || '',
 					email: user?.email || `facebook-${user?.id}@example.com`,
 					name: user?.name || '',

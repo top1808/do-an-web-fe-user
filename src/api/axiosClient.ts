@@ -1,9 +1,4 @@
-import { store } from '@/redux/store';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from 'axios';
-import authApi from './authApi';
-import { toast } from 'react-toastify';
-import { User } from '@/models/userModel';
-import { loginSuccess, logout } from '@/redux/reducers/authReducer';
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
 	headers: AxiosRequestHeaders;
 }
