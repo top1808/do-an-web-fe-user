@@ -1,15 +1,17 @@
-import { Product } from '@/models/productModels';
+import { CartProduct, Product } from '@/models/productModels';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 interface CartState {
-	items: Product[];
+	items: CartProduct[];
 	status: string;
 	loading: boolean;
+	statusUpdate: 'pending' | 'loading' | 'completed';
 }
 const initialState: CartState = {
 	items: [],
 	loading: false,
 	status: '',
+	statusUpdate: 'pending',
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -17,76 +19,66 @@ const cartReducer = createSlice({
 	reducers: {
 		gettingCart: (state) => {
 			state.loading = true;
-			state.status = 'pending';
+			state.status = 'loading';
+			state.statusUpdate = 'pending';
 		},
-		getCartSuccess: (state, action: PayloadAction<Product[]>) => {
+		getCartSuccess: (state, action: PayloadAction<CartProduct[]>) => {
 			state.loading = false;
 			state.items = action.payload;
 			state.status = 'completed';
 		},
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+		getCartFailed: (state, action: PayloadAction<string>) => {
+			state.loading = false;
+			state.status = 'completed';
+			action.payload && toast.error(action.payload);
+		},
+
 		addingItemToCart: (state, action: PayloadAction<Product>) => {
-			state.loading = true;
-			state.status = 'pending';
+			state.statusUpdate = 'loading';
 		},
 		addItemToCartSuccess: (state, action: PayloadAction<Product>) => {
-			if (state.items.includes(action.payload)) {
-				state.items = state.items.map((item) => (item._id !== action.payload._id ? item : action.payload));
-			} else {
-				state.items.push(action.payload);
-			}
-			state.loading = false;
-			state.status = 'completed';
-			toast.success('Item added to cart successfully');
+			state.statusUpdate = 'completed';
+			toast.success('Item add to cart successfully');
 		},
 		addItemToCartFail: (state, action: PayloadAction<string>) => {
-			state.loading = false;
-			state.status = 'failed';
-			toast.error(action.payload);
+			state.statusUpdate = 'completed';
+			action.payload && toast.error(action.payload);
 		},
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		removingItemToCart: (state, action: PayloadAction<string>) => {
-			state.loading = true;
-			state.status = 'pending';
+			state.statusUpdate = 'loading';
 		},
 		removeItemInCartSuccess: (state, action: PayloadAction<string>) => {
-			state.items = state.items.filter((item) => item._id !== action.payload);
-			state.loading = false;
-			state.status = 'completed';
+			state.statusUpdate = 'completed';
 			toast.success('Item removed from cart successfully');
 		},
 		removeItemInCartFail: (state, action: PayloadAction<string>) => {
-			state.loading = false;
-			state.status = 'failed';
-			toast.error(action.payload);
+			state.statusUpdate = 'completed';
+			action.payload && toast.error(action.payload);
 		},
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 		updatingCart: (state, action: PayloadAction<Product>) => {
-			state.loading = true;
-			state.status = 'pending';
+			state.statusUpdate = 'loading';
 		},
-		// logic: update quantity call api save cart ?
 		updateCartSuccess: (state, action: PayloadAction<Product>) => {
-			const { _id, quantity } = action.payload;
-			state.items = state.items.map((item) => (item._id === _id ? { ...item, quantity } : item));
-			state.loading = false;
-			state.status = 'completed';
-			toast.success('Item updated in cart successfully');
+			state.statusUpdate = 'completed';
 		},
+		updateCartFailed: (state, action: PayloadAction<string>) => {
+			state.statusUpdate = 'completed';
+			action.payload && toast.error(action.payload);
+		},
+
 		clearingCart: (state) => {
-			state.loading = true;
-			state.status = 'pending';
+			state.statusUpdate = 'loading';
 		},
 		clearCartSuccess: (state) => {
-			state.items = [];
-			state.loading = false;
-			state.status = 'completed';
+			state.statusUpdate = 'completed';
 			toast.success('Cart cleared successfully');
 		},
 		clearCartFail: (state, action: PayloadAction<string>) => {
-			state.loading = false;
-			state.status = 'failed';
-			toast.error(action.payload);
+			state.statusUpdate = 'completed';
+			action.payload && toast.error(action.payload);
 		},
 	},
 });
@@ -104,5 +96,7 @@ export const {
 	updatingCart,
 	getCartSuccess,
 	gettingCart,
+	getCartFailed,
+	updateCartFailed,
 } = cartReducer.actions;
 export default cartReducer.reducer;

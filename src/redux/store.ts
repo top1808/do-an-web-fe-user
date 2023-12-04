@@ -6,7 +6,7 @@ import rootReducer from './reducers/rootReducer';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 const persistConfig = {
-	key: 'do-an-web',
+	key: 'do-an-web-user',
 	version: 1,
 	storage,
 	whitelist: ['auth'],

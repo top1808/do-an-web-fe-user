@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import styles from '../styles/headerUser.module.css';
 import { usePathname } from 'next/navigation';
+
 const menuItems = [
 	{
 		name: 'Home',
@@ -22,6 +23,7 @@ const menuItems = [
 		route: '/contact',
 	},
 ];
+
 const Menu = () => {
 	const path = usePathname();
 

@@ -12,7 +12,7 @@ export interface CardProductProps {
 }
 const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
-		<Link href={`/products/${data._id}`}>
+		<Link href={`/product/${data._id}`}>
 			<div className='shadow-xl p-2 border-blue-100 w-full  card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
 					<MImage
@@ -23,14 +23,14 @@ const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 					/>
 				</div>
 				<div style={{ height: '2.4rem' }}>
-					<MText className='text-xl'>{data.name}</MText>
+					<MText className='text-base text-ellipsis-2'>{data.name}</MText>
 				</div>
 				<div
 					style={{ height: '2.4rem' }}
 					className='flex justify-between items-end'
 				>
 					<div>
-						<MText className='text-lg'>{customMoney(data.price!)}</MText>
+						<MText className='text-base text-red-500'>{customMoney(data.price!)}</MText>
 					</div>
 					<div>
 						<MText className='text-md'>

@@ -21,3 +21,16 @@ export const caculatorTotalPrice = (data: Product[]) => {
 		return accumulator + value.quantity * value.price;
 	}, 0);
 };
+
+export const handleFormatterInputNumber = (value: number | undefined) => {
+	if (value !== undefined) {
+		return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+	}
+	return '1';
+};
+export const handleParserInputNumber = (value: string | undefined) => {
+	if (value !== undefined) {
+		return Number(value.replace(/\./g, ''));
+	}
+	return 1;
+};
