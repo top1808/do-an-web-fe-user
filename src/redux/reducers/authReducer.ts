@@ -23,10 +23,10 @@ const authSlice = createSlice({
 			state.logging = true;
 			if (action.payload.remember) {
 				const user = {
-					username: action.payload.username,
+					email: action.payload.email,
 					password: action.payload.password,
 				};
-				localStorage.setItem('accountUser', JSON.stringify(user));
+				localStorage.setItem('accountCustomer', JSON.stringify(user));
 			}
 		},
 		loginSuccess(state, action: PayloadAction<User>) {
@@ -44,6 +44,7 @@ const authSlice = createSlice({
 		logout(state) {
 			state.logging = false;
 			state.isLoggedIn = false;
+			state.currentUser = null;
 		},
 	},
 });

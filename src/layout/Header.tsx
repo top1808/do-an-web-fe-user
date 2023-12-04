@@ -6,7 +6,7 @@ import { MSearchInput } from '@/components/MSearchInput';
 import { faArrowRightFromBracket, faBell, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../public/images/logo.png';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
@@ -14,8 +14,15 @@ import styles from '../styles/layout.module.css';
 import { useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
 import Swal from 'sweetalert2';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { loginSuccess, logout } from '@/redux/reducers/authReducer';
+import { gettingCart } from '@/redux/reducers/cartReducer';
 const Header = () => {
 	const { data: session } = useSession();
+	const dispatch = useAppDispatch();
+
+	const { cart } = useAppSelector((state) => state);
+
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
@@ -78,6 +85,19 @@ const Header = () => {
 			}
 		});
 	};
+
+	useEffect(() => {
+		if (session && session.user) {
+			dispatch(loginSuccess(session.user));
+		} else {
+			dispatch(logout());
+		}
+	}, [dispatch, session]);
+
+	useEffect(() => {
+		dispatch(gettingCart());
+	}, [dispatch, cart.statusUpdate]);
+
 	return (
 		<header className='py-2 px-32'>
 			<MRow
@@ -117,7 +137,7 @@ const Header = () => {
 								className=' p-4 rounded-xl hover:bg-blue-200'
 							>
 								<MBadge
-									count={0}
+									count={cart?.items?.length}
 									showZero
 									overflowCount={10}
 									size='small'

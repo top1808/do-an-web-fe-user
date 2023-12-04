@@ -1,4 +1,4 @@
-import { fork, put, call, takeLatest } from 'redux-saga/effects';
+import { fork, put, call, takeEvery } from 'redux-saga/effects';
 import {
 	addItemToCartFail,
 	addItemToCartSuccess,
@@ -6,17 +6,21 @@ import {
 	clearCartFail,
 	clearCartSuccess,
 	clearingCart,
+	getCartFailed,
 	getCartSuccess,
 	gettingCart,
 	removeItemInCartFail,
 	removeItemInCartSuccess,
 	removingItemToCart,
+	updateCartFailed,
+	updateCartSuccess,
+	updatingCart,
 } from '../reducers/cartReducer';
-import { Product } from '@/models/productModels';
+import { CartProduct, Product } from '@/models/productModels';
 import { CreateAction, DeleteAction } from '@/models/actionModel';
-import { toast } from 'react-toastify';
 import { AxiosResponse } from 'axios';
 import cartApi from '@/api/cartApi';
+import { PayloadAction } from '@reduxjs/toolkit';
 function* onAddItemToCart(action: CreateAction<Product>) {
 	try {
 		const body: Product = action.payload as Product;
@@ -26,14 +30,13 @@ function* onAddItemToCart(action: CreateAction<Product>) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		if (error?.response?.status === 404) yield put(addItemToCartFail('Add to Cart failed !'));
-
 		yield put(addItemToCartFail(error.response.data.message));
 	}
 }
 function* onRemoveItemInCart(action: DeleteAction) {
 	try {
 		const id = action.payload as string;
-		// remove item to cart databse
+
 		yield call(cartApi.removeItem, id);
 		yield put(removeItemInCartSuccess(id));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,7 +47,6 @@ function* onRemoveItemInCart(action: DeleteAction) {
 }
 function* onClearCart() {
 	try {
-		// cleart cart databse
 		yield call(cartApi.clearCart);
 		yield put(clearCartSuccess());
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -52,33 +54,46 @@ function* onClearCart() {
 		yield put(clearCartFail(error.response.data.message));
 	}
 }
-function* onGetCart() {
+function* onUpdateCart(action: PayloadAction<CartProduct>) {
 	try {
-		// get cart in databse
-		const response: AxiosResponse = yield call(cartApi.getCart);
-
-		yield put(getCartSuccess(response.data.cart));
+		const response: AxiosResponse = yield call(cartApi.editItem, action.payload);
+		yield put(updateCartSuccess(response.data.message));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		if (error?.response?.status === 403) return;
-		toast.error(error.response.data.message);
+		yield put(updateCartFailed(error.response.data.message));
 	}
 }
+
+function* onGetCart() {
+	try {
+		const response: AxiosResponse = yield call(cartApi.getCart);
+		yield put(getCartSuccess(response.data.carts));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		console.log('🚀 ~ file: cartSaga.ts:61 ~ function*onGetCart ~ error.response.data.message:', error.response.data.message);
+		yield put(getCartFailed(error.response.data.message));
+	}
+}
+
 function* watchAddCartFlow() {
-	yield takeLatest(addingItemToCart.type, onAddItemToCart);
+	yield takeEvery(addingItemToCart.type, onAddItemToCart);
 }
 function* watchRemoveItemInCartFlow() {
-	yield takeLatest(removingItemToCart.type, onRemoveItemInCart);
+	yield takeEvery(removingItemToCart.type, onRemoveItemInCart);
 }
 function* watchClearCartFlow() {
-	yield takeLatest(clearingCart.type, onClearCart);
+	yield takeEvery(clearingCart.type, onClearCart);
 }
 function* watchGetCartFlow() {
-	yield takeLatest(gettingCart.type, onGetCart);
+	yield takeEvery(gettingCart.type, onGetCart);
+}
+function* watchUpdateCartFlow() {
+	yield takeEvery(updatingCart.type, onUpdateCart);
 }
 export function* CartSaga() {
 	yield fork(watchAddCartFlow);
 	yield fork(watchRemoveItemInCartFlow);
 	yield fork(watchClearCartFlow);
 	yield fork(watchGetCartFlow);
+	yield fork(watchUpdateCartFlow);
 }

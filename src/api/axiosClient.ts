@@ -1,3 +1,4 @@
+import { store } from '@/redux/store';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from 'axios';
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
 	headers: AxiosRequestHeaders;
@@ -16,6 +17,10 @@ const axiosClient = axios.create({
 // Add a request interceptor
 axiosClient.interceptors.request.use(
 	async (config: AdaptAxiosRequestConfig) => {
+		const { currentUser } = store.getState().auth;
+		if (currentUser) {
+			config.headers['userId'] = currentUser.id;
+		}
 		return config;
 	},
 	(error: AxiosError) => {

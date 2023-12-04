@@ -8,12 +8,14 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PaymentForm } from '@/models/paymentModel';
 import { DataPayment } from '@/models/paymentModels';
-import { Product } from '@/models/productModels';
+import { CartProduct, Product } from '@/models/productModels';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useState } from 'react';
-const PaymentPage = ({ data }: { data: Product[] }) => {
+
+const PaymentPage = ({ data }: { data: CartProduct[] }) => {
+	console.log('🚀 ~ file: PaymentPage.tsx:18 ~ PaymentPage ~ data:', data);
 	const initialValues: PaymentForm = {};
 	const [value, setValue] = useState('normal');
 	return (
@@ -118,18 +120,18 @@ const PaymentPage = ({ data }: { data: Product[] }) => {
 									>
 										<div>
 											<MImage
-												src='http://runecom06.runtime.vn/Uploads/shop97/images/product/my_xao_thap_cam_large.jpg'
-												alt='item-key'
+												src={item.product?.image}
+												alt='image'
 												preview={false}
-												height={40}
+												height={60}
 												width={60}
 											/>
 										</div>
 										<div>
-											<MText className='font-medium'>{item.name}</MText>
+											<MText className='font-medium'>{item?.product?.name}</MText>
 											<div className='flex gap-4'>
 												<MText className='font-medium'>{`Số lượng: ${item.quantity}`}</MText>
-												<MText className='font-medium'>{`Giá: ${customMoney(item.price)}`}</MText>
+												<MText className='font-medium'>{`Tổng Giá: ${customMoney(item?.totalPrice || 0)}`}</MText>
 											</div>
 										</div>
 									</div>

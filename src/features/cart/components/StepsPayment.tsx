@@ -56,6 +56,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 			<Steps
 				current={current}
 				items={items}
+				className='mb-2'
 			>
 				{items.map((item) => (
 					<Steps.Step
@@ -77,6 +78,14 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 				>
 					Tiếp tục mua sắm
 				</MButton>
+				{current > 0 && (
+					<MButton
+						style={{ margin: '0 8px' }}
+						onClick={() => prev()}
+					>
+						Previous
+					</MButton>
+				)}
 				{current < items.length - 1 && (
 					<MButton
 						type='primary'
@@ -91,14 +100,6 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 						onClick={() => message.success('Processing complete!')}
 					>
 						Done
-					</MButton>
-				)}
-				{current > 0 && (
-					<MButton
-						style={{ margin: '0 8px' }}
-						onClick={() => prev()}
-					>
-						Previous
 					</MButton>
 				)}
 			</div>

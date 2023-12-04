@@ -5,7 +5,7 @@ import MTitle from '@/components/MTitle';
 import { customMoney } from '@/utils/FuntionHelpers';
 import React from 'react';
 
-const CustomPriceProduct = ({ price, sales }: { price: number; sales: number }) => {
+const CustomPriceProduct = ({ price = 0, sales = 0 }: { price?: number; sales?: number }) => {
 	return (
 		<div className='shadow-md bg-slate-100 p-2 '>
 			<MRow
@@ -13,19 +13,16 @@ const CustomPriceProduct = ({ price, sales }: { price: number; sales: number }) 
 				align={'middle'}
 			>
 				<MCol>
-					<MTitle
-						level={3}
-						className='line-through'
-					>
-						{customMoney(price)}
-					</MTitle>
+					<MText className='line-through text-gray-500 text-md'>{customMoney(price)}</MText>
 				</MCol>
 				<MCol>
-					<MTitle level={2}>{customMoney((price * (100 - sales)) / 100)}</MTitle>
+					<MText className='text-xl font-bold text-red-500'>{customMoney((price * (100 - sales)) / 100)}</MText>
 				</MCol>
-				<MCol>
-					<MText className='text-white p-2 bg-red-400 rounded-md'>{`Sale ${sales}%`}</MText>
-				</MCol>
+				{sales > 0 && (
+					<MCol>
+						<MText className='text-white p-2 bg-red-400 rounded-md'>{`Sale ${sales}%`}</MText>
+					</MCol>
+				)}
 			</MRow>
 		</div>
 	);

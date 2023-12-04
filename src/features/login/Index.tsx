@@ -17,7 +17,7 @@ import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 type FieldType = {
-	username?: string;
+	email?: string;
 	password?: string;
 	remember?: string;
 	confirmPassword?: string;
@@ -29,7 +29,7 @@ const UserLogin = () => {
 
 	const handleClickLogin = (data: FormLogin) => {
 		signIn('credentials', {
-			username: data.username,
+			email: data.email,
 			password: data.password,
 		});
 	};
@@ -52,11 +52,10 @@ const UserLogin = () => {
 				className='m-12'
 			>
 				<Form.Item<FieldType>
-					label='Username'
-					name='username'
+					label='Email'
+					name='email'
 					labelAlign='left'
-					rules={[{ required: true, message: 'Please input your username!' }]}
-					initialValue={accountUser?.username || ''}
+					rules={[{ required: true, message: 'Please input your email!' }]}
 				>
 					<Input />
 				</Form.Item>
@@ -66,7 +65,6 @@ const UserLogin = () => {
 					name='password'
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your password!' }]}
-					initialValue={accountUser?.password || ''}
 				>
 					<Input.Password />
 				</Form.Item>
