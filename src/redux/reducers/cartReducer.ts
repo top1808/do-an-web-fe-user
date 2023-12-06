@@ -1,3 +1,4 @@
+import { DataPayment, Order, ReponsePaySuccess } from '@/models/paymentModels';
 import { CartProduct, Product } from '@/models/productModels';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -6,12 +7,16 @@ interface CartState {
 	status: string;
 	loading: boolean;
 	statusUpdate: 'pending' | 'loading' | 'completed';
+	orderInfo: Order | null;
+	payingStatus: 'pending' | 'completed' | 'failed';
 }
 const initialState: CartState = {
 	items: [],
 	loading: false,
 	status: '',
 	statusUpdate: 'pending',
+	orderInfo: null,
+	payingStatus: 'pending',
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -21,6 +26,7 @@ const cartReducer = createSlice({
 			state.loading = true;
 			state.status = 'loading';
 			state.statusUpdate = 'pending';
+			state.payingStatus = 'pending';
 		},
 		getCartSuccess: (state, action: PayloadAction<CartProduct[]>) => {
 			state.loading = false;
@@ -80,9 +86,26 @@ const cartReducer = createSlice({
 			state.statusUpdate = 'completed';
 			action.payload && toast.error(action.payload);
 		},
+
+		paying: (state, action: PayloadAction<DataPayment>) => {
+			state.loading = true;
+			state.payingStatus = 'pending';
+		},
+		paySuccess: (state, action: PayloadAction<ReponsePaySuccess>) => {
+			state.loading = false;
+			state.orderInfo = action.payload.order;
+			state.payingStatus = 'completed';
+		},
+		payFailed: (state, action: PayloadAction<string>) => {
+			state.loading = false;
+			state.payingStatus = 'failed';
+		},
 	},
 });
 export const {
+	payFailed,
+	paySuccess,
+	paying,
 	addItemToCartSuccess,
 	addItemToCartFail,
 	clearCartFail,

@@ -8,18 +8,7 @@ import React from 'react';
 import logo from '../../public/images/logo.png';
 const Footer = () => {
 	return (
-		<footer className='mt-4 px-32 py-8 bg-blue-200'>
-			<MRow justify={'center'}>
-				<MCol>
-					<Link href={'/'}>
-						<MImage
-							preview={false}
-							src={logo.src}
-							alt='logo'
-						/>
-					</Link>
-				</MCol>
-			</MRow>
+		<footer className='px-32 py-8 bg-gradient-to-r from-lime-500 to-green-500 text-base font-semibold'>
 			<MRow className='gap-10 mt-2'>
 				<MCol>
 					<MText>Giới thiệu</MText>
@@ -54,9 +43,9 @@ const Footer = () => {
 						<li>Chính sách bảo mật</li>
 					</ul>
 				</MCol>
-				<MCol>
+				{/* <MCol>
 					<MText>Folow us</MText>
-				</MCol>
+				</MCol> */}
 			</MRow>
 		</footer>
 	);

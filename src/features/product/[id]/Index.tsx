@@ -8,15 +8,15 @@ import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image, InputNumber, Rate } from 'antd';
 import React, { useState } from 'react';
-import CustomPriceProduct from './CustomPriceProduct';
-import EvaluateProduct from './EvaluateProduct';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
-import PaymentPage from '@/features/cart/components/PaymentPage';
 import { useSession } from 'next-auth/react';
 import { handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FuntionHelpers';
+import CustomPriceProduct from '../components/CustomPriceProduct';
+import EvaluateProduct from '../components/EvaluateProduct';
+import ProductDescription from '../components/ProductDescription';
 
 export const dataFake = {
 	id: '11241123',
@@ -83,7 +83,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							sales={productInfor?.discount}
 						/>
 						{/* <MTitle>{`Mã sản phẩm: #${dataFake.id}`}</MTitle> */}
-						<MText>{productInfor?.decription}</MText>
+						{/* <MText>{productInfor?.description}</MText> */}
 						<div className='pt-4'>
 							<MTitle level={3}>Số lượng</MTitle>
 							<InputNumber
@@ -116,7 +116,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 					</MCol>
 				</MRow>
 			</div>
-			<EvaluateProduct />
+			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
+			{/* <EvaluateProduct /> */}
 		</>
 	);
 };

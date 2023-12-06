@@ -1,7 +1,7 @@
 import { MenuItem, Product } from '@/models/productModels';
 
-export const customMoney = (money: number) => {
-	return money.toLocaleString('vi-VN', {
+export const customMoney = (money?: number) => {
+	return (money || 0)?.toLocaleString('vi-VN', {
 		style: 'currency',
 		currency: 'VND',
 	});
@@ -18,7 +18,7 @@ export function getItem(label: React.ReactNode, key: React.Key, icon?: React.Rea
 }
 export const caculatorTotalPrice = (data: Product[]) => {
 	return data.reduce((accumulator, value) => {
-		return accumulator + value.quantity * value.price;
+		return accumulator + (value?.totalPrice || 0);
 	}, 0);
 };
 
@@ -33,4 +33,8 @@ export const handleParserInputNumber = (value: string | undefined) => {
 		return Number(value.replace(/\./g, ''));
 	}
 	return 1;
+};
+
+export const objectToQueryString = <T>(object: T): string => {
+	return '?' + new URLSearchParams(object || '').toString();
 };

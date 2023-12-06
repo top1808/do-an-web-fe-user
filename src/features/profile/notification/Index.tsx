@@ -1,3 +1,5 @@
+'use client';
+
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
@@ -8,7 +10,7 @@ interface NoticeProps {
 	time: string;
 	from: string;
 }
-const Notice = ({ data }: { data: NoticeProps[] }) => {
+const Notice = () => {
 	return (
 		<div>
 			<MTitle level={3}>Thông báo</MTitle>
@@ -26,7 +28,7 @@ const Notice = ({ data }: { data: NoticeProps[] }) => {
 				<MCol span={4}>#Người đăng</MCol>
 				<MCol span={4}>#Thời gian</MCol>
 			</MRow>
-			{data &&
+			{/* {data &&
 				data.map((item) => {
 					return (
 						<>
@@ -44,7 +46,7 @@ const Notice = ({ data }: { data: NoticeProps[] }) => {
 					<MRow justify={'center'}>
 						<MCol>No data available in table</MCol>
 					</MRow>
-				))}
+				))} */}
 		</div>
 	);
 };

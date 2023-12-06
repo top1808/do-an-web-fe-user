@@ -1,4 +1,3 @@
-import ProfileUserComponent from '@/features/profile/Index';
 import InforUser from '@/features/profile/components/InforUser';
 import { Metadata } from 'next';
 import React from 'react';
@@ -14,11 +13,7 @@ export const metadata: Metadata = {
 	],
 };
 const Profile = () => {
-	return (
-		<ProfileUserComponent>
-			<InforUser />
-		</ProfileUserComponent>
-	);
+	return <InforUser />;
 };
 
 export default Profile;

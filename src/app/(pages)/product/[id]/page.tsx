@@ -1,5 +1,5 @@
 import { fetchServer } from '@/api/fetchServer';
-import DetailProductComponent from '@/features/product/components/DetailProduct';
+import DetailProductComponent from '@/features/product/[id]/Index';
 import { Product } from '@/models/productModels';
 import React from 'react';
 
