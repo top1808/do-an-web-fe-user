@@ -11,7 +11,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className=' hover:bg-slate-400 font-bold pl-2 py-2  '
+				className=' font-bold pl-2 py-2  '
 			>
 				<MCol span={8}>ID:</MCol>
 				<MCol span={8}>{session.data?.user.id}</MCol>
@@ -19,7 +19,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2	'
+				className='h-8 font-bold pl-2 py-2	'
 			>
 				<MCol span={8}>User name:</MCol>
 				<MCol span={8}>{session.data?.user.email}</MCol>
@@ -27,7 +27,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2'
+				className='h-8 font-bold pl-2 py-2'
 			>
 				<MCol span={8}>Name:</MCol>
 				<MCol span={8}>{session.data?.user.name}</MCol>
@@ -35,7 +35,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2'
+				className='h-8 font-bold pl-2 py-2'
 			>
 				<MCol span={8}>Phone:</MCol>
 				<MCol span={8}>{session.data?.user.phoneNumber ? session.data?.user.phoneNumber : 'Bạn chưa thêm số điện thoại'}</MCol>
@@ -43,7 +43,7 @@ const InforUser = () => {
 			<MRow
 				justify={'start'}
 				align={'middle'}
-				className='h-8 hover:bg-slate-400 font-bold pl-2 py-2 '
+				className='h-8 font-bold pl-2 py-2 '
 			>
 				<MCol span={8}>Email:</MCol>
 				<MCol span={8}>{session.data?.user.email ? session.data?.user.email : 'Bạn chưa thêm email'}</MCol>

@@ -68,16 +68,18 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 			</Steps>
 
 			{current === 0 ? <div>{children}</div> : <></>}
-			{current === 1 ? <PaymentPage data={cart.items} /> : <></>}
+			{current === 1 ? <PaymentPage /> : <></>}
 			<div className='mt-6 flex justify-end'>
-				<MButton
-					className='mr-2 bg-red-400 text-white'
-					onClick={() => {
-						router.push('/');
-					}}
-				>
-					Tiếp tục mua sắm
-				</MButton>
+				{current === 0 && (
+					<MButton
+						className='mr-2 bg-red-400 text-white'
+						onClick={() => {
+							router.push('/');
+						}}
+					>
+						Tiếp tục mua sắm
+					</MButton>
+				)}
 				{current > 0 && (
 					<MButton
 						style={{ margin: '0 8px' }}
@@ -86,7 +88,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 						Previous
 					</MButton>
 				)}
-				{current < items.length - 1 && (
+				{current < items.length - 2 && (
 					<MButton
 						type='primary'
 						onClick={() => next()}

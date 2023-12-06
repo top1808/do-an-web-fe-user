@@ -7,7 +7,7 @@ export interface Product {
 	quantity?: number;
 	categoryIds?: string[];
 	promotionPrice?: number;
-	decription?: string;
+	description?: string;
 	status?: boolean;
 	totalPrice?: number;
 	image?: string;

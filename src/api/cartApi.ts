@@ -1,5 +1,6 @@
 import axiosClient from './axiosClient';
 import { Product, CartProduct } from '@/models/productModels';
+import { DataPayment } from '@/models/paymentModels';
 const URL = '/cart';
 
 const cartApi = {
@@ -17,6 +18,9 @@ const cartApi = {
 	},
 	clearCart() {
 		return axiosClient.delete(URL + '/clear');
+	},
+	pay(body: DataPayment) {
+		return axiosClient.post(URL + '/pay', body);
 	},
 };
 

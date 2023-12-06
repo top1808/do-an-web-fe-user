@@ -1,4 +1,4 @@
-'use  client';
+'use client';
 import MButton from '@/components/MButton';
 import MInput from '@/components/MInput';
 import MTitle from '@/components/MTitle';

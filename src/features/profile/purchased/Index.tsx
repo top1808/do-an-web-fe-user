@@ -1,7 +1,12 @@
+'use client';
+
+import { OrderParams } from '@/models/paymentModels';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { gettingOrders } from '@/redux/reducers/orderReducer';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 interface DataType {
 	key: React.Key;
 	id: string;
@@ -34,14 +39,14 @@ const dataSource = [
 
 const columns: ColumnsType<DataType> = [
 	{
-		title: 'ID',
-		dataIndex: 'id',
-		key: 'id',
+		title: 'Mã đơn hàng',
+		dataIndex: 'orderCode',
+		key: 'orderCode',
 	},
 	{
-		title: 'Giảm giá',
-		dataIndex: 'sale',
-		key: 'sale',
+		title: 'Tổng tiền',
+		dataIndex: 'totalPrice',
+		key: 'totalPrice',
 	},
 	{
 		title: 'Tổng tiền',
@@ -79,6 +84,19 @@ const columns: ColumnsType<DataType> = [
 	},
 ];
 const Purchased = () => {
+	const { order } = useAppSelector((state) => state);
+	console.log('🚀 ~ file: index.tsx:87 ~ Purchased ~ order:', order);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		const params: OrderParams = {
+			offset: 0,
+			limit: 100,
+			status: 'all',
+		};
+		dispatch(gettingOrders(params));
+	}, [dispatch]);
+
 	return (
 		<Table
 			columns={columns}

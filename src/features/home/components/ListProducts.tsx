@@ -4,6 +4,8 @@ import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import { Product } from '@/models/productModels';
 import MSelect from '@/components/MSelect';
+import MButton from '@/components/MButton';
+import Link from 'next/link';
 
 interface ListProductProps {
 	listProducts: Product[];
@@ -12,9 +14,9 @@ interface ListProductProps {
 const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 	return (
 		<div>
-			<div className='flex justify-between h-14 p-2 items-center'>
+			<div className='flex justify-between h-14 items-center'>
 				<h3 className='h-full text-center leading-10'> Gợi Ý Hôm Nay</h3>
-				<MSelect
+				{/* <MSelect
 					defaultValue='default'
 					style={{ width: 150 }}
 					onChange={() => {}}
@@ -25,7 +27,7 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 						{ value: 'A-Z', label: 'Tên theo A-Z' },
 						{ value: 'Z-A', label: 'Tên theo Z-A' },
 					]}
-				/>
+				/> */}
 			</div>
 			<MRow gutter={16}>
 				{listProducts.length > 0 &&
@@ -33,8 +35,8 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 						return (
 							<MCol
 								key={index}
-								xs={8}
-								sm={6}
+								xs={24}
+								sm={12}
 								md={6}
 								lg={4}
 								xl={4}
@@ -44,6 +46,11 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 						);
 					})}
 			</MRow>
+			<div className='w-full flex justify-center mt-6'>
+				<Link href='/product?category=all'>
+					<MButton>Xem tiếp...</MButton>
+				</Link>
+			</div>
 		</div>
 	);
 };
