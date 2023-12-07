@@ -1,14 +1,11 @@
 import { Carousel } from 'antd';
 import React from 'react';
+import banner1 from '../../../../public/images/banner1.jpeg';
+import banner2 from '../../../../public/images/banner2.jpeg';
+import banner3 from '../../../../public/images/banner3.png';
+import MImage from '@/components/MImage';
 
 const CarouselBanner = () => {
-	const contentStyle: React.CSSProperties = {
-		margin: 0,
-		height: '160px',
-		color: '#fff',
-		lineHeight: '160px',
-		textAlign: 'center',
-	};
 	const onChange = (currentSlide: number) => {};
 	return (
 		<Carousel
@@ -17,38 +14,24 @@ const CarouselBanner = () => {
 			afterChange={onChange}
 			easing='ease-in-out'
 		>
-			<div>
-				<h3
-					style={contentStyle}
-					className='bg-red-600'
-				>
-					1
-				</h3>
-			</div>
-			<div>
-				<h3
-					style={contentStyle}
-					className='bg-black'
-				>
-					2
-				</h3>
-			</div>
-			<div>
-				<h3
-					style={contentStyle}
-					className='bg-blue-600'
-				>
-					3
-				</h3>
-			</div>
-			<div>
-				<h3
-					style={contentStyle}
-					className='bg-green-600'
-				>
-					4
-				</h3>
-			</div>
+			<MImage
+				width='100%'
+				src={banner1.src}
+				alt='banner'
+				preview={false}
+			/>
+			<MImage
+				width='100%'
+				src={banner2.src}
+				alt='banner'
+				preview={false}
+			/>
+			<MImage
+				width='100%'
+				src={banner3.src}
+				alt='banner'
+				preview={false}
+			/>
 		</Carousel>
 	);
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import MSpin from './MSpin';
 
-const Loading = () => {
+const Loading = ({ visible }: { visible: boolean }) => {
+	if (!visible) return <></>;
 	return (
-		<div className='w-screen h-screen flex items-center justify-center opacity-60'>
+		<div className='flex items-center justify-center absolute top-0 left-0 bottom-0 right-0'>
 			<MSpin size='large'></MSpin>
 		</div>
 	);

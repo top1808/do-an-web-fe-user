@@ -1,26 +1,63 @@
-import MButton from '@/components/MButton';
-import { faBell, faClockRotateLeft, faKey, faRectangleList, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 const SideBarProfile = () => {
+	const pathname = usePathname();
+
+	const listItem = [
+		{
+			title: 'Thông tin tài khoản',
+			icon: (
+				<FontAwesomeIcon
+					color='blue'
+					icon={faUser}
+				/>
+			),
+			link: '/profile',
+		},
+		{
+			title: 'Đổi mật khẩu',
+			icon: (
+				<FontAwesomeIcon
+					color='#EBB636'
+					icon={faKey}
+				/>
+			),
+			link: '/profile/change-password',
+		},
+		{
+			title: 'Đơn hàng',
+			icon: (
+				<FontAwesomeIcon
+					icon={faBox}
+					color='green'
+				/>
+			),
+			link: '/profile/purchased',
+		},
+	];
+
 	return (
-		<div className='w1/4'>
-			<div>
-				<h3>Menu tài khoản</h3>
-				<ul>
-					<li className='py-2'>
-						<Link href={'/profile'}>
-							<FontAwesomeIcon
-								color='blue'
-								icon={faUser}
-							/>
-							&nbsp;&nbsp; Thông tin tài khoản
+		<div className='w-full'>
+			<ul className='text-base'>
+				{listItem.map((item) => (
+					<li
+						className='py-2'
+						key={item.link}
+					>
+						<Link
+							href={item.link}
+							className={`${pathname === item.link && 'font-bold text-blue-500'}`}
+						>
+							{item.icon}
+							&nbsp;&nbsp; {item.title}
 						</Link>
 					</li>
-					<li className=' py-2'>
+				))}
+				{/* <li className=' py-2'>
 						<Link href={'/profile/notification'}>
 							<FontAwesomeIcon
 								color='red'
@@ -28,45 +65,8 @@ const SideBarProfile = () => {
 							/>
 							&nbsp;&nbsp; Thông báo
 						</Link>
-					</li>
-					<li className=' py-2'>
-						<Link href={'/profile/change-password'}>
-							<FontAwesomeIcon
-								color='green'
-								icon={faKey}
-							/>
-							&nbsp;&nbsp; Đổi mật khẩu
-						</Link>
-					</li>
-					<li className='py-2'>
-						<Link href={'/profile/purchased'}>
-							<FontAwesomeIcon icon={faClockRotateLeft} />
-							&nbsp;&nbsp; Lịch sử mua hàng
-						</Link>
-					</li>
-					<li className=' py-2'>
-						<MButton onClick={() => signOut()}>
-							<FontAwesomeIcon
-								color='purple'
-								icon={faRightFromBracket}
-							/>
-							&nbsp;&nbsp; Đăng xuất
-						</MButton>
-					</li>
-				</ul>
-			</div>
-			{/* <div className='mt-4'>
-				<h3>Menu giao dịch</h3>
-				<ul>
-					<li className='py-2'>
-						<Link href={'/'}>
-							<FontAwesomeIcon icon={faRectangleList} />
-							&nbsp;&nbsp; Tình trạng đơn hàng
-						</Link>
-					</li>
-					
-				</ul>
-			</div> */}
+					</li> */}
+			</ul>
 		</div>
 	);
 };

@@ -1,5 +1,6 @@
 import axiosClient from './axiosClient';
-import { Product } from '@/models/productModels';
+import { Product, CartProduct } from '@/models/productModels';
+import { DataPayment } from '@/models/paymentModels';
 const URL = '/cart';
 
 const cartApi = {
@@ -7,13 +8,19 @@ const cartApi = {
 		return axiosClient.get(URL);
 	},
 	addItem(body: Product) {
-		return axiosClient.post(URL + '/add', body);
+		return axiosClient.post(URL + '/add-to-cart', body);
 	},
-	removeItem(body: string) {
-		return axiosClient.delete(URL + '/remove' + body);
+	editItem(body: CartProduct) {
+		return axiosClient.put(URL + '/' + body._id, body);
+	},
+	removeItem(id: string) {
+		return axiosClient.delete(URL + '/' + id);
 	},
 	clearCart() {
 		return axiosClient.delete(URL + '/clear');
+	},
+	pay(body: DataPayment) {
+		return axiosClient.post(URL + '/pay', body);
 	},
 };
 

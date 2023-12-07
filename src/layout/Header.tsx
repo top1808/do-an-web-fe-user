@@ -3,10 +3,10 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBell, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../public/images/logo.png';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
@@ -14,8 +14,15 @@ import styles from '../styles/layout.module.css';
 import { useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
 import Swal from 'sweetalert2';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
+import { gettingCart } from '@/redux/reducers/cartReducer';
 const Header = () => {
 	const { data: session } = useSession();
+	const dispatch = useAppDispatch();
+
+	const { cart } = useAppSelector((state) => state);
+
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
@@ -28,19 +35,22 @@ const Header = () => {
 						icon={faUser}
 						color='#1EAAE8'
 					/>
-					Profile
+					Hồ sơ
 				</div>
 			),
 			key: '0',
 		},
 		{
 			label: (
-				<div className='flex items-center gap-2'>
+				<div
+					className='flex items-center gap-2'
+					onClick={() => router.push('/profile/purchased')}
+				>
 					<FontAwesomeIcon
-						icon={faBell}
+						icon={faBox}
 						color='#2BC255'
 					/>
-					Nofication
+					Đơn hàng
 				</div>
 			),
 			key: '1',
@@ -58,7 +68,7 @@ const Header = () => {
 						icon={faArrowRightFromBracket}
 						color='#FF2F2E'
 					/>
-					Log out
+					Đăng xuất
 				</div>
 			),
 			key: '3',
@@ -78,25 +88,45 @@ const Header = () => {
 			}
 		});
 	};
+
+	useEffect(() => {
+		if (session && session.user) {
+			dispatch(gettingInfoCurrentUser(session.user?.id));
+			dispatch(loginSuccess(session.user));
+		} else {
+			dispatch(logout());
+		}
+	}, [dispatch, session]);
+
+	useEffect(() => {
+		dispatch(gettingCart());
+	}, [dispatch, cart.statusUpdate]);
+
 	return (
-		<header className='py-2 px-32'>
+		<header className='py-2 px-32 bg-gradient-to-r from-lime-500 to-green-500'>
 			<MRow
 				justify={'space-between'}
-				className=' py-2 px-8'
+				className='py-2 px-6'
 			>
 				<MCol
 					xs={4}
 					xl={8}
 					className='max-sm:w-36 sm:w-36 md:w-36 lg:w-40 xl:w-60 2xl:w-80'
 				>
-					<Link href={'/'}>
+					<Link
+						href={'/'}
+						className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500'
+					>
 						<MImage
+							width={50}
+							height={50}
 							preview={false}
 							src={logo.src}
 						/>
+						T&T
 					</Link>
 				</MCol>
-				<MCol
+				{/* <MCol
 					xs={8}
 					xl={8}
 					className='max-sm:mt-2 sm:mt-2  2xl:0'
@@ -104,7 +134,7 @@ const Header = () => {
 					<div className='h-full flex items-center w-full justify-center'>
 						<MSearchInput onSearch={() => {}} />
 					</div>
-				</MCol>
+				</MCol> */}
 				<MCol
 					xs={12}
 					xl={8}
@@ -114,18 +144,18 @@ const Header = () => {
 						<li>
 							<Link
 								href={session?.user ? '/cart' : '/login'}
-								className=' p-4 rounded-xl hover:bg-blue-200'
+								className='p-4 rounded-xl'
 							>
 								<MBadge
-									count={0}
+									count={cart?.items?.length}
 									showZero
 									overflowCount={10}
 									size='small'
 								>
 									<FontAwesomeIcon
 										icon={faCartShopping}
-										color='blue'
 										size='xl'
+										className='hover:text-blue-500 text-blue-600'
 									/>
 								</MBadge>
 							</Link>
@@ -135,20 +165,20 @@ const Header = () => {
 								<div>
 									<Link
 										href={'/login'}
-										className='text-blue-400 rounded-xl p-4 hover:bg-blue-100'
+										className='text-blue-700 p-4 hover:text-blue-500 font-bold'
 									>
 										<FontAwesomeIcon
 											icon={faUser}
-											color='blue'
 											size='xl'
 										/>
-										&nbsp;Sign in
+										&nbsp;Đăng nhập
 									</Link>
 								</div>
 							) : (
 								<Dropdown
 									menu={{ items: profileItems }}
 									trigger={['click']}
+									className='hover:text-blue-500'
 								>
 									<a
 										href='#'

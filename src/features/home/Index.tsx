@@ -9,6 +9,7 @@ import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import MTitle from '@/components/MTitle';
 import CarouselBanner from './components/CarouselBanner';
+import MSkeleton from '@/components/MSkeleton';
 
 const HomeUserComponent = () => {
 	const { product } = useAppSelector((state) => state);
@@ -19,17 +20,12 @@ const HomeUserComponent = () => {
 	return (
 		<div className='w-full'>
 			<CarouselBanner />
-			<Banner />
-			<ListProducts listProducts={product.data ? product.data : []} />
-			<MRow className='w-full mt-4'>
-				<MCol span={6}>
-					<MTitle level={3}>Danh mục</MTitle>
-					<div className='p-2 rounded-xl w-full shadow-2xl '>
-						<SideBarUser />
-					</div>
-				</MCol>
-				<MCol span={18}></MCol>
-			</MRow>
+			<MSkeleton
+				loading={product.loading}
+				className='p-2'
+			>
+				<ListProducts listProducts={product.data ? product.data : []} />
+			</MSkeleton>
 		</div>
 	);
 };

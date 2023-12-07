@@ -1,5 +1,5 @@
 interface FormLogin {
-	username?: string;
+	email?: string;
 	password?: string;
 	remember?: boolean;
 }
