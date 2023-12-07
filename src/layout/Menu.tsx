@@ -15,10 +15,6 @@ const Menu = () => {
 			name: 'Product',
 			route: { pathname: '/product', query: { category: 'all' } },
 		},
-		// {
-		// 	name: 'About',
-		// 	route: '/about',
-		// },
 		{
 			name: 'Contact',
 			route: { pathname: 'contact' },

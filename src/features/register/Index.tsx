@@ -44,8 +44,8 @@ const UserRegister = () => {
 			<MTitle className='text-center'>SIGN UP</MTitle>
 			<Form
 				name='basic'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
+				labelCol={{ span: 9 }}
+				wrapperCol={{ span: 15 }}
 				initialValues={{ remember: true }}
 				onFinish={(value) => handleRegister(value)}
 				onFinishFailed={() => {}}

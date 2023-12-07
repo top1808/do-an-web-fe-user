@@ -50,6 +50,8 @@ const UserLogin = () => {
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'
+				labelCol={{ span: 8 }}
+				wrapperCol={{ span: 16 }}
 			>
 				<Form.Item<FieldType>
 					label='Email'
@@ -59,7 +61,6 @@ const UserLogin = () => {
 				>
 					<Input />
 				</Form.Item>
-
 				<Form.Item<FieldType>
 					label='Password'
 					name='password'
@@ -68,23 +69,21 @@ const UserLogin = () => {
 				>
 					<Input.Password />
 				</Form.Item>
-				<div className='flex justify-between'>
-					<Form.Item<FieldType>
-						name='remember'
-						valuePropName='checked'
-						className='w-32'
-					>
-						<MCheckbox className='w-full'>Remember me</MCheckbox>
-					</Form.Item>
-
-					<Link
-						href={'/'}
-						className='text-blue-600 leading-8 h-8'
-					>
-						Forgot password ?
-					</Link>
-				</div>
-
+				<Form.Item<FieldType>
+					name='remember'
+					valuePropName='checked'
+					label={
+						<Link
+							href={'/'}
+							className='text-blue-600 leading-8'
+						>
+							Forgot password ?
+						</Link>
+					}
+					wrapperCol={{ offset: 7, span: 17 }}
+				>
+					<MCheckbox>Remember me</MCheckbox>
+				</Form.Item>
 				<Form.Item<FieldType> className='flex justify-center'>
 					<MButton
 						type='primary'
