@@ -1,4 +1,5 @@
 import { MenuItem, Product } from '@/models/productModels';
+import dayjs from 'dayjs';
 
 export const customMoney = (money?: number) => {
 	return (money || 0)?.toLocaleString('vi-VN', {
@@ -37,4 +38,12 @@ export const handleParserInputNumber = (value: string | undefined) => {
 
 export const objectToQueryString = <T>(object: T): string => {
 	return '?' + new URLSearchParams(object || '').toString();
+};
+
+export const formatDate = (date?: Date | string, format?: string) => {
+	return dayjs(date || new Date()).format(format || 'DD/MM/YYYY');
+};
+
+export const formatPhonenumber = (phoneNumber: string) => {
+	return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
 };

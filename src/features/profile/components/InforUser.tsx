@@ -1,10 +1,13 @@
 'use client';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import { useSession } from 'next-auth/react';
+import { useAppSelector } from '@/redux/hooks';
+import { formatPhonenumber } from '@/utils/FuntionHelpers';
 import React from 'react';
 const InforUser = () => {
-	const session = useSession();
+	const { auth } = useAppSelector((state) => state);
+	const { currentUserInfo } = auth;
+
 	return (
 		<>
 			<h3>Thông tin tài khoản</h3>
@@ -14,7 +17,12 @@ const InforUser = () => {
 				className=' font-bold pl-2 py-2  '
 			>
 				<MCol span={8}>ID:</MCol>
-				<MCol span={8}>{session.data?.user.id}</MCol>
+				<MCol
+					span={8}
+					className='text-blue-600'
+				>
+					{currentUserInfo?.id}
+				</MCol>
 			</MRow>
 			<MRow
 				justify={'start'}
@@ -22,7 +30,12 @@ const InforUser = () => {
 				className='h-8 font-bold pl-2 py-2	'
 			>
 				<MCol span={8}>User name:</MCol>
-				<MCol span={8}>{session.data?.user.email}</MCol>
+				<MCol
+					span={8}
+					className='text-blue-600'
+				>
+					{currentUserInfo?.email}
+				</MCol>
 			</MRow>
 			<MRow
 				justify={'start'}
@@ -30,7 +43,12 @@ const InforUser = () => {
 				className='h-8 font-bold pl-2 py-2'
 			>
 				<MCol span={8}>Name:</MCol>
-				<MCol span={8}>{session.data?.user.name}</MCol>
+				<MCol
+					span={8}
+					className='text-blue-600'
+				>
+					{currentUserInfo?.name}
+				</MCol>
 			</MRow>
 			<MRow
 				justify={'start'}
@@ -38,7 +56,12 @@ const InforUser = () => {
 				className='h-8 font-bold pl-2 py-2'
 			>
 				<MCol span={8}>Phone:</MCol>
-				<MCol span={8}>{session.data?.user.phoneNumber ? session.data?.user.phoneNumber : 'Bạn chưa thêm số điện thoại'}</MCol>
+				<MCol
+					span={8}
+					className='text-blue-600'
+				>
+					{currentUserInfo?.phoneNumber ? formatPhonenumber(currentUserInfo?.phoneNumber) : 'Bạn chưa thêm số điện thoại'}
+				</MCol>
 			</MRow>
 			<MRow
 				justify={'start'}
@@ -46,7 +69,12 @@ const InforUser = () => {
 				className='h-8 font-bold pl-2 py-2 '
 			>
 				<MCol span={8}>Email:</MCol>
-				<MCol span={8}>{session.data?.user.email ? session.data?.user.email : 'Bạn chưa thêm email'}</MCol>
+				<MCol
+					span={8}
+					className='text-blue-600'
+				>
+					{currentUserInfo?.email ? currentUserInfo?.email : 'Bạn chưa thêm email'}
+				</MCol>
 			</MRow>
 		</>
 	);

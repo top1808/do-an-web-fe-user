@@ -4,6 +4,12 @@ interface FormLogin {
 	remember?: boolean;
 }
 
+interface FormChangePassword {
+	password?: string;
+	newPassword?: string;
+	confirmPassword?: string;
+}
+
 interface FormRegister extends FormLogin {
 	id?: string;
 	email?: string;
@@ -11,4 +17,4 @@ interface FormRegister extends FormLogin {
 	image?: string;
 }
 
-export type { FormLogin, FormRegister };
+export type { FormLogin, FormRegister, FormChangePassword };

@@ -85,6 +85,7 @@ const Header = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				signOut();
+				dispatch(logout());
 			}
 		});
 	};
@@ -93,8 +94,6 @@ const Header = () => {
 		if (session && session.user) {
 			dispatch(gettingInfoCurrentUser(session.user?.id));
 			dispatch(loginSuccess(session.user));
-		} else {
-			dispatch(logout());
 		}
 	}, [dispatch, session]);
 

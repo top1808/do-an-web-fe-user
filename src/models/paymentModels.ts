@@ -41,6 +41,7 @@ export interface OrderProduct {
 	price?: number;
 	quantity?: number;
 	totalPrice?: number;
+	image?: string;
 }
 
 export interface ReponsePaySuccess {
