@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
-import PaymentPage from '@/features/cart/components/PaymentPage';
 import { useSession } from 'next-auth/react';
 import { handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FuntionHelpers';
 

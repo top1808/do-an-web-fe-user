@@ -1,7 +1,12 @@
+import ContactComponent from '@/features/contact/Index';
 import React from 'react';
 
 const ContactPage = () => {
-	return <div>contact</div>;
+	return (
+		<div>
+			<ContactComponent />
+		</div>
+	);
 };
 
 export default ContactPage;
