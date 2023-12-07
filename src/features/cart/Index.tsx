@@ -20,7 +20,8 @@ const CartPageComponent = () => {
 
 	return (
 		<>
-			<Loading visible={cart.loading} />
+			{cart?.loading && <Loading />}
+
 			<div className='py-8'>
 				<MTitle level={2}>My cart</MTitle>
 				<div>

@@ -77,7 +77,7 @@ const UserLogin = () => {
 							href={'/'}
 							className='text-blue-600 leading-8'
 						>
-							Forgot password ?
+							Forgot password?
 						</Link>
 					}
 					wrapperCol={{ offset: 7, span: 17 }}
@@ -98,7 +98,7 @@ const UserLogin = () => {
 				level={4}
 				className='text-center'
 			>
-				Or Sign Up Using
+				Or Sign In Using
 			</MTitle>
 			<MRow
 				justify={'center'}
@@ -134,7 +134,7 @@ const UserLogin = () => {
 				</MCol>
 			</MRow>
 
-			<MRow
+			{/* <MRow
 				className='mt-12'
 				justify={'center'}
 			>
@@ -147,7 +147,7 @@ const UserLogin = () => {
 						SIGN UP
 					</Link>
 				</MCol>
-			</MRow>
+			</MRow> */}
 		</div>
 	);
 };

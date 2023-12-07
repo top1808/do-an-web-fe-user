@@ -6,6 +6,7 @@ interface ProductState {
 	status: 'pending' | 'completed' | 'failed';
 	data?: Product[];
 	productInfor: Product | null;
+	productsRelative: Product[];
 }
 
 const initialState: ProductState = {
@@ -13,6 +14,7 @@ const initialState: ProductState = {
 	status: 'pending',
 	data: [],
 	productInfor: null,
+	productsRelative: [],
 };
 
 const ProductSlice = createSlice({
@@ -44,7 +46,30 @@ const ProductSlice = createSlice({
 			state.loading = false;
 			action.payload && toast.error(action.payload);
 		},
+
+		gettingProducstRelative: (state, action: PayloadAction<string>) => {
+			state.loading = true;
+			state.productsRelative = [];
+		},
+		getProductsRelativeSuccess: (state, action: PayloadAction<Product[]>) => {
+			state.loading = false;
+			state.productsRelative = action.payload;
+		},
+		getProductsRelativeFailed: (state, action: PayloadAction<string>) => {
+			state.loading = false;
+			action.payload && toast.error(action.payload);
+		},
 	},
 });
-export const { gettingProduct, getProductsFailed, getProductsSuccess, getProductInfoFailed, getProductInfoSuccess, gettingProductInfo } = ProductSlice.actions;
+export const {
+	gettingProduct,
+	getProductsFailed,
+	getProductsSuccess,
+	getProductInfoFailed,
+	getProductInfoSuccess,
+	gettingProductInfo,
+	getProductsRelativeFailed,
+	getProductsRelativeSuccess,
+	gettingProducstRelative,
+} = ProductSlice.actions;
 export default ProductSlice.reducer;

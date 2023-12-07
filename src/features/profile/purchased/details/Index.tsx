@@ -78,7 +78,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 					<MRow
 						gutter={12}
 						key={product.productCode}
-						className='mt-2 shadow-xl p-2 py-4 items-center'
+						className='mt-2 shadow-md p-2 py-4 items-center'
 					>
 						<MCol span={2}>
 							<MImage

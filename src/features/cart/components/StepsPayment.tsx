@@ -73,7 +73,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 			<div className='mt-6 flex justify-end'>
 				{current === 0 && (
 					<MButton
-						className='mr-2 bg-red-400 text-white'
+						className='mr-2 bg-green-500 hover:bg-green-300 text-white'
 						onClick={() => {
 							router.push('/');
 						}}
