@@ -16,20 +16,21 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 				<Header />
 				<Menu />
 			</div>
-			<Suspense
-				fallback={
-					<div className='flex items-center justify-center absolute top-0 left-0 bottom-0 right-0'>
-						<MSpin size='large'></MSpin>
-					</div>
-				}
+
+			<div
+				style={{ backgroundColor: '#F5F5FA' }}
+				className='px-32 pb-8 min-h-screen'
 			>
-				<div
-					style={{ backgroundColor: '#F5F5FA' }}
-					className='px-32 pb-8 min-h-screen'
+				<Suspense
+					fallback={
+						<div className='flex items-center justify-center absolute top-0 left-0 bottom-0 right-0'>
+							<MSpin size='large'></MSpin>
+						</div>
+					}
 				>
 					{children}
-				</div>
-			</Suspense>
+				</Suspense>
+			</div>
 			<Footer />
 			<FloatButton.BackTop type='primary' />
 		</div>

@@ -1,7 +1,6 @@
 'use client';
 
 import MTitle from '@/components/MTitle';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import CustomSteps from './components/StepsPayment';
 import TableCartProducts from './components/TableCartProducts';
@@ -21,7 +20,8 @@ const CartPageComponent = () => {
 
 	return (
 		<>
-			<Loading visible={cart.loading} />
+			{cart?.loading && <Loading />}
+
 			<div className='py-8'>
 				<MTitle level={2}>My cart</MTitle>
 				<div>

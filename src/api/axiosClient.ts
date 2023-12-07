@@ -18,7 +18,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
 	async (config: AdaptAxiosRequestConfig) => {
 		const { currentUser } = store.getState().auth;
-		if (currentUser) {
+
+		if (currentUser && currentUser.id) {
 			config.headers['userId'] = currentUser.id;
 		}
 		return config;

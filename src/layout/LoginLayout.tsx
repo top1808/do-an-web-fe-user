@@ -20,16 +20,13 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
 			<div className='absolute top-6 left-6'>
 				<MButton
 					link='/'
-					type='primary'
+					type='link'
+					className='text-black font-bold'
 				>
-					<FontAwesomeIcon
-						color='white'
-						icon={faChevronLeft}
-					/>
+					<FontAwesomeIcon icon={faChevronLeft} />
 					&nbsp; Back Home
 				</MButton>
 			</div>
-
 			<div className='flex justify-center items-center h-full	'>{children}</div>
 		</div>
 	);

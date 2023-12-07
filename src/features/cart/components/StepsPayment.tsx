@@ -12,8 +12,8 @@ const items = [
 		title: 'Giỏ hàng của tôi',
 		icon: (
 			<FontAwesomeIcon
-				color='red'
 				icon={faCartShopping}
+				className='text-lime-600'
 			/>
 		),
 	},
@@ -23,6 +23,7 @@ const items = [
 			<FontAwesomeIcon
 				color='red'
 				icon={faDollarSign}
+				className='text-lime-600'
 			/>
 		),
 	},
@@ -32,6 +33,7 @@ const items = [
 			<FontAwesomeIcon
 				color='red'
 				icon={faCheck}
+				className='text-lime-600'
 			/>
 		),
 	},
@@ -40,7 +42,6 @@ interface ChildrenProps {
 	children: React.ReactNode;
 }
 const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
-	const { cart } = useAppSelector((state) => state);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
 	const next = () => {
@@ -62,7 +63,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 					<Steps.Step
 						key={item.title}
 						title={item.title}
-						className='bg-red-600'
+						className='bg-lime-600'
 					/>
 				))}
 			</Steps>
@@ -72,7 +73,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
 			<div className='mt-6 flex justify-end'>
 				{current === 0 && (
 					<MButton
-						className='mr-2 bg-red-400 text-white'
+						className='mr-2 bg-green-500 hover:bg-green-300 text-white'
 						onClick={() => {
 							router.push('/');
 						}}
