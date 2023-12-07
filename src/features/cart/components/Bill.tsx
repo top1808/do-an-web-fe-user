@@ -5,7 +5,6 @@ import MRow from '@/components/MRow';
 import MTable from '@/components/MTable';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
-// import { dataFake } from '@/features/product/components/DetailProduct';
 import { Bill } from '@/models/billModels';
 import { Product } from '@/models/productModels';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
@@ -68,7 +67,7 @@ const BillComponent = () => {
 					<MText className='px-8 py-2 font-semibold text-lg text-green-800'>Đơn hàng của bạn đã được đặt thành công !!!</MText>
 				</MRow>
 				<MRow className='mt-2 p-4 shadow-xl'>
-{/* 					<MCol className='w-full'>
+					{/* <MCol className='w-full'>
 						<MTitle level={3}>
 							Mã đơn hàng của bạn: <span className='font-bold'>{fakeBill._id}</span>
 						</MTitle>
