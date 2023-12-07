@@ -16,6 +16,9 @@ const ProductApi = {
 	getProductInfo(id: string) {
 		return axiosClient.get(URL + '/' + id);
 	},
+	getProductsRelative(id: string) {
+		return axiosClient.get(URL + '/get-product-relative/' + id);
+	},
 };
 
 export default ProductApi;

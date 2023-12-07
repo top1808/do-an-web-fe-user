@@ -1,8 +1,19 @@
 import { fork, put, call, take, takeLatest, takeEvery } from 'redux-saga/effects';
 import productApi from '@/api/productApi';
 import { AxiosResponse } from 'axios';
-import { getProductInfoFailed, getProductInfoSuccess, getProductsFailed, getProductsSuccess, gettingProduct, gettingProductInfo } from '../reducers/productReducer';
+import {
+	getProductInfoFailed,
+	getProductInfoSuccess,
+	getProductsFailed,
+	getProductsRelativeFailed,
+	getProductsRelativeSuccess,
+	getProductsSuccess,
+	gettingProducstRelative,
+	gettingProduct,
+	gettingProductInfo,
+} from '../reducers/productReducer';
 import { CreateAction } from '@/models/actionModel';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 function* onGetProducts() {
 	try {
@@ -26,6 +37,22 @@ function* onGetProductInfo(action: CreateAction<string>) {
 		yield put(getProductInfoFailed(error.response.data.message));
 	}
 }
+function* onGetProductsRelative(action: PayloadAction<string>) {
+	try {
+		const response: AxiosResponse = yield call(productApi.getProductsRelative, action.payload);
+
+		yield put(getProductsRelativeSuccess(response.data.products));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		if (error?.response?.status === 403) return;
+		yield put(getProductsRelativeFailed(error.response.data.message));
+	}
+}
+
+function* watchGetProductsRelativeFlow() {
+	const type: string = gettingProducstRelative.type;
+	yield takeEvery(type, onGetProductsRelative);
+}
 function* watchGetProductInfoFlow() {
 	const type: string = gettingProductInfo.type;
 	yield takeEvery(type, onGetProductInfo);
@@ -36,4 +63,5 @@ function* watchGetProductFlow() {
 export function* ProductSaga() {
 	yield fork(watchGetProductFlow);
 	yield fork(watchGetProductInfoFlow);
+	yield fork(watchGetProductsRelativeFlow);
 }

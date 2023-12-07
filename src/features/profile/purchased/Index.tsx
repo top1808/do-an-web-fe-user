@@ -77,7 +77,6 @@ const columns: ColumnsType<Order> = [
 ];
 const Purchased = () => {
 	const { order } = useAppSelector((state) => state);
-	console.log('🚀 ~ file: index.tsx:87 ~ Purchased ~ order:', order);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
