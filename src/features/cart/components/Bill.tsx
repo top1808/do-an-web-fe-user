@@ -5,7 +5,6 @@ import MRow from '@/components/MRow';
 import MTable from '@/components/MTable';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
-
 import { Bill } from '@/models/billModels';
 import { Product } from '@/models/productModels';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
