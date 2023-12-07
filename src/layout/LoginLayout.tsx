@@ -29,7 +29,6 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
 					&nbsp; Back Home
 				</MButton>
 			</div>
-
 			<div className='flex justify-center items-center h-full	'>{children}</div>
 		</div>
 	);
