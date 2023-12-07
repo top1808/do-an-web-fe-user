@@ -1,4 +1,4 @@
-import { FormLogin } from '@/models/authModel';
+import { FormChangePassword, FormLogin } from '@/models/authModel';
 import { User } from '@/models/userModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 interface AuthState {
 	isLoggedIn: boolean;
 	logging: boolean;
+	changingPassword: boolean;
 	currentUser?: User | null;
 	currentUserInfo?: User | null;
 }
@@ -13,6 +14,7 @@ interface AuthState {
 const initialState: AuthState = {
 	isLoggedIn: false,
 	logging: false,
+	changingPassword: false,
 	currentUser: null,
 	currentUserInfo: null,
 };
@@ -40,13 +42,14 @@ const authSlice = createSlice({
 			state.logging = false;
 			state.isLoggedIn = false;
 			state.currentUser = null;
-			toast.error(action.payload);
+			action.payload && toast.error(action.payload);
 		},
 
 		logout(state) {
 			state.logging = false;
 			state.isLoggedIn = false;
 			state.currentUser = null;
+			state.currentUserInfo = null;
 		},
 
 		gettingInfoCurrentUser(state, action: PayloadAction<string>) {
@@ -59,8 +62,21 @@ const authSlice = createSlice({
 		getInfoCurrentUserFailed(state, action: PayloadAction<string>) {
 			state.logging = false;
 		},
+
+		changingPassword(state, action: PayloadAction<FormChangePassword>) {
+			state.changingPassword = true;
+		},
+		changePasswordSuccess(state, action: PayloadAction<string>) {
+			state.changingPassword = false;
+			action.payload && toast.success(action.payload);
+		},
+		changePasswordFailed(state, action: PayloadAction<string>) {
+			state.changingPassword = false;
+			action.payload && toast.error(action.payload);
+		},
 	},
 });
 
-export const { login, loginSuccess, loginFailed, logout, getInfoCurrentUserFailed, getInfoCurrentUserSuccess, gettingInfoCurrentUser } = authSlice.actions;
+export const { login, loginSuccess, loginFailed, logout, getInfoCurrentUserFailed, getInfoCurrentUserSuccess, gettingInfoCurrentUser, changePasswordFailed, changePasswordSuccess, changingPassword } =
+	authSlice.actions;
 export default authSlice.reducer;

@@ -1,11 +1,12 @@
 'use client';
 import MImage from '@/components/MImage';
 import { Category } from '@/models/categoryModels';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Menu, type MenuProps } from 'antd';
 import { useSearchParams, useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import iconAll from '../../public/icons/all.png';
+import { gettingCategory } from '@/redux/reducers/categoryReducer';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -19,6 +20,7 @@ function getItem(label: React.ReactNode, key?: React.Key | null, icon?: React.Re
 }
 
 const SideBarUser: React.FC = () => {
+	const dispatch = useAppDispatch();
 	const { category } = useAppSelector((state) => state);
 	const searchParams = useSearchParams();
 	const router = useRouter();
@@ -42,6 +44,10 @@ const SideBarUser: React.FC = () => {
 	const onClick: MenuProps['onClick'] = (e) => {
 		router.replace('/product?category=' + e.key);
 	};
+
+	useEffect(() => {
+		dispatch(gettingCategory());
+	}, [dispatch]);
 
 	return (
 		<>

@@ -88,8 +88,8 @@ const PaymentPage = () => {
 					className='shadow-lg'
 				>
 					<MTitle
-						level={4}
-						className='pl-2 w-full bg-red-600'
+						level={5}
+						className='p-2 w-full bg-lime-600 text-base'
 						style={{ color: 'white' }}
 					>
 						1. ĐỊA CHỈ THANH TOÁN VÀ GIAO HÀNG
@@ -129,8 +129,8 @@ const PaymentPage = () => {
 				>
 					<div>
 						<MTitle
-							level={4}
-							className='pl-2 xw-full bg-red-600'
+							level={5}
+							className='p-2 w-full bg-lime-600 text-base'
 							style={{ color: 'white' }}
 						>
 							2. Sản phẩm
@@ -170,8 +170,8 @@ const PaymentPage = () => {
 					className='shadow-lg'
 				>
 					<MTitle
-						level={4}
-						className='pl-2 w-full bg-red-600'
+						level={5}
+						className='p-2 w-full bg-lime-600 text-base'
 						style={{ color: 'white' }}
 					>
 						3. Thanh Toán
@@ -190,7 +190,7 @@ const PaymentPage = () => {
 					</Form.Item> */}
 					<div
 						className='p-2 flex flex-col justify-between'
-						style={{ height: 'calc(100% - 30px)' }}
+						style={{ height: 'calc(100% - 40px)' }}
 					>
 						<div>
 							<h4 className='text-base'>Phương thức thanh toán</h4>

@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import { FormRegister, FormLogin } from '../models/authModel';
+import { FormRegister, FormLogin, FormChangePassword } from '../models/authModel';
 
 const URL = '/auth';
 
@@ -15,6 +15,9 @@ const authApi = {
 	},
 	getById(id: string) {
 		return axiosClient.get('/customer/' + id);
+	},
+	changePassword(body: FormChangePassword) {
+		return axiosClient.post(URL + '/change-password', body);
 	},
 };
 

@@ -1,7 +1,6 @@
 'use client';
 
 import MTitle from '@/components/MTitle';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import CustomSteps from './components/StepsPayment';
 import TableCartProducts from './components/TableCartProducts';
