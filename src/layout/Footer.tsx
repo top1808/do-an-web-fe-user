@@ -131,20 +131,20 @@ const Footer = () => {
 						</MCol>
 						<MCol span={24}>
 							<Form
-								name='form-contact'
 								autoComplete='off'
+								initialValues={{ email: '' }}
+								className='relative'
 							>
 								<Form.Item
 									name='email'
 									labelCol={{ span: 24 }}
-									className='relative'
 								>
 									<MInput
 										className='px-4 py-2'
 										placeholder='Email'
 									/>
-									<MButton className='absolute top-0 right-0 w-1/3 h-full bg-red-400 text-white rounded-xl font-bold'>SUBSCRIBE</MButton>
 								</Form.Item>
+								<MButton className='absolute top-0 right-0 w-1/3 h-full bg-red-400 text-white rounded-xl font-bold'>SUBSCRIBE</MButton>
 							</Form>
 						</MCol>
 						<MCol span={24}>

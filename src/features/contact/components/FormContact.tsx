@@ -14,7 +14,6 @@ const FormContact = () => {
 	const handleClickSend = () => {};
 	return (
 		<Form
-			name='form-contact'
 			initialValues={{ name: '', email: '', title: '', message: '' }}
 			onFinish={handleClickSend}
 			onFinishFailed={() => {}}
@@ -52,17 +51,13 @@ const FormContact = () => {
 					className='px-4 py-2'
 				/>
 			</Form.Item>
-			<Form.Item>
-				<Space>
-					<MButton
-						type='primary'
-						htmlType='submit'
-						size='large'
-					>
-						Send
-					</MButton>
-				</Space>
-			</Form.Item>
+			<MButton
+				type='primary'
+				htmlType='submit'
+				size='large'
+			>
+				Send
+			</MButton>
 		</Form>
 	);
 };
