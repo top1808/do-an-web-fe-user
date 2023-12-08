@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/redux/provider';
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 			<body className={inter.className}>
 				<StyledComponentsRegistry>
 					<Providers>
+						<NextTopLoader />
 						<div>{children}</div>
 						<ToastContainer />
 					</Providers>
