@@ -1,5 +1,6 @@
 import { store } from '@/redux/store';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, AxiosRequestHeaders } from 'axios';
+import Swal from 'sweetalert2';
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
 	headers: AxiosRequestHeaders;
 }
@@ -11,7 +12,7 @@ const axiosClient = axios.create({
 		'Access-Control-Allow-Origin': '*',
 	},
 	withCredentials: true,
-	timeout: 15000,
+	timeout: 30000,
 });
 
 // Add a request interceptor
@@ -35,6 +36,17 @@ axiosClient.interceptors.response.use(
 		return response;
 	},
 	async (error: AxiosError<AdaptAxiosRequestConfig>) => {
+		if (error.code === 'ECONNABORTED') {
+			Swal.fire({
+				icon: 'error',
+				title: 'Có lỗi xảy ra.',
+				confirmButtonText: 'Tải lại trang',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.reload();
+				}
+			});
+		}
 		return Promise.reject(error);
 	},
 );

@@ -28,7 +28,7 @@ a {
 /* CSS SCROLL BAR */
 /* width */
 ::-webkit-scrollbar {
-	width: 4px;
+	width: 6px;
 }
 
 /* Track */

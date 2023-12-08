@@ -1,4 +1,5 @@
 'use client';
+import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { useAppSelector } from '@/redux/hooks';
@@ -29,7 +30,7 @@ const InforUser = () => {
 				align={'middle'}
 				className='h-8 font-bold pl-2 py-2	'
 			>
-				<MCol span={8}>User name:</MCol>
+				<MCol span={8}>Email:</MCol>
 				<MCol
 					span={8}
 					className='text-blue-600'
@@ -68,12 +69,12 @@ const InforUser = () => {
 				align={'middle'}
 				className='h-8 font-bold pl-2 py-2 '
 			>
-				<MCol span={8}>Email:</MCol>
+				<MCol span={8}>Address:</MCol>
 				<MCol
 					span={8}
 					className='text-blue-600'
 				>
-					{currentUserInfo?.email ? currentUserInfo?.email : 'Bạn chưa thêm email'}
+					{currentUserInfo?.address ? currentUserInfo?.address : 'Bạn chưa thêm địa chỉ'}
 				</MCol>
 			</MRow>
 		</>
