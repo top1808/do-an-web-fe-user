@@ -34,10 +34,11 @@ const columns: ColumnsType<Order> = [
 		width: 300,
 	},
 	{
-		title: 'Ngày giao hàng',
+		title: 'Dự kiến giao hàng',
 		dataIndex: 'deliveryDate',
 		key: 'deliveryDate',
-		width: 150,
+		align: 'center',
+		width: 180,
 		render: (item: string) => dayjs(item).format('DD/MM/YYYY'),
 	},
 	{

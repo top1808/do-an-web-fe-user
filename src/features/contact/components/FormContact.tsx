@@ -2,7 +2,9 @@
 import MButton from '@/components/MButton';
 import MInput from '@/components/MInput';
 import { Form, Space } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
+import { toast } from 'react-toastify';
 
 type FormContactModel = {
 	name: string;
@@ -12,15 +14,19 @@ type FormContactModel = {
 };
 
 const FormContact = () => {
+	const [form] = useForm();
+
 	const handleClickSend = (value: FormContactModel) => {
 		console.log('🚀 ~ file: FormContact.tsx:16 ~ handleClickSend ~ value:', value);
+		toast.success('Gửi thông tin liên hệ thành công.');
+		form.setFieldsValue({ name: '', email: '', title: '', message: '' });
 	};
 
 	return (
 		<Form
 			onFinish={handleClickSend}
-			initialValues={{ name: '', email: '', title: '', message: '' }}
 			autoComplete='off'
+			form={form}
 		>
 			<Form.Item
 				name='name'
@@ -28,7 +34,10 @@ const FormContact = () => {
 				label='Name'
 				rules={[{ required: true }]}
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter name...'
+				/>
 			</Form.Item>
 			<Form.Item
 				name='email'
@@ -36,14 +45,20 @@ const FormContact = () => {
 				label='Email'
 				rules={[{ required: true }]}
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter email...'
+				/>
 			</Form.Item>
 			<Form.Item
 				name='title'
 				labelCol={{ span: 24 }}
 				label='Title'
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter title...'
+				/>
 			</Form.Item>
 			<Form.Item
 				name='message'
@@ -53,7 +68,7 @@ const FormContact = () => {
 				<TextArea
 					rows={4}
 					placeholder='Message'
-					className='px-4 py-2'
+					size='large'
 				/>
 			</Form.Item>
 			<div className='text-center'>

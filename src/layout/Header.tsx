@@ -3,7 +3,7 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -114,14 +114,9 @@ const Header = () => {
 				>
 					<Link
 						href={'/'}
-						className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500'
+						className='text-4xl font-bold flex items-center text-gradien text-blue-600 hover:text-blue-500'
 					>
-						<MImage
-							width={50}
-							height={50}
-							preview={false}
-							src={logo.src}
-						/>
+						<FontAwesomeIcon icon={faHatCowboy} />
 						T&T
 					</Link>
 				</MCol>

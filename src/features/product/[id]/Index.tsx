@@ -39,7 +39,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 
 	return (
 		<>
-			<div className='p-8 shadow-xl'>
+			<div className='p-8 shadow-md'>
 				<MRow gutter={12}>
 					<MCol span={8}>
 						<Image
