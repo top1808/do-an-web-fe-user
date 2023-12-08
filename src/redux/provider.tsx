@@ -4,7 +4,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
 import { Provider } from 'react-redux';
 import { SessionProvider } from 'next-auth/react';
-import NextNProgress from 'nextjs-progressbar';
 
 export function Providers({ children }: { children: React.ReactNode }) {
 	return (
@@ -13,10 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 				loading={null}
 				persistor={persistor}
 			>
-				<SessionProvider>
-					<NextNProgress />
-					{children}
-				</SessionProvider>
+				<SessionProvider>{children}</SessionProvider>
 			</PersistGate>
 		</Provider>
 	);
