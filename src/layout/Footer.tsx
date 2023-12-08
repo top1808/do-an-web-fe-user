@@ -3,7 +3,7 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHatCowboy, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
@@ -21,19 +21,6 @@ const Footer = () => {
 				gutter={[0, 8]}
 			>
 				<MCol span={7}>
-					<MRow>
-						<MCol span={24}>
-							<div className='text-4xl font-bold flex items-center text-blue-700'>
-								<MImage
-									width={50}
-									height={50}
-									preview={false}
-									src={logo.src}
-								/>
-								T&T
-							</div>
-						</MCol>
-					</MRow>
 					<MRow>
 						<MCol span={24}>
 							<MText>

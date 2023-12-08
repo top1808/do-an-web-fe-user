@@ -72,14 +72,15 @@ const UserLogin = () => {
 				<Form.Item<FieldType>
 					name='remember'
 					valuePropName='checked'
-					label={
-						<Link
-							href={'/'}
-							className='text-blue-600 leading-8'
-						>
-							Forgot password?
-						</Link>
-					}
+					// label={
+					// 	<Link
+					// 		href={'/'}
+					// 		className='text-blue-600 leading-8'
+					// 	>
+					// 		Forgot password?
+					// 	</Link>
+					// }
+					className='text-end'
 					wrapperCol={{ offset: 7, span: 17 }}
 				>
 					<MCheckbox>Remember me</MCheckbox>

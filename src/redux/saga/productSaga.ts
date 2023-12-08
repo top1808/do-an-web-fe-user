@@ -58,7 +58,7 @@ function* watchGetProductInfoFlow() {
 	yield takeEvery(type, onGetProductInfo);
 }
 function* watchGetProductFlow() {
-	yield takeLatest(gettingProduct.type, onGetProducts);
+	yield takeEvery(gettingProduct.type, onGetProducts);
 }
 export function* ProductSaga() {
 	yield fork(watchGetProductFlow);
