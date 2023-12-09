@@ -7,13 +7,13 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment } from '@/models/paymentModels';
-import { CartProduct } from '@/models/productModels';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { paying } from '@/redux/reducers/cartReducer';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import Link from 'next/link';
+
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
