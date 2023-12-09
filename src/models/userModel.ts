@@ -8,4 +8,5 @@ export interface User {
 	address?: string;
 	birthday?: string;
 	accessToken?: string;
+	image?: string;
 }

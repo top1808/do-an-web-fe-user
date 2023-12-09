@@ -10,6 +10,13 @@ interface FormChangePassword {
 	confirmPassword?: string;
 }
 
+interface FormChangeInfor {
+	phoneNumber?: string;
+	address?: string;
+	name?: string;
+	image?: string;
+}
+
 interface FormRegister extends FormLogin {
 	id?: string;
 	email?: string;
@@ -17,4 +24,4 @@ interface FormRegister extends FormLogin {
 	image?: string;
 }
 
-export type { FormLogin, FormRegister, FormChangePassword };
+export type { FormLogin, FormRegister, FormChangePassword, FormChangeInfor };

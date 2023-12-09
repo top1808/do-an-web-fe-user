@@ -1,4 +1,4 @@
-import { FormChangePassword, FormLogin } from '@/models/authModel';
+import { FormChangeInfor, FormChangePassword, FormLogin } from '@/models/authModel';
 import { User } from '@/models/userModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -7,6 +7,7 @@ interface AuthState {
 	isLoggedIn: boolean;
 	logging: boolean;
 	changingPassword: boolean;
+	changingInfor: boolean;
 	currentUser?: User | null;
 	currentUserInfo?: User | null;
 }
@@ -15,6 +16,7 @@ const initialState: AuthState = {
 	isLoggedIn: false,
 	logging: false,
 	changingPassword: false,
+	changingInfor: false,
 	currentUser: null,
 	currentUserInfo: null,
 };
@@ -74,9 +76,35 @@ const authSlice = createSlice({
 			state.changingPassword = false;
 			action.payload && toast.error(action.payload);
 		},
+
+		changingInfor(state, action: PayloadAction<FormChangeInfor>) {
+			state.changingInfor = true;
+		},
+		changeInforSuccess(state, action: PayloadAction<{ data: User; message: string }>) {
+			state.changingInfor = false;
+			state.currentUserInfo = action.payload.data;
+			action.payload && toast.success(action.payload.message);
+		},
+		changeInforFailed(state, action: PayloadAction<string>) {
+			state.changingInfor = false;
+			action.payload && toast.error(action.payload);
+		},
 	},
 });
 
-export const { login, loginSuccess, loginFailed, logout, getInfoCurrentUserFailed, getInfoCurrentUserSuccess, gettingInfoCurrentUser, changePasswordFailed, changePasswordSuccess, changingPassword } =
-	authSlice.actions;
+export const {
+	changeInforFailed,
+	changeInforSuccess,
+	changingInfor,
+	login,
+	loginSuccess,
+	loginFailed,
+	logout,
+	getInfoCurrentUserFailed,
+	getInfoCurrentUserSuccess,
+	gettingInfoCurrentUser,
+	changePasswordFailed,
+	changePasswordSuccess,
+	changingPassword,
+} = authSlice.actions;
 export default authSlice.reducer;
