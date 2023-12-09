@@ -64,7 +64,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								</MRow> */}
 							<CustomPriceProduct
 								price={productInfor?.price}
-								sales={productInfor?.discount}
+								// sales={productInfor?.discount}
 							/>
 							{/* <MTitle>{`Mã sản phẩm: #${dataFake.id}`}</MTitle> */}
 							{/* <MText>{productInfor?.description}</MText> */}

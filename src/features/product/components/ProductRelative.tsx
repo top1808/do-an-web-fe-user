@@ -20,7 +20,7 @@ const ProductRelative = (props: ProductRelativeProps) => {
 	}, [dispatch, params.id]);
 	return (
 		<MSkeleton loading={product.loading}>
-			<div className='shadow-xl mt-6 p-4'>
+			<div className='shadow-md mt-6 p-4'>
 				<MText
 					className='text-xl font-bold'
 					style={{ color: 'red' }}

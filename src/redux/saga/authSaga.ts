@@ -1,8 +1,11 @@
-import { FormChangePassword, FormLogin } from '@/models/authModel';
+import { FormChangeInfor, FormChangePassword, FormLogin } from '@/models/authModel';
 import { fork, put, take, select, call, takeEvery } from 'redux-saga/effects';
 import {
+	changeInforFailed,
+	changeInforSuccess,
 	changePasswordFailed,
 	changePasswordSuccess,
+	changingInfor,
 	changingPassword,
 	getInfoCurrentUserFailed,
 	getInfoCurrentUserSuccess,
@@ -54,6 +57,17 @@ function* onChangePassword(action: PayloadAction<FormChangePassword>) {
 	}
 }
 
+function* onChangeInfor(action: PayloadAction<FormChangeInfor>) {
+	try {
+		const response: AxiosResponse = yield call(authApi.changeInfor, action.payload);
+		yield put(changeInforSuccess(response.data));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		if (error?.response?.status === 403) return;
+		yield put(changeInforFailed(error.response.data.message));
+	}
+}
+
 function* watchLoginFlow() {
 	yield take(REHYDRATE);
 	while (true) {
@@ -79,8 +93,14 @@ function* watchChangePasswordFlow() {
 	yield takeEvery(type, onChangePassword);
 }
 
+function* watchChangeInforFlow() {
+	const type: string = changingInfor.type;
+	yield takeEvery(type, onChangeInfor);
+}
+
 export function* authSaga() {
 	yield fork(watchLoginFlow);
 	yield fork(watchGetCurrentUserInfoFlow);
 	yield fork(watchChangePasswordFlow);
+	yield fork(watchChangeInforFlow);
 }

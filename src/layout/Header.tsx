@@ -21,13 +21,14 @@ const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
 
-	const { cart } = useAppSelector((state) => state);
+	const { cart, auth } = useAppSelector((state) => state);
 
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
 			label: (
-				<div
+				<Link
+					href='/profile'
 					className='flex items-center gap-2 w-32'
 					onClick={() => router.push('/profile')}
 				>
@@ -36,13 +37,14 @@ const Header = () => {
 						color='#1EAAE8'
 					/>
 					Hồ sơ
-				</div>
+				</Link>
 			),
 			key: '0',
 		},
 		{
 			label: (
-				<div
+				<Link
+					href='/profile/purchased'
 					className='flex items-center gap-2'
 					onClick={() => router.push('/profile/purchased')}
 				>
@@ -51,7 +53,7 @@ const Header = () => {
 						color='#2BC255'
 					/>
 					Đơn hàng
-				</div>
+				</Link>
 			),
 			key: '1',
 		},
@@ -174,20 +176,16 @@ const Header = () => {
 									trigger={['click']}
 									className='hover:text-blue-500'
 								>
-									<a
-										href='#'
-										onClick={(e) => e.preventDefault()}
-										className={styles.userProfileContainer}
-									>
+									<div className={styles.userProfileContainer}>
 										<MImage
-											src={session?.user?.image || ''}
+											src={auth?.currentUserInfo?.image || ''}
 											className={styles.userAvatar}
 											style={{ width: 30, height: 30 }}
 											alt='avt'
 											preview={false}
 										/>
-										<strong className='mx-2'>{session?.user?.name}</strong>
-									</a>
+										<strong className='mx-2'>{auth?.currentUserInfo?.name}</strong>
+									</div>
 								</Dropdown>
 							)}
 						</li>

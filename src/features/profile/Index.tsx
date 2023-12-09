@@ -3,6 +3,7 @@ import React from 'react';
 import SideBarProfile from './components/SideBarProfile';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
+import MCard from '@/components/MCard';
 
 const ProfileUserComponent = ({ children }: { children: React.ReactNode }) => {
 	return (
@@ -12,7 +13,9 @@ const ProfileUserComponent = ({ children }: { children: React.ReactNode }) => {
 					<SideBarProfile />
 				</MCol>
 				<MCol span={20}>
-					<div className='w-full'>{children}</div>
+					<MCard>
+						<div className='w-full'>{children}</div>
+					</MCard>
 				</MCol>
 			</MRow>
 		</div>

@@ -29,7 +29,7 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 					]}
 				/> */}
 			</div>
-			<MRow gutter={16}>
+			<MRow gutter={[16, 16]}>
 				{listProducts.length > 0 &&
 					listProducts.map((product, index) => {
 						return (
