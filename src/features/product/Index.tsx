@@ -34,7 +34,7 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				xl={18}
 			>
 				<div>
-					<MRow gutter={12}>
+					<MRow gutter={[12, 12]}>
 						{products.length > 0 &&
 							products.map((product, index) => {
 								return (

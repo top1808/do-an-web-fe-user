@@ -1,4 +1,4 @@
-import { fork, put, call, takeLatest } from 'redux-saga/effects';
+import { fork, put, call, takeEvery } from 'redux-saga/effects';
 import CategoryApi from '@/api/categoryApi';
 import { AxiosResponse } from 'axios';
 import { getCategorieSuccess, getCategoriesFailed, gettingCategory } from '../reducers/categoryReducer';
@@ -14,7 +14,7 @@ function* onGetCategories() {
 }
 
 function* watchGetCategoryFlow() {
-	yield takeLatest(gettingCategory.type, onGetCategories);
+	yield takeEvery(gettingCategory.type, onGetCategories);
 }
 
 export function* CategorySaga() {

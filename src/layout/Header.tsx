@@ -3,7 +3,7 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -21,13 +21,14 @@ const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
 
-	const { cart } = useAppSelector((state) => state);
+	const { cart, auth } = useAppSelector((state) => state);
 
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
 			label: (
-				<div
+				<Link
+					href='/profile'
 					className='flex items-center gap-2 w-32'
 					onClick={() => router.push('/profile')}
 				>
@@ -36,13 +37,14 @@ const Header = () => {
 						color='#1EAAE8'
 					/>
 					Hồ sơ
-				</div>
+				</Link>
 			),
 			key: '0',
 		},
 		{
 			label: (
-				<div
+				<Link
+					href='/profile/purchased'
 					className='flex items-center gap-2'
 					onClick={() => router.push('/profile/purchased')}
 				>
@@ -51,7 +53,7 @@ const Header = () => {
 						color='#2BC255'
 					/>
 					Đơn hàng
-				</div>
+				</Link>
 			),
 			key: '1',
 		},
@@ -85,6 +87,7 @@ const Header = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				signOut();
+				dispatch(logout());
 			}
 		});
 	};
@@ -93,8 +96,6 @@ const Header = () => {
 		if (session && session.user) {
 			dispatch(gettingInfoCurrentUser(session.user?.id));
 			dispatch(loginSuccess(session.user));
-		} else {
-			dispatch(logout());
 		}
 	}, [dispatch, session]);
 
@@ -115,14 +116,9 @@ const Header = () => {
 				>
 					<Link
 						href={'/'}
-						className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500'
+						className='text-4xl font-bold flex items-center text-gradien text-blue-600 hover:text-blue-500'
 					>
-						<MImage
-							width={50}
-							height={50}
-							preview={false}
-							src={logo.src}
-						/>
+						<FontAwesomeIcon icon={faHatCowboy} />
 						T&T
 					</Link>
 				</MCol>
@@ -180,20 +176,16 @@ const Header = () => {
 									trigger={['click']}
 									className='hover:text-blue-500'
 								>
-									<a
-										href='#'
-										onClick={(e) => e.preventDefault()}
-										className={styles.userProfileContainer}
-									>
+									<div className={styles.userProfileContainer}>
 										<MImage
-											src={session?.user?.image || ''}
+											src={auth?.currentUserInfo?.image || ''}
 											className={styles.userAvatar}
 											style={{ width: 30, height: 30 }}
 											alt='avt'
 											preview={false}
 										/>
-										<strong className='mx-2'>{session?.user?.name}</strong>
-									</a>
+										<strong className='mx-2'>{auth?.currentUserInfo?.name}</strong>
+									</div>
 								</Dropdown>
 							)}
 						</li>

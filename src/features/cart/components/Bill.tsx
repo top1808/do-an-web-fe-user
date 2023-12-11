@@ -5,21 +5,20 @@ import MRow from '@/components/MRow';
 import MTable from '@/components/MTable';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
-import { dataFake } from '@/features/product/components/DetailProduct';
 import { Bill } from '@/models/billModels';
 import { Product } from '@/models/productModels';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { ColumnsType } from 'antd/es/table';
 import React from 'react';
-const fakeBill: Bill = {
-	_id: '12321321312',
-	dateOrder: '20/12/1999',
-	paymentMethod: 'Tiền mặt',
-	items: [
-		{ _id: dataFake.id, name: dataFake.name, price: dataFake.price, quantity: 10, totalPrice: 1000000 },
-		{ _id: '1123', name: dataFake.name, price: dataFake.price, quantity: 10, totalPrice: 1000000 },
-	],
-};
+// const fakeBill: Bill = {
+// 	_id: '12321321312',
+// 	dateOrder: '20/12/1999',
+// 	paymentMethod: 'Tiền mặt',
+// 	items: [
+// 		{ _id: dataFake.id, name: dataFake.name, price: dataFake.price, quantity: 10, totalPrice: 1000000 },
+// 		{ _id: '1123', name: dataFake.name, price: dataFake.price, quantity: 10, totalPrice: 1000000 },
+// 	],
+// };
 
 const BillComponent = () => {
 	const columns: ColumnsType<Product> = [
@@ -68,7 +67,7 @@ const BillComponent = () => {
 					<MText className='px-8 py-2 font-semibold text-lg text-green-800'>Đơn hàng của bạn đã được đặt thành công !!!</MText>
 				</MRow>
 				<MRow className='mt-2 p-4 shadow-xl'>
-					<MCol className='w-full'>
+					{/* <MCol className='w-full'>
 						<MTitle level={3}>
 							Mã đơn hàng của bạn: <span className='font-bold'>{fakeBill._id}</span>
 						</MTitle>
@@ -96,7 +95,7 @@ const BillComponent = () => {
 								<MText className='text-lg font-semibold'>{`Tổng thanh toán: ${customMoney(caculatorTotalPrice(fakeBill.items))}`}</MText>
 							</div>
 						</div>
-					</MCol>
+					</MCol> */}
 				</MRow>
 				<MRow
 					justify={'end'}

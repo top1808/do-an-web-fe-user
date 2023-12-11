@@ -7,12 +7,13 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment } from '@/models/paymentModels';
-import { CartProduct } from '@/models/productModels';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { paying } from '@/redux/reducers/cartReducer';
 import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
@@ -57,8 +58,8 @@ const PaymentPage = () => {
 	useEffect(() => {
 		if (cart.payingStatus === 'completed' && cart.orderInfo) {
 			Swal.fire({
+				html: `Mã đơn hàng của bạn là <a color="blue" href='/profile/purchased'>${cart.orderInfo?.orderCode}</a>`,
 				title: 'Thanh toán thành công',
-				text: 'Mã đơn hàng của bạn là ' + cart.orderInfo?.orderCode,
 				icon: 'success',
 				confirmButtonText: 'Tiếp tục mua sắm',
 			}).then((result) => {
@@ -85,11 +86,11 @@ const PaymentPage = () => {
 			<MRow justify='space-between'>
 				<MCol
 					span={7}
-					className='shadow-lg'
+					className='shadow-md'
 				>
 					<MTitle
-						level={4}
-						className='pl-2 w-full bg-red-600'
+						level={5}
+						className='p-2 w-full bg-lime-600 text-base'
 						style={{ color: 'white' }}
 					>
 						1. ĐỊA CHỈ THANH TOÁN VÀ GIAO HÀNG
@@ -125,22 +126,22 @@ const PaymentPage = () => {
 
 				<MCol
 					span={9}
-					className='flex flex-col justify-between shadow-lg'
+					className='flex flex-col justify-between shadow-md'
 				>
 					<div>
 						<MTitle
-							level={4}
-							className='pl-2 xw-full bg-red-600'
+							level={5}
+							className='p-2 w-full bg-lime-600 text-base'
 							style={{ color: 'white' }}
 						>
 							2. Sản phẩm
 						</MTitle>
-						<div style={{ maxHeight: '30rem', overflow: 'auto' }}>
+						<div style={{ height: '30rem', overflow: 'auto' }}>
 							{cart.items?.map((item) => {
 								return (
 									<div
 										key={item._id}
-										className='flex gap-4 p-2 shadow-lg'
+										className='flex gap-4 p-2 shadow-md'
 									>
 										<div>
 											<MImage
@@ -167,11 +168,11 @@ const PaymentPage = () => {
 
 				<MCol
 					span={7}
-					className='shadow-lg'
+					className='shadow-md'
 				>
 					<MTitle
-						level={4}
-						className='pl-2 w-full bg-red-600'
+						level={5}
+						className='p-2 w-full bg-lime-600 text-base'
 						style={{ color: 'white' }}
 					>
 						3. Thanh Toán
@@ -190,7 +191,7 @@ const PaymentPage = () => {
 					</Form.Item> */}
 					<div
 						className='p-2 flex flex-col justify-between'
-						style={{ height: 'calc(100% - 30px)' }}
+						style={{ height: 'calc(100% - 40px)' }}
 					>
 						<div>
 							<h4 className='text-base'>Phương thức thanh toán</h4>

@@ -3,7 +3,7 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHatCowboy, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
@@ -15,28 +15,12 @@ import MButton from '@/components/MButton';
 import { faFacebook, faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 const Footer = () => {
 	return (
-		<footer className='px-32 py-8 bg-gradient-to-r  text-base font-semibold'>
+		<footer className='px-32 py-8 bg-gradient-to-r from-lime-500 to-green-500 text-base font-semibold'>
 			<MRow
 				justify={'space-between'}
 				gutter={[0, 8]}
 			>
 				<MCol span={7}>
-					<MRow>
-						<MCol span={24}>
-							<Link
-								href={'/'}
-								className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500'
-							>
-								<MImage
-									width={50}
-									height={50}
-									preview={false}
-									src={logo.src}
-								/>
-								T&T
-							</Link>
-						</MCol>
-					</MRow>
 					<MRow>
 						<MCol span={24}>
 							<MText>
@@ -49,11 +33,11 @@ const Footer = () => {
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MTitle level={3}>QUICK LINKS</MTitle>
+							<MTitle level={4}>QUICK LINKS</MTitle>
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-xl text-black'
+								className='text-lg text-black'
 								href={'/'}
 							>
 								About
@@ -61,7 +45,7 @@ const Footer = () => {
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-xl text-black'
+								className='text-lg text-black'
 								href={'/'}
 							>
 								Blogs
@@ -70,7 +54,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-xl text-black'
+								className='text-lg text-black'
 							>
 								Contact
 							</Link>
@@ -78,7 +62,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-xl text-black'
+								className='text-lg text-black'
 							>
 								FAQ
 							</Link>
@@ -88,11 +72,11 @@ const Footer = () => {
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MTitle level={3}>CONTACT</MTitle>
+							<MTitle level={4}>CONTACT</MTitle>
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-xl text-black'
+								className='text-lg text-black'
 								href={'/'}
 							>
 								My Account
@@ -100,7 +84,7 @@ const Footer = () => {
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-xl text-black'
+								className='text-lg text-black'
 								href={'/'}
 							>
 								Orders Tracking
@@ -109,7 +93,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-xl text-black'
+								className='text-lg text-black'
 							>
 								Checkout
 							</Link>
@@ -117,7 +101,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-xl text-black'
+								className='text-lg text-black'
 							>
 								Wishlist
 							</Link>
@@ -127,9 +111,9 @@ const Footer = () => {
 				<MCol span={7}>
 					<MRow gutter={[0, 16]}>
 						<MCol span={24}>
-							<MTitle level={3}>NEWSLETTER</MTitle>
+							<MTitle level={4}>NEWSLETTER</MTitle>
 						</MCol>
-						<MCol span={24}>
+						{/* <MCol span={24}>
 							<Form
 								autoComplete='off'
 								initialValues={{ email: '' }}
@@ -146,7 +130,7 @@ const Footer = () => {
 								</Form.Item>
 								<MButton className='absolute top-0 right-0 w-1/3 h-full bg-red-400 text-white rounded-xl font-bold'>SUBSCRIBE</MButton>
 							</Form>
-						</MCol>
+						</MCol> */}
 						<MCol span={24}>
 							<MRow
 								justify={'space-between'}

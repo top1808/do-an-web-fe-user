@@ -7,14 +7,14 @@ import React from 'react';
 
 const CustomPriceProduct = ({ price = 0, sales = 0 }: { price?: number; sales?: number }) => {
 	return (
-		<div className='shadow-md bg-slate-100 p-2 '>
+		<div className='bg-slate-100 p-2 '>
 			<MRow
 				gutter={16}
 				align={'middle'}
 			>
-				<MCol>
+				{/* <MCol>
 					<MText className='line-through text-gray-500 text-md'>{customMoney(price)}</MText>
-				</MCol>
+				</MCol> */}
 				<MCol>
 					<MText className='text-xl font-bold text-red-500'>{customMoney((price * (100 - sales)) / 100)}</MText>
 				</MCol>

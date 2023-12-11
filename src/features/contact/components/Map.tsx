@@ -1,7 +1,8 @@
 import { withGoogleMap, withScriptjs, Marker } from 'react-google-maps';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const GoogleMap = require('react-google-maps').GoogleMap;
+
 const Map = () => {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const GoogleMap = require('react-google-maps').GoogleMap;
 	return (
 		<>
 			<GoogleMap

@@ -17,7 +17,7 @@ const Menu = () => {
 		},
 		{
 			name: 'Contact',
-			route: { pathname: 'contact' },
+			route: { pathname: '/contact' },
 		},
 	];
 

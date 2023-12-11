@@ -2,45 +2,69 @@
 import MButton from '@/components/MButton';
 import MInput from '@/components/MInput';
 import { Form, Space } from 'antd';
+import { useForm } from 'antd/es/form/Form';
 import TextArea from 'antd/es/input/TextArea';
+import { toast } from 'react-toastify';
 
-type FieldType = {
+type FormContactModel = {
 	name: string;
 	email: string;
 	title: string;
 	message: string;
 };
+
 const FormContact = () => {
-	const handleClickSend = () => {};
+	const [form] = useForm();
+
+	const handleClickSend = (value: FormContactModel) => {
+		console.log('🚀 ~ file: FormContact.tsx:16 ~ handleClickSend ~ value:', value);
+		toast.success('Gửi thông tin liên hệ thành công.');
+		form.setFieldsValue({ name: '', email: '', title: '', message: '' });
+	};
+
 	return (
 		<Form
+<<<<<<< HEAD
 			initialValues={{ name: '', email: '', title: '', message: '' }}
+=======
+>>>>>>> origin/dev
 			onFinish={handleClickSend}
-			onFinishFailed={() => {}}
 			autoComplete='off'
+			form={form}
 		>
-			<Form.Item<FieldType>
+			<Form.Item
 				name='name'
 				labelCol={{ span: 24 }}
 				label='Name'
+				rules={[{ required: true }]}
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter name...'
+				/>
 			</Form.Item>
-			<Form.Item<FieldType>
+			<Form.Item
 				name='email'
 				labelCol={{ span: 24 }}
 				label='Email'
+				rules={[{ required: true }]}
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter email...'
+				/>
 			</Form.Item>
-			<Form.Item<FieldType>
+			<Form.Item
 				name='title'
 				labelCol={{ span: 24 }}
 				label='Title'
 			>
-				<MInput className='px-4 py-2' />
+				<MInput
+					size='large'
+					placeholder='Enter title...'
+				/>
 			</Form.Item>
-			<Form.Item<FieldType>
+			<Form.Item
 				name='message'
 				labelCol={{ span: 24 }}
 				label='Message'
@@ -48,9 +72,10 @@ const FormContact = () => {
 				<TextArea
 					rows={4}
 					placeholder='Message'
-					className='px-4 py-2'
+					size='large'
 				/>
 			</Form.Item>
+<<<<<<< HEAD
 			<MButton
 				type='primary'
 				htmlType='submit'
@@ -58,6 +83,17 @@ const FormContact = () => {
 			>
 				Send
 			</MButton>
+=======
+			<div className='text-center'>
+				<MButton
+					type='primary'
+					htmlType='submit'
+					size='large'
+				>
+					Send
+				</MButton>
+			</div>
+>>>>>>> origin/dev
 		</Form>
 	);
 };

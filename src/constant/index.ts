@@ -8,3 +8,18 @@ export const PAYMENT_METHOD = [
 		value: 'momo',
 	},
 ];
+
+export const ORDER_STATUS = [
+	{
+		label: 'Đang giao hàng',
+		value: 'delivering',
+	},
+	{
+		label: 'Đã giao hàng',
+		value: 'delivered',
+	},
+	{
+		label: 'Đã hủy',
+		value: 'cancelled',
+	},
+];
