@@ -5,6 +5,7 @@ import SideBarUser from '@/layout/SidebarUser';
 import { Product } from '@/models/productModels';
 import React from 'react';
 import CardProduct from '../home/components/CardProduct';
+import SearchBar from '../components/SearchBar';
 
 interface ProductsComponentProps {
 	products: Product[];
@@ -33,25 +34,30 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				lg={16}
 				xl={18}
 			>
-				<div>
-					<MRow gutter={[12, 12]}>
-						{products.length > 0 &&
-							products.map((product, index) => {
-								return (
-									<MCol
-										key={index}
-										xs={12}
-										sm={12}
-										md={12}
-										lg={8}
-										xl={6}
-									>
-										<CardProduct data={product} />
-									</MCol>
-								);
-							})}
-					</MRow>
-				</div>
+				<MRow gutter={[0, 10]}>
+					<MCol span={24}>
+						<SearchBar />
+					</MCol>
+					<MCol span={24}>
+						<MRow gutter={[12, 12]}>
+							{products.length > 0 &&
+								products.map((product, index) => {
+									return (
+										<MCol
+											key={index}
+											xs={12}
+											sm={12}
+											md={12}
+											lg={8}
+											xl={6}
+										>
+											<CardProduct data={product} />
+										</MCol>
+									);
+								})}
+						</MRow>
+					</MCol>
+				</MRow>
 			</MCol>
 		</MRow>
 	);

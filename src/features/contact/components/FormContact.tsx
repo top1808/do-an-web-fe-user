@@ -24,10 +24,6 @@ const FormContact = () => {
 
 	return (
 		<Form
-<<<<<<< HEAD
-			initialValues={{ name: '', email: '', title: '', message: '' }}
-=======
->>>>>>> origin/dev
 			onFinish={handleClickSend}
 			autoComplete='off'
 			form={form}
@@ -75,15 +71,6 @@ const FormContact = () => {
 					size='large'
 				/>
 			</Form.Item>
-<<<<<<< HEAD
-			<MButton
-				type='primary'
-				htmlType='submit'
-				size='large'
-			>
-				Send
-			</MButton>
-=======
 			<div className='text-center'>
 				<MButton
 					type='primary'
@@ -93,7 +80,6 @@ const FormContact = () => {
 					Send
 				</MButton>
 			</div>
->>>>>>> origin/dev
 		</Form>
 	);
 };
