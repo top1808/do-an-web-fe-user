@@ -6,17 +6,27 @@ import MSelect from '@/components/MSelect';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form } from 'antd';
-import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useState } from 'react';
 const SearchBar = () => {
 	const [valueSearch, setValueSearch] = useState<string>('');
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const onsubmitSearch = () => {
-		//call api search
-		console.log(valueSearch);
+		router.push('?keyword=' + valueSearch);
 	};
 	const handleFillter = (value: string) => {
-		//call api fillter
-		console.log(value);
+		router.push(pathname + '?' + createQueryString('fillter', value));
 	};
+	const createQueryString = useCallback(
+		(name: string, value: string) => {
+			const params = new URLSearchParams(searchParams);
+			params.set(name, value);
+			return params.toString();
+		},
+		[searchParams],
+	);
 	return (
 		<MRow>
 			<MCol span={12}>
@@ -52,10 +62,8 @@ const SearchBar = () => {
 					onChange={handleFillter}
 					options={[
 						{ value: 'default', label: '(Default)' },
-						{ value: 'increase', label: 'Giá tăng dần' },
-						{ value: 'decrease', label: 'Giá giảm dần' },
-						{ value: 'A-Z', label: 'Tên theo A-Z' },
-						{ value: 'Z-A', label: 'Tên theo Z-A' },
+						{ value: 'asc', label: 'Giá tăng dần' },
+						{ value: 'desc', label: 'Giá giảm dần' },
 					]}
 				/>
 			</MCol>
