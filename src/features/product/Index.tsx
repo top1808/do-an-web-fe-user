@@ -6,6 +6,7 @@ import { Product } from '@/models/productModels';
 import React from 'react';
 import CardProduct from '../home/components/CardProduct';
 import SearchBar from '../components/SearchBar';
+import MTitle from '@/components/MTitle';
 
 interface ProductsComponentProps {
 	products: Product[];
@@ -40,7 +41,8 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 					</MCol>
 					<MCol span={24}>
 						<MRow gutter={[12, 12]}>
-							{products.length > 0 &&
+							{products &&
+								products.length > 0 &&
 								products.map((product, index) => {
 									return (
 										<MCol
@@ -55,6 +57,14 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 										</MCol>
 									);
 								})}
+							{!products && (
+								<MTitle
+									className='pl-2'
+									level={3}
+								>
+									Không tìm thấy sản phẩm phù hợp !
+								</MTitle>
+							)}
 						</MRow>
 					</MCol>
 				</MRow>

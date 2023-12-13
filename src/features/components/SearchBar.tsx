@@ -14,7 +14,7 @@ const SearchBar = () => {
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 	const onsubmitSearch = () => {
-		router.push('?keyword=' + valueSearch);
+		valueSearch ? router.push('?keyword=' + valueSearch) : router.push(pathname + '?category=all');
 	};
 	const handleFillter = (value: string) => {
 		router.push(pathname + '?' + createQueryString('fillter', value));
@@ -22,7 +22,7 @@ const SearchBar = () => {
 	const createQueryString = useCallback(
 		(name: string, value: string) => {
 			const params = new URLSearchParams(searchParams);
-			params.set(name, value);
+			value === 'default' ? params.delete('fillter') : params.set(name, value);
 			return params.toString();
 		},
 		[searchParams],
