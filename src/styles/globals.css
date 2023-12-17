@@ -56,7 +56,10 @@ a {
 	position: absolute;
 	z-index: -1;
 }
-
+.slick-next:before,
+.slick-prev:before {
+	display: none !important;
+}
 
 /* @media (prefers-color-scheme: dark) {
   html {

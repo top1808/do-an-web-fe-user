@@ -1,6 +1,4 @@
-import Loading from '@/components/Loading';
 import HomeUserComponent from '@/features/home/Index';
-
 import MLayoutUser from '@/layout/MLayout';
 import { Metadata } from 'next';
 import React from 'react';
