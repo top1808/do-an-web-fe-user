@@ -104,7 +104,7 @@ const Header = () => {
 	}, [dispatch, cart.statusUpdate]);
 
 	return (
-		<header className='py-2 px-32 bg-gradient-to-r from-lime-500 to-green-500'>
+		<header className='px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
 				justify={'space-between'}
 				className='py-2 px-6'
@@ -116,7 +116,7 @@ const Header = () => {
 				>
 					<Link
 						href={'/'}
-						className='text-4xl font-bold flex items-center text-gradien text-blue-600 hover:text-blue-500'
+						className='text-4xl font-bold flex items-center text-gradien text-white hover:text-gray-200'
 					>
 						<FontAwesomeIcon icon={faHatCowboy} />
 						T&T
@@ -151,7 +151,7 @@ const Header = () => {
 									<FontAwesomeIcon
 										icon={faCartShopping}
 										size='xl'
-										className='hover:text-blue-500 text-blue-600'
+										className='text-white hover:text-gray-200'
 									/>
 								</MBadge>
 							</Link>
@@ -161,7 +161,7 @@ const Header = () => {
 								<div>
 									<Link
 										href={'/login'}
-										className='text-blue-700 p-4 hover:text-blue-500 font-bold'
+										className='text-white hover:text-gray-200 font-bold'
 									>
 										<FontAwesomeIcon
 											icon={faUser}
@@ -174,7 +174,7 @@ const Header = () => {
 								<Dropdown
 									menu={{ items: profileItems }}
 									trigger={['click']}
-									className='hover:text-blue-500'
+									className='text-white hover:text-gray-200'
 								>
 									<div className={styles.userProfileContainer}>
 										<MImage
