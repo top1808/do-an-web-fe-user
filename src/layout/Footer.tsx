@@ -15,7 +15,7 @@ import MButton from '@/components/MButton';
 import { faFacebook, faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 const Footer = () => {
 	return (
-		<footer className='px-32 py-8 bg-gradient-to-r from-lime-500 to-green-500 text-base font-semibold'>
+		<footer className='px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-base font-semibold text-white'>
 			<MRow
 				justify={'space-between'}
 				gutter={[0, 8]}
@@ -33,11 +33,11 @@ const Footer = () => {
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MTitle level={4}>QUICK LINKS</MTitle>
+							<MText className='text-xl font-bold'>QUICK LINKS</MText>
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-lg text-black'
+								className='text-lg text-white'
 								href={'/'}
 							>
 								About
@@ -45,7 +45,7 @@ const Footer = () => {
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-lg text-black'
+								className='text-lg text-white'
 								href={'/'}
 							>
 								Blogs
@@ -54,7 +54,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-lg text-black'
+								className='text-lg text-white'
 							>
 								Contact
 							</Link>
@@ -62,7 +62,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-lg text-black'
+								className='text-lg text-white'
 							>
 								FAQ
 							</Link>
@@ -72,11 +72,11 @@ const Footer = () => {
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MTitle level={4}>CONTACT</MTitle>
+							<MText className='text-xl font-bold'>NEWS</MText>
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-lg text-black'
+								className='text-lg text-white'
 								href={'/'}
 							>
 								My Account
@@ -84,7 +84,7 @@ const Footer = () => {
 						</MCol>
 						<MCol span={24}>
 							<Link
-								className='text-lg text-black'
+								className='text-lg text-white'
 								href={'/'}
 							>
 								Orders Tracking
@@ -93,7 +93,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-lg text-black'
+								className='text-lg text-white'
 							>
 								Checkout
 							</Link>
@@ -101,7 +101,7 @@ const Footer = () => {
 						<MCol span={24}>
 							<Link
 								href={'/'}
-								className='text-lg text-black'
+								className='text-lg text-white'
 							>
 								Wishlist
 							</Link>
@@ -111,26 +111,9 @@ const Footer = () => {
 				<MCol span={7}>
 					<MRow gutter={[0, 16]}>
 						<MCol span={24}>
-							<MTitle level={4}>NEWSLETTER</MTitle>
+							<MText className='text-xl font-bold'>CONTACT</MText>
 						</MCol>
-						{/* <MCol span={24}>
-							<Form
-								name='form-contact'
-								autoComplete='off'
-							>
-								<Form.Item
-									name='email'
-									labelCol={{ span: 24 }}
-									className='relative'
-								>
-									<MInput
-										className='px-4 py-2'
-										placeholder='Email'
-									/>
-									<MButton className='absolute top-0 right-0 w-1/3 h-full bg-red-400 text-white rounded-xl font-bold'>SUBSCRIBE</MButton>
-								</Form.Item>
-							</Form>
-						</MCol> */}
+
 						<MCol span={24}>
 							<MRow
 								justify={'space-between'}
@@ -139,19 +122,19 @@ const Footer = () => {
 								<MCol span={4}>
 									<Link
 										href={'/'}
-										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full w-full h-16 bg-blue-500 '
+										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full h-12 w-12 bg-blue-500 '
 									>
 										<FontAwesomeIcon
 											color='white'
 											icon={faFacebook}
-											className='w-full text-center'
+											className='text-center w-full'
 										/>
 									</Link>
 								</MCol>
 								<MCol span={4}>
 									<Link
 										href={'/'}
-										className='text-4xl font-bold flex items-center text-gradien  rounded-full w-full h-16 bg-blue-500 '
+										className='text-4xl font-bold flex items-center text-gradien  rounded-full h-12 w-12 bg-blue-500 '
 									>
 										<FontAwesomeIcon
 											color='white'
@@ -163,7 +146,7 @@ const Footer = () => {
 								<MCol span={4}>
 									<Link
 										href={'/'}
-										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full w-full h-16 bg-white'
+										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full h-12 w-12 bg-white'
 									>
 										<FontAwesomeIcon
 											color='red'
@@ -175,7 +158,7 @@ const Footer = () => {
 								<MCol span={4}>
 									<Link
 										href={'/'}
-										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full w-full h-16 bg-white'
+										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full h-12 w-12 bg-white'
 									>
 										<FontAwesomeIcon
 											className='w-full text-center'
@@ -187,7 +170,7 @@ const Footer = () => {
 								<MCol span={4}>
 									<Link
 										href={'/'}
-										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full w-full h-16 bg-white'
+										className='text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full h-12 w-12 bg-white'
 									>
 										<FontAwesomeIcon
 											className='w-full text-center'
@@ -202,7 +185,7 @@ const Footer = () => {
 				</MCol>
 			</MRow>
 			<MRow
-				className='p-4 mt-2'
+				className='p-2 mt-2'
 				style={{ borderTop: '1px solid black' }}
 			>
 				<MCol
@@ -214,7 +197,7 @@ const Footer = () => {
 						<FontAwesomeIcon
 							color='red'
 							icon={faHeart}
-							className='mx-2'
+							className='mx-1'
 						/>
 						by Le Top
 					</MText>

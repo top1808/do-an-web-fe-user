@@ -24,7 +24,7 @@ const Menu = () => {
 	const path = usePathname();
 
 	return (
-		<MRow className='max-sm:hidden sm:flex md:flex lg:flex xl:flex 2xl:flex px-32 bg-gradient-to-r from-lime-500 to-green-500'>
+		<MRow className='max-sm:hidden sm:flex md:flex lg:flex xl:flex 2xl:flex px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			{menuItems.map((item, index) => {
 				return (
 					<MCol
@@ -33,7 +33,7 @@ const Menu = () => {
 					>
 						<Link
 							href={item.route}
-							className='hover:text-blue-700'
+							className='hover:text-blue-700 text-white'
 						>
 							{item.name}
 						</Link>

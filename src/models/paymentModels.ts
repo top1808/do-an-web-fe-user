@@ -1,3 +1,5 @@
+import { ApplyVoucherInfor } from './voucherModel';
+
 export interface DataPayment {
 	customerName?: string;
 	customerPhone?: string;
@@ -12,6 +14,7 @@ export interface DataPayment {
 	totalPrice?: number;
 	deliveryDate?: Date | string;
 	createdAt?: Date | string;
+	voucher?: ApplyVoucherInfor | null;
 }
 
 export interface Order {
