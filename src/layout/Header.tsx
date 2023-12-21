@@ -3,11 +3,10 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-import logo from '../../public/images/logo.png';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
@@ -17,6 +16,7 @@ import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
+
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
@@ -110,8 +110,8 @@ const Header = () => {
 				className='py-2 px-6'
 			>
 				<MCol
-					xs={4}
-					xl={8}
+					xs={24}
+					xl={4}
 					className='max-sm:w-36 sm:w-36 md:w-36 lg:w-40 xl:w-60 2xl:w-80'
 				>
 					<Link
@@ -122,15 +122,16 @@ const Header = () => {
 						T&T
 					</Link>
 				</MCol>
-				{/* <MCol
+				<MCol
 					xs={8}
 					xl={8}
-					className='max-sm:mt-2 sm:mt-2  2xl:0'
 				>
-					<div className='h-full flex items-center w-full justify-center'>
-						<MSearchInput onSearch={() => {}} />
-					</div>
-				</MCol> */}
+					<MSearchInput
+						onSearch={({ search }) => {
+							router.push('/search?search=' + search);
+						}}
+					/>
+				</MCol>
 				<MCol
 					xs={12}
 					xl={8}

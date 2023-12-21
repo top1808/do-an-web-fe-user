@@ -11,6 +11,9 @@ import {
 	gettingProducstRelative,
 	gettingProduct,
 	gettingProductInfo,
+	searchProductsFailed,
+	searchProductsSuccess,
+	searchingProducts,
 } from '../reducers/productReducer';
 import { CreateAction } from '@/models/actionModel';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -48,7 +51,22 @@ function* onGetProductsRelative(action: PayloadAction<string>) {
 		yield put(getProductsRelativeFailed(error.response.data.message));
 	}
 }
+function* onSearchProducts(action: PayloadAction<string>) {
+	try {
+		const response: AxiosResponse = yield call(productApi.searchProducts, action.payload);
 
+		yield put(searchProductsSuccess(response.data.products));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		if (error?.response?.status === 403) return;
+		yield put(searchProductsFailed(error.response.data.message));
+	}
+}
+
+function* watchSearchProductsFlow() {
+	const type: string = searchingProducts.type;
+	yield takeEvery(type, onSearchProducts);
+}
 function* watchGetProductsRelativeFlow() {
 	const type: string = gettingProducstRelative.type;
 	yield takeEvery(type, onGetProductsRelative);
@@ -64,4 +82,5 @@ export function* ProductSaga() {
 	yield fork(watchGetProductFlow);
 	yield fork(watchGetProductInfoFlow);
 	yield fork(watchGetProductsRelativeFlow);
+	yield fork(watchSearchProductsFlow);
 }
