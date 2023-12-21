@@ -34,6 +34,8 @@ export interface Order {
 	deliveryAddress?: string;
 	deliveryDate?: Date | string;
 	deliveryFee?: number;
+	voucherDiscount?: number;
+	voucherCode?: string;
 	createdAt?: Date | string;
 }
 

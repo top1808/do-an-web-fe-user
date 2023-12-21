@@ -16,6 +16,7 @@ interface PurchasedDetailsPageProps {}
 
 const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const { order } = useAppSelector((state) => state);
+
 	const { orderDetails } = order;
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -137,6 +138,22 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							Phí vận chuyển:
 						</MCol>
 					</MRow>
+					{!!orderDetails?.voucherCode && (
+						<MRow className='flex-row-reverse text-base font-bold'>
+							<MCol
+								span={4}
+								className='text-end text-red-500'
+							>
+								-{customMoney(orderDetails?.voucherDiscount)}
+							</MCol>
+							<MCol
+								span={4}
+								className='text-end'
+							>
+								Voucher:
+							</MCol>
+						</MRow>
+					)}
 					<MRow className='flex-row-reverse text-base font-bold'>
 						<MCol
 							span={4}

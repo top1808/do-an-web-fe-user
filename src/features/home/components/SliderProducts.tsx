@@ -43,7 +43,7 @@ const SliderProducts = (props: SliderProductsProps) => {
 		dots: false,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 7,
+		slidesToShow: 6,
 		slidesToScroll: 4,
 		autoplay: true,
 		autoplaySpeed: 3000,
