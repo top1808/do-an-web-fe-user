@@ -56,8 +56,13 @@ a {
 	position: absolute;
 	z-index: -1;
 }
-
-
+.slick-next:before,
+.slick-prev:before {
+	display: none !important;
+}
+.slick-list {
+	padding-bottom: 10px !important;
+}
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
