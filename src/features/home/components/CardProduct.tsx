@@ -13,7 +13,7 @@ export interface CardProductProps {
 const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
 		<Link href={`/product/${data._id}`}>
-			<div className='shadow-md p-2 border-blue-100 w-full  card hover:opacity-70'>
+			<div className='shadow-md p-2 border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
 					<MImage
 						src={data.image ? data.image : 'https://bizflyportal.mediacdn.vn/bizflyportal/techblog/png15910726485415.jpg'}

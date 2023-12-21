@@ -14,11 +14,9 @@ import React from 'react';
 const InforUser = () => {
 	const { auth } = useAppSelector((state) => state);
 	const { currentUserInfo } = auth;
-	console.log('🚀 ~ file: InforUser.tsx:17 ~ InforUser ~ currentUserInfo:', currentUserInfo);
 	const dispatch = useAppDispatch();
 
 	const onSubmit = (data: FormChangeInfor) => {
-		console.log('🚀 ~ file: InforUser.tsx:15 ~ onSubmit ~ data:', data);
 		dispatch(changingInfor(data));
 	};
 

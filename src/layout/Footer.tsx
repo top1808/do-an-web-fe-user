@@ -1,18 +1,13 @@
 'use client';
 import MCol from '@/components/MCol';
-import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import { faHatCowboy, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
-import logo from '../../public/images/logo.png';
-import MTitle from '@/components/MTitle';
-import { Form } from 'antd';
-import MInput from '@/components/MInput';
-import MButton from '@/components/MButton';
 import { faFacebook, faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+
 const Footer = () => {
 	return (
 		<footer className='px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-base font-semibold text-white'>
@@ -113,7 +108,6 @@ const Footer = () => {
 						<MCol span={24}>
 							<MText className='text-xl font-bold'>CONTACT</MText>
 						</MCol>
-
 						<MCol span={24}>
 							<MRow
 								justify={'space-between'}

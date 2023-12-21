@@ -3,10 +3,11 @@ import MImage from '@/components/MImage';
 import { Category } from '@/models/categoryModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Menu, type MenuProps } from 'antd';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import iconAll from '../../public/icons/all.png';
 import { gettingCategory } from '@/redux/reducers/categoryReducer';
+import Link from 'next/link';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -23,12 +24,14 @@ const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { category } = useAppSelector((state) => state);
 	const searchParams = useSearchParams();
-	const router = useRouter();
 
 	const items: MenuItem[] =
 		category.data?.map((item: Category) =>
 			getItem(
-				<div className='flex gap-2 align-middle'>
+				<Link
+					href={'/product?category=' + item._id}
+					className='flex gap-2 align-middle'
+				>
 					<MImage
 						width={30}
 						height={30}
@@ -36,14 +39,10 @@ const SideBarUser: React.FC = () => {
 						preview={false}
 					/>
 					{item.name}
-				</div>,
+				</Link>,
 				item._id,
 			),
 		) || [];
-
-	const onClick: MenuProps['onClick'] = (e) => {
-		router.replace('/product?category=' + e.key);
-	};
 
 	useEffect(() => {
 		dispatch(gettingCategory());
@@ -54,11 +53,13 @@ const SideBarUser: React.FC = () => {
 			<Menu
 				style={{ borderInlineEnd: 'none', padding: '10px' }}
 				mode='vertical'
-				onClick={onClick}
 				className='rounded-md font-semibold'
 				items={[
 					getItem(
-						<div className='flex gap-2 align-middle'>
+						<Link
+							href={'/product?category=all'}
+							className='flex gap-2 align-middle'
+						>
 							<MImage
 								width={30}
 								height={30}
@@ -66,7 +67,7 @@ const SideBarUser: React.FC = () => {
 								preview={false}
 							/>
 							ALL
-						</div>,
+						</Link>,
 						'all',
 					),
 					...items,
