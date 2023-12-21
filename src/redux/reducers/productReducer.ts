@@ -7,6 +7,8 @@ interface ProductState {
 	data?: Product[];
 	productInfor: Product | null;
 	productsRelative: Product[];
+	productsSearch: Product[];
+	isSearching: boolean;
 }
 
 const initialState: ProductState = {
@@ -15,6 +17,8 @@ const initialState: ProductState = {
 	data: [],
 	productInfor: null,
 	productsRelative: [],
+	productsSearch: [],
+	isSearching: false,
 };
 
 const ProductSlice = createSlice({
@@ -59,6 +63,19 @@ const ProductSlice = createSlice({
 			state.loading = false;
 			action.payload && toast.error(action.payload);
 		},
+
+		searchingProducts: (state, action: PayloadAction<string>) => {
+			state.isSearching = true;
+			state.productsSearch = [];
+		},
+		searchProductsSuccess: (state, action: PayloadAction<Product[]>) => {
+			state.isSearching = false;
+			state.productsSearch = action.payload;
+		},
+		searchProductsFailed: (state, action: PayloadAction<string>) => {
+			state.isSearching = false;
+			action.payload && toast.error(action.payload);
+		},
 	},
 });
 export const {
@@ -71,5 +88,8 @@ export const {
 	getProductsRelativeFailed,
 	getProductsRelativeSuccess,
 	gettingProducstRelative,
+	searchProductsFailed,
+	searchProductsSuccess,
+	searchingProducts,
 } = ProductSlice.actions;
 export default ProductSlice.reducer;

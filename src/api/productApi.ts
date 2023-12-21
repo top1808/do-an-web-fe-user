@@ -19,6 +19,9 @@ const ProductApi = {
 	getProductsRelative(id: string) {
 		return axiosClient.get(URL + '/get-product-relative/' + id);
 	},
+	searchProducts(search: string) {
+		return axiosClient.get(URL + '/search/' + search);
+	},
 };
 
 export default ProductApi;
