@@ -16,18 +16,6 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 		<div>
 			<div className='flex justify-between h-14 items-center'>
 				<h3 className='h-full text-center leading-10'> Gợi Ý Hôm Nay</h3>
-				{/* <MSelect
-					defaultValue='default'
-					style={{ width: 150 }}
-					onChange={() => {}}
-					options={[
-						{ value: 'default', label: '(Default)' },
-						{ value: 'increase', label: 'Giá tăng dần' },
-						{ value: 'decrease', label: 'Giá giảm dần' },
-						{ value: 'A-Z', label: 'Tên theo A-Z' },
-						{ value: 'Z-A', label: 'Tên theo Z-A' },
-					]}
-				/> */}
 			</div>
 			<MRow gutter={[16, 16]}>
 				{listProducts.length > 0 &&

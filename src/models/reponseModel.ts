@@ -3,4 +3,12 @@ interface ReponseDeleteSuccess {
 	message?: string;
 }
 
-export type { ReponseDeleteSuccess };
+interface PaginationModel {
+	id?: string;
+	page?: number;
+	offset?: number;
+	limit?: number;
+	total?: number;
+}
+
+export type { ReponseDeleteSuccess, PaginationModel };
