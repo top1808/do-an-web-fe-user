@@ -44,7 +44,7 @@ const SliderProducts = (props: SliderProductsProps) => {
 		infinite: true,
 		speed: 400,
 		slidesToShow: 8,
-		slidesToScroll: 2,
+		slidesToScroll: 4,
 		autoplay: true,
 		autoplaySpeed: 2000,
 		prevArrow: <SlickArrowLeft />,
@@ -56,11 +56,11 @@ const SliderProducts = (props: SliderProductsProps) => {
 				level={2}
 				className='p-2'
 			>
-				Trendding products this week
+				Xu hướng
 			</MTitle>
 			<Slider
 				{...settings}
-				className='w-full p-2'
+				className='w-full py-2'
 			>
 				{data &&
 					data.map((item, index) => {
