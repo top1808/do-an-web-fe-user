@@ -53,9 +53,9 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				xl={18}
 			>
 				<MRow gutter={[0, 10]}>
-					<MCol span={24}>
+					{/* <MCol span={24}>
 						<SearchBar />
-					</MCol>
+					</MCol> */}
 					<MCol span={24}>
 						<MRow gutter={[12, 12]}>
 							{products &&
