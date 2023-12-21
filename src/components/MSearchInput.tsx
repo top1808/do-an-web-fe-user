@@ -1,48 +1,59 @@
 import { Form, InputProps } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import MInput from './MInput';
 import MButton from './MButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 interface MSearchInputProps extends InputProps {
-	onSearch?: () => void;
+	onSearch?: ({ search }: { search: string }) => void;
+	loading?: boolean;
 }
-type FieldType = {
-	valuesearch?: string;
-	buttonsearch?: string;
-};
+
 export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
-	const [valueSearch, setValueSearch] = useState('');
+	const [form] = Form.useForm();
+	const searchValue = Form.useWatch('search', form);
+
+	useEffect(() => {
+		form.setFieldsValue({ search: '' });
+	}, [form]);
+
 	return (
-		<div className='p-1 rounded '>
+		<div className='p-1 rounded'>
 			<Form
 				onFinish={props.onSearch}
 				className='flex gap-2 h-8'
+				form={form}
+				autoComplete='off'
 			>
-				<Form.Item<FieldType> className='h-full relative'>
-					<MInput
-						className='pl-8 pr-8 h-8 text-sm sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
-						placeholder='Search...'
-						onChange={(e) => setValueSearch(e.target.value)}
-						value={valueSearch}
-					/>
+				<div className='h-full relative'>
+					<Form.Item
+						name='search'
+						label=''
+					>
+						<MInput
+							type='text'
+							className='pl-8 pr-8 h-8 text-sm sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
+							placeholder='Search...'
+						/>
+					</Form.Item>
 					<FontAwesomeIcon
-						className={`${valueSearch ? 'visible' : 'invisible'} absolute top-1 right-2 leading-8 cursor-pointer`}
-						onClick={() => setValueSearch('')}
+						className={`${searchValue ? 'visible' : 'invisible'} absolute top-2 right-2 leading-8 cursor-pointer`}
+						onClick={() => form.resetFields()}
 						icon={faXmark}
-						size='xl'
+						size='1x'
 					/>
 					<FontAwesomeIcon
 						color='gray'
 						icon={faMagnifyingGlass}
 						className='absolute top-2 left-2'
 					/>
-				</Form.Item>
+				</div>
 				<MButton
 					htmlType='submit'
 					type='primary'
+					loading={props.loading}
 				>
-					Tìm kiếm
+					<FontAwesomeIcon icon={faSearch} />
 				</MButton>
 			</Form>
 		</div>
