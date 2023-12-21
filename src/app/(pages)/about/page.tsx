@@ -1,12 +1,7 @@
-import SliderProducts from '@/components/Slider';
 import React from 'react';
 
 const AboutPage = () => {
-	return (
-		<div>
-			<SliderProducts />
-		</div>
-	);
+	return <div>About</div>;
 };
 
 export default AboutPage;

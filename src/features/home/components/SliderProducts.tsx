@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 import CardProduct from './CardProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 interface SliderProductsProps {
 	data: Product[];
