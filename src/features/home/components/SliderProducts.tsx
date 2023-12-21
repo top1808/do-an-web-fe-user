@@ -42,18 +42,18 @@ const SliderProducts = (props: SliderProductsProps) => {
 	const settings = {
 		dots: false,
 		infinite: true,
-		speed: 400,
-		slidesToShow: 8,
+		speed: 500,
+		slidesToShow: 7,
 		slidesToScroll: 4,
 		autoplay: true,
-		autoplaySpeed: 2000,
+		autoplaySpeed: 3000,
 		prevArrow: <SlickArrowLeft />,
 		nextArrow: <SlickArrowRight />,
 	};
 	return (
 		<div className='w-full'>
 			<MTitle
-				level={2}
+				level={3}
 				className='p-2'
 			>
 				Xu hướng

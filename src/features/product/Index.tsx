@@ -7,13 +7,30 @@ import React from 'react';
 import CardProduct from '../home/components/CardProduct';
 import SearchBar from '../components/SearchBar';
 import MTitle from '@/components/MTitle';
+import { PaginationModel } from '@/models/reponseModel';
+import MPagination from '@/components/MPagination';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { objectToQueryString } from '@/utils/FuntionHelpers';
 
 interface ProductsComponentProps {
-	products: Product[];
+	products?: Product[];
+	pagination?: PaginationModel;
 }
 
 const ProductsComponent = (props: ProductsComponentProps) => {
-	const { products } = props;
+	const { products, pagination } = props;
+
+	const params = useSearchParams();
+	const category = params.get('category');
+
+	const path = usePathname();
+	const router = useRouter();
+
+	const onChangePagination = (page: number) => {
+		const query = objectToQueryString({ category, offset: (page - 1) * 12, limit: 12 });
+		router.push(path + query);
+	};
+
 	return (
 		<MRow
 			gutter={12}
@@ -42,7 +59,7 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 					<MCol span={24}>
 						<MRow gutter={[12, 12]}>
 							{products &&
-								products.length > 0 &&
+								products?.length > 0 &&
 								products.map((product, index) => {
 									return (
 										<MCol
@@ -57,7 +74,8 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 										</MCol>
 									);
 								})}
-							{!products && (
+
+							{(!products || products?.length <= 0) && (
 								<MTitle
 									className='pl-2'
 									level={3}
@@ -66,6 +84,15 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 								</MTitle>
 							)}
 						</MRow>
+						<div className='w-full text-center mt-4'>
+							{products && (
+								<MPagination
+									current={pagination?.page}
+									total={pagination?.total}
+									onChange={onChangePagination}
+								/>
+							)}
+						</div>
 					</MCol>
 				</MRow>
 			</MCol>
