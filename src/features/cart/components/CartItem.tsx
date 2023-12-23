@@ -1,17 +1,13 @@
-import MButton from '@/components/MButton';
 import MButtonDelete from '@/components/MButtonDelete';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MInputQuantity from '@/components/MInputQuantity';
 import MRow from '@/components/MRow';
-import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
 import { customMoney } from '@/utils/FuntionHelpers';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
 interface CartItemProps {
