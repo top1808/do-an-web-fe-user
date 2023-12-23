@@ -79,7 +79,7 @@ const Header = () => {
 
 	const handleLogout = () => {
 		Swal.fire({
-			text: 'Do you want to logout  ?',
+			text: 'Do you want to logout?',
 			icon: 'question',
 			confirmButtonText: 'Yes',
 			cancelButtonText: 'Cancel',
