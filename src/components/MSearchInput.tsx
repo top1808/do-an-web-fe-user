@@ -1,26 +1,38 @@
 import { Form, InputProps } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import MInput from './MInput';
 import MButton from './MButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 interface MSearchInputProps extends InputProps {
 	onSearch?: ({ search }: { search: string }) => void;
 	loading?: boolean;
 }
 
 export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
+	const linkRef = useRef<HTMLAnchorElement>(null);
+
 	const [form] = Form.useForm();
 	const searchValue = Form.useWatch('search', form);
 
+	const params = useSearchParams();
+	const search = params.get('search') || '';
+
 	useEffect(() => {
-		form.setFieldsValue({ search: '' });
-	}, [form]);
+		form.setFieldsValue({ search: search });
+	}, [form, search]);
 
 	return (
 		<div className='p-1 rounded'>
+			<Link
+				href={'/search?search=' + searchValue}
+				hidden
+				ref={linkRef}
+			/>
 			<Form
-				onFinish={props.onSearch}
+				onFinish={() => linkRef?.current?.click()}
 				className='flex gap-2 h-8'
 				form={form}
 				autoComplete='off'

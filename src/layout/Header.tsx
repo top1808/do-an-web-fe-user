@@ -126,11 +126,7 @@ const Header = () => {
 					xs={8}
 					xl={8}
 				>
-					<MSearchInput
-						onSearch={({ search }) => {
-							router.push('/search?search=' + search);
-						}}
-					/>
+					<MSearchInput />
 				</MCol>
 				<MCol
 					xs={12}
