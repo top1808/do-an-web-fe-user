@@ -14,7 +14,9 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
 
 	useEffect(() => {
-		setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
+		if (cart?.items) {
+			setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
+		}
 	}, [cart.items]);
 
 	return (
