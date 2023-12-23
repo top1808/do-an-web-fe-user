@@ -29,11 +29,11 @@ const Menu = () => {
 				return (
 					<MCol
 						key={index}
-						className={`py-4 font-bold ${styles.item} ${path === item.route?.pathname ? 'text-blue-700' : ''}`}
+						className={`py-4 font-bold ${styles.item}`}
 					>
 						<Link
 							href={item.route}
-							className='hover:text-blue-700 text-white'
+							className={`hover:text-lime-500 ${path === item.route?.pathname ? 'text-lime-500 underline' : 'text-white'}`}
 						>
 							{item.name}
 						</Link>

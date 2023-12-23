@@ -16,11 +16,11 @@ const CartPageComponent = () => {
 
 	useEffect(() => {
 		dispatch(gettingCart());
-	}, [dispatch, cart.statusUpdate]);
+	}, [dispatch]);
 
 	return (
 		<>
-			{cart?.loading && <Loading />}
+			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}
 
 			<div className='py-8'>
 				<MTitle level={2}>My cart</MTitle>
