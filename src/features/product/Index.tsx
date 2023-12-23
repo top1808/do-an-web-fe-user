@@ -5,7 +5,6 @@ import SideBarUser from '@/layout/SidebarUser';
 import { Product } from '@/models/productModels';
 import React from 'react';
 import CardProduct from '../home/components/CardProduct';
-import SearchBar from '../components/SearchBar';
 import MTitle from '@/components/MTitle';
 import { PaginationModel } from '@/models/reponseModel';
 import MPagination from '@/components/MPagination';

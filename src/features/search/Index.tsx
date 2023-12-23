@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
 import MTitle from '@/components/MTitle';
 import MSkeleton from '@/components/MSkeleton';
+import MText from '@/components/MText';
 
 interface SearchPageComponentProps {}
 
@@ -25,6 +26,10 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 
 	return (
 		<MSkeleton loading={product.isSearching}>
+			<div className='py-2'>
+				<MText className='text-base font-bold'>Từ khóa tìm kiếm: {params.get('search')}.</MText> &nbsp;
+				<MText className='text-base font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
+			</div>
 			<MRow gutter={[12, 12]}>
 				{productsSearch &&
 					productsSearch?.length > 0 &&
@@ -32,25 +37,16 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 						return (
 							<MCol
 								key={index}
-								xs={12}
+								xs={24}
 								sm={12}
-								md={12}
-								lg={8}
-								xl={6}
+								md={8}
+								lg={6}
+								xl={4}
 							>
 								<CardProduct data={product} />
 							</MCol>
 						);
 					})}
-
-				{(!productsSearch || productsSearch?.length <= 0) && (
-					<MTitle
-						className='pl-2'
-						level={3}
-					>
-						Không tìm thấy sản phẩm phù hợp !
-					</MTitle>
-				)}
 			</MRow>
 		</MSkeleton>
 	);
