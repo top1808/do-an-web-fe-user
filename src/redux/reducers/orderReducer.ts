@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 interface OrderState {
+	isCancelingOrder?: boolean;
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
 	data?: Order[];
@@ -11,6 +12,7 @@ interface OrderState {
 }
 
 const initialState: OrderState = {
+	isCancelingOrder: false,
 	loading: false,
 	status: 'pending',
 	data: [],
@@ -47,8 +49,20 @@ const orderSlice = createSlice({
 			state.loading = false;
 			action.payload && toast.error(action.payload);
 		},
+
+		cancelingOrder: (state, action: PayloadAction<string>) => {
+			state.isCancelingOrder = true;
+		},
+		cancelOrderSuccess: (state, action: PayloadAction<string>) => {
+			state.isCancelingOrder = false;
+			action.payload && toast.success('Hủy đơn hàng thành công');
+		},
+		cancelOrderFailed: (state, action: PayloadAction<string>) => {
+			state.isCancelingOrder = false;
+			action.payload && toast.error(action.payload);
+		},
 	},
 });
 
-export const { getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders } = orderSlice.actions;
+export const { getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders, cancelOrderFailed, cancelOrderSuccess, cancelingOrder } = orderSlice.actions;
 export default orderSlice.reducer;

@@ -1,7 +1,7 @@
 import { fork, put, call, takeEvery } from 'redux-saga/effects';
 
 import { AxiosResponse } from 'axios';
-import { getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders } from '../reducers/orderReducer';
+import { cancelOrderFailed, cancelOrderSuccess, cancelingOrder, getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders } from '../reducers/orderReducer';
 import { OrderParams } from '@/models/paymentModels';
 import orderApi from '@/api/orderApi';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -30,6 +30,17 @@ function* onGetOrderInfo(action: PayloadAction<string>) {
 	}
 }
 
+function* onCancelOrder(action: PayloadAction<string>) {
+	try {
+		const response: AxiosResponse = yield call(orderApi.cancelOrder, action.payload);
+		yield put(cancelOrderSuccess(response.data.message));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		if (error?.response?.status === 403) return;
+		yield put(cancelOrderFailed(error.response.data.message));
+	}
+}
+
 function* watchGetOrdersFlow() {
 	const type: string = gettingOrders.type;
 	yield takeEvery(type, onGetOrders);
@@ -40,7 +51,13 @@ function* watchGetOrderFlow() {
 	yield takeEvery(type, onGetOrderInfo);
 }
 
+function* watchCancelOrderFlow() {
+	const type: string = cancelingOrder.type;
+	yield takeEvery(type, onCancelOrder);
+}
+
 export function* orderSaga() {
 	yield fork(watchGetOrdersFlow);
 	yield fork(watchGetOrderFlow);
+	yield fork(watchCancelOrderFlow);
 }
