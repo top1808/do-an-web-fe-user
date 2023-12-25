@@ -2,7 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 First, you have to install module: npm install. <br />
-Second, run the development server:
+Second, you create file ".env.local" in root directory with content:
+```bash
+NEXT_PUBLIC_API_URL="http://localhost:8000/v2/"
+NEXT_PUBLIC_API_UPLOAD_URL=http://localhost:8000/
+NEXT_PUBLIC_NEXTAUTH_URL="http://localhost:3000"
+NEXT_PUBLIC_NEXTAUTH_SECRET="agtj7Cja2ebjUI+l9O9EC1l7WOFaZ4fHEegCs/ZueuA="
+NEXT_PUBLIC_GOOGLE_CLIENT_ID="382501836000-n085r1to6avp0dqgposmuuckerdtd959.apps.googleusercontent.com"
+NEXT_PUBLIC_GOOGLE_CLIENT_SECRET="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"
+NEXT_PUBLIC_FACEBOOK_CLIENT_ID="870179401286660"
+NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET="3356bc21b1616c47ed1d7e3000e36464"
+```
+Third, run the development server:
 
 ```bash
 npm run dev
