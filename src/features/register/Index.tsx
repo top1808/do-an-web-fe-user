@@ -11,7 +11,6 @@ import { Form, Input } from 'antd';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import React from 'react';
-import { signIn } from 'next-auth/react';
 
 type FieldType = {
 	username?: string;
@@ -23,24 +22,19 @@ const UserRegister = () => {
 	const handleRegister = async (value: FieldType) => {
 		const dataResigter = {
 			password: value.password,
-			username: value.username,
 			email: value.email,
 			name: value.username,
 		};
 		try {
 			const res = await authApi.register(dataResigter);
 			toast.success(res.data.message);
-			signIn('credentials', {
-				username: dataResigter.username,
-				password: dataResigter.password,
-			});
-			// toast.success();
+			window.location.assign('/login');
 		} catch (error: any) {
-			toast.error(error.message);
+			toast.error(error.response.data.message);
 		}
 	};
 	return (
-		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4  bg-white py-8 px-0 rounded-lg '>
+		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/3  bg-white py-8 px-0 rounded-lg '>
 			<MTitle className='text-center'>SIGN UP</MTitle>
 			<Form
 				name='basic'
@@ -55,16 +49,9 @@ const UserRegister = () => {
 				<Form.Item<FieldType>
 					label='Email'
 					name='email'
+					hasFeedback
 					labelAlign='left'
-					rules={[{ required: true, message: 'Please input your Email!' }]}
-				>
-					<Input />
-				</Form.Item>
-				<Form.Item<FieldType>
-					label='Username'
-					name='username'
-					labelAlign='left'
-					rules={[{ required: true, message: 'Please input your username!' }]}
+					rules={[{ required: true, type: 'email', message: 'Please input your Email!' }]}
 				>
 					<Input />
 				</Form.Item>
@@ -72,6 +59,7 @@ const UserRegister = () => {
 				<Form.Item<FieldType>
 					label='Password'
 					name='password'
+					hasFeedback
 					labelAlign='left'
 					rules={[{ required: true, message: 'Please input your password!' }]}
 				>
@@ -81,7 +69,22 @@ const UserRegister = () => {
 					label='Confirm Password'
 					name='confirmPassword'
 					labelAlign='left'
-					rules={[{ required: true, message: 'Please input your Confirm Password !' }]}
+					dependencies={['password']}
+					hasFeedback
+					rules={[
+						{
+							required: true,
+							message: 'Please input your confirm password!',
+						},
+						({ getFieldValue }) => ({
+							validator(_, value) {
+								if (!value || getFieldValue('password') === value) {
+									return Promise.resolve();
+								}
+								return Promise.reject(new Error('The confirm password that you entered do not match!'));
+							},
+						}),
+					]}
 				>
 					<Input.Password />
 				</Form.Item>

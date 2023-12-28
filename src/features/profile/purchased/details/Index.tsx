@@ -1,11 +1,13 @@
 'use client';
 
+import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
 import MCard from '@/components/MCard';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
+import { ORDER_STATUS } from '@/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingOrderInfo } from '@/redux/reducers/orderReducer';
 import { customMoney, formatDate } from '@/utils/FuntionHelpers';
@@ -70,6 +72,15 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 								className='text-blue-500'
 							>
 								{orderDetails?.deliveryAddress}
+							</MCol>
+						</MRow>
+						<MRow>
+							<MCol span={4}>Tình trạng đơn hàng</MCol>
+							<MCol span={20}>
+								<MBadge
+									count={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.label}
+									color={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.color}
+								></MBadge>
 							</MCol>
 						</MRow>
 					</div>
