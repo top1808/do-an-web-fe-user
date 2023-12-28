@@ -1,9 +1,9 @@
 import { Product } from '@/models/productModels';
 import Slider from 'react-slick';
-import CardProduct from './CardProduct';
+import CardProduct from '../features/home/components/CardProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import MTitle from '@/components/MTitle';
+
 interface SliderProductsProps {
 	data: Product[];
 }
@@ -40,7 +40,7 @@ const SliderProducts = (props: SliderProductsProps) => {
 	);
 	const settings = {
 		dots: false,
-		infinite: true,
+		infinite: data?.length > 6,
 		speed: 500,
 		slidesToShow: 6,
 		slidesToScroll: 4,
@@ -51,21 +51,15 @@ const SliderProducts = (props: SliderProductsProps) => {
 	};
 	return (
 		<div className='w-full'>
-			<MTitle
-				level={3}
-				className='p-2'
-			>
-				Xu hướng
-			</MTitle>
 			<Slider
 				{...settings}
 				className='w-full py-2'
 			>
 				{data &&
-					data.map((item, index) => {
+					data.map((item) => {
 						return (
 							<CardProduct
-								key={index}
+								key={item?._id}
 								data={item}
 							/>
 						);

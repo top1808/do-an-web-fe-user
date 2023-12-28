@@ -84,6 +84,7 @@ const Header = () => {
 			confirmButtonText: 'Yes',
 			cancelButtonText: 'Cancel',
 			showCancelButton: true,
+			reverseButtons: true,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				signOut();

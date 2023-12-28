@@ -12,6 +12,9 @@ const orderApi = {
 	getById(id: string) {
 		return axiosClient.get(URL + '/' + id);
 	},
+	cancelOrder(id: string) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled' });
+	},
 };
 
 export default orderApi;

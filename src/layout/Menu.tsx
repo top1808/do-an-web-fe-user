@@ -33,7 +33,7 @@ const Menu = () => {
 					>
 						<Link
 							href={item.route}
-							className={`hover:text-lime-500 ${path === item.route?.pathname ? 'text-lime-500 underline' : 'text-white'}`}
+							className={`hover:text-blue-600 ${path === item.route?.pathname ? 'text-blue-800 underline' : 'text-white'}`}
 						>
 							{item.name}
 						</Link>
