@@ -57,7 +57,8 @@ const UserLogin = () => {
 					label='Email'
 					name='email'
 					labelAlign='left'
-					rules={[{ required: true, message: 'Please input your email!' }]}
+					hasFeedback
+					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
 				>
 					<Input />
 				</Form.Item>
@@ -65,6 +66,7 @@ const UserLogin = () => {
 					label='Password'
 					name='password'
 					labelAlign='left'
+					hasFeedback
 					rules={[{ required: true, message: 'Please input your password!' }]}
 				>
 					<Input.Password />
@@ -135,12 +137,12 @@ const UserLogin = () => {
 				</MCol>
 			</MRow>
 
-			{/* <MRow
+			<MRow
 				className='mt-12'
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 items-center'>
-					<MTitle level={4}>If You Have Account ?</MTitle>
+					<MTitle level={4}>If You Dont Have Account ?</MTitle>
 					<Link
 						href={'/register'}
 						className='text-blue-600 font-bold text-xl'
@@ -148,7 +150,7 @@ const UserLogin = () => {
 						SIGN UP
 					</Link>
 				</MCol>
-			</MRow> */}
+			</MRow>
 		</div>
 	);
 };

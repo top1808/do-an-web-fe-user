@@ -8,8 +8,8 @@ const initialState: ModalState = {
 	isOpen: false,
 };
 
-const voucherSlice = createSlice({
-	name: 'voucher',
+const modalReducer = createSlice({
+	name: 'modal',
 	initialState: initialState,
 	reducers: {
 		toggleModal: (state) => {
@@ -17,5 +17,5 @@ const voucherSlice = createSlice({
 		},
 	},
 });
-export const { toggleModal } = voucherSlice.actions;
-export default voucherSlice.reducer;
+export const { toggleModal } = modalReducer.actions;
+export default modalReducer.reducer;
