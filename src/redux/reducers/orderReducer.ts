@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 interface OrderState {
-	isCancelingOrder?: boolean;
+	isChangeStatusOrder?: boolean;
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
 	data?: Order[];
@@ -12,7 +12,7 @@ interface OrderState {
 }
 
 const initialState: OrderState = {
-	isCancelingOrder: false,
+	isChangeStatusOrder: false,
 	loading: false,
 	status: 'pending',
 	data: [],
@@ -50,19 +50,32 @@ const orderSlice = createSlice({
 			action.payload && toast.error(action.payload);
 		},
 
-		cancelingOrder: (state, action: PayloadAction<string>) => {
-			state.isCancelingOrder = true;
+		cancelingOrder: (state, action: PayloadAction<{ id?: string; reason?: string }>) => {
+			state.isChangeStatusOrder = true;
 		},
 		cancelOrderSuccess: (state, action: PayloadAction<string>) => {
-			state.isCancelingOrder = false;
+			state.isChangeStatusOrder = false;
 			action.payload && toast.success('Hủy đơn hàng thành công');
 		},
 		cancelOrderFailed: (state, action: PayloadAction<string>) => {
-			state.isCancelingOrder = false;
+			state.isChangeStatusOrder = false;
+			action.payload && toast.error(action.payload);
+		},
+
+		confirmingOrder: (state, action: PayloadAction<string>) => {
+			state.isChangeStatusOrder = true;
+		},
+		confirmOrderSuccess: (state, action: PayloadAction<string>) => {
+			state.isChangeStatusOrder = false;
+			action.payload && toast.success('Xác nhận đã nhận hàng thành công');
+		},
+		confirmOrderFailed: (state, action: PayloadAction<string>) => {
+			state.isChangeStatusOrder = false;
 			action.payload && toast.error(action.payload);
 		},
 	},
 });
 
-export const { getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders, cancelOrderFailed, cancelOrderSuccess, cancelingOrder } = orderSlice.actions;
+export const { confirmOrderFailed, confirmOrderSuccess, confirmingOrder, getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders, cancelOrderFailed, cancelOrderSuccess, cancelingOrder } =
+	orderSlice.actions;
 export default orderSlice.reducer;
