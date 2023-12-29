@@ -5,9 +5,9 @@ import MButton from '@/components/MButton';
 import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { Order, OrderParams } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { cancelingOrder, gettingOrders } from '@/redux/reducers/orderReducer';
+import { cancelingOrder, confirmingOrder, gettingOrders } from '@/redux/reducers/orderReducer';
 import { customMoney } from '@/utils/FuntionHelpers';
-import { faBan, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -19,6 +19,21 @@ import Swal from 'sweetalert2';
 const Purchased = () => {
 	const { order } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+
+	const onConfirmReceived = (item: Order) => {
+		Swal.fire({
+			title: 'Confirm Received Order',
+			// text: 'Are you sure to cancel order ' + item?.orderCode + '?',
+			showCancelButton: true,
+			reverseButtons: true,
+			confirmButtonText: 'Submit',
+			cancelButtonText: 'Close',
+		}).then((res) => {
+			if (res.isConfirmed) {
+				dispatch(confirmingOrder(item._id || ''));
+			}
+		});
+	};
 
 	const onCancelOrder = (item: Order) => {
 		Swal.fire({
@@ -32,7 +47,7 @@ const Purchased = () => {
 			cancelButtonText: 'Close',
 		}).then((res) => {
 			if (res.isConfirmed) {
-				dispatch(cancelingOrder(item._id || ''));
+				dispatch(cancelingOrder({ id: item._id, reason: res.value }));
 			}
 		});
 	};
@@ -44,7 +59,7 @@ const Purchased = () => {
 			status: 'all',
 		};
 		dispatch(gettingOrders(params));
-	}, [dispatch, order.isCancelingOrder]);
+	}, [dispatch, order.isChangeStatusOrder]);
 
 	const columns: ColumnsType<Order> = [
 		{
@@ -66,6 +81,14 @@ const Purchased = () => {
 			dataIndex: 'deliveryAddress',
 			key: 'deliveryAddress',
 			width: 300,
+		},
+		{
+			title: 'Ngày đặt hàng',
+			dataIndex: 'createdAt',
+			key: 'createdAt',
+			align: 'center',
+			width: 180,
+			render: (item: string) => (item ? dayjs(item).format('DD/MM/YYYY') : 'Chưa xác định'),
 		},
 		{
 			title: 'Dự kiến giao hàng',
@@ -112,6 +135,15 @@ const Purchased = () => {
 							<FontAwesomeIcon icon={faEye} />
 						</MButton>
 					</Link>
+					{item?.status === 'delivered' && (
+						<MButton
+							title='Xác nhận đã nhận đơn hàng'
+							className='bg-green-600 text-white hover:bg-green-400'
+							onClick={() => onConfirmReceived(item)}
+						>
+							<FontAwesomeIcon icon={faCheck} />
+						</MButton>
+					)}
 					{item?.status !== 'delivered' && item?.status !== 'received' && item?.status !== 'canceled' && (
 						<MButton
 							title='Hủy đơn hàng'
