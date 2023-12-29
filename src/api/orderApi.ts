@@ -12,8 +12,11 @@ const orderApi = {
 	getById(id: string) {
 		return axiosClient.get(URL + '/' + id);
 	},
-	cancelOrder(id: string) {
-		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled' });
+	cancelOrder({ id, reason }: { id: string; reason: string }) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled', reason });
+	},
+	confirmReceivedOrder(id: string) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'received' });
 	},
 };
 

@@ -7,7 +7,6 @@ import { searchingProducts } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
-import MTitle from '@/components/MTitle';
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 

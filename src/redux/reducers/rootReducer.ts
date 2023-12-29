@@ -6,6 +6,7 @@ import cartReducer from './cartReducer';
 import orderReducer from './orderReducer';
 import voucherReducer from './voucherReducer';
 import modalReducer from './modalReducer';
+import discountProgramReducer from './discountProgramReducer';
 
 const rootReducer = combineReducers({
 	auth: authReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
 	order: orderReducer,
 	voucher: voucherReducer,
 	modal: modalReducer,
+	discountProgram: discountProgramReducer,
 });
 
 export default rootReducer;

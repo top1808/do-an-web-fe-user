@@ -33,6 +33,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		const product = {
 			...productInfor,
 			quantity: quantity,
+			price: productInfor?.promotionPrice || productInfor?.price,
 		};
 		session ? dispatch(addingItemToCart(product as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
@@ -63,8 +64,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									</MCol>
 								</MRow> */}
 							<CustomPriceProduct
-								price={productInfor?.price}
-								// sales={productInfor?.discount}
+								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
+								price={productInfor?.promotionPrice || productInfor?.price}
 							/>
 							{/* <MTitle>{`Mã sản phẩm: #${dataFake.id}`}</MTitle> */}
 							{/* <MText>{productInfor?.description}</MText> */}

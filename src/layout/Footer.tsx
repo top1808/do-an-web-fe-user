@@ -19,8 +19,8 @@ const Footer = () => {
 					<MRow>
 						<MCol span={24}>
 							<MText>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore minima, voluptatem recusandae facere consequatur eligendi repudiandae iste reprehenderit nostrum ipsa! Temporibus
-								distinctio culpa, totam ullam repudiandae laboriosam commodi quae impedit.
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore minima, voluptatem recusandae facere consequatur eligendi repudiandae iste reprehenderit nostrum ipsa! Temporibus distinctio culpa, totam ullam repudiandae
+								laboriosam commodi quae impedit.
 							</MText>
 						</MCol>
 					</MRow>
