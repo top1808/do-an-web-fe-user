@@ -1,9 +1,6 @@
-import MCol from '@/components/MCol';
-import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SliderProducts from '@/components/SliderProducts';
-import CardProduct from '@/features/home/components/CardProduct';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingProducstRelative } from '@/redux/reducers/productReducer';
 import { useParams } from 'next/navigation';

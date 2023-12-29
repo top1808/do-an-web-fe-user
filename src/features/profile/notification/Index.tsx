@@ -4,12 +4,12 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import React from 'react';
-interface NoticeProps {
-	id: string;
-	content: string;
-	time: string;
-	from: string;
-}
+// interface NoticeProps {
+// 	id: string;
+// 	content: string;
+// 	time: string;
+// 	from: string;
+// }
 const Notice = () => {
 	return (
 		<div>

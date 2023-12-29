@@ -1,7 +1,6 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import MTitle from '@/components/MTitle';
 import { customMoney } from '@/utils/FuntionHelpers';
 import React from 'react';
 

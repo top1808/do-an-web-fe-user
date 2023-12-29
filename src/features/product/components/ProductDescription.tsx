@@ -1,5 +1,4 @@
 import MText from '@/components/MText';
-import MTitle from '@/components/MTitle';
 
 import React from 'react';
 
