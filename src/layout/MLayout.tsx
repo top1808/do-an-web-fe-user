@@ -21,15 +21,7 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 				style={{ backgroundColor: '#F5F5FA' }}
 				className='px-32 pb-8 min-h-screen'
 			>
-				<Suspense
-					fallback={
-						<div className='flex items-center justify-center absolute top-0 left-0 bottom-0 right-0'>
-							<MSpin size='large'></MSpin>
-						</div>
-					}
-				>
-					{children}
-				</Suspense>
+				{children}
 			</div>
 			<Footer />
 			<FloatButton.BackTop type='primary' />

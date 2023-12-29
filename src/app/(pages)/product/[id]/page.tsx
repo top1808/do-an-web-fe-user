@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 	const productInfor: Product = await getProductInfor(params.id);
 
 	return {
-		title: productInfor?.name,
+		title: productInfor.name,
 	};
 }
 
