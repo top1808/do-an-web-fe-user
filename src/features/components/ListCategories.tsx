@@ -3,6 +3,7 @@ import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import { Category } from '@/models/categoryModels';
 import ItemCategories from '../home/components/ItemCategories';
+import CustomSlider from '@/components/CustomSlider';
 type Props = {
 	categories: Category[] | null;
 };
@@ -13,24 +14,18 @@ const ListCategories = ({ categories }: Props) => {
 				<MTitle level={2}>Danh mục</MTitle>
 			</MCol>
 			<MCol span={24}>
-				<MRow
-					gutter={[16, 16]}
-					justify={'start'}
-				>
-					{categories &&
-						categories.length > 0 &&
-						categories.map((item) => {
+				{categories && categories.length > 0 && (
+					<CustomSlider length={categories?.length}>
+						{categories.map((item) => {
 							return (
-								<MCol
-									span={4}
+								<ItemCategories
 									key={item._id}
-									className='shadow-lg'
-								>
-									<ItemCategories data={item} />
-								</MCol>
+									data={item}
+								/>
 							);
 						})}
-				</MRow>
+					</CustomSlider>
+				)}
 			</MCol>
 		</MRow>
 	);

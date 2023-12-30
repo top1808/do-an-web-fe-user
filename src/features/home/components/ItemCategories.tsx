@@ -12,10 +12,10 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 	return (
 		<Link
 			href={`/product?category=` + _id}
-			className='w-full block	'
+			className='w-full block	shadow-md p-2'
 		>
 			<MRow
-				className='w-full py-4'
+				className='w-full'
 				style={{ background: 'linear-gradient(to bottom, rgba(41,38,33,0) 0%, #FFFFFF 100%)' }}
 				justify={'center'}
 				gutter={[16, 16]}

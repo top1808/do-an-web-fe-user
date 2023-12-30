@@ -1,6 +1,6 @@
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
-import SliderProducts from '@/components/SliderProducts';
+import SliderProducts from '@/components/CustomSlider';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingProducstRelative } from '@/redux/reducers/productReducer';
 import { useParams } from 'next/navigation';
