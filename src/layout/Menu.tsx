@@ -15,10 +15,10 @@ const Menu = () => {
 			name: 'Product',
 			route: { pathname: '/product', query: { category: 'all' } },
 		},
-		{
-			name: 'Contact',
-			route: { pathname: '/contact' },
-		},
+		// {
+		// 	name: 'Contact',
+		// 	route: { pathname: '/contact' },
+		// },
 	];
 
 	const path = usePathname();
