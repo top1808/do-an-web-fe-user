@@ -67,7 +67,10 @@ const UserLogin = () => {
 					name='password'
 					labelAlign='left'
 					hasFeedback
-					rules={[{ required: true, message: 'Please input your password!' }]}
+					rules={[
+						{ required: true, message: 'Please input your password!' },
+						{ min: 6, message: 'Min length password is 6' },
+					]}
 				>
 					<Input.Password />
 				</Form.Item>
