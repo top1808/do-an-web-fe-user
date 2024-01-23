@@ -5,6 +5,12 @@ export const metadata: Metadata = {
 	description: 'Giỏ hàng của bạn. ',
 };
 const CartPage = () => {
+	// const params = useSearchParams();
+	// const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
+	// console.log(isSuccess);
+	// if(isSuccess){
+
+	// }
 	return <CartPageComponent />;
 };
 

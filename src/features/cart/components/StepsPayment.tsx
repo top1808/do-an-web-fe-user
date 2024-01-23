@@ -6,7 +6,6 @@ import { Steps, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import PaymentPage from './PaymentPage';
-import { useAppSelector } from '@/redux/hooks';
 const items = [
 	{
 		title: 'Giỏ hàng của tôi',
@@ -40,9 +39,10 @@ const items = [
 ];
 interface ChildrenProps {
 	children: React.ReactNode;
+	isFail?: boolean;
 }
-const CustomSteps: React.FC<ChildrenProps> = ({ children }) => {
-	const [current, setCurrent] = useState(0);
+const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
+	const [current, setCurrent] = useState(isFail ? 1 : 0);
 	const router = useRouter();
 	const next = () => {
 		setCurrent(current + 1);

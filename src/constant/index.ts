@@ -4,8 +4,8 @@ export const PAYMENT_METHOD = [
 		value: 'cash',
 	},
 	{
-		label: 'Momo',
-		value: 'momo',
+		label: 'VNPay',
+		value: 'vnpay',
 	},
 ];
 
