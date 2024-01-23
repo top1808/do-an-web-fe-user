@@ -28,7 +28,7 @@ const CartPageComponent = () => {
 			dataPayment.vnpayTransactionNo = searchParams.get('vnp_TransactionNo');
 			dispatch(paying(dataPayment));
 		}
-	}, [dispatch, isFail, res]);
+	}, [dispatch, isFail, res, searchParams]);
 	useEffect(() => {
 		if (cart.payingStatus === 'completed' && cart.orderInfo) {
 			Swal.fire({

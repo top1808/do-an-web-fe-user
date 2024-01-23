@@ -38,6 +38,7 @@ export interface Order {
 	voucherDiscount?: number;
 	voucherCode?: string;
 	createdAt?: Date | string;
+	vnpayTransactionNo?: number;
 }
 
 export interface OrderProduct {

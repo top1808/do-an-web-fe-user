@@ -1,7 +1,6 @@
 import { MenuItem, Product } from '@/models/productModels';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { redirect } from 'next/navigation';
 import { VNPay } from 'vnpay';
 
 export const customMoney = (money?: number) => {
@@ -50,22 +49,6 @@ export const formatDate = (date?: Date | string, format?: string) => {
 export const formatPhonenumber = (phoneNumber: string) => {
 	return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
 };
-export const sortObject = (obj: any) => {
-	const sorted: any = {};
-	const str = [];
-	let key;
-	for (key in obj) {
-		// eslint-disable-next-line no-prototype-builtins
-		if (obj.hasOwnProperty(key)) {
-			str.push(encodeURIComponent(key));
-		}
-	}
-	str.sort();
-	for (key = 0; key < str.length; key++) {
-		sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, '+');
-	}
-	return sorted;
-};
 export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {
 	const vnpay = new VNPay({
 		api_Host: 'https://sandbox.vnpayment.vn',
@@ -81,3 +64,12 @@ export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { am
 	});
 	window.location.href = urlString;
 };
+export async function getCurrentIP() {
+	try {
+		const response = await fetch('https://api.ipdata.co?api-key=7338ffcec55727b0710115329856acede60f2b3540df8e17da78be51');
+		const data = await response.json();
+		return data.ip;
+	} catch (error) {
+		return ''; // or handle the error in a way that suits your application
+	}
+}
