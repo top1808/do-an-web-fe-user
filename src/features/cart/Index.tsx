@@ -6,7 +6,7 @@ import CustomSteps from './components/StepsPayment';
 import TableCartProducts from './components/TableCartProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartEmty from './components/CartEmty';
-import { gettingCart, paying } from '@/redux/reducers/cartReducer';
+import { gettingCart, paying, setIPCustomer } from '@/redux/reducers/cartReducer';
 import Loading from '@/components/Loading';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
@@ -20,6 +20,12 @@ const CartPageComponent = () => {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(gettingCart());
+		fetch('https://ipinfo.io/json?token=58ee6c1d3e9323')
+			.then((response) => response.json())
+			.then((data) => {
+				dispatch(setIPCustomer(data.ip));
+			})
+			.catch((error) => console.error('Error fetching IP:', error));
 		if (isFail && res === '24') {
 			toast.warning('Bạn đã hủy giao dịch !');
 			localStorage.removeItem('tempDataPayement');

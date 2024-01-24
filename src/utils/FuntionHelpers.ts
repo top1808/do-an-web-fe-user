@@ -64,12 +64,3 @@ export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { am
 	});
 	window.location.href = urlString;
 };
-export async function getCurrentIP() {
-	try {
-		const response = await fetch('https://api.ipdata.co?api-key=7338ffcec55727b0710115329856acede60f2b3540df8e17da78be51');
-		const data = await response.json();
-		return data.ip;
-	} catch (error) {
-		return ''; // or handle the error in a way that suits your application
-	}
-}

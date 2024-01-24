@@ -9,6 +9,7 @@ interface CartState {
 	statusUpdate: 'pending' | 'loading' | 'completed';
 	orderInfo: Order | null;
 	payingStatus: 'pending' | 'completed' | 'failed';
+	ipCustomer: string | null;
 }
 const initialState: CartState = {
 	items: [],
@@ -17,6 +18,7 @@ const initialState: CartState = {
 	statusUpdate: 'pending',
 	orderInfo: null,
 	payingStatus: 'pending',
+	ipCustomer: null,
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -100,6 +102,9 @@ const cartReducer = createSlice({
 			state.loading = false;
 			state.payingStatus = 'failed';
 		},
+		setIPCustomer: (state, action: PayloadAction<string>) => {
+			state.ipCustomer = action.payload;
+		},
 	},
 });
 export const {
@@ -121,5 +126,6 @@ export const {
 	gettingCart,
 	getCartFailed,
 	updateCartFailed,
+	setIPCustomer,
 } = cartReducer.actions;
 export default cartReducer.reducer;

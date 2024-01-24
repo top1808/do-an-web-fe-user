@@ -46,9 +46,7 @@ const PaymentPage = () => {
 			// generate code payment
 			const date = new Date();
 			const code = date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2) + ('0' + date.getHours()).slice(-2) + ('0' + date.getMinutes()).slice(-2) + ('0' + date.getSeconds()).slice(-2);
-			// get ip customer click payment
-			// URL get IP https://ipinfo.io/json?apikey=7338ffcec55727b0710115329856acede60f2b3540df8e17da78be51
-			const ip = '14.180.197.129';
+			const ip = cart.ipCustomer!;
 			const data = {
 				amount: dataPost.totalPrice || 0,
 				code: code,
