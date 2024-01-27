@@ -19,7 +19,6 @@ const HomeUserComponent = () => {
 		dispatch(gettingCategory());
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
-
 	return (
 		<div className='w-full'>
 			<CarouselBanner />
