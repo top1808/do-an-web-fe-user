@@ -1,15 +1,14 @@
-import { Product } from '@/models/productModels';
 import Slider from 'react-slick';
-import CardProduct from '../features/home/components/CardProduct';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-interface SliderProductsProps {
-	data: Product[];
+interface SliderProps {
+	children: React.ReactNode;
+	length: number;
 }
 
-const SliderProducts = (props: SliderProductsProps) => {
-	const { data } = props;
+const CustomSlider = (props: SliderProps) => {
+	const { length, children } = props;
 	const SlickArrowLeft = ({ currentSlide, slideCount, ...props }: any) => (
 		<button
 			{...props}
@@ -40,7 +39,7 @@ const SliderProducts = (props: SliderProductsProps) => {
 	);
 	const settings = {
 		dots: false,
-		infinite: data?.length > 6,
+		infinite: length > 6,
 		speed: 500,
 		slidesToShow: 6,
 		slidesToScroll: 4,
@@ -55,18 +54,10 @@ const SliderProducts = (props: SliderProductsProps) => {
 				{...settings}
 				className='w-full py-2'
 			>
-				{data &&
-					data.map((item) => {
-						return (
-							<CardProduct
-								key={item?._id}
-								data={item}
-							/>
-						);
-					})}
+				{children}
 			</Slider>
 		</div>
 	);
 };
 
-export default SliderProducts;
+export default CustomSlider;

@@ -5,24 +5,25 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingProduct } from '@/redux/reducers/productReducer';
 import CarouselBanner from './components/CarouselBanner';
 import MSkeleton from '@/components/MSkeleton';
-import TrendingCategories from '../components/TrendingCategories';
-import SliderProducts from '../../components/SliderProducts';
 import MTitle from '@/components/MTitle';
 import { gettingDiscountPrograms } from '@/redux/reducers/discountProgramReducer';
+import ListCategories from '../components/ListCategories';
+import { gettingCategory } from '@/redux/reducers/categoryReducer';
+import CustomSlider from '../../components/CustomSlider';
+import CardProduct from './components/CardProduct';
 const HomeUserComponent = () => {
-	const { product, discountProgram } = useAppSelector((state) => state);
-
+	const { product, discountProgram, category } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-
 	useEffect(() => {
 		dispatch(gettingProduct());
+		dispatch(gettingCategory());
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
 
 	return (
 		<div className='w-full'>
 			<CarouselBanner />
-			<TrendingCategories />
+			<ListCategories categories={category.data ? category.data : null} />
 			<MSkeleton loading={discountProgram.loading}>
 				{discountProgram?.data &&
 					discountProgram?.data?.map((program) => (
@@ -33,22 +34,20 @@ const HomeUserComponent = () => {
 							>
 								{program.name}
 							</MTitle>
-							<SliderProducts data={program.products || []} />
+							{program.products && program.products.length > 0 && (
+								<CustomSlider length={program.products.length}>
+									{program.products.map((item) => (
+										<CardProduct
+											data={item}
+											key={item._id}
+										/>
+									))}
+								</CustomSlider>
+							)}
 						</div>
 					))}
 			</MSkeleton>
-
 			<MSkeleton loading={product.loading}>
-				<div>
-					<MTitle
-						level={3}
-						className='p-2'
-					>
-						Xu hướng
-					</MTitle>
-					<SliderProducts data={product.data || []} />
-				</div>
-
 				<ListProducts listProducts={product.data ? product.data : []} />
 			</MSkeleton>
 		</div>
