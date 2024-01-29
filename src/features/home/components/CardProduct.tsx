@@ -12,7 +12,10 @@ export interface CardProductProps {
 }
 const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
-		<Link href={`/product/${data._id}`}>
+		<Link
+			href={`/product/${data._id}`}
+			className='block p-2'
+		>
 			<div className='shadow-md p-2 border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
 					<MImage

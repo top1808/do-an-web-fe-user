@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingMoreNotifications, gettingNotifications } from '@/redux/reducers/notificationReducer';
 import { TableProps } from 'antd';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import React, { useEffect } from 'react';
 interface DataType {
 	_id: string;
@@ -45,11 +46,35 @@ const Notice = () => {
 	return (
 		<div>
 			<MTitle level={3}>Thông báo</MTitle>
-			<MTable
-				columns={columns}
-				dataSource={notification.data?.map((notification, index) => ({ ...notification, index: index + 1, key: notification._id }))}
-				pagination={{ hideOnSinglePage: true }}
-			/>
+			{notification?.data?.map((item) => (
+				<Link
+					href={item?.link || '/'}
+					key={item._id}
+				>
+					<MRow
+						gutter={[4, 4]}
+						align='middle'
+						className='bg-white p-2 hover:bg-slate-100'
+					>
+						{/* {item?.image && (
+								<Col
+									span={4}
+									className='flex items-center'
+								>
+									<Image
+										alt='img'
+										src={item?.image}
+										preview={false}
+									/>
+								</Col>
+							)} */}
+						<MCol span={24}>
+							<div className='text-sm'>{item?.title}</div>
+							<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
+						</MCol>
+					</MRow>
+				</Link>
+			))}
 			{(notification?.pagination?.total || 0) > 10 && notification.data?.length !== notification.pagination?.total && (
 				<MRow
 					gutter={[4, 4]}

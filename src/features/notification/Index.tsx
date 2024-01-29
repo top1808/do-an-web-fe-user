@@ -1,4 +1,6 @@
 'use client';
+import MCol from '@/components/MCol';
+import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -27,12 +29,12 @@ const NotificationPageComponent = () => {
 						href={item?.link || '/'}
 						key={item._id}
 					>
-						<Row
+						<MRow
 							gutter={[4, 4]}
 							align='middle'
 							className='bg-white p-2 hover:bg-slate-100'
 						>
-							{item?.image && (
+							{/* {item?.image && (
 								<Col
 									span={4}
 									className='flex items-center'
@@ -43,12 +45,12 @@ const NotificationPageComponent = () => {
 										preview={false}
 									/>
 								</Col>
-							)}
-							<Col span={20}>
+							)} */}
+							<MCol span={24}>
 								<div className='text-sm'>{item?.title}</div>
 								<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
-							</Col>
-						</Row>
+							</MCol>
+						</MRow>
 					</Link>
 				))}
 				{(notification?.pagination?.total || 0) > 10 && notification.data?.length !== notification.pagination?.total && (
