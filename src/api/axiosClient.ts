@@ -19,10 +19,11 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
 	async (config: AdaptAxiosRequestConfig) => {
 		const { currentUser } = store.getState().auth;
-
+		const { token } = store.getState().notification;
 		if (currentUser && currentUser.id) {
 			config.headers['userId'] = currentUser.id;
 		}
+		config.headers.messagingToken = token;
 		return config;
 	},
 	(error: AxiosError) => {

@@ -3,10 +3,10 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
@@ -16,13 +16,15 @@ import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
+import MButton from '@/components/MButton';
+import { gettingNotifications } from '@/redux/reducers/notificationReducer';
 
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
 
-	const { cart, auth } = useAppSelector((state) => state);
-
+	const { cart, auth, notification } = useAppSelector((state) => state);
+	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
@@ -103,7 +105,39 @@ const Header = () => {
 	useEffect(() => {
 		dispatch(gettingCart());
 	}, [dispatch, cart.statusUpdate]);
-
+	useEffect(() => {
+		if (notification?.data) {
+			setNotificationItems(
+				notification?.data?.length <= 0
+					? [
+							{
+								label: 'No notifications.',
+								key: 'no_notificaitons.',
+							},
+					  ]
+					: notification?.data?.map((item) => ({
+							label: (
+								<Link href={item?.link || '/'}>
+									<MRow
+										gutter={[4, 4]}
+										className='w-72'
+										align='middle'
+									>
+										<MCol span={24}>
+											<div className='text-sm'>{item?.title}</div>
+											<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
+										</MCol>
+									</MRow>
+								</Link>
+							),
+							key: item?._id || '',
+					  })),
+			);
+		}
+	}, [notification?.data]);
+	useEffect(() => {
+		dispatch(gettingNotifications({ offset: '0', limit: '10' }));
+	}, [dispatch]);
 	return (
 		<header className='px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
@@ -153,6 +187,36 @@ const Header = () => {
 									/>
 								</MBadge>
 							</Link>
+						</li>
+						<li>
+							<Dropdown
+								menu={{
+									items: [
+										...(notificationItems || []),
+										{
+											label: (
+												<Link href='/profile/notification'>
+													<div className='text-xs text-center text-blue-600'>View all</div>
+												</Link>
+											),
+											key: 'view_all',
+										},
+									],
+								}}
+								trigger={['click']}
+								placement='bottomRight'
+								// disabled={}
+							>
+								<MBadge count={notification.pagination?.total}>
+									<div className='cursor-pointer'>
+										<FontAwesomeIcon
+											icon={faBell}
+											size='xl'
+											color='white'
+										/>
+									</div>
+								</MBadge>
+							</Dropdown>
 						</li>
 						<li>
 							{!session ? (

@@ -1,21 +1,48 @@
-// Import the functions you need from the SDKs you need
+import { firebaseConfig } from '@/constant';
+import { setToken } from '@/redux/reducers/notificationReducer';
+import { store } from '@/redux/store';
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-	apiKey: 'AIzaSyB64kFtwaXYBwjh13h0YgRHKlufJsPPRHc',
-	authDomain: 'do-an-web-7e477.firebaseapp.com',
-	projectId: 'do-an-web-7e477',
-	storageBucket: 'do-an-web-7e477.appspot.com',
-	messagingSenderId: '542018707616',
-	appId: '1:542018707616:web:31bfafc0fe1e7b826629c5',
-	measurementId: 'G-D2RCS7H75K',
+import { Messaging, getMessaging, getToken, isSupported, onMessage } from 'firebase/messaging';
+const app = initializeApp(firebaseConfig);
+let messaging: Messaging;
+if (typeof window !== 'undefined') {
+	isSupported().then((value) => {
+		if (value) {
+			messaging = getMessaging(app);
+		}
+	});
+}
+export const registerServiceWorker = () => {
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.addEventListener('message', (event) => {
+			// console.log('🚀 ~ navigator.serviceWorker.addEventListener ~ event:', event);
+		});
+	}
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
+export const requestPermission = async () => {
+	try {
+		Notification.requestPermission().then((permission) => {
+			if (permission === 'granted') {
+				return getToken(messaging, {
+					vapidKey: 'BPt47f6RDk2JPyvk8mRldi8-Mz_IaGOP9YdSRE8cHFejc4hHLnfhE4ZPbpt4bGMv8pZa5ZHWVv-4TWXLZVLeKlg',
+				})
+					.then((token) => {
+						console.log(token);
+						store.dispatch(setToken(token));
+					})
+					.catch((err) => {
+						console.log('error: ' + err);
+					});
+			}
+		});
+	} catch (error) {
+		console.log('An error occurred while retrieving token. ', error);
+	}
+};
+export const onMessageListener = () =>
+	new Promise((resolve) => {
+		onMessage(messaging, (payload) => {
+			resolve(payload);
+		});
+	});

@@ -15,6 +15,7 @@ export interface DataPayment {
 	deliveryDate?: Date | string;
 	createdAt?: Date | string;
 	voucher?: ApplyVoucherInfor | null;
+	vnpayTransactionNo?: string | null;
 }
 
 export interface Order {
@@ -37,6 +38,7 @@ export interface Order {
 	voucherDiscount?: number;
 	voucherCode?: string;
 	createdAt?: Date | string;
+	vnpayTransactionNo?: number;
 }
 
 export interface OrderProduct {

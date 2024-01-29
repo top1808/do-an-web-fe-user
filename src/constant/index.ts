@@ -1,15 +1,15 @@
-export const PAYMENT_METHOD = [
+const PAYMENT_METHOD = [
 	{
 		label: 'Thanh toán khi nhận hàng',
 		value: 'cash',
 	},
 	{
-		label: 'Momo',
-		value: 'momo',
+		label: 'VNPay',
+		value: 'vnpay',
 	},
 ];
 
-export const ORDER_STATUS = [
+const ORDER_STATUS = [
 	{
 		label: 'Đang xử lý',
 		value: 'processing',
@@ -41,3 +41,13 @@ export const ORDER_STATUS = [
 		color: 'red',
 	},
 ];
+const firebaseConfig = {
+	apiKey: 'AIzaSyBMHktsUuG1kGrmjHcIoKH7ljSh3eegK4g',
+	authDomain: 'do-an-web-next.firebaseapp.com',
+	projectId: 'do-an-web-next',
+	storageBucket: 'do-an-web-next.appspot.com',
+	messagingSenderId: '481186732884',
+	appId: '1:481186732884:web:b5d5be2b2d671cbf7046c1',
+	measurementId: 'G-DXTVY1SG2B',
+};
+export { firebaseConfig, ORDER_STATUS, PAYMENT_METHOD };
