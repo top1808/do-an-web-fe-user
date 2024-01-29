@@ -10,20 +10,20 @@ import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
-import MButton from '@/components/MButton';
 import { gettingNotifications } from '@/redux/reducers/notificationReducer';
 
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
-
 	const { cart, auth, notification } = useAppSelector((state) => state);
+	const pathname = usePathname();
+
 	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
@@ -135,11 +135,15 @@ const Header = () => {
 			);
 		}
 	}, [notification?.data]);
+
 	useEffect(() => {
-		dispatch(gettingNotifications({ offset: '0', limit: '10' }));
-	}, [dispatch]);
+		if (pathname !== '/notification') {
+			dispatch(gettingNotifications({ offset: '0', limit: '10' }));
+		}
+	}, [dispatch, pathname]);
+
 	return (
-		<header className='px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
+		<header className='px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
 				justify={'space-between'}
 				className='py-2 px-6'
@@ -205,7 +209,7 @@ const Header = () => {
 								}}
 								trigger={['click']}
 								placement='bottomRight'
-								// disabled={}
+								disabled={pathname.includes('/notification')}
 							>
 								<MBadge count={notification.pagination?.total}>
 									<div className='cursor-pointer'>

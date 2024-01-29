@@ -26,13 +26,11 @@ const HomeUserComponent = () => {
 			<MSkeleton loading={discountProgram.loading}>
 				{discountProgram?.data &&
 					discountProgram?.data?.map((program) => (
-						<div key={program._id}>
-							<MTitle
-								level={3}
-								className='p-2'
-							>
-								{program.name}
-							</MTitle>
+						<div
+							key={program._id}
+							className='py-4'
+						>
+							<MTitle level={3}>{program.name}</MTitle>
 							{program.products && program.products.length > 0 && (
 								<CustomSlider length={program.products.length}>
 									{program.products.map((item) => (

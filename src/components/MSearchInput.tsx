@@ -64,6 +64,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 					htmlType='submit'
 					type='primary'
 					loading={props.loading}
+					disabled={!searchValue}
 				>
 					<FontAwesomeIcon icon={faSearch} />
 				</MButton>

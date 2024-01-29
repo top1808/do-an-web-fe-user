@@ -11,7 +11,7 @@ const ListCategories = ({ categories }: Props) => {
 	return (
 		<MRow>
 			<MCol span={24}>
-				<MTitle level={2}>Danh mục</MTitle>
+				<MTitle level={3}>Category</MTitle>
 			</MCol>
 			<MCol span={24}>
 				{categories && categories.length > 0 && (

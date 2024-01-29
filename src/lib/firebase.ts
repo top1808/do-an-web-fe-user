@@ -28,7 +28,6 @@ export const requestPermission = async () => {
 					vapidKey: 'BPt47f6RDk2JPyvk8mRldi8-Mz_IaGOP9YdSRE8cHFejc4hHLnfhE4ZPbpt4bGMv8pZa5ZHWVv-4TWXLZVLeKlg',
 				})
 					.then((token) => {
-						console.log(token);
 						store.dispatch(setToken(token));
 					})
 					.catch((err) => {
@@ -37,7 +36,7 @@ export const requestPermission = async () => {
 			}
 		});
 	} catch (error) {
-		console.log('An error occurred while retrieving token. ', error);
+		// console.log('An error occurred while retrieving token. ', error);
 	}
 };
 export const onMessageListener = () =>

@@ -5,6 +5,7 @@ import Footer from './Footer';
 import Menu from './Menu';
 import { FloatButton } from 'antd';
 import { registerServiceWorker, requestPermission } from '@/lib/firebase';
+import { onGetPusherNotification } from '@/lib/pusher';
 interface LayoutProps {
 	children?: React.ReactNode;
 }
@@ -13,12 +14,14 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 	useEffect(() => {
 		registerServiceWorker();
 		requestPermission();
+		onGetPusherNotification();
 	}, []);
+
 	return (
 		<div className='w-full '>
 			<div className='sticky top-0 z-10'>
 				<Header />
-				<Menu />
+				{/* <Menu /> */}
 			</div>
 
 			<div

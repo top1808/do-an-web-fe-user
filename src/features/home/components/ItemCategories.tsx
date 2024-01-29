@@ -12,11 +12,10 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 	return (
 		<Link
 			href={`/product?category=` + _id}
-			className='w-full block	shadow-md p-2'
+			className='w-full block p-2'
 		>
 			<MRow
-				className='w-full'
-				style={{ background: 'linear-gradient(to bottom, rgba(41,38,33,0) 0%, #FFFFFF 100%)' }}
+				className='w-full bg-white shadow-md p-2'
 				justify={'center'}
 				gutter={[16, 16]}
 			>
@@ -27,7 +26,7 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 					<MImage
 						src={image}
 						preview={false}
-						width={'25%'}
+						width={'30%'}
 						alt={name}
 						className='items-center'
 					/>
@@ -36,7 +35,7 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 					span={24}
 					className='text-center w-full h-16 opacity-90 py-4'
 				>
-					<MText className='text-black text-xl font-bold'>{name}</MText>
+					<MText className='text-black text-md font-bold'>{name}</MText>
 				</MCol>
 			</MRow>
 		</Link>

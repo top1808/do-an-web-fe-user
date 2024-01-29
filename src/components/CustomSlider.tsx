@@ -42,7 +42,7 @@ const CustomSlider = (props: SliderProps) => {
 		infinite: length > 6,
 		speed: 500,
 		slidesToShow: 6,
-		slidesToScroll: 4,
+		slidesToScroll: 3,
 		autoplay: true,
 		autoplaySpeed: 3000,
 		prevArrow: <SlickArrowLeft />,
@@ -52,7 +52,7 @@ const CustomSlider = (props: SliderProps) => {
 		<div className='w-full'>
 			<Slider
 				{...settings}
-				className='w-full py-2'
+				className='w-full'
 			>
 				{children}
 			</Slider>
