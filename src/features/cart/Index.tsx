@@ -11,6 +11,7 @@ import Loading from '@/components/Loading';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { DataPayment } from '@/models/paymentModels';
 
 const CartPageComponent = () => {
 	const { cart } = useAppSelector((state) => state);
@@ -30,8 +31,9 @@ const CartPageComponent = () => {
 			toast.warning('Bạn đã hủy giao dịch !');
 			localStorage.removeItem('tempDataPayement');
 		} else if (!isFail && res === '00') {
-			const dataPayment = JSON.parse(localStorage.getItem('tempDataPayement')!);
+			const dataPayment: DataPayment = JSON.parse(localStorage.getItem('tempDataPayement')!);
 			dataPayment.vnpayTransactionNo = searchParams.get('vnp_TransactionNo');
+			dataPayment.totalPaid = Number(searchParams.get('vnp_Amount')) / 100;
 			dispatch(paying(dataPayment));
 		}
 	}, [dispatch, isFail, res, searchParams]);
