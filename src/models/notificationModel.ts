@@ -1,4 +1,5 @@
 export interface NotificationModel {
+	createdAt: any;
 	_id?: string;
 	image?: string;
 	title?: string;
