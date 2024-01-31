@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { Dropdown, MenuProps } from 'antd';
+import { Badge, Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
 import { usePathname, useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
-import { gettingNotifications } from '@/redux/reducers/notificationReducer';
+import { gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
 
 const Header = () => {
 	const { data: session } = useSession();
@@ -117,15 +117,24 @@ const Header = () => {
 					  ]
 					: notification?.data?.map((item) => ({
 							label: (
-								<Link href={item?.link || '/'}>
+								<Link
+									href={item?.link || '/'}
+									onClick={() => dispatch(readingNotifications(item?._id || ''))}
+								>
 									<MRow
 										gutter={[4, 4]}
-										className='w-72'
+										className='w-92'
 										align='middle'
 									>
-										<MCol span={24}>
-											<div className='text-sm'>{item?.title}</div>
-											<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
+										<MCol span={2}>
+											<Badge dot={!item.isRead} />
+										</MCol>
+										<MCol
+											span={22}
+											className={`${item.isRead ? 'text-slate-400' : 'text-black'}`}
+										>
+											<div className='text-sm font-semibold'>{item?.title}</div>
+											<div className='text-xs text-ellipsis-2'>{item?.body}</div>
 										</MCol>
 									</MRow>
 								</Link>
@@ -211,12 +220,12 @@ const Header = () => {
 								placement='bottomRight'
 								disabled={pathname.includes('/notification')}
 							>
-								<MBadge count={notification.pagination?.total}>
+								<MBadge count={notification.pagination?.totalNew}>
 									<div className='cursor-pointer'>
 										<FontAwesomeIcon
 											icon={faBell}
 											size='xl'
-											color='white'
+											className='text-white hover:text-gray-200'
 										/>
 									</div>
 								</MBadge>

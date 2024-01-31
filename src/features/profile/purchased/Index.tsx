@@ -6,7 +6,7 @@ import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { Order, OrderParams } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { cancelingOrder, confirmingOrder, gettingOrders } from '@/redux/reducers/orderReducer';
-import { customMoney } from '@/utils/FuntionHelpers';
+import { customMoney } from '@/utils/FunctionHelpers';
 import { faBan, faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table } from 'antd';

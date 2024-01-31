@@ -13,7 +13,7 @@ import { Product } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
-import { handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FuntionHelpers';
+import { handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
 import EvaluateProduct from '../components/EvaluateProduct';
 import ProductDescription from '../components/ProductDescription';

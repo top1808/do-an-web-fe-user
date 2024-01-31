@@ -4,8 +4,8 @@ import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingMoreNotifications, gettingNotifications } from '@/redux/reducers/notificationReducer';
-import { Button, Col, Image, Row } from 'antd';
+import { gettingMoreNotifications, gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
+import { Badge, Button, Col, Image, Row } from 'antd';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 const NotificationPageComponent = () => {
@@ -27,6 +27,7 @@ const NotificationPageComponent = () => {
 				{notification?.data?.map((item) => (
 					<Link
 						href={item?.link || '/'}
+						onClick={() => dispatch(readingNotifications(item?._id || ''))}
 						key={item._id}
 					>
 						<MRow
@@ -34,21 +35,15 @@ const NotificationPageComponent = () => {
 							align='middle'
 							className='bg-white p-2 hover:bg-slate-100'
 						>
-							{/* {item?.image && (
-								<Col
-									span={4}
-									className='flex items-center'
-								>
-									<Image
-										alt='img'
-										src={item?.image}
-										preview={false}
-									/>
-								</Col>
-							)} */}
-							<MCol span={24}>
-								<div className='text-sm'>{item?.title}</div>
-								<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
+							<MCol span={2}>
+								<Badge dot={!item.isRead} />
+							</MCol>
+							<MCol
+								span={22}
+								className={`${item.isRead ? 'text-slate-400' : 'text-black'}`}
+							>
+								<div className='text-sm font-semibold'>{item?.title}</div>
+								<div className='text-xs text-ellipsis-2'>{item?.body}</div>
 							</MCol>
 						</MRow>
 					</Link>

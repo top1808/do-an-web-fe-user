@@ -31,7 +31,7 @@ export const requestPermission = async () => {
 						store.dispatch(setToken(token));
 					})
 					.catch((err) => {
-						console.log('error: ' + err);
+						// console.log('error: ' + err);
 					});
 			}
 		});

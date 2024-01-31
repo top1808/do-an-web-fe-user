@@ -7,6 +7,7 @@ import MRow from '@/components/MRow';
 import { FormChangeInfor } from '@/models/authModel';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changingInfor } from '@/redux/reducers/authReducer';
+import { checkPhoneNumber } from '@/utils/FunctionHelpers';
 import { Form } from 'antd';
 import React from 'react';
 
@@ -21,7 +22,7 @@ const InforUser = () => {
 
 	return (
 		<Form
-			initialValues={{ name: currentUserInfo?.name, phoneNumber: currentUserInfo?.phoneNumber, address: currentUserInfo?.address, image: currentUserInfo?.image }}
+			initialValues={{ name: currentUserInfo?.name, email: currentUserInfo?.email, phoneNumber: currentUserInfo?.phoneNumber, address: currentUserInfo?.address, image: currentUserInfo?.image }}
 			onFinish={onSubmit}
 			labelCol={{ span: 4 }}
 			wrapperCol={{ span: 20 }}
@@ -37,7 +38,7 @@ const InforUser = () => {
 							<MRow
 								justify={'start'}
 								align={'middle'}
-								className='font-bold'
+								className='font-bold mb-2'
 							>
 								<MCol
 									span={4}
@@ -55,20 +56,16 @@ const InforUser = () => {
 							<MRow
 								justify={'start'}
 								align={'middle'}
-								className='font-bold my-3'
+								className='font-bold'
 							>
-								<MCol
-									span={4}
-									className='text-end'
+								<Form.Item
+									name='email'
+									label='Email'
+									className='w-full'
+									rules={[{ type: 'email', message: 'Email is invalid.' }]}
 								>
-									Email: &nbsp;
-								</MCol>
-								<MCol
-									span={20}
-									className='text-blue-600'
-								>
-									{currentUserInfo?.email}
-								</MCol>
+									<MInput placeholder='Enter your email' />
+								</Form.Item>
 							</MRow>
 							<MRow
 								justify={'start'}
@@ -92,6 +89,7 @@ const InforUser = () => {
 									name='phoneNumber'
 									label='Phone Number'
 									className='w-full'
+									rules={[{ validator: (_, value) => checkPhoneNumber(value) }]}
 								>
 									<MInput placeholder='Enter your phone number' />
 								</Form.Item>

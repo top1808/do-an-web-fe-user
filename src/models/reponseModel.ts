@@ -9,6 +9,7 @@ interface PaginationModel {
 	offset?: number;
 	limit?: number;
 	total?: number;
+	totalNew?: number;
 }
 
 export type { ReponseDeleteSuccess, PaginationModel };

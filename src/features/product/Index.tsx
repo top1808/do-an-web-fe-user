@@ -9,7 +9,7 @@ import MTitle from '@/components/MTitle';
 import { PaginationModel } from '@/models/reponseModel';
 import MPagination from '@/components/MPagination';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { objectToQueryString } from '@/utils/FuntionHelpers';
+import { objectToQueryString } from '@/utils/FunctionHelpers';
 
 interface ProductsComponentProps {
 	products?: Product[];

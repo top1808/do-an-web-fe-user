@@ -7,10 +7,10 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
-import { ORDER_STATUS } from '@/constant';
+import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingOrderInfo } from '@/redux/reducers/orderReducer';
-import { customMoney, formatDate } from '@/utils/FuntionHelpers';
+import { customMoney, formatDate } from '@/utils/FunctionHelpers';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -83,14 +83,13 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 								></MBadge>
 							</MCol>
 						</MRow>
-						{}
 						<MRow>
 							<MCol span={8}>Hình thức thanh toán</MCol>
 							<MCol
 								span={16}
 								className='text-blue-500'
 							>
-								{orderDetails?.paymentMethod}
+								{PAYMENT_METHOD.find((p) => p.value === orderDetails?.paymentMethod)?.label}
 							</MCol>
 						</MRow>
 					</div>

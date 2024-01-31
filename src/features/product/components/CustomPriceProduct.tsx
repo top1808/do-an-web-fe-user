@@ -1,7 +1,7 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import { customMoney } from '@/utils/FuntionHelpers';
+import { customMoney } from '@/utils/FunctionHelpers';
 import React from 'react';
 
 const CustomPriceProduct = ({ oldPrice, price = 0, discount }: { oldPrice?: number | null; price?: number; discount?: number | null }) => {
