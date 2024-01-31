@@ -2,7 +2,7 @@ import MButton from '@/components/MButton';
 import MImage from '@/components/MImage';
 import MText from '@/components/MText';
 import { Product } from '@/models/productModels';
-import { customMoney } from '@/utils/FuntionHelpers';
+import { customMoney } from '@/utils/FunctionHelpers';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';

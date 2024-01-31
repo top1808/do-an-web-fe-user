@@ -3,7 +3,7 @@ import MRow from '@/components/MRow';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { applyingVoucher, gettingVouchers } from '@/redux/reducers/voucherReducer';
-import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { Modal, ModalProps } from 'antd';
 import React, { useEffect, useState } from 'react';
 

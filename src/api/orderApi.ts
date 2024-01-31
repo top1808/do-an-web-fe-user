@@ -1,4 +1,4 @@
-import { objectToQueryString } from '@/utils/FuntionHelpers';
+import { objectToQueryString } from '@/utils/FunctionHelpers';
 import axiosClient from './axiosClient';
 import { OrderParams } from '@/models/paymentModels';
 

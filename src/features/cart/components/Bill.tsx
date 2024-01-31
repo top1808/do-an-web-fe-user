@@ -7,7 +7,7 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { Bill } from '@/models/billModels';
 import { Product } from '@/models/productModels';
-import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { ColumnsType } from 'antd/es/table';
 import React from 'react';
 // const fakeBill: Bill = {

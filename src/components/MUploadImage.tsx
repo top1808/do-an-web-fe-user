@@ -40,7 +40,7 @@ const MUploadImage: React.FC<MUploadImageProps> = ({ onUploadSuccess, image, ...
 				{imageLocal && (
 					<Image
 						src={imageLocal}
-						alt='123'
+						alt='avatar'
 						width={144}
 						height={140}
 						style={{ objectFit: 'contain' }}

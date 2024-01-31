@@ -7,7 +7,7 @@ import MText from '@/components/MText';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
-import { customMoney } from '@/utils/FuntionHelpers';
+import { customMoney } from '@/utils/FunctionHelpers';
 import React, { useState } from 'react';
 
 interface CartItemProps {

@@ -5,8 +5,8 @@ import MRow from '@/components/MRow';
 import MTable from '@/components/MTable';
 import MTitle from '@/components/MTitle';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingMoreNotifications, gettingNotifications } from '@/redux/reducers/notificationReducer';
-import { TableProps } from 'antd';
+import { gettingMoreNotifications, gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
+import { Badge, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -35,42 +35,37 @@ const columns: TableProps<DataType>['columns'] = [
 ];
 const Notice = () => {
 	const { notification } = useAppSelector((state) => state);
-	const disptach = useAppDispatch();
+	const dispatch = useAppDispatch();
 
 	const onViewMore = () => {
-		disptach(gettingMoreNotifications({ offset: ((notification.pagination?.limit || 0) + (notification.pagination?.offset || 0)).toString(), limit: '10' }));
+		dispatch(gettingMoreNotifications({ offset: ((notification.pagination?.limit || 0) + (notification.pagination?.offset || 0)).toString(), limit: '10' }));
 	};
 	useEffect(() => {
-		disptach(gettingNotifications({ limit: '10', offset: '0' }));
-	}, [disptach]);
+		dispatch(gettingNotifications({ limit: '10', offset: '0' }));
+	}, [dispatch]);
 	return (
 		<div>
-			<MTitle level={3}>Thông báo</MTitle>
+			<MTitle level={3}>Notifications</MTitle>
 			{notification?.data?.map((item) => (
 				<Link
 					href={item?.link || '/'}
 					key={item._id}
+					onClick={() => dispatch(readingNotifications(item?._id || ''))}
 				>
 					<MRow
 						gutter={[4, 4]}
 						align='middle'
 						className='bg-white p-2 hover:bg-slate-100'
 					>
-						{/* {item?.image && (
-								<Col
-									span={4}
-									className='flex items-center'
-								>
-									<Image
-										alt='img'
-										src={item?.image}
-										preview={false}
-									/>
-								</Col>
-							)} */}
-						<MCol span={24}>
-							<div className='text-sm'>{item?.title}</div>
-							<div className='text-xs text-gray-500 text-ellipsis-2'>{item?.body}</div>
+						<MCol span={2}>
+							<Badge dot={!item.isRead} />
+						</MCol>
+						<MCol
+							span={22}
+							className={`${item.isRead ? 'text-slate-400' : 'text-black'}`}
+						>
+							<div className='text-sm font-semibold'>{item?.title}</div>
+							<div className='text-xs text-ellipsis-2'>{item?.body}</div>
 						</MCol>
 					</MRow>
 				</Link>

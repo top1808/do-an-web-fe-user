@@ -10,7 +10,7 @@ import { DataPayment } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { paying } from '@/redux/reducers/cartReducer';
 import { toggleModal } from '@/redux/reducers/modalReducer';
-import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 

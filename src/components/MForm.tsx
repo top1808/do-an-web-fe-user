@@ -61,7 +61,7 @@ const MFormUploadImage: React.FC<MFormUploadImageProps> = (props) => {
 							src={image}
 							alt='avatar'
 							preview={false}
-							style={{ width: '100%', height: '100%' }}
+							style={{ width: 100, height: 100, objectFit: 'cover' }}
 						/>
 					) : (
 						children

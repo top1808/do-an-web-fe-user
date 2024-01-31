@@ -4,7 +4,7 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import React, { useEffect, useState } from 'react';
 import MTitle from '@/components/MTitle';
-import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
