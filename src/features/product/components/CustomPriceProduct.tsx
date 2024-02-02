@@ -6,7 +6,7 @@ import React from 'react';
 
 const CustomPriceProduct = ({ oldPrice, price = 0, discount }: { oldPrice?: number | null; price?: number; discount?: number | null }) => {
 	return (
-		<div className='bg-slate-100 p-2 '>
+		<div className='bg-white p-2'>
 			<MRow
 				gutter={16}
 				align={'middle'}

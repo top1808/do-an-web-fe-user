@@ -40,7 +40,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 
 	return (
 		<>
-			<div className='p-8 shadow-md'>
+			<div className='p-8 shadow-md bg-white'>
 				<MRow gutter={12}>
 					<MCol span={8}>
 						<Image
@@ -67,8 +67,6 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
 								price={productInfor?.promotionPrice || productInfor?.price}
 							/>
-							{/* <MTitle>{`Mã sản phẩm: #${dataFake.id}`}</MTitle> */}
-							{/* <MText>{productInfor?.description}</MText> */}
 							<div className='pt-4'>
 								<MTitle level={3}>Số lượng</MTitle>
 								<InputNumber
