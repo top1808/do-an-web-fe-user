@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import Menu from './Menu';
 import { FloatButton } from 'antd';
 import { registerServiceWorker, requestPermission } from '@/lib/firebase';
 import { onGetPusherNotification } from '@/lib/pusher';
@@ -21,7 +20,6 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 		<div className='w-full '>
 			<div className='sticky top-0 z-10'>
 				<Header />
-				{/* <Menu /> */}
 			</div>
 
 			<div

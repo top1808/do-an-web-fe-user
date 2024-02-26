@@ -58,6 +58,10 @@ export const checkPhoneNumber = (phoneNumber: string) => {
 	return Promise.resolve();
 };
 
+export const getProductPrice = (product: Product) => {
+	return (product?.groupOptions?.length || 0) > 0 ? (product?.minPrice !== product?.maxPrice ? `${customMoney(product?.minPrice)} - ${customMoney(product?.maxPrice)}` : customMoney(product?.minPrice)) : customMoney(product?.price);
+};
+
 export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {
 	const vnpay = new VNPay({
 		api_Host: 'https://sandbox.vnpayment.vn',

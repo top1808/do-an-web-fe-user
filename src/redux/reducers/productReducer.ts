@@ -9,6 +9,8 @@ interface ProductState {
 	productsRelative: Product[];
 	productsSearch: Product[];
 	isSearching: boolean;
+	mainImage?: string;
+	options?: string[];
 }
 
 const initialState: ProductState = {
@@ -19,6 +21,8 @@ const initialState: ProductState = {
 	productsRelative: [],
 	productsSearch: [],
 	isSearching: false,
+	mainImage: '',
+	options: ['', ''],
 };
 
 const ProductSlice = createSlice({
@@ -76,6 +80,19 @@ const ProductSlice = createSlice({
 			state.isSearching = false;
 			action.payload && toast.error(action.payload);
 		},
+
+		changeMainImage: (state, action: PayloadAction<string>) => {
+			state.mainImage = action.payload;
+		},
+
+		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
+			state.options = state.options?.map((item, i) => {
+				if (i === action.payload.index) {
+					return action.payload.option;
+				}
+				return item;
+			});
+		},
 	},
 });
 export const {
@@ -91,5 +108,7 @@ export const {
 	searchProductsFailed,
 	searchProductsSuccess,
 	searchingProducts,
+	changeMainImage,
+	selectOption,
 } = ProductSlice.actions;
 export default ProductSlice.reducer;
