@@ -4,7 +4,7 @@ import MText from '@/components/MText';
 import { customMoney } from '@/utils/FunctionHelpers';
 import React from 'react';
 
-const CustomPriceProduct = ({ oldPrice, price = 0, discount }: { oldPrice?: number | null; price?: number; discount?: number | null }) => {
+const CustomPriceProduct = ({ oldPrice, price = 0, discount }: { oldPrice?: number | null; price?: string | number; discount?: number | null }) => {
 	return (
 		<div className='bg-white p-2'>
 			<MRow
@@ -17,7 +17,7 @@ const CustomPriceProduct = ({ oldPrice, price = 0, discount }: { oldPrice?: numb
 					</MCol>
 				)}
 				<MCol>
-					<MText className='text-xl font-bold text-red-500'>{customMoney(price)}</MText>
+					<MText className='text-xl font-bold text-red-500'>{price}</MText>
 				</MCol>
 				{!!discount && (
 					<MCol>

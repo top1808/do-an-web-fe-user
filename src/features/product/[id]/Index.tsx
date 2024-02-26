@@ -7,46 +7,62 @@ import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image, InputNumber, Rate } from 'antd';
-import React, { useState } from 'react';
-import { useAppDispatch } from '@/redux/hooks';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
-import { handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FunctionHelpers';
+import { customMoney, getProductPrice, handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
 import EvaluateProduct from '../components/EvaluateProduct';
 import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
+import ProductImageWrap from '../components/ProductImageWrap';
+import ProductOptions from '../components/ProductOptions';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
 
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
+	const product = useAppSelector((state) => state.product);
+
 	const { data: session } = useSession();
 
 	const dispatch = useAppDispatch();
 	const [quantity, setQuantity] = useState<number>(1);
+	const [price, setPrice] = useState<number>(0);
+	const [productSKU, setProductSKU] = useState<Product | null>(null);
 
 	function handleAddToCart() {
-		const product = {
-			...productInfor,
+		const data = {
+			...productSKU,
+			productId: productInfor?._id,
 			quantity: quantity,
-			price: productInfor?.promotionPrice || productInfor?.price,
+			price: price,
 		};
-		session ? dispatch(addingItemToCart(product as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
+
+		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
+
+	useEffect(() => {
+		const findProductSKU = productInfor?.productSKUList?.find((item) => item.option1 === product?.options?.[0] && item.option2 === product?.options?.[1]);
+		if (findProductSKU) {
+			setProductSKU(findProductSKU);
+			setPrice(findProductSKU?.price || 0);
+		} else {
+			setProductSKU(null);
+			setPrice(0);
+		}
+	}, [product?.options, productInfor?.productSKUList]);
 
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
 				<MRow gutter={12}>
 					<MCol span={8}>
-						<Image
-							src={productInfor?.image}
-							alt={productInfor?.name}
-						/>
+						<ProductImageWrap images={productInfor?.images || []} />
 					</MCol>
 					<MCol
 						span={16}
@@ -65,8 +81,9 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								</MRow> */}
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
-								price={productInfor?.promotionPrice || productInfor?.price}
+								price={price ? customMoney(price) : getProductPrice(productInfor as Product)}
 							/>
+							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>
 								<MTitle level={3}>Số lượng</MTitle>
 								<InputNumber
@@ -85,6 +102,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<MButton
 								className='bg-green-600 hover:bg-green-300 text-white'
 								onClick={handleAddToCart}
+								disabled={(productInfor?.groupOptions?.length || 0) > 0 && !productSKU}
 							>
 								<FontAwesomeIcon icon={faCartShopping} />
 								&nbsp; Thêm vào giỏ hàng
