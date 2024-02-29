@@ -54,7 +54,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		>
 			<MCol
 				className='text-center py-2'
-				span={3}
+				lg={3}
+				xs={8}
 			>
 				<MImage
 					preview={false}
@@ -63,54 +64,70 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 					height={60}
 				/>
 			</MCol>
-			<MCol span={9}>
-				<MText>{item?.product?.name}</MText>
-				<div>
-					{item?.product?.groupOptions?.map((group, index) => (
-						<div key={group?.groupName}>
-							<p className='text-gray-500'>
-								{group?.groupName}: {index === 0 ? item?.productSKU?.option1 : item?.productSKU?.option2}
-							</p>
-						</div>
-					))}
-				</div>
-			</MCol>
 			<MCol
+				xs={16}
+				lg={21}
+			>
+				<MRow className='w-full'>
+					<MCol
+						xs={24}
+						lg={10}
+					>
+						<MText>{item?.product?.name}</MText>
+						<div>
+							{item?.product?.groupOptions?.map((group, index) => (
+								<div key={group?.groupName}>
+									<p className='text-gray-500'>
+										{group?.groupName}: {index === 0 ? item?.productSKU?.option1 : item?.productSKU?.option2}
+									</p>
+								</div>
+							))}
+						</div>
+					</MCol>
+					<MCol
+						xs={24}
+						lg={4}
+					>
+						<MText>{`${customMoney(item?.price || 0)}`}</MText>
+					</MCol>
+					<MCol
+						xs={12}
+						lg={4}
+					>
+						<MInputQuantity
+							value={quantity}
+							onClickMinus={() => onChangeQuantity(quantity - 1)}
+							onClickPlus={() => onChangeQuantity(quantity + 1)}
+							onChange={(value) => {
+								setQuantity((value as number) || 1);
+							}}
+							onBlur={() => callApiUpdate(quantity)}
+							disabled={cart.statusUpdate === 'loading'}
+						/>
+					</MCol>
+					<MCol
+						xs={0}
+						lg={4}
+					>
+						<MText>{`${customMoney((item?.price || 0) * (item?.quantity || 0))}`}</MText>
+					</MCol>
+					<MCol
+						xs={12}
+						lg={2}
+					>
+						<MButtonDelete
+							title={`Xóa sản phẩm ${item?.product?.name}? `}
+							onConfirm={() => dispatch(removingItemToCart(item?._id as string))}
+						></MButtonDelete>
+					</MCol>
+				</MRow>
+			</MCol>
+			{/* <MCol
 				className='text-end'
-				span={3}
+				lg={3}
 			>
 				<MText>{`${customMoney(item?.price || 0)}`}</MText>
-			</MCol>
-			<MCol
-				className='flex justify-center'
-				span={3}
-			>
-				<MInputQuantity
-					value={quantity}
-					onClickMinus={() => onChangeQuantity(quantity - 1)}
-					onClickPlus={() => onChangeQuantity(quantity + 1)}
-					onChange={(value) => {
-						setQuantity((value as number) || 1);
-					}}
-					onBlur={() => callApiUpdate(quantity)}
-					disabled={cart.statusUpdate === 'loading'}
-				/>
-			</MCol>
-			<MCol
-				className='text-end'
-				span={4}
-			>
-				<MText>{`${customMoney((item?.price || 0) * (item?.quantity || 0))}`}</MText>
-			</MCol>
-			<MCol
-				span={2}
-				className='text-end'
-			>
-				<MButtonDelete
-					title={`Xóa sản phẩm ${item?.product?.name}? `}
-					onConfirm={() => dispatch(removingItemToCart(item?._id as string))}
-				></MButtonDelete>
-			</MCol>
+			</MCol> */}
 		</MRow>
 	);
 };

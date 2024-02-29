@@ -111,7 +111,8 @@ const PaymentPage = () => {
 			>
 				<MRow justify='space-between'>
 					<MCol
-						span={7}
+						xs={24}
+						md={7}
 						className='shadow-md'
 					>
 						<MTitle
@@ -151,7 +152,8 @@ const PaymentPage = () => {
 					</MCol>
 
 					<MCol
-						span={9}
+						md={9}
+						xs={24}
 						className='flex flex-col justify-between shadow-md'
 					>
 						<div>
@@ -202,7 +204,8 @@ const PaymentPage = () => {
 					</MCol>
 
 					<MCol
-						span={7}
+						xs={24}
+						md={7}
 						className='shadow-md'
 					>
 						<MTitle

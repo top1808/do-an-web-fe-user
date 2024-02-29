@@ -17,7 +17,7 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<div className='h-screen w-screen overflow-hidden layout-login relative'>
-			<div className='absolute top-6 left-6'>
+			<div className='absolute md:top-6 md:left-6 top-0 left-0'>
 				<MButton
 					link='/'
 					type='link'

@@ -2,11 +2,10 @@
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Image, InputNumber, Rate } from 'antd';
+import { InputNumber } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
@@ -15,7 +14,6 @@ import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { customMoney, getProductPrice, handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
-import EvaluateProduct from '../components/EvaluateProduct';
 import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
@@ -61,24 +59,19 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		<>
 			<div className='p-8 shadow-md bg-white'>
 				<MRow gutter={12}>
-					<MCol span={8}>
+					<MCol
+						lg={8}
+						xs={24}
+					>
 						<ProductImageWrap images={productInfor?.images || []} />
 					</MCol>
 					<MCol
-						span={16}
+						lg={16}
+						xs={24}
 						className='flex flex-col justify-between'
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
-							{/* <MRow>
-									<MCol className='flex items-center'>
-										<MTitle level={4}>{dataFake.rating}</MTitle>
-										<Rate
-											disabled
-											defaultValue={dataFake.rating}
-										/>
-									</MCol>
-								</MRow> */}
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
 								price={price ? customMoney(price) : getProductPrice(productInfor as Product)}
@@ -98,7 +91,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								/>
 							</div>
 						</div>
-						<div className='flex gap-4 pt-4'>
+						<div className='flex gap-4 pt-4 w-full lg:w-auto'>
 							<MButton
 								className='bg-green-600 hover:bg-green-300 text-white'
 								onClick={handleAddToCart}
@@ -107,19 +100,18 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								<FontAwesomeIcon icon={faCartShopping} />
 								&nbsp; Thêm vào giỏ hàng
 							</MButton>
-							{/* <MButton
-									className='bg-red-400 text-white'
-									onClick={() => {}}
-								>
-									<FontAwesomeIcon icon={faCheck} />
-									&nbsp; Mua ngay
-								</MButton> */}
+							<MButton
+								className='bg-red-400 text-white'
+								onClick={() => {}}
+							>
+								<FontAwesomeIcon icon={faCheck} />
+								&nbsp; Mua ngay
+							</MButton>
 						</div>
 					</MCol>
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			{/* <EvaluateProduct /> */}
 			<ProductRelative />
 		</>
 	);

@@ -8,6 +8,7 @@ import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
+import { Col } from 'antd';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const { cart } = useAppSelector((state) => state);
@@ -22,34 +23,32 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 
 	return (
 		<>
-			<MRow className='bg-gray-300 font-bold py-2 px-2'>
-				<MCol
-					className='text-center'
-					span={3}
-				></MCol>
-				<MCol span={9}>
-					<MText>Tên sản phẩm</MText>
-				</MCol>
-				<MCol
-					className='text-end'
-					span={3}
-				>
-					<MText>Giá</MText>
-				</MCol>
-				<MCol
-					className='text-center'
-					span={3}
-				>
-					<MText>Số lượng</MText>
-				</MCol>
-				<MCol
-					className='text-end'
-					span={4}
-				>
-					<MText>Thành tiền</MText>
-				</MCol>
-				<MCol span={2}></MCol>
-			</MRow>
+			<div className='hidden lg:block'>
+				<MRow className='bg-gray-300 font-bold py-2 px-2 '>
+					<MCol
+						className='text-center'
+						span={3}
+					></MCol>
+					<Col span={21}>
+						<MRow className='w-full'>
+							<MCol span={10}>
+								<MText>Tên sản phẩm</MText>
+							</MCol>
+							<MCol span={4}>
+								<MText>Giá</MText>
+							</MCol>
+							<MCol span={4}>
+								<MText>Số lượng</MText>
+							</MCol>
+							<MCol span={4}>
+								<MText>Thành tiền</MText>
+							</MCol>
+							<MCol span={2}></MCol>
+						</MRow>
+					</Col>
+				</MRow>
+			</div>
+
 			{data.map((item, index: number) => {
 				return (
 					<CartItem

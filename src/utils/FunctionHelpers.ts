@@ -11,7 +11,7 @@ export const customMoney = (money?: number) => {
 	});
 };
 
-export function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
+export function getItem(label?: React.ReactNode, key?: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
 	return {
 		key,
 		icon,
@@ -59,7 +59,11 @@ export const checkPhoneNumber = (phoneNumber: string) => {
 };
 
 export const getProductPrice = (product: Product) => {
-	return (product?.groupOptions?.length || 0) > 0 ? (product?.minPrice !== product?.maxPrice ? `${customMoney(product?.minPrice)} - ${customMoney(product?.maxPrice)}` : customMoney(product?.minPrice)) : customMoney(product?.price);
+	return (product?.groupOptions?.length || 0) > 0
+		? product?.minPrice !== product?.maxPrice
+			? `${customMoney(product?.minPrice)} - ${customMoney(product?.maxPrice)}`
+			: customMoney(product?.minPrice)
+		: customMoney(product?.price);
 };
 
 export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {

@@ -1,10 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import MTitle from '@/components/MTitle';
 import { FormLogin } from '@/models/authModel';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
@@ -41,10 +41,10 @@ const UserLogin = () => {
 	}, [error]);
 
 	return (
-		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/4 bg-white py-8 px-4 rounded-lg '>
-			<MTitle className='text-center'>Login</MTitle>
+		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
+			<h1 className='text-center text-white md:text-black'>Login</h1>
 			<Form
-				name='basic'
+				name='login'
 				initialValues={{ remember: true }}
 				onFinish={handleClickLogin}
 				onFinishFailed={() => {}}
@@ -54,7 +54,7 @@ const UserLogin = () => {
 				wrapperCol={{ span: 16 }}
 			>
 				<Form.Item<FieldType>
-					label='Email'
+					label={<label className='text-white md:text-black'>Email</label>}
 					name='email'
 					labelAlign='left'
 					hasFeedback
@@ -63,7 +63,7 @@ const UserLogin = () => {
 					<Input />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label='Password'
+					label={<label className='text-white md:text-black'>Password</label>}
 					name='password'
 					labelAlign='left'
 					hasFeedback
@@ -77,18 +77,12 @@ const UserLogin = () => {
 				<Form.Item<FieldType>
 					name='remember'
 					valuePropName='checked'
-					// label={
-					// 	<Link
-					// 		href={'/'}
-					// 		className='text-blue-600 leading-8'
-					// 	>
-					// 		Forgot password?
-					// 	</Link>
-					// }
 					className='text-end'
-					wrapperCol={{ offset: 7, span: 17 }}
+					wrapperCol={{ md: { offset: 7, span: 17 }, xs: { offset: 7, span: 17 } }}
 				>
-					<MCheckbox>Remember me</MCheckbox>
+					<MCheckbox>
+						<span className='text-white md:text-black'>Remember me</span>
+					</MCheckbox>
 				</Form.Item>
 				<Form.Item<FieldType> className='flex justify-center'>
 					<MButton
@@ -100,12 +94,7 @@ const UserLogin = () => {
 					</MButton>
 				</Form.Item>
 			</Form>
-			<MTitle
-				level={4}
-				className='text-center'
-			>
-				Or Sign In Using
-			</MTitle>
+			<h2 className='text-center text-white md:text-black'>Or Sign In Using</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
@@ -145,10 +134,10 @@ const UserLogin = () => {
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 items-center'>
-					<MTitle level={4}>If You Dont Have Account ?</MTitle>
+					<h2 className='text-white md:text-black'>If You Don't Have Account ?</h2>
 					<Link
 						href={'/register'}
-						className='text-blue-600 font-bold text-xl'
+						className='text-blue-200 md:text-blue-600 font-bold text-xl'
 					>
 						SIGN UP
 					</Link>

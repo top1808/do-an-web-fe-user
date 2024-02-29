@@ -11,7 +11,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data }) => {
 	return (
 		<Link
 			href={`/product/${data._id}`}
-			className='block p-2'
+			className='block'
 		>
 			<div className='shadow-md p-2 bg-white border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>

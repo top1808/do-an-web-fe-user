@@ -60,6 +60,24 @@ const Header = () => {
 			key: '1',
 		},
 		{
+			label: (
+				<div className=' xl:hidden'>
+					<Link
+						href='/profile/notification'
+						className='flex items-center gap-2  '
+						onClick={() => router.push('/profile/notification')}
+					>
+						<FontAwesomeIcon
+							icon={faBell}
+							color='black'
+						/>
+						Thông báo
+					</Link>
+				</div>
+			),
+			key: '2',
+		},
+		{
 			type: 'divider',
 		},
 		{
@@ -152,40 +170,38 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500'>
+		<header className='py-2 md:px-8  xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
 				justify={'space-between'}
-				className='py-2 px-6'
+				className='w-screen px-2 xl:px-4'
 			>
 				<MCol
-					xs={24}
-					xl={4}
-					className='max-sm:w-36 sm:w-36 md:w-36 lg:w-40 xl:w-60 2xl:w-80'
+					xs={2}
+					md={4}
 				>
 					<Link
 						href={'/'}
-						className='text-4xl font-bold flex items-center text-gradien text-white hover:text-gray-200'
+						className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:text-gray-200  justify-center h-full'
 					>
 						<FontAwesomeIcon icon={faHatCowboy} />
-						T&T
+						<span className='hidden md:block'>T&T</span>
 					</Link>
 				</MCol>
 				<MCol
-					xs={8}
-					xl={8}
+					xs={14}
+					md={12}
 				>
 					<MSearchInput />
 				</MCol>
 				<MCol
-					xs={12}
-					xl={8}
-					className='max-sm:mt-2 2xl:0'
+					xs={8}
+					md={8}
 				>
-					<ul className='flex gap-12 h-full text-lg items-center w-full justify-end'>
+					<ul className='flex justify-center gap-4 h-full text-lg items-center w-full md:gap-8'>
 						<li>
 							<Link
 								href={session?.user ? '/cart' : '/login'}
-								className='p-4 rounded-xl'
+								className='rounded-xl'
 							>
 								<MBadge
 									count={cart?.items?.length}
@@ -195,13 +211,12 @@ const Header = () => {
 								>
 									<FontAwesomeIcon
 										icon={faCartShopping}
-										size='xl'
-										className='text-white hover:text-gray-200'
+										className='text-white hover:text-gray-200 xs:text-lg xl:text-xl'
 									/>
 								</MBadge>
 							</Link>
 						</li>
-						<li>
+						<li className='hidden xl:block'>
 							<Dropdown
 								menu={{
 									items: [
@@ -224,8 +239,7 @@ const Header = () => {
 									<div className='cursor-pointer'>
 										<FontAwesomeIcon
 											icon={faBell}
-											size='xl'
-											className='text-white hover:text-gray-200'
+											className='text-white hover:text-gray-200 xs:text-lg xl:text-xl'
 										/>
 									</div>
 								</MBadge>
@@ -236,20 +250,20 @@ const Header = () => {
 								<div>
 									<Link
 										href={'/login'}
-										className='text-white hover:text-gray-200 font-bold'
+										className=' text-white hover:text-gray-200 font-bold'
 									>
 										<FontAwesomeIcon
 											icon={faUser}
-											size='xl'
+											className='text-lg xl:text-xl'
 										/>
-										&nbsp;Đăng nhập
+										<span className='hidden lg:inline-block'>Đăng nhập</span>
 									</Link>
 								</div>
 							) : (
 								<Dropdown
 									menu={{ items: profileItems }}
 									trigger={['click']}
-									className='text-white hover:text-gray-200'
+									className='text-white hover:text-gray-200 text-lg md:text-xl'
 								>
 									<div className={styles.userProfileContainer}>
 										<MImage
@@ -259,7 +273,7 @@ const Header = () => {
 											alt='avt'
 											preview={false}
 										/>
-										<strong className='mx-2'>{auth?.currentUserInfo?.name}</strong>
+										<strong className='mx-1 hidden xl:inline-block text-ellipsis'>{auth?.currentUserInfo?.name}</strong>
 									</div>
 								</Dropdown>
 							)}

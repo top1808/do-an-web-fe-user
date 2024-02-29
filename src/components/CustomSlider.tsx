@@ -5,10 +5,11 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 interface SliderProps {
 	children: React.ReactNode;
 	length: number;
+	dot?: boolean;
 }
 
 const CustomSlider = (props: SliderProps) => {
-	const { length, children } = props;
+	const { length, children, dot } = props;
 	const SlickArrowLeft = ({ currentSlide, slideCount, ...props }: any) => (
 		<button
 			{...props}
@@ -47,6 +48,36 @@ const CustomSlider = (props: SliderProps) => {
 		autoplaySpeed: 3000,
 		prevArrow: <SlickArrowLeft />,
 		nextArrow: <SlickArrowRight />,
+		responsive: [
+			{
+				breakpoint: 1200,
+				settings: {
+					slidesToShow: 6,
+					slidesToScroll: 2,
+					infinite: true,
+					dots: true,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 6,
+					slidesToScroll: 2,
+					initialSlide: 6,
+				},
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					prevArrow: <></>,
+					nextArrow: <></>,
+					slidesToShow: 3,
+					slidesToScroll: 1,
+					initialSlide: 2,
+					dots: !dot ? dot : true,
+				},
+			},
+		],
 	};
 	return (
 		<div className='w-full'>

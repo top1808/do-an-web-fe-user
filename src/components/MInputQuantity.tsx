@@ -11,7 +11,7 @@ interface MInputQuantityProps extends InputNumberProps {
 const MInputQuantity = (props: MInputQuantityProps) => {
 	const { onClickMinus, onClickPlus, disabled, ...rest } = props;
 	return (
-		<div className='flex align-middle p-2 select-none'>
+		<div className='flex align-middle select-none'>
 			<FontAwesomeIcon
 				className='p-2 bg-blue-400 transition-colors hover:bg-blue-300 cursor-pointer text-white'
 				icon={faMinus}

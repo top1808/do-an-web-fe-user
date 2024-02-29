@@ -3,7 +3,6 @@ import CardProduct from './CardProduct';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import { Product } from '@/models/productModels';
-import MSelect from '@/components/MSelect';
 import MButton from '@/components/MButton';
 import Link from 'next/link';
 
@@ -17,16 +16,19 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 			<div className='flex justify-between h-14 items-center'>
 				<h3 className='h-full text-center leading-10'> Gợi Ý Hôm Nay</h3>
 			</div>
-			<MRow gutter={[16, 16]}>
+			<MRow
+				gutter={[
+					{ xs: 2, sm: 12, xl: 16 },
+					{ xs: 2, sm: 12, xl: 16 },
+				]}
+			>
 				{listProducts.length > 0 &&
 					listProducts.map((product, index) => {
 						return (
 							<MCol
 								key={index}
-								xs={24}
-								sm={12}
-								md={6}
-								lg={4}
+								xs={12}
+								md={8}
 								xl={4}
 							>
 								<CardProduct data={product} />
