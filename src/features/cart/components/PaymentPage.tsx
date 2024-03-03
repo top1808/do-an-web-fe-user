@@ -21,6 +21,7 @@ import MSelect from '@/components/MSelect';
 import { gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
+import { toast } from 'react-toastify';
 
 const PaymentPage = () => {
 	const { cart, auth, voucher, address } = useAppSelector((state) => state);
@@ -35,13 +36,18 @@ const PaymentPage = () => {
 			to_district: districID,
 		};
 		const { data } = await AddressApi.getService(body);
-		const optionsService = data.data.map((option: DefaultOptionType) => {
-			return {
-				label: option.short_name.replace('Chuyển phát', '').trim(),
-				value: option.service_id,
-			};
-		});
-		setServices(optionsService);
+
+		if (data.data) {
+			const optionsService = data.data.map((option: DefaultOptionType) => {
+				return {
+					label: option.short_name.replace('Chuyển phát', '').trim(),
+					value: option.service_id,
+				};
+			});
+			setServices(optionsService);
+		} else {
+			toast.warning('Hệ thống không hỗ trợ giao hàng huyện này !');
+		}
 	};
 	const getFeeOrder = async (form: FormInstance<DataPayment>) => {
 		if (form.getFieldValue('deliveryMethod') && form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {

@@ -100,5 +100,5 @@ export const revertDataAddressFromResponse = (data: any, type: string) => {
 			return temp;
 		});
 	}
-	return dataReturn;
+	return dataReturn.sort((a, b) => a.label.localeCompare(b.label));
 };
