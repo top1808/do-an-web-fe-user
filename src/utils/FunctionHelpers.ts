@@ -1,3 +1,4 @@
+import { Address } from '@/models/paymentModels';
 import { MenuItem, Product } from '@/models/productModels';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
@@ -80,4 +81,24 @@ export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { am
 		vnp_ReturnUrl: returnURL,
 	});
 	window.location.href = urlString;
+};
+export const revertDataAddressFromResponse = (data: any, type: string) => {
+	let dataReturn: Address[] = [];
+	if (type === 'provinces') {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.ProvinceID, label: item.ProvinceName };
+			return temp;
+		});
+	} else if (type === 'districts') {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.DistrictID, label: item.DistrictName };
+			return temp;
+		});
+	} else {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.WardCode, label: item.WardName };
+			return temp;
+		});
+	}
+	return dataReturn;
 };

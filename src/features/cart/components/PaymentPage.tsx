@@ -6,24 +6,62 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
-import { DataPayment } from '@/models/paymentModels';
+import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { paying } from '@/redux/reducers/cartReducer';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
-import { Form, Radio } from 'antd';
+import { Form, FormInstance, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
 import { usePathname } from 'next/navigation';
+import MSelect from '@/components/MSelect';
+import { gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
+import AddressApi from '@/api/addressApi';
+import { DefaultOptionType } from 'antd/es/select';
 
 const PaymentPage = () => {
-	const { cart, auth, voucher } = useAppSelector((state) => state);
+	const { cart, auth, voucher, address } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const [form] = Form.useForm();
 	const pathname = usePathname();
+	const [services, setServices] = useState<DefaultOptionType[]>([]);
+	const getServiceDelivery = async (districID: string) => {
+		const body: ParamsGetService = {
+			from_district: '1450',
+			shop_id: '4925558',
+			to_district: districID,
+		};
+		const { data } = await AddressApi.getService(body);
+		const optionsService = data.data.map((option: DefaultOptionType) => {
+			return {
+				label: option.short_name.replace('Chuyển phát', '').trim(),
+				value: option.service_id,
+			};
+		});
+		setServices(optionsService);
+	};
+	const getFeeOrder = async (form: FormInstance<DataPayment>) => {
+		if (form.getFieldValue('deliveryMethod') && form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {
+			const data: DataPayment = form.getFieldsValue();
+			const body: ParamsGetFeeDelivery = {
+				from_district_id: 1450,
+				from_ward_code: 20805,
+				service_id: data.deliveryMethod!,
+				to_district_id: data.customerDistrict!,
+				to_ward_code: data.customerWard!,
+				height: 50,
+				length: 20,
+				weight: 200,
+				width: 20,
+				insurance_value: caculatorTotalPrice(cart.items),
+				cod_failed_amount: 100000,
+			};
+			dispatch(gettingFeeDelivery(body));
+		}
+	};
 	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
 			...data,
@@ -36,14 +74,13 @@ const PaymentPage = () => {
 				totalPrice: p.totalPrice,
 				note: '',
 			})),
+			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPrice(cart.items),
 			totalPaid: 0,
-			deliveryFee: 30000,
-			totalPrice: caculatorTotalPrice(cart.items) + 30000,
+			totalPrice: caculatorTotalPrice(cart.items) + address.fee,
 			voucher: voucher.voucherApply,
 		};
 		if (dataPost.paymentMethod === 'vnpay') {
-			// generate code payment
 			const date = new Date();
 			const code =
 				date.getFullYear() +
@@ -75,10 +112,12 @@ const PaymentPage = () => {
 			deliveryAddress: auth.currentUserInfo?.address,
 			note: '',
 			paymentMethod: 'cash',
+			deliveryFee: address.fee,
 		});
-	}, [form, auth]);
+	}, [form, auth, address.fee]);
 
 	useEffect(() => {
+		dispatch(gettingProvinces());
 		if (cart.payingStatus === 'completed' && cart.orderInfo) {
 			Swal.fire({
 				html: `Mã đơn hàng của bạn là <a color="blue" href='/profile/purchased'>${cart.orderInfo?.orderCode}</a>`,
@@ -99,7 +138,7 @@ const PaymentPage = () => {
 			});
 		}
 		localStorage.removeItem('tempDataPayement');
-	}, [cart.orderInfo, cart.payingStatus]);
+	}, [cart.orderInfo, cart.payingStatus, dispatch]);
 
 	return (
 		<>
@@ -140,6 +179,50 @@ const PaymentPage = () => {
 								<MInput placeholder='Email' />
 							</Form.Item>
 							<Form.Item<DataPayment>
+								name='customerProvince'
+								rules={[{ required: true, message: 'Please choose province !' }]}
+							>
+								<MSelect
+									loading={address.loading}
+									onChange={(value) => {
+										form.setFieldValue('customerDistrict', undefined);
+										form.setFieldValue('customerWard', undefined);
+										form.setFieldValue('deliveryMethod', undefined);
+										dispatch(gettingDistricts(value));
+									}}
+									options={[...address.provinces]}
+									placeholder='Vui lòng chọn Tỉnh/Thành'
+								/>
+							</Form.Item>
+							<Form.Item<DataPayment>
+								name='customerDistrict'
+								rules={[{ required: true, message: 'Please choose district !' }]}
+							>
+								<MSelect
+									loading={address.loading}
+									defaultActiveFirstOption={true}
+									onChange={(value) => {
+										getServiceDelivery(value);
+										form.setFieldValue('customerWard', undefined);
+										dispatch(gettingWards(value));
+									}}
+									options={[...address.districts]}
+									placeholder='Vui lòng chọn Quận/Huyện'
+								/>
+							</Form.Item>
+							<Form.Item<DataPayment>
+								name='customerWard'
+								rules={[{ required: true, message: 'Please choose ward !' }]}
+							>
+								<MSelect
+									defaultActiveFirstOption={true}
+									options={[...address.wards]}
+									loading={address.loading}
+									onChange={() => getFeeOrder(form)}
+									placeholder='Vui lòng chọn Phường/Xã'
+								/>
+							</Form.Item>
+							<Form.Item<DataPayment>
 								name={'deliveryAddress'}
 								rules={[{ required: true, message: 'Please input your address!' }]}
 							>
@@ -150,7 +233,6 @@ const PaymentPage = () => {
 							</Form.Item>
 						</div>
 					</MCol>
-
 					<MCol
 						md={9}
 						xs={24}
@@ -215,22 +297,19 @@ const PaymentPage = () => {
 						>
 							3. Thanh Toán
 						</MTitle>
-						{/* <Form.Item<DataPayment> name={'deliveryMethod'}>
-						<MSelect
-							className='px-2'
-							value={value}
-							onChange={(value: string) => setValue(value)}
-							options={[
-								{ value: 'normal', label: 'Viettel Post' },
-								{ value: 'save', label: 'VNPost Tiết Kiệm' },
-								{ value: 'speed', label: 'AhaMove (Hỏa tốc )' },
-							]}
-						/>
-					</Form.Item> */}
-						<div
-							className='p-2 flex flex-col justify-between'
-							style={{ height: 'calc(100% - 40px)' }}
+						<Form.Item<DataPayment>
+							name={'deliveryMethod'}
+							label={<span className='px-2'>Loại dịch vụ</span>}
+							rules={[{ required: true, message: 'Please choose delivery method !' }]}
 						>
+							<MSelect
+								className='px-2'
+								onChange={() => getFeeOrder(form)}
+								placeholder='Loại dịch vụ'
+								options={services}
+							/>
+						</Form.Item>
+						<div className='p-2 flex flex-col justify-between'>
 							<div>
 								<h4 className='text-base'>Phương thức thanh toán</h4>
 								<Form.Item<DataPayment> name={'paymentMethod'}>
@@ -258,7 +337,6 @@ const PaymentPage = () => {
 									</MButton>
 								</div>
 							</div>
-
 							<div className='w-full text-end p-2'>
 								<div className='flex items-center justify-between'>
 									<MText className='text-end text-sm'>Tổng tiền hàng</MText>
@@ -266,7 +344,7 @@ const PaymentPage = () => {
 								</div>
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>Phí vận chuyển</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(30000)}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(address.fee)}</MText>
 								</div>
 								{voucher.voucherApply && (
 									<div className='flex items-center justify-between mt-2'>
@@ -276,7 +354,7 @@ const PaymentPage = () => {
 								)}
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>Tổng thanh toán</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items) + 30000 - (voucher.voucherApply?.discountValue || 0))}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}</MText>
 								</div>
 								<MButton
 									className='mt-2'
