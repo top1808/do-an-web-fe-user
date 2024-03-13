@@ -3,26 +3,28 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import { MSearchInput } from '@/components/MSearchInput';
-import { faArrowRightFromBracket, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBell, faBox, faCartShopping, faHatCowboy, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
-import { Dropdown, MenuProps } from 'antd';
+import { Badge, Dropdown, MenuProps } from 'antd';
 import styles from '../styles/layout.module.css';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
+import { gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
 
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
+	const { cart, auth, notification } = useAppSelector((state) => state);
+	const pathname = usePathname();
 
-	const { cart, auth } = useAppSelector((state) => state);
-
+	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
 		{
@@ -103,9 +105,54 @@ const Header = () => {
 	useEffect(() => {
 		dispatch(gettingCart());
 	}, [dispatch, cart.statusUpdate]);
+	useEffect(() => {
+		if (notification?.data) {
+			setNotificationItems(
+				notification?.data?.length <= 0
+					? [
+							{
+								label: 'No notifications.',
+								key: 'no_notificaitons.',
+							},
+					  ]
+					: notification?.data?.map((item) => ({
+							label: (
+								<Link
+									href={item?.link || '/'}
+									onClick={() => dispatch(readingNotifications(item?._id || ''))}
+								>
+									<MRow
+										gutter={[4, 4]}
+										className='w-92'
+										align='middle'
+									>
+										<MCol span={2}>
+											<Badge dot={!item.isRead} />
+										</MCol>
+										<MCol
+											span={22}
+											className={`${item.isRead ? 'text-slate-400' : 'text-black'}`}
+										>
+											<div className='text-sm font-semibold'>{item?.title}</div>
+											<div className='text-xs text-ellipsis-2'>{item?.body}</div>
+										</MCol>
+									</MRow>
+								</Link>
+							),
+							key: item?._id || '',
+					  })),
+			);
+		}
+	}, [notification?.data]);
+
+	useEffect(() => {
+		if (pathname !== '/notification') {
+			dispatch(gettingNotifications({ offset: '0', limit: '10' }));
+		}
+	}, [dispatch, pathname]);
 
 	return (
-		<header className='px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
+		<header className='px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
 				justify={'space-between'}
 				className='py-2 px-6'
@@ -153,6 +200,36 @@ const Header = () => {
 									/>
 								</MBadge>
 							</Link>
+						</li>
+						<li>
+							<Dropdown
+								menu={{
+									items: [
+										...(notificationItems || []),
+										{
+											label: (
+												<Link href='/profile/notification'>
+													<div className='text-xs text-center text-blue-600'>View all</div>
+												</Link>
+											),
+											key: 'view_all',
+										},
+									],
+								}}
+								trigger={['click']}
+								placement='bottomRight'
+								disabled={pathname.includes('/notification')}
+							>
+								<MBadge count={notification.pagination?.totalNew}>
+									<div className='cursor-pointer'>
+										<FontAwesomeIcon
+											icon={faBell}
+											size='xl'
+											className='text-white hover:text-gray-200'
+										/>
+									</div>
+								</MBadge>
+							</Dropdown>
 						</li>
 						<li>
 							{!session ? (

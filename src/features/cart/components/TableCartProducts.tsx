@@ -4,13 +4,14 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import React, { useEffect, useState } from 'react';
 import MTitle from '@/components/MTitle';
-import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const { cart } = useAppSelector((state) => state);
+
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
 
 	useEffect(() => {
@@ -21,7 +22,7 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 
 	return (
 		<>
-			<MRow className='bg-gray-400 py-2 px-2'>
+			<MRow className='bg-gray-300 font-bold py-2 px-2'>
 				<MCol
 					className='text-center'
 					span={3}

@@ -6,7 +6,8 @@ import { CartSaga } from './cartSaga';
 import { orderSaga } from './orderSaga';
 import { VoucherSaga } from './voucherSaga';
 import { DiscountProgramSaga } from './discountProgramSaga';
+import { NotificationSaga } from './notificationSaga';
 
 export function* rootSaga() {
-	yield all([authSaga(), CategorySaga(), ProductSaga(), CartSaga(), orderSaga(), VoucherSaga(), DiscountProgramSaga()]);
+	yield all([authSaga(), CategorySaga(), ProductSaga(), CartSaga(), orderSaga(), VoucherSaga(), DiscountProgramSaga(), NotificationSaga()]);
 }

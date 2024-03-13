@@ -7,7 +7,14 @@ interface MImageProps extends ImageProps {
 
 const MImage: React.FC<MImageProps> = (props) => {
 	const { children, ...rest } = props;
-	return <Image {...rest}>{children}</Image>;
+	return (
+		<Image
+			alt={rest.alt}
+			{...rest}
+		>
+			{children}
+		</Image>
+	);
 };
 
 export default MImage;

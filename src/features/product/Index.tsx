@@ -9,7 +9,7 @@ import MTitle from '@/components/MTitle';
 import { PaginationModel } from '@/models/reponseModel';
 import MPagination from '@/components/MPagination';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { objectToQueryString } from '@/utils/FuntionHelpers';
+import { objectToQueryString } from '@/utils/FunctionHelpers';
 
 interface ProductsComponentProps {
 	products?: Product[];
@@ -52,9 +52,6 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				xl={18}
 			>
 				<MRow gutter={[0, 10]}>
-					{/* <MCol span={24}>
-						<SearchBar />
-					</MCol> */}
 					<MCol span={24}>
 						<MRow gutter={[12, 12]}>
 							{products &&

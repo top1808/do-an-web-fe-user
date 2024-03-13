@@ -7,26 +7,24 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment } from '@/models/paymentModels';
-
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { paying } from '@/redux/reducers/cartReducer';
 import { toggleModal } from '@/redux/reducers/modalReducer';
-import { caculatorTotalPrice, customMoney } from '@/utils/FuntionHelpers';
+import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
+import { usePathname } from 'next/navigation';
 
 const PaymentPage = () => {
 	const { cart, auth, voucher } = useAppSelector((state) => state);
-
 	const dispatch = useAppDispatch();
-
 	const [form] = Form.useForm();
-
-	const onSubmit = (data: DataPayment) => {
+	const pathname = usePathname();
+	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
 			...data,
 			products: cart.items?.map((p) => ({
@@ -44,7 +42,29 @@ const PaymentPage = () => {
 			totalPrice: caculatorTotalPrice(cart.items) + 30000,
 			voucher: voucher.voucherApply,
 		};
-		dispatch(paying(dataPost));
+		if (dataPost.paymentMethod === 'vnpay') {
+			// generate code payment
+			const date = new Date();
+			const code =
+				date.getFullYear() +
+				('0' + (date.getMonth() + 1)).slice(-2) +
+				('0' + date.getDate()).slice(-2) +
+				('0' + date.getHours()).slice(-2) +
+				('0' + date.getMinutes()).slice(-2) +
+				('0' + date.getSeconds()).slice(-2);
+			const ip = cart.ipCustomer!;
+			const data = {
+				amount: dataPost.totalPrice || 0,
+				code: code,
+				ip: ip,
+				info: `Thanh toán cho order ${code}`,
+				returnURL: `http://localhost:3000/${pathname}`,
+			};
+			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
+			paymentWithVPN({ ...data });
+		} else {
+			dispatch(paying(dataPost));
+		}
 	};
 
 	useEffect(() => {
@@ -78,6 +98,7 @@ const PaymentPage = () => {
 				confirmButtonText: 'Ẩn',
 			});
 		}
+		localStorage.removeItem('tempDataPayement');
 	}, [cart.orderInfo, cart.payingStatus]);
 
 	return (
@@ -150,7 +171,7 @@ const PaymentPage = () => {
 										>
 											<div>
 												<MImage
-													src={item.product?.image}
+													src={item.product?.images?.[0]}
 													alt='image'
 													preview={false}
 													height={60}
@@ -159,6 +180,15 @@ const PaymentPage = () => {
 											</div>
 											<div>
 												<MText className='font-medium'>{item?.product?.name}</MText>
+												<div>
+													{item?.product?.groupOptions?.map((group, index) => (
+														<span key={group?.groupName}>
+															<span className='text-gray-500'>
+																{group?.groupName}: {index === 0 ? item?.productSKU?.option1 + ', ' : item?.productSKU?.option2}
+															</span>
+														</span>
+													))}
+												</div>
 												<div className='flex gap-4'>
 													<MText className='font-medium'>{`Số lượng: ${item.quantity}`}</MText>
 													<MText className='font-medium'>{`Tổng Giá: ${customMoney(item?.totalPrice || 0)}`}</MText>

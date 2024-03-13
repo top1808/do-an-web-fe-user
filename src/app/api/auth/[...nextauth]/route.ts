@@ -47,7 +47,7 @@ const handler = NextAuth({
 				if (res.data?.customer) return true;
 				await authApi.register({
 					id: user?.id || '',
-					email: user?.email || `facebook-${user?.id}@example.com`,
+					email: user?.email || '',
 					name: user?.name || '',
 					image: user?.image || '',
 				});

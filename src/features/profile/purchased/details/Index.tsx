@@ -7,10 +7,10 @@ import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
-import { ORDER_STATUS } from '@/constant';
+import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingOrderInfo } from '@/redux/reducers/orderReducer';
-import { customMoney, formatDate } from '@/utils/FuntionHelpers';
+import { customMoney, formatDate } from '@/utils/FunctionHelpers';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -37,18 +37,18 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 				title={
 					<div className='py-2'>
 						<MRow>
-							<MCol span={4}>Chi tiết đơn hàng</MCol>
+							<MCol span={8}>Chi tiết đơn hàng</MCol>
 							<MCol
-								span={20}
+								span={16}
 								className='text-blue-500'
 							>
 								{orderDetails?.orderCode}
 							</MCol>
 						</MRow>
 						<MRow>
-							<MCol span={4}>Ngày đặt hàng</MCol>
+							<MCol span={8}>Ngày đặt hàng</MCol>
 							<MCol
-								span={20}
+								span={16}
 								className='text-blue-500'
 							>
 								{formatDate(orderDetails?.createdAt)}
@@ -56,9 +56,9 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 						</MRow>
 						{orderDetails?.deliveryDate && (
 							<MRow>
-								<MCol span={4}>Dự kiến giao hàng</MCol>
+								<MCol span={8}>Dự kiến giao hàng</MCol>
 								<MCol
-									span={20}
+									span={16}
 									className='text-blue-500'
 								>
 									{formatDate(orderDetails?.deliveryDate)}
@@ -66,21 +66,30 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							</MRow>
 						)}
 						<MRow>
-							<MCol span={4}>Địa chỉ giao hàng</MCol>
+							<MCol span={8}>Địa chỉ giao hàng</MCol>
 							<MCol
-								span={20}
+								span={16}
 								className='text-blue-500'
 							>
 								{orderDetails?.deliveryAddress}
 							</MCol>
 						</MRow>
 						<MRow>
-							<MCol span={4}>Tình trạng đơn hàng</MCol>
-							<MCol span={20}>
+							<MCol span={8}>Tình trạng đơn hàng</MCol>
+							<MCol span={16}>
 								<MBadge
 									count={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.label}
 									color={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.color}
 								></MBadge>
+							</MCol>
+						</MRow>
+						<MRow>
+							<MCol span={8}>Hình thức thanh toán</MCol>
+							<MCol
+								span={16}
+								className='text-blue-500'
+							>
+								{PAYMENT_METHOD.find((p) => p.value === orderDetails?.paymentMethod)?.label}
 							</MCol>
 						</MRow>
 					</div>

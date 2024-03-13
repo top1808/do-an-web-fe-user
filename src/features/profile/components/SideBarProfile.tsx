@@ -1,4 +1,4 @@
-import { faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -29,6 +29,16 @@ const SideBarProfile = () => {
 			link: '/profile/change-password',
 		},
 		{
+			title: 'Thông báo',
+			icon: (
+				<FontAwesomeIcon
+					color='black'
+					icon={faBell}
+				/>
+			),
+			link: '/profile/notification',
+		},
+		{
 			title: 'Đơn hàng',
 			icon: (
 				<FontAwesomeIcon
@@ -57,15 +67,6 @@ const SideBarProfile = () => {
 						</Link>
 					</li>
 				))}
-				{/* <li className=' py-2'>
-						<Link href={'/profile/notification'}>
-							<FontAwesomeIcon
-								color='red'
-								icon={faBell}
-							/>
-							&nbsp;&nbsp; Thông báo
-						</Link>
-					</li> */}
 			</ul>
 		</div>
 	);

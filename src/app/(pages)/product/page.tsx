@@ -2,7 +2,7 @@ import { fetchServer } from '@/api/fetchServer';
 import ProductsComponent from '@/features/product/Index';
 import { ProductParams, ReponseGetProductsByCategory } from '@/models/productModel';
 import { Product } from '@/models/productModels';
-import { objectToQueryString } from '@/utils/FuntionHelpers';
+import { objectToQueryString } from '@/utils/FunctionHelpers';
 import React from 'react';
 
 async function getProductByCategory(searchParams: { category: string; offset: string; limit: string }) {
