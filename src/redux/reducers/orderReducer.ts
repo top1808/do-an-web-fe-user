@@ -76,6 +76,18 @@ const orderSlice = createSlice({
 	},
 });
 
-export const { confirmOrderFailed, confirmOrderSuccess, confirmingOrder, getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders, cancelOrderFailed, cancelOrderSuccess, cancelingOrder } =
-	orderSlice.actions;
+export const {
+	confirmOrderFailed,
+	confirmOrderSuccess,
+	confirmingOrder,
+	getOrderInfoFailed,
+	getOrderInfoSuccess,
+	getOrdersFailed,
+	getOrdersSuccess,
+	gettingOrderInfo,
+	gettingOrders,
+	cancelOrderFailed,
+	cancelOrderSuccess,
+	cancelingOrder,
+} = orderSlice.actions;
 export default orderSlice.reducer;
