@@ -1,58 +1,65 @@
+import { MenuItem } from '@/models/productModels';
+import { getItem } from '@/utils/FunctionHelpers';
 import { faBell, faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu } from 'antd';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
-
 const SideBarProfile = () => {
-	const pathname = usePathname();
-
+	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
+	window.onresize = () => setSizeDevice(window.innerWidth);
 	const listItem = [
 		{
 			title: 'Thông tin tài khoản',
 			icon: (
-				<FontAwesomeIcon
-					color='blue'
-					icon={faUser}
-				/>
+				<Link href={'/profile'}>
+					<FontAwesomeIcon
+						color='blue'
+						icon={faUser}
+					/>
+				</Link>
 			),
-			link: '/profile',
 		},
 		{
 			title: 'Đổi mật khẩu',
 			icon: (
-				<FontAwesomeIcon
-					color='#EBB636'
-					icon={faKey}
-				/>
+				<Link href={'/profile/change-password'}>
+					<FontAwesomeIcon
+						color='#EBB636'
+						icon={faKey}
+					/>
+				</Link>
 			),
-			link: '/profile/change-password',
 		},
 		{
 			title: 'Thông báo',
 			icon: (
-				<FontAwesomeIcon
-					color='black'
-					icon={faBell}
-				/>
+				<Link href={'/profile/notification'}>
+					<FontAwesomeIcon
+						color='black'
+						icon={faBell}
+					/>
+				</Link>
 			),
-			link: '/profile/notification',
 		},
 		{
 			title: 'Đơn hàng',
 			icon: (
-				<FontAwesomeIcon
-					icon={faBox}
-					color='green'
-				/>
+				<Link href='/profile/purchased'>
+					<FontAwesomeIcon
+						icon={faBox}
+						color='green'
+					/>
+				</Link>
 			),
-			link: '/profile/purchased',
 		},
 	];
-
+	const items: MenuItem[] = listItem.map((item) => {
+		return getItem(item.title, item.title, item.icon);
+	});
 	return (
-		<div className='w-full'>
-			<ul className='text-base'>
+		<div className='w-full h-full'>
+			{/* <ul className='text-base'>
 				{listItem.map((item) => (
 					<li
 						className='py-2'
@@ -63,11 +70,18 @@ const SideBarProfile = () => {
 							className={`${pathname === item.link && 'font-bold text-blue-500'}`}
 						>
 							{item.icon}
-							&nbsp;&nbsp; {item.title}
+							&nbsp;&nbsp; {item.title}MenuFoldOutlined
 						</Link>
 					</li>
 				))}
-			</ul>
+			</ul> */}
+			<div>
+				<Menu
+					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
+					items={items}
+					defaultSelectedKeys={['Thông tin tài khoản']}
+				/>
+			</div>
 		</div>
 	);
 };

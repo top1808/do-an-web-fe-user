@@ -26,7 +26,10 @@ const ProductRelative = (props: ProductRelativeProps) => {
 				>
 					Sản phẩm liên quan
 				</MText>
-				<CustomSlider length={product.productsRelative?.length || 0}>
+				<CustomSlider
+					length={product.productsRelative?.length || 0}
+					dot={false}
+				>
 					{product.productsRelative.map((item) => (
 						<CardProduct
 							data={item}

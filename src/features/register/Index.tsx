@@ -34,20 +34,20 @@ const UserRegister = () => {
 		}
 	};
 	return (
-		<div className='sm:w-3/4 md:w-3/5 lg:w-2/5 xl:w-1/3 2xl:w-1/3  bg-white py-8 px-0 rounded-lg '>
-			<MTitle className='text-center'>SIGN UP</MTitle>
+		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
+			<h1 className='text-center text-white md:text-black xs:pt-10'>SIGN UP</h1>
 			<Form
-				name='basic'
+				name='resigter'
 				labelCol={{ span: 9 }}
 				wrapperCol={{ span: 15 }}
 				initialValues={{ remember: true }}
 				onFinish={(value) => handleRegister(value)}
 				onFinishFailed={() => {}}
 				autoComplete='off'
-				className='m-12'
+				className='m-12 xs:mt-2'
 			>
 				<Form.Item<FieldType>
-					label='Email'
+					label={<span className='text-white md:text-black'>Email</span>}
 					name='email'
 					hasFeedback
 					labelAlign='left'
@@ -57,7 +57,7 @@ const UserRegister = () => {
 				</Form.Item>
 
 				<Form.Item<FieldType>
-					label='Password'
+					label={<span className='text-white md:text-black'>Password</span>}
 					name='password'
 					hasFeedback
 					labelAlign='left'
@@ -69,7 +69,7 @@ const UserRegister = () => {
 					<Input.Password />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label='Confirm Password'
+					label={<span className='text-white md:text-black'>Confirm password</span>}
 					name='confirmPassword'
 					labelAlign='left'
 					dependencies={['password']}
@@ -102,16 +102,11 @@ const UserRegister = () => {
 					</MButton>
 				</Form.Item>
 			</Form>
-			<MTitle
-				level={4}
-				className='text-center'
-			>
-				Or Sign Up Using
-			</MTitle>
+			<h2 className='text-center text-white md:text-black'>Or Sign Up Using</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
-				className='mt-5'
+				className='mt-5 xs:mt-2'
 			>
 				<MCol>
 					<MButton
@@ -141,14 +136,14 @@ const UserRegister = () => {
 			</MRow>
 
 			<MRow
-				className='mt-12'
+				className='mt-12 xs:mt-6'
 				justify={'center'}
 			>
-				<MCol className='flex flex-col gap-3 items-center'>
-					<MTitle level={4}>If You Have Account ?</MTitle>
+				<MCol className='flex flex-col gap-3 xs:gap-1 items-center'>
+					<h2 className='text-white md:text-black'>If You Have Account ?</h2>
 					<Link
 						href={'/login'}
-						className='text-blue-600 font-bold text-xl'
+						className='text-blue-600 font-bold text-xl xs:text-blue-300'
 					>
 						SIGN IN
 					</Link>

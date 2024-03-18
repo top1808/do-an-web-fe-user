@@ -54,20 +54,21 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 
 	return (
 		<>
-			<Steps
-				current={current}
-				items={items}
-				className='mb-2'
-			>
-				{items.map((item) => (
-					<Steps.Step
-						key={item.title}
-						title={item.title}
-						className='bg-lime-600'
-					/>
-				))}
-			</Steps>
-
+			<div className='hidden lg:block'>
+				<Steps
+					current={current}
+					items={items}
+					className='mb-2 '
+				>
+					{items.map((item) => (
+						<Steps.Step
+							key={item.title}
+							title={item.title}
+							className='bg-lime-600 '
+						/>
+					))}
+				</Steps>
+			</div>
 			{current === 0 ? <div>{children}</div> : <></>}
 			{current === 1 ? <PaymentPage /> : <></>}
 			<div className='mt-6 flex justify-end'>

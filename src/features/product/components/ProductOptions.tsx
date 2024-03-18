@@ -26,7 +26,8 @@ const ProductOptions = (props: ProductOptionsProps) => {
 					<MRow gutter={[8, 8]}>
 						{group?.options?.map((option) => (
 							<MCol
-								span={4}
+								xs={8}
+								lg={4}
 								key={option}
 							>
 								<div

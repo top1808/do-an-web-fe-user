@@ -8,6 +8,7 @@ import voucherReducer from './voucherReducer';
 import modalReducer from './modalReducer';
 import discountProgramReducer from './discountProgramReducer';
 import notificationReducer from './notificationReducer';
+import addressReducer from './addressReducer';
 
 const rootReducer = combineReducers({
 	auth: authReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
 	modal: modalReducer,
 	discountProgram: discountProgramReducer,
 	notification: notificationReducer,
+	address: addressReducer,
 });
 
 export default rootReducer;

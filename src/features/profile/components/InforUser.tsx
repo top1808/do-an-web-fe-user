@@ -27,12 +27,33 @@ const InforUser = () => {
 			labelCol={{ span: 4 }}
 			wrapperCol={{ span: 20 }}
 		>
-			<h3>Thông tin tài khoản</h3>
+			<h2 className='text-center'>Thông tin tài khoản</h2>
 			<MRow
 				gutter={8}
 				className='mt-2'
 			>
-				<MCol span={18}>
+				<MCol
+					xs={24}
+					md={6}
+				>
+					<MForm.UploadImage
+						formLabel='Avatar'
+						formName='image'
+						name='image'
+						action={`${process.env.API_UPLOAD_URL}image/upload`}
+						accept='image/*'
+						listType='picture-card'
+						initImage={currentUserInfo?.image}
+						multiple={false}
+						showUploadList={false}
+					>
+						Upload
+					</MForm.UploadImage>
+				</MCol>
+				<MCol
+					xs={24}
+					md={18}
+				>
 					<MRow gutter={8}>
 						<MCol span={24}>
 							<MRow
@@ -87,7 +108,7 @@ const InforUser = () => {
 							>
 								<Form.Item
 									name='phoneNumber'
-									label='Phone Number'
+									label='Phone'
 									className='w-full'
 									rules={[{ validator: (_, value) => checkPhoneNumber(value) }]}
 								>
@@ -109,21 +130,6 @@ const InforUser = () => {
 							</MRow>
 						</MCol>
 					</MRow>
-				</MCol>
-				<MCol span={6}>
-					<MForm.UploadImage
-						formLabel='Avatar'
-						formName='image'
-						name='image'
-						action={`${process.env.API_UPLOAD_URL}image/upload`}
-						accept='image/*'
-						listType='picture-card'
-						initImage={currentUserInfo?.image}
-						multiple={false}
-						showUploadList={false}
-					>
-						Upload
-					</MForm.UploadImage>
 				</MCol>
 			</MRow>
 			<MRow className='flex justify-center'>

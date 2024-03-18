@@ -1,3 +1,4 @@
+import { Address } from '@/models/paymentModels';
 import { MenuItem, Product } from '@/models/productModels';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
@@ -11,7 +12,7 @@ export const customMoney = (money?: number) => {
 	});
 };
 
-export function getItem(label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
+export function getItem(label?: React.ReactNode, key?: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
 	return {
 		key,
 		icon,
@@ -59,7 +60,11 @@ export const checkPhoneNumber = (phoneNumber: string) => {
 };
 
 export const getProductPrice = (product: Product) => {
-	return (product?.groupOptions?.length || 0) > 0 ? (product?.minPrice !== product?.maxPrice ? `${customMoney(product?.minPrice)} - ${customMoney(product?.maxPrice)}` : customMoney(product?.minPrice)) : customMoney(product?.price);
+	return (product?.groupOptions?.length || 0) > 0
+		? product?.minPrice !== product?.maxPrice
+			? `${customMoney(product?.minPrice)} - ${customMoney(product?.maxPrice)}`
+			: customMoney(product?.minPrice)
+		: customMoney(product?.price);
 };
 
 export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {
@@ -76,4 +81,24 @@ export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { am
 		vnp_ReturnUrl: returnURL,
 	});
 	window.location.href = urlString;
+};
+export const revertDataAddressFromResponse = (data: any, type: string) => {
+	let dataReturn: Address[] = [];
+	if (type === 'provinces') {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.ProvinceID, label: item.ProvinceName };
+			return temp;
+		});
+	} else if (type === 'districts') {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.DistrictID, label: item.DistrictName };
+			return temp;
+		});
+	} else {
+		dataReturn = data.map((item: any) => {
+			const temp: Address = { value: item.WardCode, label: item.WardName };
+			return temp;
+		});
+	}
+	return dataReturn.sort((a, b) => a.label.localeCompare(b.label));
 };

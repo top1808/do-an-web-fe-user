@@ -9,7 +9,7 @@ type Props = {
 };
 const ListCategories = ({ categories }: Props) => {
 	return (
-		<MRow>
+		<MRow className='xs:mb-6 md:mb-0'>
 			<MCol span={24}>
 				<MTitle level={3}>Category</MTitle>
 			</MCol>

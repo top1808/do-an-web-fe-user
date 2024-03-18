@@ -4,7 +4,7 @@ import { Category } from '@/models/categoryModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Menu, type MenuProps } from 'antd';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import iconAll from '../../public/icons/all.png';
 import { gettingCategory } from '@/redux/reducers/categoryReducer';
 import Link from 'next/link';
@@ -24,7 +24,8 @@ const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { category } = useAppSelector((state) => state);
 	const searchParams = useSearchParams();
-
+	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
+	window.onresize = () => setSizeDevice(window.innerWidth);
 	const items: MenuItem[] =
 		category.data?.map((item: Category) =>
 			getItem(
@@ -33,8 +34,8 @@ const SideBarUser: React.FC = () => {
 					className='flex gap-2 align-middle'
 				>
 					<MImage
-						width={30}
-						height={30}
+						width={sizeDevice > 576 ? 30 : 20}
+						height={sizeDevice > 576 ? 30 : 20}
 						src={item?.image}
 						preview={false}
 					/>
@@ -52,7 +53,7 @@ const SideBarUser: React.FC = () => {
 		<>
 			<Menu
 				style={{ borderInlineEnd: 'none', padding: '10px' }}
-				mode='vertical'
+				mode={sizeDevice > 768 ? 'vertical' : 'horizontal'}
 				className='rounded-md font-semibold'
 				items={[
 					getItem(
@@ -61,8 +62,8 @@ const SideBarUser: React.FC = () => {
 							className='flex gap-2 align-middle'
 						>
 							<MImage
-								width={30}
-								height={30}
+								width={sizeDevice > 576 ? 30 : 20}
+								height={sizeDevice > 576 ? 30 : 20}
 								src={iconAll.src}
 								preview={false}
 							/>

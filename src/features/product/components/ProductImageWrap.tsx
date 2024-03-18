@@ -9,11 +9,8 @@ interface ProductImageWrapProps {
 
 const ProductImageWrap = (props: ProductImageWrapProps) => {
 	const { images } = props;
-
 	const product = useAppSelector((state) => state.product);
-
 	const dispatch = useAppDispatch();
-
 	return (
 		<div>
 			<Image
@@ -27,7 +24,7 @@ const ProductImageWrap = (props: ProductImageWrapProps) => {
 						key={index}
 						src={image}
 						alt={image}
-						width={80}
+						width={'30%'}
 						onMouseEnter={() => dispatch(changeMainImage(image))}
 						preview={false}
 						className='hover:opacity-80 cursor-pointer'

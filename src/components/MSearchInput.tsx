@@ -25,7 +25,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 	}, [form, search]);
 
 	return (
-		<div className='p-1 rounded'>
+		<div className='p-1 rounded w-full'>
 			<Link
 				href={'/search?search=' + searchValue}
 				hidden
@@ -33,7 +33,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 			/>
 			<Form
 				onFinish={() => linkRef?.current?.click()}
-				className='flex gap-2 h-8'
+				className='w- full flex justify-center gap-2 h-8'
 				form={form}
 				autoComplete='off'
 			>
