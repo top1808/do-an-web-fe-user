@@ -17,13 +17,13 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 	}, []);
 
 	return (
-		<div className='w-screen '>
-			<div className='sticky top-0 z-10 '>
+		<div>
+			<div className='sticky top-0 z-10'>
 				<Header />
 			</div>
 			<div
 				style={{ backgroundColor: '#F5F5FA' }}
-				className='px-0 md:px-10 xl:px-32 pb-8 min-h-screen'
+				className='px-0 md:px-10 xl:px-32 pb-8 w-full'
 			>
 				{children}
 			</div>

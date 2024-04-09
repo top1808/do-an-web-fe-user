@@ -11,6 +11,8 @@ import ListCategories from '../components/ListCategories';
 import { gettingCategory } from '@/redux/reducers/categoryReducer';
 import CustomSlider from '../../components/CustomSlider';
 import CardProduct from './components/CardProduct';
+
+import CountdownTimer from '@/components/CountdownTimer';
 const HomeUserComponent = () => {
 	const { product, discountProgram, category } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ const HomeUserComponent = () => {
 		dispatch(gettingCategory());
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
+
 	return (
 		<div className='w-full'>
 			<CarouselBanner />
@@ -30,17 +33,22 @@ const HomeUserComponent = () => {
 							key={program._id}
 							className='py-4'
 						>
-							<MTitle level={3}>{program.name}</MTitle>
-							{program.products && program.products.length > 0 && (
-								<CustomSlider length={program.products.length}>
-									{program.products.map((item) => (
-										<CardProduct
-											data={item}
-											key={item._id}
-										/>
-									))}
-								</CustomSlider>
-							)}
+							<CountdownTimer
+								endTime={program.dateEnd as string}
+								startTime={program.dateStart as string}
+							>
+								<MTitle level={3}>{program.name}</MTitle>
+								{program.products && program.products.length > 0 && (
+									<CustomSlider length={program.products.length}>
+										{program.products.map((item) => (
+											<CardProduct
+												data={item}
+												key={item._id}
+											/>
+										))}
+									</CustomSlider>
+								)}
+							</CountdownTimer>
 						</div>
 					))}
 			</MSkeleton>

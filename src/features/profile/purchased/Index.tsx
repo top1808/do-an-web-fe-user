@@ -2,6 +2,7 @@
 
 import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
+import MSelect from '@/components/MSelect';
 import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { Order, OrderParams } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -34,7 +35,6 @@ const Purchased = () => {
 			}
 		});
 	};
-
 	const onCancelOrder = (item: Order) => {
 		Swal.fire({
 			title: 'Cancel Order',
@@ -74,13 +74,14 @@ const Purchased = () => {
 			key: 'totalPrice',
 			width: 150,
 			align: 'right',
+			sorter: (a, b) => a.totalPrice! - b.totalPrice!,
 			render: customMoney,
 		},
 		{
 			title: 'Địa chỉ giao hàng',
 			dataIndex: 'deliveryAddress',
 			key: 'deliveryAddress',
-			width: 300,
+			width: 220,
 		},
 		{
 			title: 'Ngày đặt hàng',
@@ -88,6 +89,12 @@ const Purchased = () => {
 			key: 'createdAt',
 			align: 'center',
 			width: 180,
+			sorter: (a, b) => {
+				const timestampA = Date.parse(a.createdAt! as string);
+				const timestampB = Date.parse(b.createdAt! as string);
+
+				return timestampA - timestampB;
+			},
 			render: (item: string) => (item ? dayjs(item).format('DD/MM/YYYY') : 'Chưa xác định'),
 		},
 		{
@@ -112,6 +119,31 @@ const Purchased = () => {
 			width: 200,
 			fixed: 'right',
 			align: 'center',
+
+			filters: [
+				{
+					text: 'Đang xử lý',
+					value: 'processing',
+				},
+				{
+					text: 'Đã xác nhận',
+					value: 'confirmed',
+				},
+				{
+					text: 'Đang giao hàng',
+					value: 'delivering',
+				},
+				{
+					text: 'Đang giao hàng',
+					value: 'delivered',
+				},
+				{
+					text: 'Đã hủy',
+					value: 'canceled',
+				},
+			],
+
+			onFilter: (value, record) => record.status === value,
 			render: (item: string) => (
 				<MBadge
 					count={ORDER_STATUS.find((p) => p.value === item)?.label}

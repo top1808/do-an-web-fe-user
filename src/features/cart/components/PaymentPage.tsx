@@ -8,7 +8,6 @@ import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { paying } from '@/redux/reducers/cartReducer';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, FormInstance, Radio } from 'antd';
@@ -22,6 +21,7 @@ import { gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } 
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
+import { paying } from '@/redux/reducers/cartReducer';
 
 const PaymentPage = () => {
 	const { cart, auth, voucher, address } = useAppSelector((state) => state);
@@ -101,9 +101,10 @@ const PaymentPage = () => {
 				code: code,
 				ip: ip,
 				info: `Thanh toán cho order ${code}`,
-				returnURL: `http://localhost:3000/${pathname}`,
+				returnURL: `http://localhost:3000${pathname}`,
 			};
 			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
+
 			paymentWithVPN({ ...data });
 		} else {
 			dispatch(paying(dataPost));

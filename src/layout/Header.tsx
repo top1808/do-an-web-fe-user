@@ -170,10 +170,10 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='py-2 md:px-8  xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
+		<header className='py-4 md:px-8 xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
 			<MRow
 				justify={'space-between'}
-				className='w-screen px-2 xl:px-4'
+				className='w-full'
 			>
 				<MCol
 					xs={2}
@@ -245,7 +245,7 @@ const Header = () => {
 								</MBadge>
 							</Dropdown>
 						</li>
-						<li>
+						<li className='overflow-x-hidden'>
 							{!session ? (
 								<div>
 									<Link

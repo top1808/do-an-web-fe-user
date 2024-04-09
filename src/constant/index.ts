@@ -41,6 +41,7 @@ const ORDER_STATUS = [
 		color: 'red',
 	},
 ];
+
 const firebaseConfig = {
 	apiKey: 'AIzaSyBMHktsUuG1kGrmjHcIoKH7ljSh3eegK4g',
 	authDomain: 'do-an-web-next.firebaseapp.com',

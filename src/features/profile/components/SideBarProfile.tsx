@@ -1,3 +1,4 @@
+'use client';
 import { MenuItem } from '@/models/productModels';
 import { getItem } from '@/utils/FunctionHelpers';
 import { faBell, faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -5,9 +6,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+const ITEMS = [
+	{ path: '/profile', title: 'Thông tin tài khoản' },
+	{ path: '/profile/change-password', title: 'Đổi mật khẩu' },
+	{ path: '/profile/notification', title: 'Thông báo' },
+	{ path: '/profile/purchased', title: 'Đơn hàng' },
+];
 const SideBarProfile = () => {
 	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
 	window.onresize = () => setSizeDevice(window.innerWidth);
+	const path = usePathname();
 	const listItem = [
 		{
 			title: 'Thông tin tài khoản',
@@ -59,27 +68,11 @@ const SideBarProfile = () => {
 	});
 	return (
 		<div className='w-full h-full'>
-			{/* <ul className='text-base'>
-				{listItem.map((item) => (
-					<li
-						className='py-2'
-						key={item.link}
-					>
-						<Link
-							href={item.link}
-							className={`${pathname === item.link && 'font-bold text-blue-500'}`}
-						>
-							{item.icon}
-							&nbsp;&nbsp; {item.title}MenuFoldOutlined
-						</Link>
-					</li>
-				))}
-			</ul> */}
 			<div>
 				<Menu
 					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
 					items={items}
-					defaultSelectedKeys={['Thông tin tài khoản']}
+					defaultSelectedKeys={[ITEMS.find((item) => item.path === path)?.title || 'Thay đổi mật khẩu']}
 				/>
 			</div>
 		</div>
