@@ -23,7 +23,7 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 			</div>
 			<div
 				style={{ backgroundColor: '#F5F5FA' }}
-				className='px-0 md:px-10 xl:px-32 pb-8 w-full'
+				className='px-0 md:px-10 xl:px-32 pb-8 w-full min-h-screen'
 			>
 				{children}
 			</div>

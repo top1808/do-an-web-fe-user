@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import NotFoundImage from '../../../public/images/not-found.jpg';
+import NotFoundImage from '../../../../public/images/not-found.jpg';
 import Image from 'next/image';
 import MButton from '@/components/MButton';
 

@@ -17,13 +17,15 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
 import { gettingCart } from '@/redux/reducers/cartReducer';
 import { gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
+import { useTranslations } from 'next-intl';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
 	const { cart, auth, notification } = useAppSelector((state) => state);
 	const pathname = usePathname();
-
+	const t = useTranslations('Headers');
 	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
 	const router = useRouter();
 	const profileItems: MenuProps['items'] = [
@@ -170,7 +172,7 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='py-4 md:px-8 xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500'>
+		<header className='py-4 md:px-8 xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500 relative'>
 			<MRow
 				justify={'space-between'}
 				className='w-full'
@@ -191,7 +193,7 @@ const Header = () => {
 					xs={14}
 					md={12}
 				>
-					<MSearchInput />
+					<MSearchInput placeHolder={t('SearchBar')} />
 				</MCol>
 				<MCol
 					xs={8}
@@ -256,7 +258,7 @@ const Header = () => {
 											icon={faUser}
 											className='text-lg xl:text-xl'
 										/>
-										<span className='hidden lg:inline-block'>Đăng nhập</span>
+										<span className='hidden lg:inline-block'>{t('ButtonLogin')}</span>
 									</Link>
 								</div>
 							) : (
@@ -281,6 +283,9 @@ const Header = () => {
 					</ul>
 				</MCol>
 			</MRow>
+			<div className='absolute top-2 right-2'>
+				<LocaleSwitcher />
+			</div>
 		</header>
 	);
 };
