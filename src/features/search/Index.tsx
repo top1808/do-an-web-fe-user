@@ -15,7 +15,6 @@ interface SearchPageComponentProps {}
 const SearchPageComponent = (props: SearchPageComponentProps) => {
 	const { product } = useAppSelector((state) => state);
 	const { productsSearch } = product;
-
 	const dispatch = useAppDispatch();
 	const params = useSearchParams();
 

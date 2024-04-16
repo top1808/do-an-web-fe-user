@@ -9,7 +9,7 @@ interface SliderProps {
 }
 
 const CustomSlider = (props: SliderProps) => {
-	const { length, children, dot } = props;
+	const { children, dot } = props;
 	const SlickArrowLeft = ({ currentSlide, slideCount, ...props }: any) => (
 		<button
 			{...props}
@@ -40,10 +40,10 @@ const CustomSlider = (props: SliderProps) => {
 	);
 	const settings = {
 		dots: false,
-		infinite: length > 6,
+		infinite: true,
 		speed: 500,
-		slidesToShow: 6,
-		slidesToScroll: 3,
+		slidesToShow: props.length > 6 ? 6 : props.length,
+		slidesToScroll: props.length > 6 ? 3 : 1,
 		autoplay: true,
 		autoplaySpeed: 3000,
 		prevArrow: <SlickArrowLeft />,
