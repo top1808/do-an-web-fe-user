@@ -14,9 +14,21 @@ export interface Product {
 	totalPrice?: number;
 	image?: string;
 	images?: string[];
-	discount?: number;
+	discounts?: DiscountProduct[];
 	groupOptions?: ProductGroupOption[];
 	productSKUList?: ProductSKU[];
+}
+export interface DiscountProduct {
+	createdAt?: string;
+	options?: ProductSKUOption[];
+	price?: number;
+	promotionPrice?: number;
+	type?: string;
+	value?: number;
+	_id: string;
+	productSKUBarcode?: string;
+	updatedAt?: string;
+	status?: boolean;
 }
 export interface ProductSKUOption {
 	groupName?: string;
