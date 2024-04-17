@@ -2,6 +2,7 @@ import { DataPayment, Order, ReponsePaySuccess } from '@/models/paymentModels';
 import { CartProduct, Product } from '@/models/productModels';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 interface CartState {
 	items: CartProduct[];
 	status: string;
@@ -129,3 +130,4 @@ export const {
 	setIPCustomer,
 } = cartReducer.actions;
 export default cartReducer.reducer;
+export const getCartState = (state: RootState) => state.cart as CartState;

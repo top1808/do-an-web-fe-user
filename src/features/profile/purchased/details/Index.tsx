@@ -4,7 +4,6 @@ import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
 import MCard from '@/components/MCard';
 import MCol from '@/components/MCol';
-import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
@@ -24,6 +23,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const router = useRouter();
 	const params = useParams();
 	const { id } = params;
+	console.log(orderDetails);
 
 	useEffect(() => {
 		if (id) {
@@ -95,7 +95,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 					</div>
 				}
 			>
-				{orderDetails?.products?.map((product) => (
+				{/* {orderDetails?.products?.map((product) => (
 					<MRow
 						gutter={12}
 						key={product.productCode}
@@ -128,7 +128,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							{customMoney((product?.price || 0) * (product?.quantity || 0))}
 						</MCol>
 					</MRow>
-				))}
+				))} */}
 				<div className='mt-4'>
 					<MRow className='flex-row-reverse text-base font-bold'>
 						<MCol

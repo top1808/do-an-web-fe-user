@@ -6,12 +6,13 @@ import ItemCategories from '../home/components/ItemCategories';
 import CustomSlider from '@/components/CustomSlider';
 type Props = {
 	categories: Category[] | null;
+	title: string;
 };
-const ListCategories = ({ categories }: Props) => {
+const ListCategories = ({ categories, title }: Props) => {
 	return (
 		<MRow className='xs:mb-6 md:mb-0'>
 			<MCol span={24}>
-				<MTitle level={3}>Category</MTitle>
+				<MTitle level={3}>{title}</MTitle>
 			</MCol>
 			<MCol span={24}>
 				{categories && categories.length > 0 && (

@@ -14,16 +14,19 @@ import { usePathname, useRouter } from 'next/navigation';
 import MBadge from '@/components/MBadge';
 import Swal from 'sweetalert2';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
-import { gettingCart } from '@/redux/reducers/cartReducer';
-import { gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
+import { getAuthState, gettingInfoCurrentUser, loginSuccess, logout } from '@/redux/reducers/authReducer';
+import { getCartState, gettingCart } from '@/redux/reducers/cartReducer';
+import { getNotificationState, gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
 import { useTranslations } from 'next-intl';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 
 const Header = () => {
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
-	const { cart, auth, notification } = useAppSelector((state) => state);
+	const cart = useAppSelector(getCartState);
+	const auth = useAppSelector(getAuthState);
+	const notification = useAppSelector(getNotificationState);
+	// const { cart, auth, notification } = useAppSelector((state) => state);
 	const pathname = usePathname();
 	const t = useTranslations('Headers');
 	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
@@ -40,7 +43,7 @@ const Header = () => {
 						icon={faUser}
 						color='#1EAAE8'
 					/>
-					Hồ sơ
+					{t('Profile')}
 				</Link>
 			),
 			key: '0',
@@ -56,7 +59,7 @@ const Header = () => {
 						icon={faBox}
 						color='#2BC255'
 					/>
-					Đơn hàng
+					{t('Order')}
 				</Link>
 			),
 			key: '1',
@@ -73,7 +76,7 @@ const Header = () => {
 							icon={faBell}
 							color='black'
 						/>
-						Thông báo
+						{t('Notification')}
 					</Link>
 				</div>
 			),
@@ -92,7 +95,7 @@ const Header = () => {
 						icon={faArrowRightFromBracket}
 						color='#FF2F2E'
 					/>
-					Đăng xuất
+					{t('SignOut')}
 				</div>
 			),
 			key: '3',
@@ -131,7 +134,7 @@ const Header = () => {
 				notification?.data?.length <= 0
 					? [
 							{
-								label: 'No notifications.',
+								label: t('NoNotification'),
 								key: 'no_notificaitons.',
 							},
 					  ]
@@ -163,7 +166,7 @@ const Header = () => {
 					  })),
 			);
 		}
-	}, [notification?.data]);
+	}, [dispatch, notification?.data]);
 
 	useEffect(() => {
 		if (pathname !== '/notification') {
@@ -226,7 +229,7 @@ const Header = () => {
 										{
 											label: (
 												<Link href='/profile/notification'>
-													<div className='text-xs text-center text-blue-600'>View all</div>
+													<div className='text-xs text-center text-blue-600'>{t('ViewAll')}</div>
 												</Link>
 											),
 											key: 'view_all',

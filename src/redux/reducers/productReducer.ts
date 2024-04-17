@@ -1,6 +1,7 @@
 import { Product } from '@/models/productModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 interface ProductState {
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
@@ -121,3 +122,4 @@ export const {
 	selectOption,
 } = ProductSlice.actions;
 export default ProductSlice.reducer;
+export const productState = (state: RootState) => state.product;

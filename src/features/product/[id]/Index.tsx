@@ -40,7 +40,6 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		};
 		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
-
 	useEffect(() => {
 		if (product.options.length === productInfor?.groupOptions?.length) {
 			const findProductSKU = productInfor?.productSKUList?.find((item) => {

@@ -1,6 +1,36 @@
 {
 	"Headers": {
 		"ButtonLogin": "Login",
-		"SearchBar": "Search..."
+		"SearchBar": "Search...",
+		"Profile": "Profile",
+		"Order": "Order",
+		"Notification": "Notification",
+		"SignOut": "SignOut",
+		"ViewAll": "View all",
+		"NoNotification": "No notifications."
+	},
+	"Login": {
+		"Title": "Login",
+		"Password": "Password",
+		"RememberMe": "Remember",
+		"ButtonLogin": "Login",
+		"LoginWith": "Or Sign In Using",
+		"RecommendedSignUp": "If You Don't Have Account ?",
+		"ButtonSignup": "Sign Up"
+	},
+	"SignUp": {
+		"Title": "Sign Up",
+		"Password": "Password",
+		"ConfirmPassword": "Confirm Password",
+		"ButtonSignUp": "Sign Up",
+		"SignUpWith": "Or Sign Up Using",
+		"RecommendedSignIn": "If You Have Account ?",
+		"ButtonSignIn": "Sign In"
+	},
+	"HomePage": {
+		"Category": "Category",
+		"FlashSales": "Flash Sales",
+		"Product": "All Products",
+		"ButtonContinue": "See more ..."
 	}
 }

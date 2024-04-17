@@ -8,13 +8,15 @@ import Link from 'next/link';
 
 interface ListProductProps {
 	listProducts: Product[];
+	title: string;
+	buttonName: string;
 }
 
-const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
+const ListProducts: React.FC<ListProductProps> = ({ listProducts, title, buttonName }) => {
 	return (
 		<div>
 			<div className='flex justify-between h-14 items-center'>
-				<h3 className='h-full text-center leading-10'> Gợi Ý Hôm Nay</h3>
+				<h3 className='h-full text-center leading-10'> {title}</h3>
 			</div>
 			<MRow
 				gutter={[
@@ -38,7 +40,7 @@ const ListProducts: React.FC<ListProductProps> = ({ listProducts }) => {
 			</MRow>
 			<div className='w-full flex justify-center mt-6'>
 				<Link href='/product?category=all'>
-					<MButton>Xem tiếp...</MButton>
+					<MButton>{buttonName}</MButton>
 				</Link>
 			</div>
 		</div>

@@ -1,6 +1,36 @@
 {
 	"Headers": {
 		"ButtonLogin": "Đăng nhập",
-		"SearchBar": "Tìm kiếm..."
+		"SearchBar": "Tìm kiếm...",
+		"Profile": "Hồ sơ",
+		"Order": "Đơn hàng",
+		"Notification": "Thông báo",
+		"SignOut": "Đăng xuất",
+		"ViewAll": "Xem tất cả",
+		"NoNotification": "Không có thông báo."
+	},
+	"Login": {
+		"Title": "Đăng nhập",
+		"Password": "Mật khẩu",
+		"RememberMe": "Ghi nhớ",
+		"ButtonLogin": "Đăng nhập",
+		"LoginWith": "Đăng nhập bằng",
+		"RecommendedSignUp": "Nếu bạn chưa có tài khoản ?",
+		"ButtonSignup": "Đăng ký"
+	},
+	"SignUp": {
+		"Title": "Đăng ký",
+		"Password": "Mật khẩu",
+		"ConfirmPassword": "Xác nhận mật khẩu",
+		"ButtonSignUp": "Đăng ký",
+		"SignUpWith": "Bạn có thể đăng ký bằng",
+		"RecommendedSignIn": "Nếu bạn đã có tài khoản ?",
+		"ButtonSignIn": "Đăng nhập"
+	},
+	"HomePage": {
+		"Category": "Danh mục",
+		"FlashSales": "Chương trình khuyến mãi",
+		"Product": "Tất cả sản phẩm",
+		"ButtonContinue": "Xem tiếp ..."
 	}
 }
