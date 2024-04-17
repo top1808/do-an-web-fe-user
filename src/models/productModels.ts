@@ -18,12 +18,15 @@ export interface Product {
 	groupOptions?: ProductGroupOption[];
 	productSKUList?: ProductSKU[];
 }
-
+export interface ProductSKUOption {
+	groupName?: string;
+	option?: string;
+	_id: string;
+}
 export interface ProductSKU extends Product {
 	barcode?: string;
 	image?: string;
-	option1?: string;
-	option2?: string;
+	options: ProductSKUOption[];
 	price?: number;
 	productId?: string;
 }

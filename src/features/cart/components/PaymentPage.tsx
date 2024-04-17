@@ -104,20 +104,21 @@ const PaymentPage = () => {
 				returnURL: `http://localhost:3000${pathname}`,
 			};
 			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
-
 			paymentWithVPN({ ...data });
 		} else {
+			console.log('dataPost', dataPost);
+
 			dispatch(paying(dataPost));
 		}
 	};
 
 	useEffect(() => {
 		form.setFieldsValue({
-			customerName: auth.currentUserInfo?.name,
-			customerPhone: auth.currentUserInfo?.phoneNumber,
-			customerEmail: auth.currentUserInfo?.email,
-			deliveryAddress: auth.currentUserInfo?.address,
-			note: '',
+			customerName: auth.currentUserInfo?.name || form.getFieldValue('customerName') || '',
+			customerPhone: auth.currentUserInfo?.phoneNumber || form.getFieldValue('customerPhone') || '',
+			customerEmail: auth.currentUserInfo?.email || form.getFieldValue('customerEmail') || '',
+			deliveryAddress: auth.currentUserInfo?.address || form.getFieldValue('deliveryAddress') || '',
+			note: form.getFieldValue('note') || '',
 			paymentMethod: 'cash',
 			deliveryFee: address.fee,
 		});
@@ -275,7 +276,7 @@ const PaymentPage = () => {
 													{item?.product?.groupOptions?.map((group, index) => (
 														<span key={group?.groupName}>
 															<span className='text-gray-500'>
-																{group?.groupName}: {index === 0 ? item?.productSKU?.option1 + ', ' : item?.productSKU?.option2}
+																{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
 															</span>
 														</span>
 													))}

@@ -10,7 +10,7 @@ interface ProductState {
 	productsSearch: Product[];
 	isSearching: boolean;
 	mainImage?: string;
-	options?: string[];
+	options: string[];
 }
 
 const initialState: ProductState = {
@@ -22,7 +22,7 @@ const initialState: ProductState = {
 	productsSearch: [],
 	isSearching: false,
 	mainImage: '',
-	options: ['', ''],
+	options: [],
 };
 
 const ProductSlice = createSlice({
@@ -84,18 +84,25 @@ const ProductSlice = createSlice({
 		changeMainImage: (state, action: PayloadAction<string>) => {
 			state.mainImage = action.payload;
 		},
-
+		clearOptions: (state) => {
+			state.options = [];
+		},
 		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
-			state.options = state.options?.map((item, i) => {
-				if (i === action.payload.index) {
-					return action.payload.option;
-				}
-				return item;
-			});
+			if (state.options.length < action.payload.index + 1) {
+				state.options.push(action.payload.option);
+			} else {
+				state.options = state.options?.map((item, i) => {
+					if (i === action.payload.index) {
+						return action.payload.option;
+					}
+					return item;
+				});
+			}
 		},
 	},
 });
 export const {
+	clearOptions,
 	gettingProduct,
 	getProductsFailed,
 	getProductsSuccess,

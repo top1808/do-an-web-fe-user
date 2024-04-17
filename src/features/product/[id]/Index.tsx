@@ -18,6 +18,7 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
+import { clearOptions } from '@/redux/reducers/productReducer';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -25,14 +26,14 @@ interface DetailProductComponent {
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
 	const product = useAppSelector((state) => state.product);
+	// console.log(productInfor);
+	// console.log('product?.options', product);
 
 	const { data: session } = useSession();
-
 	const dispatch = useAppDispatch();
 	const [quantity, setQuantity] = useState<number>(1);
 	const [price, setPrice] = useState<number>(0);
 	const [productSKU, setProductSKU] = useState<Product | null>(null);
-
 	function handleAddToCart() {
 		const data = {
 			...productSKU,
@@ -40,21 +41,30 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			quantity: quantity,
 			price: price,
 		};
-
 		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
 
 	useEffect(() => {
-		const findProductSKU = productInfor?.productSKUList?.find((item) => item.option1 === product?.options?.[0] && item.option2 === product?.options?.[1]);
-		if (findProductSKU) {
-			setProductSKU(findProductSKU);
-			setPrice(findProductSKU?.price || 0);
-		} else {
-			setProductSKU(null);
-			setPrice(0);
+		if (product.options.length === productInfor?.groupOptions?.length) {
+			const findProductSKU = productInfor?.productSKUList?.find((item) => {
+				const optionsProduct = item.options?.map((option) => option.option);
+				if (product.options.every((element, index) => element === optionsProduct[index])) {
+					return item;
+				}
+				return null;
+			});
+			if (findProductSKU) {
+				setProductSKU(findProductSKU);
+				setPrice(findProductSKU?.price || 0);
+			} else {
+				setProductSKU(null);
+				setPrice(0);
+			}
 		}
 	}, [product?.options, productInfor?.productSKUList]);
-
+	useEffect(() => {
+		dispatch(clearOptions());
+	}, [dispatch]);
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
