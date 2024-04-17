@@ -26,9 +26,6 @@ interface DetailProductComponent {
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
 	const product = useAppSelector((state) => state.product);
-	// console.log(productInfor);
-	// console.log('product?.options', product);
-
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
 	const [quantity, setQuantity] = useState<number>(1);
@@ -61,7 +58,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				setPrice(0);
 			}
 		}
-	}, [product?.options, productInfor?.productSKUList]);
+	}, [product.options, productInfor?.groupOptions?.length, productInfor?.productSKUList]);
 	useEffect(() => {
 		dispatch(clearOptions());
 	}, [dispatch]);

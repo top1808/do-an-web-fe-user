@@ -16,6 +16,7 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
 	const { cart } = useAppSelector((state) => state);
+	console.log('item', item);
 
 	const dispatch = useAppDispatch();
 
@@ -75,10 +76,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 					>
 						<MText>{item?.product?.name}</MText>
 						<div>
-							{item?.product?.groupOptions?.map((group, index) => (
+							{item?.productSKU?.options?.map((group) => (
 								<div key={group?.groupName}>
 									<p className='text-gray-500'>
-										{group?.groupName}: {index === 0 ? item?.productSKU?.option1 : item?.productSKU?.option2}
+										{group?.groupName}: {group?.option}
 									</p>
 								</div>
 							))}
