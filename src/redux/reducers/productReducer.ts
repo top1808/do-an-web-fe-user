@@ -84,8 +84,10 @@ const ProductSlice = createSlice({
 		changeMainImage: (state, action: PayloadAction<string>) => {
 			state.mainImage = action.payload;
 		},
-		clearOptions: (state) => {
-			state.options = [];
+		resetOptions: (state, action: PayloadAction<number | undefined>) => {
+			if (action.payload) {
+				state.options = Array.from({ length: action.payload }, () => '');
+			}
 		},
 		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
 			if (state.options.length < action.payload.index + 1) {
@@ -102,7 +104,7 @@ const ProductSlice = createSlice({
 	},
 });
 export const {
-	clearOptions,
+	resetOptions,
 	gettingProduct,
 	getProductsFailed,
 	getProductsSuccess,

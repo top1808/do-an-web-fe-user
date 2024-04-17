@@ -18,7 +18,7 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { clearOptions } from '@/redux/reducers/productReducer';
+import { resetOptions } from '@/redux/reducers/productReducer';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -60,8 +60,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		}
 	}, [product.options, productInfor?.groupOptions?.length, productInfor?.productSKUList]);
 	useEffect(() => {
-		dispatch(clearOptions());
-	}, [dispatch]);
+		dispatch(resetOptions(productInfor?.groupOptions?.length));
+	}, [dispatch, productInfor?.groupOptions?.length]);
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
