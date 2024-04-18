@@ -9,10 +9,11 @@ import { CartProduct } from '@/models/productModels';
 import { useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 import { Col } from 'antd';
+import { useTranslations } from 'next-intl';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const { cart } = useAppSelector((state) => state);
-
+	const t = useTranslations('CartPage');
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
 
 	useEffect(() => {
@@ -32,16 +33,16 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 					<Col span={21}>
 						<MRow className='w-full'>
 							<MCol span={10}>
-								<MText>Tên sản phẩm</MText>
+								<MText>{t('Name')}</MText>
 							</MCol>
 							<MCol span={4}>
-								<MText>Giá</MText>
+								<MText>{t('ColumnPriceProduct')}</MText>
 							</MCol>
 							<MCol span={4}>
-								<MText>Số lượng</MText>
+								<MText>{t('ColumnQuantityProduct')}</MText>
 							</MCol>
 							<MCol span={4}>
-								<MText>Thành tiền</MText>
+								<MText>{t('TotalPrice')}</MText>
 							</MCol>
 							<MCol span={2}></MCol>
 						</MRow>
@@ -62,7 +63,7 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 				level={3}
 				className='text-end pr-2'
 			>
-				{`Tổng tiền: ${summaryMoney}`}
+				{`${t('TotalPrice')}: ${summaryMoney}`}
 			</MTitle>
 		</>
 	);

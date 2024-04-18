@@ -13,6 +13,7 @@ import axios from 'axios';
 const CartPageComponent = () => {
 	const { cart } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		dispatch(gettingCart());
 		axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));

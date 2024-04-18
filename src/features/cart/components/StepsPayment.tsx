@@ -6,37 +6,8 @@ import { Steps, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import PaymentPage from './PaymentPage';
-const items = [
-	{
-		title: 'Giỏ hàng của tôi',
-		icon: (
-			<FontAwesomeIcon
-				icon={faCartShopping}
-				className='text-lime-600'
-			/>
-		),
-	},
-	{
-		title: 'Thanh toán',
-		icon: (
-			<FontAwesomeIcon
-				color='red'
-				icon={faDollarSign}
-				className='text-lime-600'
-			/>
-		),
-	},
-	{
-		title: 'Hoàn tất thanh toán',
-		icon: (
-			<FontAwesomeIcon
-				color='red'
-				icon={faCheck}
-				className='text-lime-600'
-			/>
-		),
-	},
-];
+import { useTranslations } from 'next-intl';
+
 interface ChildrenProps {
 	children: React.ReactNode;
 	isFail?: boolean;
@@ -44,6 +15,38 @@ interface ChildrenProps {
 const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 	const [current, setCurrent] = useState(isFail ? 1 : 0);
 	const router = useRouter();
+	const t = useTranslations('CartPage');
+	const items = [
+		{
+			title: t('MyCart'),
+			icon: (
+				<FontAwesomeIcon
+					icon={faCartShopping}
+					className='text-lime-600'
+				/>
+			),
+		},
+		{
+			title: t('Payment'),
+			icon: (
+				<FontAwesomeIcon
+					color='red'
+					icon={faDollarSign}
+					className='text-lime-600'
+				/>
+			),
+		},
+		{
+			title: t('TitleProcessCompleted'),
+			icon: (
+				<FontAwesomeIcon
+					color='red'
+					icon={faCheck}
+					className='text-lime-600'
+				/>
+			),
+		},
+	];
 	const next = () => {
 		setCurrent(current + 1);
 	};
@@ -79,7 +82,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 							router.push('/');
 						}}
 					>
-						Tiếp tục mua sắm
+						{t('ButtonContinueShopping')}
 					</MButton>
 				)}
 				{current > 0 && (
@@ -87,7 +90,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 						style={{ margin: '0 8px' }}
 						onClick={() => prev()}
 					>
-						Previous
+						{t('ButtonPreviousProcess')}
 					</MButton>
 				)}
 				{current < items.length - 2 && (
@@ -95,7 +98,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 						type='primary'
 						onClick={() => next()}
 					>
-						Next
+						{t('ButtonNextProcess')}
 					</MButton>
 				)}
 				{current === items.length - 1 && (
@@ -103,7 +106,7 @@ const CustomSteps: React.FC<ChildrenProps> = ({ children, isFail }) => {
 						type='primary'
 						onClick={() => message.success('Processing complete!')}
 					>
-						Done
+						{t('Done')}
 					</MButton>
 				)}
 			</div>

@@ -91,16 +91,12 @@ const ProductSlice = createSlice({
 			}
 		},
 		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
-			if (state.options.length < action.payload.index + 1) {
-				state.options.push(action.payload.option);
-			} else {
-				state.options = state.options?.map((item, i) => {
-					if (i === action.payload.index) {
-						return action.payload.option;
-					}
-					return item;
-				});
-			}
+			state.options = state.options?.map((item, i) => {
+				if (i === action.payload.index) {
+					return action.payload.option;
+				}
+				return item;
+			});
 		},
 	},
 });

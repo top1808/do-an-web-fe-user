@@ -111,7 +111,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<MButton
 								className='bg-green-600 hover:bg-green-300 text-white'
 								onClick={handleAddToCart}
-								disabled={(productInfor?.groupOptions?.length || 0) > 0 && !productSKU}
+								disabled={(productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product}
 							>
 								<FontAwesomeIcon icon={faCartShopping} />
 								&nbsp; Thêm vào giỏ hàng

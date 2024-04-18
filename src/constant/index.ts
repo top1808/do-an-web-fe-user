@@ -1,6 +1,6 @@
 const PAYMENT_METHOD = [
 	{
-		label: 'Thanh toán khi nhận hàng',
+		label: 'Cash',
 		value: 'cash',
 	},
 	{
