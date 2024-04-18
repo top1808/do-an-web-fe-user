@@ -2,6 +2,7 @@ import { NotificationModel, NotificationParams } from '@/models/notificationMode
 import { PaginationModel } from '@/models/reponseModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 
 interface NotificationState {
 	isLoading?: boolean;
@@ -83,3 +84,4 @@ export const {
 	readingNotifications,
 } = notificationSlice.actions;
 export default notificationSlice.reducer;
+export const getNotificationState = (state: RootState) => state.notification;

@@ -11,9 +11,12 @@ const CartPage = () => {
 	const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 	if (isSuccess) {
 		const data = localStorage.getItem('tempDataPayement');
+		// tien hanh tao hoa don voi data
 		console.log(data);
+	} else {
+		// thanh toan that bai
+		localStorage.removeItem('tempDataPayement');
 	}
-
 	return <CartPageComponent />;
 };
 

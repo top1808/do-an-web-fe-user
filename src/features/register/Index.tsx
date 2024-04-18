@@ -3,7 +3,6 @@ import authApi from '@/api/authApi';
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import MTitle from '@/components/MTitle';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +10,7 @@ import { Form, Input } from 'antd';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 type FieldType = {
 	username?: string;
@@ -19,6 +19,8 @@ type FieldType = {
 	confirmPassword?: string;
 };
 const UserRegister = () => {
+	const t = useTranslations('SignUp');
+
 	const handleRegister = async (value: FieldType) => {
 		const dataResigter = {
 			password: value.password,
@@ -35,7 +37,7 @@ const UserRegister = () => {
 	};
 	return (
 		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
-			<h1 className='text-center text-white md:text-black xs:pt-10'>SIGN UP</h1>
+			<h1 className='text-center text-white md:text-black xs:pt-10'>{t('Title')}</h1>
 			<Form
 				name='resigter'
 				labelCol={{ span: 9 }}
@@ -44,7 +46,7 @@ const UserRegister = () => {
 				onFinish={(value) => handleRegister(value)}
 				onFinishFailed={() => {}}
 				autoComplete='off'
-				className='m-12 xs:mt-2'
+				className='m-8 xs:mt-2'
 			>
 				<Form.Item<FieldType>
 					label={<span className='text-white md:text-black'>Email</span>}
@@ -57,7 +59,7 @@ const UserRegister = () => {
 				</Form.Item>
 
 				<Form.Item<FieldType>
-					label={<span className='text-white md:text-black'>Password</span>}
+					label={<span className='text-white md:text-black'>{t('Password')}</span>}
 					name='password'
 					hasFeedback
 					labelAlign='left'
@@ -69,7 +71,7 @@ const UserRegister = () => {
 					<Input.Password />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<span className='text-white md:text-black'>Confirm password</span>}
+					label={<span className='text-white md:text-black'>{t('ConfirmPassword')}</span>}
 					name='confirmPassword'
 					labelAlign='left'
 					dependencies={['password']}
@@ -98,11 +100,11 @@ const UserRegister = () => {
 						htmlType='submit'
 						size='large'
 					>
-						Sign Up
+						{t('ButtonSignUp')}
 					</MButton>
 				</Form.Item>
 			</Form>
-			<h2 className='text-center text-white md:text-black'>Or Sign Up Using</h2>
+			<h2 className='text-center text-white md:text-black'>{t('SignUpWith')}</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
@@ -140,12 +142,12 @@ const UserRegister = () => {
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 xs:gap-1 items-center'>
-					<h2 className='text-white md:text-black'>If You Have Account ?</h2>
+					<h2 className='text-white md:text-black'>{t('RecommendedSignIn')}</h2>
 					<Link
 						href={'/login'}
 						className='text-blue-600 font-bold text-xl xs:text-blue-300'
 					>
-						SIGN IN
+						{t('ButtonSignIn')}
 					</Link>
 				</MCol>
 			</MRow>

@@ -9,6 +9,7 @@ type PropsItemCategory = {
 };
 const ItemCategories = ({ data }: PropsItemCategory) => {
 	const { _id, image, name } = data;
+
 	return (
 		<Link
 			href={`/product?category=` + _id}

@@ -1,6 +1,7 @@
 import { Product } from '@/models/productModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 interface ProductState {
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
@@ -10,7 +11,7 @@ interface ProductState {
 	productsSearch: Product[];
 	isSearching: boolean;
 	mainImage?: string;
-	options?: string[];
+	options: string[];
 }
 
 const initialState: ProductState = {
@@ -22,7 +23,7 @@ const initialState: ProductState = {
 	productsSearch: [],
 	isSearching: false,
 	mainImage: '',
-	options: ['', ''],
+	options: [],
 };
 
 const ProductSlice = createSlice({
@@ -84,18 +85,27 @@ const ProductSlice = createSlice({
 		changeMainImage: (state, action: PayloadAction<string>) => {
 			state.mainImage = action.payload;
 		},
-
+		resetOptions: (state, action: PayloadAction<number | undefined>) => {
+			if (action.payload) {
+				state.options = Array.from({ length: action.payload }, () => '');
+			}
+		},
 		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
-			state.options = state.options?.map((item, i) => {
-				if (i === action.payload.index) {
-					return action.payload.option;
-				}
-				return item;
-			});
+			if (state.options.length < action.payload.index + 1) {
+				state.options.push(action.payload.option);
+			} else {
+				state.options = state.options?.map((item, i) => {
+					if (i === action.payload.index) {
+						return action.payload.option;
+					}
+					return item;
+				});
+			}
 		},
 	},
 });
 export const {
+	resetOptions,
 	gettingProduct,
 	getProductsFailed,
 	getProductsSuccess,
@@ -112,3 +122,4 @@ export const {
 	selectOption,
 } = ProductSlice.actions;
 export default ProductSlice.reducer;
+export const productState = (state: RootState) => state.product;

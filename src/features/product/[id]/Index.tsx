@@ -18,43 +18,57 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
+import { resetOptions } from '@/redux/reducers/productReducer';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
-
+type ProductSKUChoice = {
+	product: Product | null;
+	discountValue: number;
+	price: number;
+	promotionPrice?: number;
+	dateEnd?: string;
+};
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
 	const product = useAppSelector((state) => state.product);
-
 	const { data: session } = useSession();
-
 	const dispatch = useAppDispatch();
+	const [productSKU, setProductSKU] = useState<ProductSKUChoice>({ product: null, discountValue: 0, price: 0 });
 	const [quantity, setQuantity] = useState<number>(1);
-	const [price, setPrice] = useState<number>(0);
-	const [productSKU, setProductSKU] = useState<Product | null>(null);
-
 	function handleAddToCart() {
 		const data = {
-			...productSKU,
+			...productSKU.product,
 			productId: productInfor?._id,
 			quantity: quantity,
-			price: price,
+			price: productSKU.promotionPrice ? productSKU.promotionPrice : productSKU.price,
 		};
-
 		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
-
 	useEffect(() => {
-		const findProductSKU = productInfor?.productSKUList?.find((item) => item.option1 === product?.options?.[0] && item.option2 === product?.options?.[1]);
-		if (findProductSKU) {
-			setProductSKU(findProductSKU);
-			setPrice(findProductSKU?.price || 0);
-		} else {
-			setProductSKU(null);
-			setPrice(0);
+		if (product.options.length === productInfor?.groupOptions?.length) {
+			const findProductSKU = productInfor?.productSKUList?.find((item) => {
+				const optionsProduct = item.options?.map((option) => option.option);
+				if (product.options.every((element, index) => element === optionsProduct[index])) {
+					return item;
+				}
+				return null;
+			});
+			if (findProductSKU) {
+				const productDiscount = productInfor.discounts?.find((item) => item.productSKUBarcode === findProductSKU.barcode);
+				if (productDiscount && productDiscount.status) {
+					setProductSKU({ product: findProductSKU, promotionPrice: productDiscount.promotionPrice!, price: productDiscount.price!, discountValue: productDiscount.value! });
+				} else {
+					setProductSKU({ product: findProductSKU, price: findProductSKU.price || 0, discountValue: 0 });
+				}
+			} else {
+				setProductSKU({ product: null, discountValue: 0, price: 0 });
+			}
 		}
-	}, [product?.options, productInfor?.productSKUList]);
-
+	}, [product.options, productInfor?.discounts, productInfor?.groupOptions?.length, productInfor?.productSKUList]);
+	useEffect(() => {
+		dispatch(resetOptions(productInfor?.groupOptions?.length));
+	}, [dispatch, productInfor, productInfor?.groupOptions?.length]);
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
@@ -74,7 +88,9 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<MTitle level={3}>{productInfor?.name}</MTitle>
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
-								price={price ? customMoney(price) : getProductPrice(productInfor as Product)}
+								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
+								discountValue={productSKU.discountValue > 0 ? productSKU.discountValue : null}
+								promotionPrice={productSKU.promotionPrice ? productSKU.promotionPrice : null}
 							/>
 							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>

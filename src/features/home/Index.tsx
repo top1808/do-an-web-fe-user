@@ -2,30 +2,37 @@
 import React, { useEffect } from 'react';
 import ListProducts from './components/ListProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingProduct } from '@/redux/reducers/productReducer';
+import { gettingProduct, productState } from '@/redux/reducers/productReducer';
 import CarouselBanner from './components/CarouselBanner';
 import MSkeleton from '@/components/MSkeleton';
 import MTitle from '@/components/MTitle';
-import { gettingDiscountPrograms } from '@/redux/reducers/discountProgramReducer';
+import { discountProgramState, gettingDiscountPrograms } from '@/redux/reducers/discountProgramReducer';
 import ListCategories from '../components/ListCategories';
-import { gettingCategory } from '@/redux/reducers/categoryReducer';
+import { categoryState, gettingCategory } from '@/redux/reducers/categoryReducer';
 import CustomSlider from '../../components/CustomSlider';
 import CardProduct from './components/CardProduct';
 
 import CountdownTimer from '@/components/CountdownTimer';
+import { useTranslations } from 'next-intl';
 const HomeUserComponent = () => {
-	const { product, discountProgram, category } = useAppSelector((state) => state);
+	const category = useAppSelector(categoryState);
+	const discountProgram = useAppSelector(discountProgramState);
+	const product = useAppSelector(productState);
 	const dispatch = useAppDispatch();
+	const t = useTranslations('HomePage');
+
 	useEffect(() => {
 		dispatch(gettingProduct());
 		dispatch(gettingCategory());
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
-
 	return (
 		<div className='w-full'>
 			<CarouselBanner />
-			<ListCategories categories={category.data ? category.data : null} />
+			<ListCategories
+				categories={category.data ? category.data : null}
+				title={t('Category')}
+			/>
 			<MSkeleton loading={discountProgram.loading}>
 				{discountProgram?.data &&
 					discountProgram?.data?.map((program) => (
@@ -53,7 +60,11 @@ const HomeUserComponent = () => {
 					))}
 			</MSkeleton>
 			<MSkeleton loading={product.loading}>
-				<ListProducts listProducts={product.data ? product.data : []} />
+				<ListProducts
+					listProducts={product.data ? product.data : []}
+					title={t('Product')}
+					buttonName={t('ButtonContinue')}
+				/>
 			</MSkeleton>
 		</div>
 	);
