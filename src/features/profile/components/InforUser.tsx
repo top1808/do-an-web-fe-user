@@ -9,13 +9,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changingInfor } from '@/redux/reducers/authReducer';
 import { checkPhoneNumber } from '@/utils/FunctionHelpers';
 import { Form } from 'antd';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 const InforUser = () => {
 	const { auth } = useAppSelector((state) => state);
 	const { currentUserInfo } = auth;
 	const dispatch = useAppDispatch();
-
+	const t = useTranslations('ProfilePage');
 	const onSubmit = (data: FormChangeInfor) => {
 		dispatch(changingInfor(data));
 	};
@@ -27,7 +28,7 @@ const InforUser = () => {
 			labelCol={{ span: 4 }}
 			wrapperCol={{ span: 20 }}
 		>
-			<h2 className='text-center'>Thông tin tài khoản</h2>
+			<h2 className='text-center'>{t('Account')}</h2>
 			<MRow
 				gutter={8}
 				className='mt-2'
@@ -47,7 +48,7 @@ const InforUser = () => {
 						multiple={false}
 						showUploadList={false}
 					>
-						Upload
+						{t('Upload')}
 					</MForm.UploadImage>
 				</MCol>
 				<MCol
@@ -85,7 +86,10 @@ const InforUser = () => {
 									className='w-full'
 									rules={[{ type: 'email', message: 'Email is invalid.' }]}
 								>
-									<MInput placeholder='Enter your email' />
+									<MInput
+										placeholder='Enter your email'
+										required
+									/>
 								</Form.Item>
 							</MRow>
 							<MRow
@@ -95,10 +99,13 @@ const InforUser = () => {
 							>
 								<Form.Item
 									name='name'
-									label='Name'
+									label={t('Name')}
 									className='w-full'
 								>
-									<MInput placeholder='Enter your name' />
+									<MInput
+										placeholder='Enter your name'
+										required
+									/>
 								</Form.Item>
 							</MRow>
 							<MRow
@@ -108,7 +115,7 @@ const InforUser = () => {
 							>
 								<Form.Item
 									name='phoneNumber'
-									label='Phone'
+									label={t('Phone')}
 									className='w-full'
 									rules={[{ validator: (_, value) => checkPhoneNumber(value) }]}
 								>
@@ -122,7 +129,7 @@ const InforUser = () => {
 							>
 								<Form.Item
 									name='address'
-									label='Address'
+									label={t('Address')}
 									className='w-full'
 								>
 									<MInput placeholder='Enter your address' />
@@ -138,7 +145,7 @@ const InforUser = () => {
 					className='bg-lime-600 hover:bg-lime-500'
 					htmlType='submit'
 				>
-					Lưu thay đổi
+					{t('SaveChanges')}
 				</MButton>
 			</MRow>
 		</Form>

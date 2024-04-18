@@ -27,7 +27,7 @@ const CustomPriceProduct = ({
 					</MCol>
 				)}
 				<MCol>
-					<MText className={`text-xl font-bold text-red-500 ${promotionPrice ? 'line-through text-gray-600 text-xs' : ''}`}>{price}</MText>
+					<MText className={`text-xl font-bold  ${promotionPrice ? 'line-through text-gray-600 text-xs' : 'text-red-500'}`}>{price}</MText>
 				</MCol>
 
 				{!!discountValue && (

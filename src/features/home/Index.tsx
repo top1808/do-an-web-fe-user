@@ -44,13 +44,20 @@ const HomeUserComponent = () => {
 								endTime={program.dateEnd as string}
 								startTime={program.dateStart as string}
 							>
-								<MTitle level={3}>{program.name}</MTitle>
+								<MTitle
+									level={3}
+									underline
+								>
+									{program.name}
+								</MTitle>
 								{program.products && program.products.length > 0 && (
 									<CustomSlider length={program.products.length}>
 										{program.products.map((item) => (
 											<CardProduct
 												data={item}
 												key={item._id}
+												isSale={true}
+												link={`/product/${item.productCode!}?barcode=${item.productSKUBarcode}`}
 											/>
 										))}
 									</CustomSlider>

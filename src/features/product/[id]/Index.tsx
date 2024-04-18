@@ -18,7 +18,8 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { resetOptions } from '@/redux/reducers/productReducer';
+import { resetOptions, setDefaultOption } from '@/redux/reducers/productReducer';
+import { useSearchParams } from 'next/navigation';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -36,6 +37,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const dispatch = useAppDispatch();
 	const [productSKU, setProductSKU] = useState<ProductSKUChoice>({ product: null, discountValue: 0, price: 0 });
 	const [quantity, setQuantity] = useState<number>(1);
+	const searchParams = useSearchParams();
+
 	function handleAddToCart() {
 		const data = {
 			...productSKU.product,
@@ -67,8 +70,15 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		}
 	}, [product.options, productInfor?.discounts, productInfor?.groupOptions?.length, productInfor?.productSKUList]);
 	useEffect(() => {
-		dispatch(resetOptions(productInfor?.groupOptions?.length));
-	}, [dispatch, productInfor, productInfor?.groupOptions?.length]);
+		if (searchParams.get('barcode')) {
+			const productWithBarcode = productInfor?.productSKUList?.find((p) => p.barcode === searchParams.get('barcode'));
+			if (productWithBarcode) {
+				dispatch(setDefaultOption([...productWithBarcode.options.map((option) => option.option!)]));
+			}
+		} else {
+			dispatch(resetOptions(productInfor?.groupOptions?.length));
+		}
+	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>

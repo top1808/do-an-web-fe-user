@@ -64,5 +64,28 @@
 		"VNPay": "VNPay",
 		"Done": "Done",
 		"Note": "Note"
+	},
+	"ProfilePage": {
+		"Account": "Information Account",
+		"Avatar": "Avatar",
+		"Name": "Name",
+		"Phone": "Phone",
+		"Address": "Address",
+		"SaveChanges": "Save Changes",
+		"ChangePassword": "Change Password",
+		"CurrentPassword": "Current Password",
+		"NewPassword": "New Password",
+		"ConfirmNewPassword": "Confirm New Password",
+		"Notification": "Notification",
+		"OrderID": "Order ID",
+		"TotalPrice": "Total Price",
+		"DeliverAddress": "Delivery Address",
+		"CreateAt": "Create At",
+		"PaymentMethod": "Payment Method",
+		"Status": "Status",
+		"Action": "Action",
+		"ExpectedDelivery": "Expected delivery",
+		"Upload": "Upload",
+		"Order": "Order"
 	}
 }

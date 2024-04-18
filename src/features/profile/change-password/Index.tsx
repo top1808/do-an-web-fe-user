@@ -5,6 +5,7 @@ import { FormChangePassword } from '@/models/authModel';
 import { useAppDispatch } from '@/redux/hooks';
 import { changingPassword } from '@/redux/reducers/authReducer';
 import { Form, Input } from 'antd';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 const ChangePass = () => {
@@ -12,24 +13,24 @@ const ChangePass = () => {
 	const onFinish = (value: FormChangePassword) => {
 		dispatch(changingPassword(value));
 	};
-
+	const t = useTranslations('ProfilePage');
 	return (
 		<div>
-			<MTitle level={3}>Đổi mật khẩu</MTitle>
+			<MTitle level={3}>{t('ChangePassword')}</MTitle>
 			<Form onFinish={onFinish}>
 				<Form.Item
 					name={'password'}
 					rules={[{ required: true }]}
 					hasFeedback
 				>
-					<Input.Password placeholder='Nhập mật khẩu hiện tại' />
+					<Input.Password placeholder={t('CurrentPassword')} />
 				</Form.Item>
 				<Form.Item
 					name={'newPassword'}
 					rules={[{ required: true }]}
 					hasFeedback
 				>
-					<Input.Password placeholder='Nhập mật khẩu mới' />
+					<Input.Password placeholder={t('NewPassword')} />
 				</Form.Item>
 				<Form.Item
 					name={'confirmPassword'}
@@ -50,9 +51,9 @@ const ChangePass = () => {
 						}),
 					]}
 				>
-					<Input.Password placeholder='Nhập lại mật khẩu mới' />
+					<Input.Password placeholder={t('ConfirmNewPassword')} />
 				</Form.Item>
-				<MButton htmlType='submit'>Thay đổi mật khẩu</MButton>
+				<MButton htmlType='submit'>{t('SaveChanges')}</MButton>
 			</Form>
 		</div>
 	);

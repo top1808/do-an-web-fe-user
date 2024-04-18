@@ -90,6 +90,9 @@ const ProductSlice = createSlice({
 				state.options = Array.from({ length: action.payload }, () => '');
 			}
 		},
+		setDefaultOption: (state, action: PayloadAction<string[]>) => {
+			state.options = action.payload;
+		},
 		selectOption: (state, action: PayloadAction<{ index: number; option: string }>) => {
 			state.options = state.options?.map((item, i) => {
 				if (i === action.payload.index) {
@@ -101,6 +104,7 @@ const ProductSlice = createSlice({
 	},
 });
 export const {
+	setDefaultOption,
 	resetOptions,
 	gettingProduct,
 	getProductsFailed,

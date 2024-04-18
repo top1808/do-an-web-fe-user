@@ -8,6 +8,7 @@ import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
 import { customMoney } from '@/utils/FunctionHelpers';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
 interface CartItemProps {
@@ -17,6 +18,7 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
 	const { cart } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	console.log(item);
 
 	const [quantity, setQuantity] = useState<number>(item?.quantity || 1);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -56,12 +58,17 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 				lg={3}
 				xs={8}
 			>
-				<MImage
-					preview={false}
-					src={item?.product?.images?.[0]}
-					alt={`${item?.product?.name}`}
-					height={60}
-				/>
+				<Link
+					href={`/product/${item?.product?._id}`}
+					className='hover:opacity-80'
+				>
+					<MImage
+						preview={false}
+						src={item?.product?.images?.[0]}
+						alt={`${item?.product?.name}`}
+						height={60}
+					/>
+				</Link>
 			</MCol>
 			<MCol
 				xs={16}
@@ -72,7 +79,9 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 						xs={24}
 						lg={10}
 					>
-						<MText>{item?.product?.name}</MText>
+						<Link href={`/product/${item?.product?._id}`}>
+							<MText className='hover:text-blue-600 text-base font-medium'>{item?.product?.name}</MText>
+						</Link>
 						<div>
 							{item?.productSKU?.options?.map((group) => (
 								<div key={group?.groupName}>
@@ -87,7 +96,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 						xs={24}
 						lg={4}
 					>
-						<MText>{`${customMoney(item?.price || 0)}`}</MText>
+						<MText className={`${item?.discount ? 'line-through' : ''}`}>{`${customMoney(item?.discount ? item.discount.price : item?.price)}`}</MText> <br />
+						{item?.discount && <MText>{`${customMoney(item.discount.promotionPrice || 0)}`}</MText>}
 					</MCol>
 					<MCol
 						xs={12}

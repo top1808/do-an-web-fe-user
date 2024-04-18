@@ -1,6 +1,7 @@
 import { MenuProps } from 'antd';
 
 export interface Product {
+	productCode?: string;
 	_id?: string;
 	name?: string;
 	minPrice?: number;
@@ -17,6 +18,9 @@ export interface Product {
 	discounts?: DiscountProduct[];
 	groupOptions?: ProductGroupOption[];
 	productSKUList?: ProductSKU[];
+	value?: number;
+	productSKUBarcode?: string;
+	discount?: DiscountProduct;
 }
 export interface DiscountProduct {
 	createdAt?: string;

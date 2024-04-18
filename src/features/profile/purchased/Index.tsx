@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import Swal from 'sweetalert2';
@@ -20,7 +21,7 @@ import Swal from 'sweetalert2';
 const Purchased = () => {
 	const { order } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-
+	const t = useTranslations('ProfilePage');
 	const onConfirmReceived = (item: Order) => {
 		Swal.fire({
 			title: 'Confirm Received Order',

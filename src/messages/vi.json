@@ -64,5 +64,28 @@
 		"VNPay": "VNPay",
 		"Done": "Hoàn tất",
 		"Note": "Ghi chú"
+	},
+	"ProfilePage": {
+		"Account": "Thông tin tài khoản",
+		"Avatar": "Ảnh đại diện",
+		"Name": "Tên",
+		"Phone": "Số điện thoại",
+		"Order": "Đơn hàng",
+		"Address": "Địa chỉ",
+		"SaveChanges": "Lưu thay đổi",
+		"ChangePassword": "Đổi mật khẩu",
+		"CurrentPassword": "Mật khẩu hiện tại",
+		"NewPassword": "Mật khẩu mới",
+		"ConfirmNewPassword": "Xác nhận mật khẩu mới",
+		"Notification": "Thông báo",
+		"OrderID": "Mã đơn hàng",
+		"TotalPrice": "Tổng tiền",
+		"DeliverAddress": "Địa chỉ giao hàng",
+		"CreateAt": "Ngày tạo đơn",
+		"PaymentMethod": "Phương thức thanh toán",
+		"Status": "Trạng thái",
+		"Action": "Hành động",
+		"ExpectedDelivery": "Giao hàng dự kiến",
+		"Upload": "Tải lên"
 	}
 }

@@ -7,19 +7,16 @@ import { Menu } from 'antd';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-const ITEMS = [
-	{ path: '/profile', title: 'Thông tin tài khoản' },
-	{ path: '/profile/change-password', title: 'Đổi mật khẩu' },
-	{ path: '/profile/notification', title: 'Thông báo' },
-	{ path: '/profile/purchased', title: 'Đơn hàng' },
-];
+import { useTranslations } from 'next-intl';
+
 const SideBarProfile = () => {
 	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
 	window.onresize = () => setSizeDevice(window.innerWidth);
+	const t = useTranslations('ProfilePage');
 	const path = usePathname();
 	const listItem = [
 		{
-			title: 'Thông tin tài khoản',
+			title: t('Account'),
 			icon: (
 				<Link href={'/profile'}>
 					<FontAwesomeIcon
@@ -30,7 +27,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Đổi mật khẩu',
+			title: t('ChangePassword'),
 			icon: (
 				<Link href={'/profile/change-password'}>
 					<FontAwesomeIcon
@@ -41,7 +38,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Thông báo',
+			title: t('Notification'),
 			icon: (
 				<Link href={'/profile/notification'}>
 					<FontAwesomeIcon
@@ -52,7 +49,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Đơn hàng',
+			title: t('Order'),
 			icon: (
 				<Link href='/profile/purchased'>
 					<FontAwesomeIcon
@@ -63,6 +60,12 @@ const SideBarProfile = () => {
 			),
 		},
 	];
+	const ITEMS = [
+		{ path: '/profile', title: 'Thông tin tài khoản' },
+		{ path: '/profile/change-password', title: 'Đổi mật khẩu' },
+		{ path: '/profile/notification', title: 'Thông báo' },
+		{ path: '/profile/purchased', title: 'Đơn hàng' },
+	];
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);
 	});
@@ -72,7 +75,7 @@ const SideBarProfile = () => {
 				<Menu
 					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
 					items={items}
-					defaultSelectedKeys={[ITEMS.find((item) => item.path === path)?.title || 'Thay đổi mật khẩu']}
+					defaultSelectedKeys={[ITEMS.find((item) => item.path.includes(path))?.title || 'Thay đổi mật khẩu']}
 				/>
 			</div>
 		</div>
