@@ -1,6 +1,7 @@
 import { Category } from '@/models/categoryModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 interface CategoryState {
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
@@ -35,3 +36,4 @@ const categorySlice = createSlice({
 
 export const { getCategoriesFailed, getCategorieSuccess, gettingCategory } = categorySlice.actions;
 export default categorySlice.reducer;
+export const categoryState = (state: RootState) => state.category;

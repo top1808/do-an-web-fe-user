@@ -1,6 +1,7 @@
 import { MenuProps } from 'antd';
 
 export interface Product {
+	productCode?: string;
 	_id?: string;
 	name?: string;
 	minPrice?: number;
@@ -14,16 +15,34 @@ export interface Product {
 	totalPrice?: number;
 	image?: string;
 	images?: string[];
-	discount?: number;
+	discounts?: DiscountProduct[];
 	groupOptions?: ProductGroupOption[];
 	productSKUList?: ProductSKU[];
+	value?: number;
+	productSKUBarcode?: string;
+	discount?: DiscountProduct;
 }
-
+export interface DiscountProduct {
+	createdAt?: string;
+	options?: ProductSKUOption[];
+	price?: number;
+	promotionPrice?: number;
+	type?: string;
+	value?: number;
+	_id: string;
+	productSKUBarcode?: string;
+	updatedAt?: string;
+	status?: boolean;
+}
+export interface ProductSKUOption {
+	groupName?: string;
+	option?: string;
+	_id: string;
+}
 export interface ProductSKU extends Product {
 	barcode?: string;
 	image?: string;
-	option1?: string;
-	option2?: string;
+	options: ProductSKUOption[];
 	price?: number;
 	productId?: string;
 }

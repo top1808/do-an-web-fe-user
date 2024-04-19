@@ -1,24 +1,14 @@
 import { Product } from './productModels';
 
-export interface DiscountProgramProduct extends Product {
-	index?: number | null;
-	productCode?: string;
-	productName?: string;
-	price?: number;
-	promotionPrice?: number;
-	type?: string;
-	value?: number;
-}
-
 export interface DiscountProgram {
 	_id?: string;
 	name?: string;
-	products?: DiscountProgramProduct[];
+	products?: Product[];
 	description?: string;
 	dateStart?: string | Date;
 	dateEnd?: string | Date;
 	status?: string;
-	date?: Date[];
+	discountProgramCode?: string;
 }
 
 export interface DiscountProgramParams {

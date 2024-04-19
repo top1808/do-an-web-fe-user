@@ -71,6 +71,7 @@ function* onUpdateCart(action: PayloadAction<CartProduct>) {
 function* onGetCart() {
 	try {
 		const response: AxiosResponse = yield call(cartApi.getCart);
+
 		yield put(getCartSuccess(response.data.carts));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {

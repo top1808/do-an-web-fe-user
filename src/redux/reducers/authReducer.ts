@@ -2,6 +2,7 @@ import { FormChangeInfor, FormChangePassword, FormLogin } from '@/models/authMod
 import { User } from '@/models/userModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 
 interface AuthState {
 	isLoggedIn: boolean;
@@ -108,3 +109,4 @@ export const {
 	changingPassword,
 } = authSlice.actions;
 export default authSlice.reducer;
+export const getAuthState = (state: RootState) => state.auth;

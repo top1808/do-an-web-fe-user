@@ -8,7 +8,6 @@ import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { paying } from '@/redux/reducers/cartReducer';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, FormInstance, Radio } from 'antd';
@@ -22,10 +21,13 @@ import { gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } 
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
+import { paying } from '@/redux/reducers/cartReducer';
+import { useTranslations } from 'next-intl';
 
 const PaymentPage = () => {
 	const { cart, auth, voucher, address } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
 	const pathname = usePathname();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
@@ -101,22 +103,23 @@ const PaymentPage = () => {
 				code: code,
 				ip: ip,
 				info: `Thanh toán cho order ${code}`,
-				returnURL: `http://localhost:3000/${pathname}`,
+				returnURL: `http://localhost:3000${pathname}`,
 			};
 			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
 			paymentWithVPN({ ...data });
 		} else {
+			console.log('dataPost', dataPost);
 			dispatch(paying(dataPost));
 		}
 	};
 
 	useEffect(() => {
 		form.setFieldsValue({
-			customerName: auth.currentUserInfo?.name,
-			customerPhone: auth.currentUserInfo?.phoneNumber,
-			customerEmail: auth.currentUserInfo?.email,
-			deliveryAddress: auth.currentUserInfo?.address,
-			note: '',
+			customerName: auth.currentUserInfo?.name || form.getFieldValue('customerName') || '',
+			customerPhone: auth.currentUserInfo?.phoneNumber || form.getFieldValue('customerPhone') || '',
+			customerEmail: auth.currentUserInfo?.email || form.getFieldValue('customerEmail') || '',
+			deliveryAddress: auth.currentUserInfo?.address || form.getFieldValue('deliveryAddress') || '',
+			note: form.getFieldValue('note') || '',
 			paymentMethod: 'cash',
 			deliveryFee: address.fee,
 		});
@@ -165,21 +168,20 @@ const PaymentPage = () => {
 							className='p-2 w-full bg-lime-600 text-base'
 							style={{ color: 'white' }}
 						>
-							1. ĐỊA CHỈ THANH TOÁN VÀ GIAO HÀNG
+							{`1. ${t('DeliverAddress')}`}
 						</MTitle>
 						<div className='p-4'>
-							<h4>THÔNG TIN THANH TOÁN</h4>
 							<Form.Item<DataPayment>
 								name={'customerName'}
 								rules={[{ required: true, message: 'Please input your name!' }]}
 							>
-								<MInput placeholder='Họ và tên' />
+								<MInput placeholder={t('Name')} />
 							</Form.Item>
 							<Form.Item<DataPayment>
 								name={'customerPhone'}
 								rules={[{ required: true, message: 'Please input your phone!' }]}
 							>
-								<MInput placeholder='Số điện thoại' />
+								<MInput placeholder={t('PhoneNumber')} />
 							</Form.Item>
 							<Form.Item<DataPayment> name='customerEmail'>
 								<MInput placeholder='Email' />
@@ -197,7 +199,7 @@ const PaymentPage = () => {
 										dispatch(gettingDistricts(value));
 									}}
 									options={[...address.provinces]}
-									placeholder='Vui lòng chọn Tỉnh/Thành'
+									placeholder={t('YourCity')}
 								/>
 							</Form.Item>
 							<Form.Item<DataPayment>
@@ -213,7 +215,7 @@ const PaymentPage = () => {
 										dispatch(gettingWards(value));
 									}}
 									options={[...address.districts]}
-									placeholder='Vui lòng chọn Quận/Huyện'
+									placeholder={t('YourDistrict')}
 								/>
 							</Form.Item>
 							<Form.Item<DataPayment>
@@ -225,17 +227,17 @@ const PaymentPage = () => {
 									options={[...address.wards]}
 									loading={address.loading}
 									onChange={() => getFeeOrder(form)}
-									placeholder='Vui lòng chọn Phường/Xã'
+									placeholder={t('YourWard')}
 								/>
 							</Form.Item>
 							<Form.Item<DataPayment>
 								name={'deliveryAddress'}
 								rules={[{ required: true, message: 'Please input your address!' }]}
 							>
-								<MInput placeholder='Địa chỉ chi tiết' />
+								<MInput placeholder={t('DetailAddress')} />
 							</Form.Item>
 							<Form.Item<DataPayment> name='note'>
-								<TextArea placeholder='Ghi chú đơn hàng' />
+								<TextArea placeholder={t('Note')} />
 							</Form.Item>
 						</div>
 					</MCol>
@@ -250,7 +252,7 @@ const PaymentPage = () => {
 								className='p-2 w-full bg-lime-600 text-base'
 								style={{ color: 'white' }}
 							>
-								2. Sản phẩm
+								{`2. ${t('Product')}`}
 							</MTitle>
 							<div style={{ height: '30rem', overflow: 'auto' }}>
 								{cart.items?.map((item) => {
@@ -274,14 +276,14 @@ const PaymentPage = () => {
 													{item?.product?.groupOptions?.map((group, index) => (
 														<span key={group?.groupName}>
 															<span className='text-gray-500'>
-																{group?.groupName}: {index === 0 ? item?.productSKU?.option1 + ', ' : item?.productSKU?.option2}
+																{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
 															</span>
 														</span>
 													))}
 												</div>
 												<div className='flex gap-4'>
-													<MText className='font-medium'>{`Số lượng: ${item.quantity}`}</MText>
-													<MText className='font-medium'>{`Tổng Giá: ${customMoney(item?.totalPrice || 0)}`}</MText>
+													<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
+													<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
 												</div>
 											</div>
 										</div>
@@ -301,29 +303,34 @@ const PaymentPage = () => {
 							className='p-2 w-full bg-lime-600 text-base'
 							style={{ color: 'white' }}
 						>
-							3. Thanh Toán
+							{`3. ${t('Payment')}`}
 						</MTitle>
 						<Form.Item<DataPayment>
 							name={'deliveryMethod'}
-							label={<span className='px-2'>Loại dịch vụ</span>}
+							label={<span className='px-2'>{t('TypeService')}</span>}
 							rules={[{ required: true, message: 'Please choose delivery method !' }]}
 						>
 							<MSelect
 								className='px-2'
 								onChange={() => getFeeOrder(form)}
-								placeholder='Loại dịch vụ'
+								placeholder={t('TypeService')}
 								options={services}
 							/>
 						</Form.Item>
 						<div className='p-2 flex flex-col justify-between'>
 							<div>
-								<h4 className='text-base'>Phương thức thanh toán</h4>
+								<h4 className='text-base'>{t('PaymentMethod')}</h4>
 								<Form.Item<DataPayment> name={'paymentMethod'}>
 									<Radio.Group
 										className='px-2'
 										optionType='default'
-										options={PAYMENT_METHOD}
-									></Radio.Group>
+										options={[
+											...PAYMENT_METHOD.map(({ label, value }) => ({
+												label: t(label),
+												value: value,
+											})),
+										]}
+									/>
 								</Form.Item>
 								<div className='flex gap-2 items-center justify-between'>
 									<MText className='text-base font-bold'>Voucher</MText>
@@ -335,21 +342,21 @@ const PaymentPage = () => {
 										{voucher.voucherApply ? (
 											<div className='flex gap-2'>
 												<div className='text-red-500'>-{customMoney(voucher?.voucherApply?.discountValue)}</div>
-												Đổi Voucher
+												{t('ChooseVoucher')}
 											</div>
 										) : (
-											'Chọn Voucher'
+											t('ChooseVoucher')
 										)}
 									</MButton>
 								</div>
 							</div>
 							<div className='w-full text-end p-2'>
 								<div className='flex items-center justify-between'>
-									<MText className='text-end text-sm'>Tổng tiền hàng</MText>
+									<MText className='text-end text-sm'>{t('TotalPrice')}</MText>
 									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items))}</MText>
 								</div>
 								<div className='flex items-center justify-between mt-2'>
-									<MText className='text-end text-sm'>Phí vận chuyển</MText>
+									<MText className='text-end text-sm'>{t('DeliveryFee')}</MText>
 									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(address.fee)}</MText>
 								</div>
 								{voucher.voucherApply && (
@@ -359,15 +366,16 @@ const PaymentPage = () => {
 									</div>
 								)}
 								<div className='flex items-center justify-between mt-2'>
-									<MText className='text-end text-sm'>Tổng thanh toán</MText>
+									<MText className='text-end text-sm'>{t('TotalPaid')}</MText>
 									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}</MText>
 								</div>
 								<MButton
 									className='mt-2'
 									htmlType='submit'
 									type='primary'
+									disabled={address?.fee <= 0}
 								>
-									Đặt hàng
+									{t('PlaceOrder')}
 								</MButton>
 							</div>
 						</div>

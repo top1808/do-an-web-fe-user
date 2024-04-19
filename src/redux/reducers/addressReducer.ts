@@ -64,7 +64,11 @@ const addressSlice = createSlice({
 			state.loading = false;
 			state.fee = action.payload;
 		},
-		getFeeDeliverysFail: (state, action) => {},
+		getFeeDeliverysFailed: (state, action) => {
+			state.loading = false;
+			state.fee = 0;
+			toast.error('Get Fee Failed');
+		},
 	},
 });
 export const {
@@ -77,7 +81,7 @@ export const {
 	getProvincesSuccess,
 	getWardsFail,
 	getWardsSuccess,
-	getFeeDeliverysFail,
+	getFeeDeliverysFailed,
 	getFeeDeliverysSuccess,
 	gettingFeeDelivery,
 } = addressSlice.actions;

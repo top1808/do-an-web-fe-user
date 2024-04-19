@@ -11,6 +11,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
 import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -26,7 +27,7 @@ type FieldType = {
 const UserLogin = () => {
 	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
 	const error = useSearchParams().get('error');
-
+	const t = useTranslations('Login');
 	const handleClickLogin = (data: FormLogin) => {
 		signIn('credentials', {
 			email: data.email,
@@ -42,7 +43,7 @@ const UserLogin = () => {
 
 	return (
 		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
-			<h1 className='text-center text-white md:text-black'>Login</h1>
+			<h1 className='text-center text-white md:text-black'>{t('Title')}</h1>
 			<Form
 				name='login'
 				initialValues={{ remember: true }}
@@ -63,7 +64,7 @@ const UserLogin = () => {
 					<Input />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<label className='text-white md:text-black'>Password</label>}
+					label={<label className='text-white md:text-black'>{t('Password')}</label>}
 					name='password'
 					labelAlign='left'
 					hasFeedback
@@ -81,7 +82,7 @@ const UserLogin = () => {
 					wrapperCol={{ md: { offset: 7, span: 17 }, xs: { offset: 7, span: 17 } }}
 				>
 					<MCheckbox>
-						<span className='text-white md:text-black'>Remember me</span>
+						<span className='text-white md:text-black'>{t('RememberMe')}</span>
 					</MCheckbox>
 				</Form.Item>
 				<Form.Item<FieldType> className='flex justify-center'>
@@ -90,11 +91,11 @@ const UserLogin = () => {
 						htmlType='submit'
 						size='large'
 					>
-						Log in
+						{t('ButtonLogin')}
 					</MButton>
 				</Form.Item>
 			</Form>
-			<h2 className='text-center text-white md:text-black'>Or Sign In Using</h2>
+			<h2 className='text-center text-white md:text-black'>{t('LoginWith')}</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
@@ -134,12 +135,12 @@ const UserLogin = () => {
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 items-center'>
-					<h2 className='text-white md:text-black'>If You Don't Have Account ?</h2>
+					<h2 className='text-white md:text-black'>{t('RecommendedSignUp')}</h2>
 					<Link
 						href={'/register'}
 						className='text-blue-200 md:text-blue-600 font-bold text-xl'
 					>
-						SIGN UP
+						{t('ButtonSignup')}
 					</Link>
 				</MCol>
 			</MRow>

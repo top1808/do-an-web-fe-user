@@ -42,7 +42,7 @@ function* onGetCustomerInfo(action: PayloadAction<string>) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		if (error?.response?.status === 403) return;
-		yield put(getInfoCurrentUserFailed(error.response.data.message));
+		yield put(getInfoCurrentUserFailed('concac'));
 	}
 }
 

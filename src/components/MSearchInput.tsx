@@ -9,6 +9,7 @@ import { useSearchParams } from 'next/navigation';
 interface MSearchInputProps extends InputProps {
 	onSearch?: ({ search }: { search: string }) => void;
 	loading?: boolean;
+	placeHolder: string;
 }
 
 export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
@@ -45,7 +46,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 						<MInput
 							type='text'
 							className='pl-8 pr-8 h-8 text-sm sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
-							placeholder='Search...'
+							placeholder={props.placeHolder}
 						/>
 					</Form.Item>
 					<FontAwesomeIcon

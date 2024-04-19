@@ -12,9 +12,10 @@ interface ProductOptionsProps {
 const ProductOptions = (props: ProductOptionsProps) => {
 	const { groupOptions } = props;
 	const product = useAppSelector((state) => state.product);
-
 	const dispatch = useAppDispatch();
-
+	const handleChoiceOption = (index: number, option: string) => {
+		dispatch(selectOption({ index, option }));
+	};
 	return (
 		<div>
 			{groupOptions?.map((group, index) => (
@@ -31,7 +32,7 @@ const ProductOptions = (props: ProductOptionsProps) => {
 								key={option}
 							>
 								<div
-									onClick={() => dispatch(selectOption({ index, option }))}
+									onClick={() => handleChoiceOption(index, option)}
 									className={`border border-solid border-gray-400 rounded p-2 text-center cursor-pointer hover:border-orange-400 hover:text-orange-400 ${
 										product?.options?.[index] === option && 'border-orange-400 text-orange-400'
 									}`}

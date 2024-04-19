@@ -7,7 +7,7 @@ import MCard from '@/components/MCard';
 
 const ProfileUserComponent = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<div className='w-full py-4'>
+		<div className='w-full py-16 min-h-screen'>
 			<MRow gutter={{ md: 10, xl: 12 }}>
 				<MCol
 					xs={24}

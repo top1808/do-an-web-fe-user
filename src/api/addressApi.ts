@@ -1,9 +1,9 @@
 import { objectToQueryString } from '@/utils/FunctionHelpers';
 import axios from 'axios';
 
-// eslint-disable-next-line prettier/prettier
-const headers = { token: process.env.TOKEN_GIAOHANGNHANH_API, shop_id: '4925558' };
+const headers = { token: process.env.TOKEN_GIAOHANGNHANH_API, shop_id: '4925487' };
 const baseURL = 'https://online-gateway.ghn.vn/shiip/public-api/master-data';
+
 const AddressApi = {
 	getProvinces() {
 		const URL = baseURL + '/province';
