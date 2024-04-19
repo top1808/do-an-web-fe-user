@@ -17,7 +17,6 @@ const FormContact = () => {
 	const [form] = useForm();
 
 	const handleClickSend = (value: FormContactModel) => {
-		console.log('🚀 ~ file: FormContact.tsx:16 ~ handleClickSend ~ value:', value);
 		toast.success('Gửi thông tin liên hệ thành công.');
 		form.setFieldsValue({ name: '', email: '', title: '', message: '' });
 	};

@@ -23,7 +23,6 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const router = useRouter();
 	const params = useParams();
 	const { id } = params;
-	console.log(orderDetails);
 
 	useEffect(() => {
 		if (id) {

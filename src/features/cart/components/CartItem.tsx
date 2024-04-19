@@ -18,7 +18,6 @@ interface CartItemProps {
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
 	const { cart } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-	console.log(item);
 
 	const [quantity, setQuantity] = useState<number>(item?.quantity || 1);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);

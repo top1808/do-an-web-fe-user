@@ -373,6 +373,7 @@ const PaymentPage = () => {
 									className='mt-2'
 									htmlType='submit'
 									type='primary'
+									disabled={address?.fee <= 0}
 								>
 									{t('PlaceOrder')}
 								</MButton>
