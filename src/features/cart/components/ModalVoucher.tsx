@@ -1,8 +1,9 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { toggleModal } from '@/redux/reducers/modalReducer';
-import { applyingVoucher, gettingVouchers } from '@/redux/reducers/voucherReducer';
+import { getCartState } from '@/redux/reducers/cartReducer';
+import { modalState, toggleModal } from '@/redux/reducers/modalReducer';
+import { applyingVoucher, getVoucherState, gettingVouchers } from '@/redux/reducers/voucherReducer';
 import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { Modal, ModalProps } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -11,8 +12,9 @@ interface ModalVoucherProps extends ModalProps {}
 
 const ModalVoucher = (props: ModalVoucherProps) => {
 	const { ...rest } = props;
-	const { voucher, modal, cart } = useAppSelector((state) => state);
-
+	const voucher = useAppSelector(getVoucherState);
+	const modal = useAppSelector(modalState);
+	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
 
 	const [selectedVoucher, setSelectedVoucher] = useState<string>('');

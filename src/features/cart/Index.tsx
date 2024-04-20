@@ -6,12 +6,12 @@ import CustomSteps from './components/StepsPayment';
 import TableCartProducts from './components/TableCartProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartEmty from './components/CartEmty';
-import { gettingCart, setIPCustomer } from '@/redux/reducers/cartReducer';
+import { getCartState, gettingCart, setIPCustomer } from '@/redux/reducers/cartReducer';
 import Loading from '@/components/Loading';
 import axios from 'axios';
 
 const CartPageComponent = () => {
-	const { cart } = useAppSelector((state) => state);
+	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

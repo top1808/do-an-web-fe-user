@@ -5,7 +5,7 @@ import MRow from '@/components/MRow';
 import MTable from '@/components/MTable';
 import MTitle from '@/components/MTitle';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingMoreNotifications, gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
+import { getNotificationState, gettingMoreNotifications, gettingNotifications, readingNotifications } from '@/redux/reducers/notificationReducer';
 import { Badge, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import Link from 'next/link';
@@ -34,7 +34,7 @@ const columns: TableProps<DataType>['columns'] = [
 	},
 ];
 const Notice = () => {
-	const { notification } = useAppSelector((state) => state);
+	const notification = useAppSelector(getNotificationState);
 	const dispatch = useAppDispatch();
 
 	const onViewMore = () => {

@@ -6,7 +6,7 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
+import { getCartState, removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
 import { customMoney } from '@/utils/FunctionHelpers';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -16,10 +16,8 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
-	const { cart } = useAppSelector((state) => state);
+	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
-	console.log(item);
-
 	const [quantity, setQuantity] = useState<number>(item?.quantity || 1);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 

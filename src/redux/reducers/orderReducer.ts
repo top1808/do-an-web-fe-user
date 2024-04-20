@@ -2,6 +2,7 @@ import { Order, OrderParams } from '@/models/paymentModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 
 interface OrderState {
 	isChangeStatusOrder?: boolean;
@@ -76,6 +77,19 @@ const orderSlice = createSlice({
 	},
 });
 
-export const { confirmOrderFailed, confirmOrderSuccess, confirmingOrder, getOrderInfoFailed, getOrderInfoSuccess, getOrdersFailed, getOrdersSuccess, gettingOrderInfo, gettingOrders, cancelOrderFailed, cancelOrderSuccess, cancelingOrder } =
-	orderSlice.actions;
+export const {
+	confirmOrderFailed,
+	confirmOrderSuccess,
+	confirmingOrder,
+	getOrderInfoFailed,
+	getOrderInfoSuccess,
+	getOrdersFailed,
+	getOrdersSuccess,
+	gettingOrderInfo,
+	gettingOrders,
+	cancelOrderFailed,
+	cancelOrderSuccess,
+	cancelingOrder,
+} = orderSlice.actions;
 export default orderSlice.reducer;
+export const getOrderState = (state: RootState) => state.order as OrderState;

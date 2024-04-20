@@ -36,4 +36,4 @@ const categorySlice = createSlice({
 
 export const { getCategoriesFailed, getCategorieSuccess, gettingCategory } = categorySlice.actions;
 export default categorySlice.reducer;
-export const categoryState = (state: RootState) => state.category;
+export const getCategoryState = (state: RootState) => state.category;

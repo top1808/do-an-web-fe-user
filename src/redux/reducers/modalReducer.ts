@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 interface ModalState {
 	isOpen?: boolean;
@@ -19,3 +20,4 @@ const modalReducer = createSlice({
 });
 export const { toggleModal } = modalReducer.actions;
 export default modalReducer.reducer;
+export const modalState = (state: RootState) => state.cart as ModalState;

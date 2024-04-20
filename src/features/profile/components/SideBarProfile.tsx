@@ -61,21 +61,21 @@ const SideBarProfile = () => {
 		},
 	];
 	const ITEMS = [
-		{ path: '/profile', title: 'Thông tin tài khoản' },
-		{ path: '/profile/change-password', title: 'Đổi mật khẩu' },
-		{ path: '/profile/notification', title: 'Thông báo' },
-		{ path: '/profile/purchased', title: 'Đơn hàng' },
+		{ path: '/profile/change-password', title: t('ChangePassword') },
+		{ path: '/profile/notification', title: t('Notification') },
+		{ path: '/profile/purchased', title: t('Order') },
 	];
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);
 	});
+
 	return (
 		<div className='w-full h-full'>
 			<div>
 				<Menu
 					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
 					items={items}
-					defaultSelectedKeys={[ITEMS.find((item) => item.path.includes(path))?.title || 'Thay đổi mật khẩu']}
+					defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title || t('Account')]}
 				/>
 			</div>
 		</div>

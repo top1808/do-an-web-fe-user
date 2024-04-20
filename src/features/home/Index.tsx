@@ -2,22 +2,22 @@
 import React, { useEffect } from 'react';
 import ListProducts from './components/ListProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingProduct, productState } from '@/redux/reducers/productReducer';
+import { gettingProduct, getProductState } from '@/redux/reducers/productReducer';
 import CarouselBanner from './components/CarouselBanner';
 import MSkeleton from '@/components/MSkeleton';
 import MTitle from '@/components/MTitle';
 import { discountProgramState, gettingDiscountPrograms } from '@/redux/reducers/discountProgramReducer';
 import ListCategories from '../components/ListCategories';
-import { categoryState, gettingCategory } from '@/redux/reducers/categoryReducer';
+import { getCategoryState, gettingCategory } from '@/redux/reducers/categoryReducer';
 import CustomSlider from '../../components/CustomSlider';
 import CardProduct from './components/CardProduct';
 
 import CountdownTimer from '@/components/CountdownTimer';
 import { useTranslations } from 'next-intl';
 const HomeUserComponent = () => {
-	const category = useAppSelector(categoryState);
+	const category = useAppSelector(getCategoryState);
 	const discountProgram = useAppSelector(discountProgramState);
-	const product = useAppSelector(productState);
+	const product = useAppSelector(getProductState);
 	const dispatch = useAppDispatch();
 	const t = useTranslations('HomePage');
 

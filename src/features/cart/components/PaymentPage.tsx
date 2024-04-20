@@ -17,15 +17,20 @@ import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
 import { usePathname } from 'next/navigation';
 import MSelect from '@/components/MSelect';
-import { gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
+import { getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
-import { paying } from '@/redux/reducers/cartReducer';
+import { getCartState, paying } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
+import { getAuthState } from '@/redux/reducers/authReducer';
+import { getVoucherState } from '@/redux/reducers/voucherReducer';
 
 const PaymentPage = () => {
-	const { cart, auth, voucher, address } = useAppSelector((state) => state);
+	const cart = useAppSelector(getCartState);
+	const auth = useAppSelector(getAuthState);
+	const voucher = useAppSelector(getVoucherState);
+	const address = useAppSelector(getAddressState);
 	const dispatch = useAppDispatch();
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();

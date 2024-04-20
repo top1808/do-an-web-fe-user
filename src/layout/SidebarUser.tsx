@@ -6,7 +6,7 @@ import { Menu, type MenuProps } from 'antd';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import iconAll from '../../public/icons/all.png';
-import { gettingCategory } from '@/redux/reducers/categoryReducer';
+import { getCategoryState, gettingCategory } from '@/redux/reducers/categoryReducer';
 import Link from 'next/link';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -22,7 +22,7 @@ function getItem(label: React.ReactNode, key?: React.Key | null, icon?: React.Re
 
 const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { category } = useAppSelector((state) => state);
+	const category = useAppSelector(getCategoryState);
 	const searchParams = useSearchParams();
 	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
 	window.onresize = () => setSizeDevice(window.innerWidth);

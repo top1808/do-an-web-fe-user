@@ -2,6 +2,7 @@ import { Address, ParamsGetFeeDelivery } from '@/models/paymentModels';
 import { revertDataAddressFromResponse } from '@/utils/FunctionHelpers';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 
 interface AddressState {
 	provinces: Address[];
@@ -82,3 +83,4 @@ export const {
 	gettingFeeDelivery,
 } = addressSlice.actions;
 export default addressSlice.reducer;
+export const getAddressState = (state: RootState) => state.address as AddressState;

@@ -10,9 +10,10 @@ import { useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 import { Col } from 'antd';
 import { useTranslations } from 'next-intl';
+import { getCartState } from '@/redux/reducers/cartReducer';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
-	const { cart } = useAppSelector((state) => state);
+	const cart = useAppSelector(getCartState);
 	const t = useTranslations('CartPage');
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
 
