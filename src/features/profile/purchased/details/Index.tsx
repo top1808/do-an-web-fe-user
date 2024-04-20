@@ -19,6 +19,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const { order } = useAppSelector((state) => state);
 
 	const { orderDetails } = order;
+
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const params = useParams();

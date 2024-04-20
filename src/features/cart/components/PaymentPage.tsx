@@ -26,6 +26,7 @@ import { useTranslations } from 'next-intl';
 
 const PaymentPage = () => {
 	const { cart, auth, voucher, address } = useAppSelector((state) => state);
+	// console.log('🚀 ~ PaymentPage ~ cart:', cart);
 	const dispatch = useAppDispatch();
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
@@ -81,6 +82,7 @@ const PaymentPage = () => {
 				price: p.price,
 				totalPrice: p.totalPrice,
 				note: '',
+				options: p?.productSKU?.options,
 			})),
 			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPrice(cart.items),
