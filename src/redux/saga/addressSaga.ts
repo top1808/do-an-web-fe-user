@@ -2,6 +2,7 @@ import { call, fork, put, takeLatest } from 'redux-saga/effects';
 import {
 	getDistrictsFail,
 	getDistrictsSuccess,
+	getFeeDeliverysFailed,
 	getFeeDeliverysSuccess,
 	getProvincesFail,
 	getProvincesSuccess,
@@ -44,7 +45,7 @@ function* onGetFeeDelivery(action: CreateAction<any>) {
 		yield put(getFeeDeliverysSuccess(response.data.data.total));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		console.log(error);
+		yield put(getFeeDeliverysFailed(''));
 	}
 }
 function* onGetDistricts(action: CreateAction<string>) {

@@ -115,10 +115,7 @@ const Footer = () => {
 				<MCol span={7}>
 					<MRow>
 						<MCol span={24}>
-							<MText ellipsis={true}>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore minima, voluptatem recusandae facere consequatur eligendi repudiandae iste reprehenderit nostrum ipsa! Temporibus
-								distinctio culpa, totam ullam repudiandae laboriosam commodi quae impedit.
-							</MText>
+							<MText ellipsis={true}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore minima.</MText>
 						</MCol>
 					</MRow>
 				</MCol>

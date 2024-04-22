@@ -87,6 +87,7 @@ const PaymentPage = () => {
 				price: p.price,
 				totalPrice: p.totalPrice,
 				note: '',
+				options: p?.productSKU?.options,
 			})),
 			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPrice(cart.items),
@@ -382,6 +383,7 @@ const PaymentPage = () => {
 									className='mt-2'
 									htmlType='submit'
 									type='primary'
+									disabled={address?.fee <= 0}
 								>
 									{t('PlaceOrder')}
 								</MButton>
