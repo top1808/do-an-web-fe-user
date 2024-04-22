@@ -29,6 +29,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 			dispatch(gettingOrderInfo(id as string));
 		}
 	}, [dispatch, id]);
+	console.log('asdasda', orderDetails);
 
 	return (
 		<MSkeleton loading={order.loading}>

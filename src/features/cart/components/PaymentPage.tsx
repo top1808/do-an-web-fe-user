@@ -25,6 +25,7 @@ import { getCartState, paying } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
 import { getVoucherState } from '@/redux/reducers/voucherReducer';
+import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
@@ -184,11 +185,14 @@ const PaymentPage = () => {
 							</Form.Item>
 							<Form.Item<DataPayment>
 								name={'customerPhone'}
-								rules={[{ required: true, message: 'Please input your phone!' }]}
+								rules={[{ required: true, message: 'Please input your phone!' }, { validator: validatePhoneNumber }]}
 							>
 								<MInput placeholder={t('PhoneNumber')} />
 							</Form.Item>
-							<Form.Item<DataPayment> name='customerEmail'>
+							<Form.Item<DataPayment>
+								name='customerEmail'
+								rules={[{ required: true, message: 'Please input your mail !' }, { validator: validateEmail }]}
+							>
 								<MInput placeholder='Email' />
 							</Form.Item>
 							<Form.Item<DataPayment>
