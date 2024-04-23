@@ -19,7 +19,6 @@ interface PurchasedDetailsPageProps {}
 const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const order = useAppSelector(getOrderState);
 	const { orderDetails } = order;
-
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const params = useParams();
@@ -30,8 +29,6 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 			dispatch(gettingOrderInfo(id as string));
 		}
 	}, [dispatch, id]);
-	console.log('asdasda', orderDetails);
-
 	return (
 		<MSkeleton loading={order.loading}>
 			<MCard
@@ -108,10 +105,22 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 									<MImage
 										className='w-full'
 										src={product?.image}
-										alt='image'
+										alt={product.productName || 'image'}
 									/>
 								</MCol>
-								<MCol span={12}>{product?.productName}</MCol>
+
+								<MCol span={12}>
+									<div>
+										<p className='font-semibold'>{product.productName}</p>
+									</div>
+									{product?.options?.map((group) => (
+										<div key={group?.groupName}>
+											<p className='text-gray-500'>
+												{group?.groupName}: {group?.option}
+											</p>
+										</div>
+									))}
+								</MCol>
 								<MCol
 									span={3}
 									className='text-end'
@@ -126,7 +135,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 								</MCol>
 								<MCol
 									span={3}
-									className='text-end text-red-500'
+									className='text-end text-red-500 font-semibold'
 								>
 									{customMoney((product?.price || 0) * (product?.quantity || 0))}
 								</MCol>

@@ -1,4 +1,4 @@
-import { Product } from '@/models/productModels';
+import { Product, ProductSKU } from '@/models/productModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { RootState } from '../store';
@@ -12,6 +12,7 @@ interface ProductState {
 	isSearching: boolean;
 	mainImage?: string;
 	options: string[];
+	productPurchared?: ProductSKU[] | undefined;
 }
 
 const initialState: ProductState = {
@@ -24,6 +25,7 @@ const initialState: ProductState = {
 	isSearching: false,
 	mainImage: '',
 	options: [],
+	productPurchared: undefined,
 };
 
 const ProductSlice = createSlice({
@@ -85,11 +87,6 @@ const ProductSlice = createSlice({
 		changeMainImage: (state, action: PayloadAction<string>) => {
 			state.mainImage = action.payload;
 		},
-		resetOptions: (state, action: PayloadAction<number | undefined>) => {
-			if (action.payload) {
-				state.options = Array.from({ length: action.payload }, () => '');
-			}
-		},
 		setDefaultOption: (state, action: PayloadAction<string[]>) => {
 			state.options = action.payload;
 		},
@@ -101,11 +98,19 @@ const ProductSlice = createSlice({
 				return item;
 			});
 		},
+		gettingProductPurchared: (state) => {
+			state.loading = true;
+		},
+		getProductPurcharedSuccess: (state, action: PayloadAction<ProductSKU[]>) => {
+			state.loading = false;
+			state.productPurchared = action.payload;
+		},
 	},
 });
 export const {
+	gettingProductPurchared,
+	getProductPurcharedSuccess,
 	setDefaultOption,
-	resetOptions,
 	gettingProduct,
 	getProductsFailed,
 	getProductsSuccess,

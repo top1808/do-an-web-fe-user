@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import {
 	getProductInfoFailed,
 	getProductInfoSuccess,
+	getProductPurcharedSuccess,
 	getProductsFailed,
 	getProductsRelativeFailed,
 	getProductsRelativeSuccess,
@@ -11,12 +12,16 @@ import {
 	gettingProducstRelative,
 	gettingProduct,
 	gettingProductInfo,
+	gettingProductPurchared,
 	searchProductsFailed,
 	searchProductsSuccess,
 	searchingProducts,
 } from '../reducers/productReducer';
 import { CreateAction } from '@/models/actionModel';
 import { PayloadAction } from '@reduxjs/toolkit';
+import reviewApi from '@/api/reviewApi';
+import { ProductSKU } from '@/models/productModels';
+import { toast } from 'react-toastify';
 
 function* onGetProducts() {
 	try {
@@ -62,7 +67,15 @@ function* onSearchProducts(action: PayloadAction<string>) {
 		yield put(searchProductsFailed(error.response.data.message));
 	}
 }
-
+function* onGetProductPurchased() {
+	try {
+		const response: AxiosResponse = yield call(reviewApi.getProductReview);
+		yield put(getProductPurcharedSuccess(response.data.products as ProductSKU[]));
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (error: any) {
+		toast(error.message);
+	}
+}
 function* watchSearchProductsFlow() {
 	const type: string = searchingProducts.type;
 	yield takeEvery(type, onSearchProducts);
@@ -78,9 +91,13 @@ function* watchGetProductInfoFlow() {
 function* watchGetProductFlow() {
 	yield takeEvery(gettingProduct.type, onGetProducts);
 }
+function* watchGetProductPurchasedFlow() {
+	yield takeEvery(gettingProductPurchared.type, onGetProductPurchased);
+}
 export function* ProductSaga() {
 	yield fork(watchGetProductFlow);
 	yield fork(watchGetProductInfoFlow);
 	yield fork(watchGetProductsRelativeFlow);
 	yield fork(watchSearchProductsFlow);
+	yield fork(watchGetProductPurchasedFlow);
 }

@@ -18,7 +18,7 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { resetOptions, setDefaultOption } from '@/redux/reducers/productReducer';
+import { setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 interface DetailProductComponent {
 	productInfor?: Product;
@@ -76,7 +76,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				dispatch(setDefaultOption([...productWithBarcode.options.map((option) => option.option!)]));
 			}
 		} else {
-			dispatch(resetOptions(productInfor?.groupOptions?.length));
+			dispatch(setDefaultOption(Array.from({ length: productInfor?.groupOptions?.length || 2 }, () => '')));
 		}
 	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
 	return (

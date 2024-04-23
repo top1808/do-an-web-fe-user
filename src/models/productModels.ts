@@ -11,7 +11,7 @@ export interface Product {
 	categoryIds?: string[];
 	promotionPrice?: number;
 	description?: string;
-	status?: boolean;
+	status?: string;
 	totalPrice?: number;
 	image?: string;
 	images?: string[];
@@ -45,6 +45,9 @@ export interface ProductSKU extends Product {
 	options: ProductSKUOption[];
 	price?: number;
 	productId?: string;
+	// test
+	productName?: string;
+	isReviewed?: boolean;
 }
 
 export interface ProductGroupOption {
