@@ -6,4 +6,5 @@ export interface ReviewBody {
 	isAnonymous?: boolean;
 	customer?: string;
 	productSKU?: string;
+	orderCode?: string;
 }

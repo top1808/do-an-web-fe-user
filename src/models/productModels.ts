@@ -48,6 +48,7 @@ export interface ProductSKU extends Product {
 	// test
 	productName?: string;
 	isReviewed?: boolean;
+	orderCode?: string;
 }
 
 export interface ProductGroupOption {
