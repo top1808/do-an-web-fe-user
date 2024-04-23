@@ -122,4 +122,4 @@ export const {
 	selectOption,
 } = ProductSlice.actions;
 export default ProductSlice.reducer;
-export const productState = (state: RootState) => state.product;
+export const getProductState = (state: RootState) => state.product;

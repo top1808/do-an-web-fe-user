@@ -6,14 +6,14 @@ import MInput from '@/components/MInput';
 import MRow from '@/components/MRow';
 import { FormChangeInfor } from '@/models/authModel';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { changingInfor } from '@/redux/reducers/authReducer';
+import { changingInfor, getAuthState } from '@/redux/reducers/authReducer';
 import { checkPhoneNumber } from '@/utils/FunctionHelpers';
 import { Form } from 'antd';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
 const InforUser = () => {
-	const { auth } = useAppSelector((state) => state);
+	const auth = useAppSelector(getAuthState);
 	const { currentUserInfo } = auth;
 	const dispatch = useAppDispatch();
 	const t = useTranslations('ProfilePage');

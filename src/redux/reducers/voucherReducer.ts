@@ -1,6 +1,7 @@
 import { ApplyVoucherInfor, ApplyVoucherModel, VoucherModel } from '@/models/voucherModel';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
+import { RootState } from '../store';
 interface VoucherState {
 	loading: boolean;
 	isApplying: boolean;
@@ -51,3 +52,4 @@ const voucherSlice = createSlice({
 });
 export const { gettingVouchers, getVouchersSuccess, getVouchersFailed, applyVoucherFailed, applyVoucherSuccess, applyingVoucher } = voucherSlice.actions;
 export default voucherSlice.reducer;
+export const getVoucherState = (state: RootState) => state.voucher as VoucherState;

@@ -1,5 +1,6 @@
 import React from 'react';
 import banner from '../../../../public/images/banner.jpg';
+import Image from 'next/image';
 const Banner = () => {
 	const bannerStyles: React.CSSProperties = {
 		height: '240px',
@@ -8,7 +9,7 @@ const Banner = () => {
 	};
 	return (
 		<div className='mt-2'>
-			<img
+			<Image
 				src={banner.src}
 				alt='banner'
 				style={bannerStyles}

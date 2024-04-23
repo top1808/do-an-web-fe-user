@@ -2,7 +2,7 @@ import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import CustomSlider from '@/components/CustomSlider';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingProducstRelative } from '@/redux/reducers/productReducer';
+import { getProductState, gettingProducstRelative } from '@/redux/reducers/productReducer';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '@/features/home/components/CardProduct';
@@ -10,7 +10,7 @@ import CardProduct from '@/features/home/components/CardProduct';
 interface ProductRelativeProps {}
 
 const ProductRelative = (props: ProductRelativeProps) => {
-	const { product } = useAppSelector((state) => state);
+	const product = useAppSelector(getProductState);
 	const dispatch = useAppDispatch();
 	const params = useParams();
 

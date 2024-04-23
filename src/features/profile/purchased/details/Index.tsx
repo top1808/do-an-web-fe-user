@@ -4,11 +4,12 @@ import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
 import MCard from '@/components/MCard';
 import MCol from '@/components/MCol';
+import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { gettingOrderInfo } from '@/redux/reducers/orderReducer';
+import { getOrderState, gettingOrderInfo } from '@/redux/reducers/orderReducer';
 import { customMoney, formatDate } from '@/utils/FunctionHelpers';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -16,8 +17,7 @@ import React, { useEffect } from 'react';
 interface PurchasedDetailsPageProps {}
 
 const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
-	const { order } = useAppSelector((state) => state);
-
+	const order = useAppSelector(getOrderState);
 	const { orderDetails } = order;
 
 	const dispatch = useAppDispatch();
@@ -30,6 +30,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 			dispatch(gettingOrderInfo(id as string));
 		}
 	}, [dispatch, id]);
+	console.log('asdasda', orderDetails);
 
 	return (
 		<MSkeleton loading={order.loading}>
@@ -95,40 +96,43 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 					</div>
 				}
 			>
-				{/* {orderDetails?.products?.map((product) => (
-					<MRow
-						gutter={12}
-						key={product.productCode}
-						className='mt-2 shadow-md p-2 py-4 items-center'
-					>
-						<MCol span={2}>
-							<MImage
-								className='w-full'
-								src={product?.image}
-								alt='image'
-							/>
-						</MCol>
-						<MCol span={12}>{product.productName}</MCol>
-						<MCol
-							span={3}
-							className='text-end'
-						>
-							{customMoney(product.price)}
-						</MCol>
-						<MCol
-							span={3}
-							className='text-end'
-						>
-							x{product.quantity} ={' '}
-						</MCol>
-						<MCol
-							span={3}
-							className='text-end text-red-500'
-						>
-							{customMoney((product?.price || 0) * (product?.quantity || 0))}
-						</MCol>
-					</MRow>
-				))} */}
+				{orderDetails?.products?.map(
+					(product) =>
+						product && (
+							<MRow
+								gutter={12}
+								key={product?.productCode}
+								className='mt-2 shadow-md p-2 py-4 items-center'
+							>
+								<MCol span={2}>
+									<MImage
+										className='w-full'
+										src={product?.image}
+										alt='image'
+									/>
+								</MCol>
+								<MCol span={12}>{product?.productName}</MCol>
+								<MCol
+									span={3}
+									className='text-end'
+								>
+									{customMoney(product?.price)}
+								</MCol>
+								<MCol
+									span={3}
+									className='text-end'
+								>
+									x{product?.quantity} ={' '}
+								</MCol>
+								<MCol
+									span={3}
+									className='text-end text-red-500'
+								>
+									{customMoney((product?.price || 0) * (product?.quantity || 0))}
+								</MCol>
+							</MRow>
+						),
+				)}
 				<div className='mt-4'>
 					<MRow className='flex-row-reverse text-base font-bold'>
 						<MCol

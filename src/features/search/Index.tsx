@@ -3,7 +3,7 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { searchingProducts } from '@/redux/reducers/productReducer';
+import { getProductState, searchingProducts } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
@@ -13,7 +13,7 @@ import MText from '@/components/MText';
 interface SearchPageComponentProps {}
 
 const SearchPageComponent = (props: SearchPageComponentProps) => {
-	const { product } = useAppSelector((state) => state);
+	const product = useAppSelector(getProductState);
 	const { productsSearch } = product;
 	const dispatch = useAppDispatch();
 	const params = useSearchParams();

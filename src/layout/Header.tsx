@@ -26,7 +26,6 @@ const Header = () => {
 	const cart = useAppSelector(getCartState);
 	const auth = useAppSelector(getAuthState);
 	const notification = useAppSelector(getNotificationState);
-	// const { cart, auth, notification } = useAppSelector((state) => state);
 	const pathname = usePathname();
 	const t = useTranslations('Headers');
 	const [notificationItems, setNotificationItems] = useState<MenuProps['items']>([]);
