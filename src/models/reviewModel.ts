@@ -1,5 +1,3 @@
-import { OrderProduct } from './paymentModels';
-
 export interface ReviewBody {
 	rate: number;
 	content: string;
@@ -7,4 +5,5 @@ export interface ReviewBody {
 	images?: string;
 	isAnonymous?: boolean;
 	customer?: string;
+	productSKU?: string;
 }

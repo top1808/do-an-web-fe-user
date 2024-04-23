@@ -27,7 +27,7 @@ const ListOrderProducts = () => {
 	const [productSeletedReview, setProductSeletedReview] = useState<ReviewProduct>({ isOpenModal: false });
 	const [form] = Form.useForm();
 	const handleSubmitReview = async (value: ReviewBody) => {
-		const body: ReviewBody = { ...value, customer: auth.currentUserInfo?._id, product: productSeletedReview.product?._id };
+		const body: ReviewBody = { ...value, customer: auth.currentUserInfo?._id, product: productSeletedReview.product?._id, productSKU: productSeletedReview.product?.productSKUBarcode };
 		const res = await reviewApi.createReview(body);
 		if (res.status === 200) {
 			setProductSeletedReview({ isOpenModal: false, product: undefined });
