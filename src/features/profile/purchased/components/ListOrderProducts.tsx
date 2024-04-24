@@ -30,9 +30,10 @@ const ListOrderProducts = () => {
 		const body: ReviewBody = {
 			...value,
 			customer: auth.currentUserInfo?._id,
-			product: productSeletedReview.product?._id,
+			product: productSeletedReview.product?.productCode,
 			productSKU: productSeletedReview.product?.productSKUBarcode,
 			orderCode: productSeletedReview.product?.orderCode,
+			productOrderId: productSeletedReview.product?._id,
 		};
 		const res = await reviewApi.createReview(body);
 		if (res.status === 200) {
