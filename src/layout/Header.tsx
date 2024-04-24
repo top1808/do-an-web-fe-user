@@ -165,7 +165,7 @@ const Header = () => {
 					  })),
 			);
 		}
-	}, [dispatch, notification?.data]);
+	}, [dispatch, notification?.data, t]);
 
 	useEffect(() => {
 		if (pathname !== '/notification') {
@@ -174,7 +174,7 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='py-4 md:px-8 xl:px-32 bg-gradient-to-r from-orange-500 to-yellow-500 relative'>
+		<header className='py-8 md:px-8 xl:px-32 bg-[#FA5130] relative'>
 			<MRow
 				justify={'space-between'}
 				className='w-full'

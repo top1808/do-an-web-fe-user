@@ -28,7 +28,6 @@ const HomeUserComponent = () => {
 	}, [dispatch]);
 	return (
 		<div className='w-full'>
-			<CarouselBanner />
 			<ListCategories
 				categories={category.data ? category.data : null}
 				title={t('Category')}
