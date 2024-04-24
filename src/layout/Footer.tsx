@@ -2,11 +2,12 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHatCowboy, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import { faFacebook, faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import Image from 'next/image';
 
 const Footer = () => {
 	const quickLink = [
@@ -107,22 +108,36 @@ const Footer = () => {
 		},
 	];
 	return (
-		<footer className='xs:px-1 md:px-8  xl:px-32 py-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-base font-semibold text-white'>
+		<footer className='xs:px-1 md:px-8 xl:px-32 py-4 bg-black text-base font-semibold text-white'>
 			<MRow
 				justify={'space-between'}
 				gutter={[0, 8]}
 			>
 				<MCol span={7}>
-					<MRow>
-						<MCol span={24}>
-							<MText ellipsis={true}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore minima.</MText>
+					<MRow gutter={[16, 16]}>
+						<MCol span={12}>
+							<Link
+								href={'/'}
+								className='text-xl md:text-4xl font-semibold flex items-center text-gradien text-white hover:text-gray-200  justify-center h-full'
+							>
+								<FontAwesomeIcon icon={faHatCowboy} />
+								<span className='hidden md:block'>T&T Shop</span>
+							</Link>
+						</MCol>
+						<MCol span={12}>
+							<MText className='xs:text-md md:text-base xl:text-xl font-semibold text-white'>PAYMENT</MText>
+							<MRow>
+								<MCol span={8}></MCol>
+								<MCol span={8}></MCol>
+								<MCol span={8}></MCol>
+							</MRow>
 						</MCol>
 					</MRow>
 				</MCol>
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MText className='xs:text-md md:text-base xl:text-xl font-bold'>QUICK LINKS</MText>
+							<MText className='xs:text-md md:text-base xl:text-xl font-semibold text-white'>QUICK LINKS</MText>
 						</MCol>
 						{quickLink.map((link) => {
 							return (
@@ -131,7 +146,7 @@ const Footer = () => {
 									span={24}
 								>
 									<Link
-										className='xs:text-md md:text-base xl:text-xl text-white'
+										className='xs:text-md md:text-base xl:text-xl text-white font-extralight'
 										href={link.url}
 									>
 										{link.title}
@@ -144,7 +159,7 @@ const Footer = () => {
 				<MCol span={3}>
 					<MRow>
 						<MCol span={24}>
-							<MText className='xs:text-md md:text-md xl:text-xl font-bold'>NEWS</MText>
+							<MText className='xs:text-md md:text-md xl:text-xl font-semibold text-white '>NEWS</MText>
 						</MCol>
 						{news.map((item) => {
 							return (
@@ -153,7 +168,7 @@ const Footer = () => {
 									span={24}
 								>
 									<Link
-										className='xs:text-md md:text-base xl:text-xl text-white'
+										className='xs:text-md md:text-base xl:text-xl text-white font-extralight'
 										href={item.url}
 									>
 										{item.title}
@@ -166,7 +181,7 @@ const Footer = () => {
 				<MCol span={7}>
 					<MRow gutter={[0, 16]}>
 						<MCol span={24}>
-							<MText className='xs:text-md md:text-md xl:text-xl font-bold'>CONTACT</MText>
+							<MText className='xs:text-md md:text-md xl:text-xl font-semibold text-white'>CONTACT</MText>
 						</MCol>
 						<MCol span={24}>
 							<MRow
@@ -195,6 +210,7 @@ const Footer = () => {
 					</MRow>
 				</MCol>
 			</MRow>
+			<div className='h-[1px] bg-slate-100'></div>
 			<MRow
 				className='p-2 mt-2'
 				style={{ borderTop: '1px solid black' }}
@@ -203,14 +219,14 @@ const Footer = () => {
 					span={24}
 					className='text-center'
 				>
-					<MText className='text-base'>
+					<MText className='text-base text-white'>
 						Copyright © 2023 All rights reserved | This template is made with
 						<FontAwesomeIcon
 							color='red'
 							icon={faHeart}
 							className='mx-1'
 						/>
-						by Le Top
+						by the best designer in the world.
 					</MText>
 				</MCol>
 			</MRow>

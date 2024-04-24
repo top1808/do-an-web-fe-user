@@ -41,15 +41,15 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 						<div style={{ height: '1.6rem' }}>
 							<p className='text-center font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
 						</div>
-						<div className='absolute top-2 right-2'>
-							<p className='font-bold text-red-500'>{`- ${data.value}%`}</p>
+						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+							<p className='font-bold text-white'>{`- ${data.value}%`}</p>
 						</div>
 					</>
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-2 right-2'>
-							<p className='font-bold text-red-500'>{`TOP`}</p>
+						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+							<p className='font-bold text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}

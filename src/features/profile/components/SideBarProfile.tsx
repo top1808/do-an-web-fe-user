@@ -71,13 +71,11 @@ const SideBarProfile = () => {
 
 	return (
 		<div className='w-full h-full'>
-			<div>
-				<Menu
-					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
-					items={items}
-					defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title || t('Account')]}
-				/>
-			</div>
+			<Menu
+				mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
+				items={items}
+				defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title || t('Account')]}
+			/>
 		</div>
 	);
 };

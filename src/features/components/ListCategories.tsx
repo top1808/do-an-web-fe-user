@@ -1,6 +1,5 @@
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import MTitle from '@/components/MTitle';
 import { Category } from '@/models/categoryModels';
 import ItemCategories from '../home/components/ItemCategories';
 import CustomSlider from '@/components/CustomSlider';

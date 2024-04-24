@@ -6,13 +6,13 @@ import { RootState } from '../store';
 interface DiscountProgramState {
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
-	data?: DiscountProgram[];
+	data?: DiscountProgram[] | undefined;
 }
 
 const initialState: DiscountProgramState = {
 	loading: false,
 	status: 'pending',
-	data: [],
+	data: undefined,
 };
 
 const discountProgramSlice = createSlice({
@@ -29,7 +29,7 @@ const discountProgramSlice = createSlice({
 		},
 		getDiscountProgramsFailed: (state, action: PayloadAction<string>) => {
 			state.loading = false;
-			state.data = [];
+			state.data = undefined;
 			action.payload && toast.error(action.payload);
 		},
 	},

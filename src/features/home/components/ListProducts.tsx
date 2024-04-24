@@ -14,9 +14,9 @@ interface ListProductProps {
 
 const ListProducts: React.FC<ListProductProps> = ({ listProducts, title, buttonName }) => {
 	return (
-		<div>
-			<div className='flex justify-between h-14 items-center'>
-				<h3 className='h-full text-center leading-10'> {title}</h3>
+		<div className='bg-white p-2'>
+			<div className='flex justify-center h-14 items-center'>
+				<h3 className='h-full text-center leading-10 py-4 font-semibold text-red-400 '>{title}</h3>
 			</div>
 			<MRow
 				gutter={[
