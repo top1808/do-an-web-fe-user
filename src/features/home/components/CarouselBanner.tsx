@@ -9,7 +9,7 @@ const CarouselBanner = async () => {
 	// fetch server
 	return (
 		//
-		<div className='bg-white px-0 md:px-10 xl:px-32 py-8'>
+		<div>
 			<Carousel
 				effect='fade'
 				autoplay

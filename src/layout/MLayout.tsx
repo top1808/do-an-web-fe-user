@@ -22,7 +22,6 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 			<div className='sticky top-0 z-10'>
 				<Header />
 			</div>
-			<CarouselBanner />
 			<div className='px-0 md:px-10 xl:px-32 mt-4 w-full min-h-screen'>{children}</div>
 			<Footer />
 			<FloatButton.BackTop type='primary' />
