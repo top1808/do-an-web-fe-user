@@ -5,11 +5,13 @@ import { customMoney } from '@/utils/FunctionHelpers';
 import React from 'react';
 
 const CustomPriceProduct = ({
+	isPercent,
 	oldPrice,
 	price = 0,
 	discountValue,
 	promotionPrice,
 }: {
+	isPercent?: boolean;
 	oldPrice?: number | null;
 	price?: string | number;
 	discountValue?: number | null;
@@ -36,7 +38,7 @@ const CustomPriceProduct = ({
 							<MText className={`text-xl font-bold text-red-500 }`}>{customMoney(promotionPrice!)}</MText>
 						</MCol>
 						<MCol>
-							<MText className='text-white p-2 bg-red-400 rounded-md'>{`Sale ${discountValue}%`}</MText>
+							<MText className='text-white p-2 bg-red-400 rounded-md'>{`Sale ${isPercent ? discountValue + '%' : customMoney(discountValue)}`}</MText>
 						</MCol>
 					</>
 				)}

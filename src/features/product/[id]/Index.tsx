@@ -29,6 +29,7 @@ type ProductSKUChoice = {
 	price: number;
 	promotionPrice?: number;
 	dateEnd?: string;
+	isPercent?: boolean;
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
@@ -60,7 +61,15 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			if (findProductSKU) {
 				const productDiscount = productInfor.discounts?.find((item) => item.productSKUBarcode === findProductSKU.barcode);
 				if (productDiscount && productDiscount.status) {
-					setProductSKU({ product: findProductSKU, promotionPrice: productDiscount.promotionPrice!, price: productDiscount.price!, discountValue: productDiscount.value! });
+					console.log(productDiscount);
+
+					setProductSKU({
+						product: findProductSKU,
+						promotionPrice: productDiscount.promotionPrice!,
+						price: productDiscount.price!,
+						discountValue: productDiscount.value!,
+						isPercent: productDiscount.type === 'percent' ? true : false,
+					});
 				} else {
 					setProductSKU({ product: findProductSKU, price: findProductSKU.price || 0, discountValue: 0 });
 				}
@@ -79,6 +88,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			dispatch(setDefaultOption(Array.from({ length: productInfor?.groupOptions?.length || 2 }, () => '')));
 		}
 	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
+
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
@@ -101,6 +111,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
 								discountValue={productSKU.discountValue > 0 ? productSKU.discountValue : null}
 								promotionPrice={productSKU.promotionPrice ? productSKU.promotionPrice : null}
+								isPercent={productSKU.isPercent}
 							/>
 							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>

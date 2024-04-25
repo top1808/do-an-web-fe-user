@@ -36,8 +36,6 @@ const ListOrderProducts = () => {
 			productOrderId: productSeletedReview.product?._id,
 		};
 		const res = await reviewApi.createReview(body);
-		console.log(res);
-
 		if (res.status === 200) {
 			setProductSeletedReview({ isOpenModal: false, product: undefined });
 			// xu ly hien thi lai
