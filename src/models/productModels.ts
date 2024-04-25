@@ -21,6 +21,7 @@ export interface Product {
 	value?: number;
 	productSKUBarcode?: string;
 	discount?: DiscountProduct;
+	type?: string;
 }
 export interface DiscountProduct {
 	createdAt?: string;

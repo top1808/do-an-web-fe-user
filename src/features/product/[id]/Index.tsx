@@ -61,8 +61,6 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			if (findProductSKU) {
 				const productDiscount = productInfor.discounts?.find((item) => item.productSKUBarcode === findProductSKU.barcode);
 				if (productDiscount && productDiscount.status) {
-					console.log(productDiscount);
-
 					setProductSKU({
 						product: findProductSKU,
 						promotionPrice: productDiscount.promotionPrice!,
