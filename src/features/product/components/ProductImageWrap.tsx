@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changeMainImage } from '@/redux/reducers/productReducer';
 import { Image } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface ProductImageWrapProps {
 	images: string[];
@@ -11,6 +11,7 @@ const ProductImageWrap = (props: ProductImageWrapProps) => {
 	const { images } = props;
 	const product = useAppSelector((state) => state.product);
 	const dispatch = useAppDispatch();
+
 	return (
 		<div>
 			<Image

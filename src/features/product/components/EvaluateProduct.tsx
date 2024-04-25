@@ -16,7 +16,7 @@ type EvaluateProductProps = {
 const EvaluateProduct = ({ reviews }: EvaluateProductProps) => {
 	return (
 		<>
-			<div className='shadow-xl mt-4'>
+			<div className='shadow-xl mt-4 bg-white'>
 				<MTitle
 					level={3}
 					className='p-2'
@@ -51,8 +51,7 @@ const EvaluateProduct = ({ reviews }: EvaluateProductProps) => {
 													style={{ fontSize: '1rem' }}
 													className='font-bold'
 												>
-													{/*name*/}
-													{'Le top'}
+													{item.customer?.name}
 												</MText>
 											</MCol>
 											<MCol span={24}>

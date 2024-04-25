@@ -18,13 +18,11 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { setDefaultOption } from '@/redux/reducers/productReducer';
+import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
-import { Review } from '@/models/reviewModel';
 interface DetailProductComponent {
 	productInfor?: Product;
-	reviews?: Review[];
 }
 type ProductSKUChoice = {
 	product: Product | null;
@@ -35,8 +33,7 @@ type ProductSKUChoice = {
 	isPercent?: boolean;
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
-	const { productInfor, reviews } = props;
-
+	const { productInfor } = props;
 	const product = useAppSelector((state) => state.product);
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
@@ -90,6 +87,10 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			dispatch(setDefaultOption(Array.from({ length: productInfor?.groupOptions?.length || 2 }, () => '')));
 		}
 	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
+
+	useEffect(() => {
+		dispatch(changeMainImage(productInfor?.images?.[0] || ''));
+	}, [dispatch, productInfor?.images]);
 
 	return (
 		<>
@@ -156,8 +157,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			<EvaluateProduct reviews={reviews || []} />
-			<ProductRelative />
+			<EvaluateProduct reviews={productInfor?.reviews || []} />
+			{product.productsRelative?.length > 0 && <ProductRelative />}
 		</>
 	);
 };

@@ -51,7 +51,11 @@ const ListOrderProducts = () => {
 	return (
 		<>
 			<div className='flex flex-col gap-4'>
-				{}
+				{products.productPurchared && products.productPurchared.length < 1 && (
+					<div>
+						<p className='text-lg font-semibold'>Hiện tại không có sản phẩm nào để bạn có thể đánh giá. Vui lòng mua/đặt thêm hàng để có thể sử dụng chức năng này !</p>
+					</div>
+				)}
 				{products.productPurchared &&
 					products.productPurchared.length > 0 &&
 					products.productPurchared?.map((product) => (

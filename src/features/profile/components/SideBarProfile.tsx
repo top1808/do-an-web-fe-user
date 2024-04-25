@@ -60,7 +60,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Sản phẩm đã mua',
+			title: 'Đánh giá sản phẩm',
 			icon: (
 				<Link href='/profile/product-purchased'>
 					<FontAwesomeIcon
@@ -71,9 +71,9 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Đánh giá',
+			title: 'Lịch sử đánh giá',
 			icon: (
-				<Link href='/profile/review'>
+				<Link href='/profile/reviewed'>
 					{/* <FontAwesomeIcon
 						icon={faStar}
 						color='yellow'
@@ -90,6 +90,8 @@ const SideBarProfile = () => {
 		{ path: '/profile/change-password', title: t('ChangePassword') },
 		{ path: '/profile/notification', title: t('Notification') },
 		{ path: '/profile/purchased', title: t('Order') },
+		{ path: '/profile/product-purchased', title: 'Đánh giá sản phẩm' },
+		{ path: '/profile/reviewed', title: 'Lịch sử đánh giá' },
 	];
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);

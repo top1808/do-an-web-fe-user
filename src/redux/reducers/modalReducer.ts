@@ -20,4 +20,4 @@ const modalReducer = createSlice({
 });
 export const { toggleModal } = modalReducer.actions;
 export default modalReducer.reducer;
-export const modalState = (state: RootState) => state.cart as ModalState;
+export const modalState = (state: RootState) => state.modal;
