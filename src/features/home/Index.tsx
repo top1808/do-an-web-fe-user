@@ -15,6 +15,7 @@ import { useTranslations } from 'next-intl';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import Link from 'next/link';
+import CarouselBanner from './components/CarouselBanner';
 const HomeUserComponent = () => {
 	const category = useAppSelector(getCategoryState);
 	const discountProgram = useAppSelector(discountProgramState);
@@ -28,6 +29,7 @@ const HomeUserComponent = () => {
 	}, [dispatch]);
 	return (
 		<div className='flex flex-col gap-4 mb-4'>
+			<CarouselBanner />
 			<ListCategories
 				categories={category.data ? category.data : null}
 				title={t('Category')}

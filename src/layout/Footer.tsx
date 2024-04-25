@@ -108,7 +108,7 @@ const Footer = () => {
 		},
 	];
 	return (
-		<footer className='xs:px-1 md:px-8 xl:px-32 py-4 bg-black text-base font-semibold text-white'>
+		<footer className='xs:px-1 md:px-8 xl:px-32 py-4 bg-[#FA5130] text-base font-semibold text-white'>
 			<MRow
 				justify={'space-between'}
 				gutter={[0, 8]}
@@ -211,10 +211,7 @@ const Footer = () => {
 				</MCol>
 			</MRow>
 			<div className='h-[1px] bg-slate-100'></div>
-			<MRow
-				className='p-2 mt-2'
-				style={{ borderTop: '1px solid black' }}
-			>
+			<MRow className='p-2 mt-2'>
 				<MCol
 					span={24}
 					className='text-center'

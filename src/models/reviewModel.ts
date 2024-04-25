@@ -1,3 +1,5 @@
+import { User } from './userModel';
+
 export interface ReviewBody {
 	rate: number;
 	content: string;
@@ -13,6 +15,7 @@ export interface Review {
 	content?: string;
 	rate?: number;
 	productOrderId?: string;
+	customer?: User;
 	customerId?: string;
 	product?: string;
 	productSKU?: string;

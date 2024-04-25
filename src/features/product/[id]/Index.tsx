@@ -18,7 +18,7 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { setDefaultOption } from '@/redux/reducers/productReducer';
+import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
 interface DetailProductComponent {
@@ -88,6 +88,10 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		}
 	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
 
+	useEffect(() => {
+		dispatch(changeMainImage(productInfor?.images?.[0] || ''));
+	}, [dispatch, productInfor?.images]);
+
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
@@ -154,7 +158,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
 			<EvaluateProduct reviews={productInfor?.reviews || []} />
-			<ProductRelative />
+			{product.productsRelative?.length > 0 && <ProductRelative />}
 		</>
 	);
 };
