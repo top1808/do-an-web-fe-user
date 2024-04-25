@@ -8,7 +8,8 @@ import { VoucherSaga } from './voucherSaga';
 import { DiscountProgramSaga } from './discountProgramSaga';
 import { NotificationSaga } from './notificationSaga';
 import { AddressSaga } from './addressSaga';
+import { ReviewSaga } from './reviewSaga';
 
 export function* rootSaga() {
-	yield all([authSaga(), CategorySaga(), ProductSaga(), CartSaga(), orderSaga(), VoucherSaga(), DiscountProgramSaga(), NotificationSaga(), AddressSaga()]);
+	yield all([authSaga(), CategorySaga(), ProductSaga(), CartSaga(), orderSaga(), VoucherSaga(), DiscountProgramSaga(), NotificationSaga(), AddressSaga(), ReviewSaga()]);
 }

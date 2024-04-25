@@ -1,7 +1,7 @@
+import ReviewsComponent from '@/features/profile/reviewed/Index';
 import React from 'react';
 const page = () => {
-	// get list reviewed by user
-	return <div></div>;
+	return <ReviewsComponent />;
 };
 
 export default page;
