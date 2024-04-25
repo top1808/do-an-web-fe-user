@@ -45,14 +45,15 @@ const ListOrderProducts = () => {
 			toast.error('Review failed !');
 		}
 	};
-
 	useEffect(() => {
 		dispatch(gettingProductPurchared());
 	}, [dispatch]);
 	return (
 		<>
 			<div className='flex flex-col gap-4'>
+				{}
 				{products.productPurchared &&
+					products.productPurchared.length > 0 &&
 					products.productPurchared?.map((product) => (
 						<MRow
 							key={product._id}

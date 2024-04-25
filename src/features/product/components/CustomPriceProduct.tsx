@@ -38,7 +38,7 @@ const CustomPriceProduct = ({
 							<MText className={`text-xl font-bold text-red-500 }`}>{customMoney(promotionPrice!)}</MText>
 						</MCol>
 						<MCol>
-							<MText className='text-white p-2 bg-red-400 rounded-md'>{`Sale ${isPercent ? discountValue + '%' : customMoney(discountValue)}`}</MText>
+							<MText className='text-white p-2 bg-red-400 rounded-md'>{`- ${isPercent ? discountValue + '%' : customMoney(discountValue)}`}</MText>
 						</MCol>
 					</>
 				)}

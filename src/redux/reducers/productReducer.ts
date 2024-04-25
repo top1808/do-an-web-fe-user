@@ -12,7 +12,7 @@ interface ProductState {
 	isSearching: boolean;
 	mainImage?: string;
 	options: string[];
-	productPurchared?: ProductSKU[] | undefined;
+	productPurchared?: ProductSKU[];
 }
 
 const initialState: ProductState = {

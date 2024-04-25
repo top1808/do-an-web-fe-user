@@ -27,7 +27,6 @@ const HomeUserComponent = () => {
 		dispatch(gettingCategory());
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
-
 	return (
 		<div className='flex flex-col gap-4 mb-4'>
 			<CarouselBanner />

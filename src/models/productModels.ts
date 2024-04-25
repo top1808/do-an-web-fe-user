@@ -22,6 +22,7 @@ export interface Product {
 	productSKUBarcode?: string;
 	discount?: DiscountProduct;
 	type?: string;
+	rate?: number;
 }
 export interface DiscountProduct {
 	createdAt?: string;

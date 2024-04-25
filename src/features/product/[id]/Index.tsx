@@ -5,7 +5,7 @@ import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputNumber } from 'antd';
+import { InputNumber, Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
@@ -20,8 +20,11 @@ import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
 import { setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
+import EvaluateProduct from '../components/EvaluateProduct';
+import { Review } from '@/models/reviewModel';
 interface DetailProductComponent {
 	productInfor?: Product;
+	reviews?: Review[];
 }
 type ProductSKUChoice = {
 	product: Product | null;
@@ -32,7 +35,7 @@ type ProductSKUChoice = {
 	isPercent?: boolean;
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
-	const { productInfor } = props;
+	const { productInfor, reviews } = props;
 	const product = useAppSelector((state) => state.product);
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
@@ -104,6 +107,11 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
+							<Rate
+								allowHalf
+								defaultValue={productInfor?.rate || 5}
+								disabled
+							/>
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
 								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
@@ -147,6 +155,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
+			<EvaluateProduct reviews={reviews || []} />
 			<ProductRelative />
 		</>
 	);
