@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 	};
 }
 async function getReviews(id: string) {
-	const res = await fetch('http://localhost:8000/v2/review/get-by-product/' + id, { method: 'GET' });
+	const res = await fetchServer('review/get-by-product/' + id, { method: 'GET' });
 	const response = await res.json();
 	return response.reviews;
 }

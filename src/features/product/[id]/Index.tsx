@@ -109,7 +109,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<MTitle level={3}>{productInfor?.name}</MTitle>
 							<Rate
 								allowHalf
-								defaultValue={productInfor?.rate}
+								defaultValue={productInfor?.rate || 5}
 								disabled
 							/>
 							<CustomPriceProduct
@@ -155,7 +155,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			<EvaluateProduct reviews={reviews} />
+			<EvaluateProduct reviews={reviews || []} />
 			<ProductRelative />
 		</>
 	);
