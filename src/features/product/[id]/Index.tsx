@@ -36,6 +36,7 @@ type ProductSKUChoice = {
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor, reviews } = props;
+
 	const product = useAppSelector((state) => state.product);
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
