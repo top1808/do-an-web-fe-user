@@ -1,7 +1,7 @@
 import React from 'react';
-
 const page = () => {
-	return <div>áđâs</div>;
+	// get list reviewed by user
+	return <div></div>;
 };
 
 export default page;

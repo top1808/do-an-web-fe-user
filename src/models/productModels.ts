@@ -1,4 +1,5 @@
 import { MenuProps } from 'antd';
+import { Review } from './reviewModel';
 
 export interface Product {
 	productCode?: string;
@@ -23,6 +24,7 @@ export interface Product {
 	discount?: DiscountProduct;
 	type?: string;
 	rate?: number;
+	reviews?: Review[];
 }
 export interface DiscountProduct {
 	createdAt?: string;

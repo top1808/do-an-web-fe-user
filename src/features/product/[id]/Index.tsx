@@ -21,10 +21,8 @@ import ProductOptions from '../components/ProductOptions';
 import { setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
-import { Review } from '@/models/reviewModel';
 interface DetailProductComponent {
 	productInfor?: Product;
-	reviews?: Review[];
 }
 type ProductSKUChoice = {
 	product: Product | null;
@@ -35,7 +33,7 @@ type ProductSKUChoice = {
 	isPercent?: boolean;
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
-	const { productInfor, reviews } = props;
+	const { productInfor } = props;
 	const product = useAppSelector((state) => state.product);
 	const { data: session } = useSession();
 	const dispatch = useAppDispatch();
@@ -155,7 +153,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			<EvaluateProduct reviews={reviews || []} />
+			<EvaluateProduct reviews={productInfor?.reviews || []} />
 			<ProductRelative />
 		</>
 	);
