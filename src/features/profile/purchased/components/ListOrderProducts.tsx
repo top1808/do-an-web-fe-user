@@ -35,10 +35,12 @@ const ListOrderProducts = () => {
 			orderCode: productSeletedReview.product?.orderCode,
 		};
 		const res = await reviewApi.createReview(body);
+		console.log(res);
+
 		if (res.status === 200) {
 			setProductSeletedReview({ isOpenModal: false, product: undefined });
 			// xu ly hien thi lai
-			// dispatch(gettingProductPurchared());
+			dispatch(gettingProductPurchared());
 			toast.success('Review successfully !');
 		} else {
 			toast.error('Review failed !');
