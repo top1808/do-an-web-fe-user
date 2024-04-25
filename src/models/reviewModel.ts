@@ -7,4 +7,5 @@ export interface ReviewBody {
 	customer?: string;
 	productSKU?: string;
 	orderCode?: string;
+	productOrderId?: string;
 }

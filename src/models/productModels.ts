@@ -29,7 +29,7 @@ export interface DiscountProduct {
 	promotionPrice?: number;
 	type?: string;
 	value?: number;
-	_id: string;
+	_id?: string;
 	productSKUBarcode?: string;
 	updatedAt?: string;
 	status?: boolean;
