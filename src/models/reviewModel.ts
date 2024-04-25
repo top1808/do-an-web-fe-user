@@ -9,3 +9,16 @@ export interface ReviewBody {
 	orderCode?: string;
 	productOrderId?: string;
 }
+export interface Review {
+	content?: string;
+	rate?: number;
+	productOrderId?: string;
+	customerId?: string;
+	product?: string;
+	productSKU?: string;
+	orderCode?: string;
+	images?: string[];
+	createdAt?: string;
+	updatedAt?: string;
+	_id?: string;
+}

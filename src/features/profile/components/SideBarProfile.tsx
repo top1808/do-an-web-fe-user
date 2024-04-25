@@ -1,7 +1,7 @@
 'use client';
 import { MenuItem } from '@/models/productModels';
 import { getItem } from '@/utils/FunctionHelpers';
-import { faBell, faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBox, faClockRotateLeft, faHandMiddleFinger, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
 import React, { useState } from 'react';
@@ -55,6 +55,32 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						icon={faBox}
 						color='green'
+					/>
+				</Link>
+			),
+		},
+		{
+			title: 'Sản phẩm đã mua',
+			icon: (
+				<Link href='/profile/product-purchased'>
+					<FontAwesomeIcon
+						icon={faClockRotateLeft}
+						color='red'
+					/>
+				</Link>
+			),
+		},
+		{
+			title: 'Đánh giá',
+			icon: (
+				<Link href='/profile/review'>
+					{/* <FontAwesomeIcon
+						icon={faStar}
+						color='yellow'
+					/> */}
+					<FontAwesomeIcon
+						icon={faHandMiddleFinger}
+						color='brown'
 					/>
 				</Link>
 			),

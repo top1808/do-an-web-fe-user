@@ -10,5 +10,8 @@ const reviewApi = {
 	getProductReview() {
 		return axiosClient.get(URL + '/get-product-without-review');
 	},
+	getReviewByProductId(id: string) {
+		return axiosClient.get(URL + '/get-by-product/' + id);
+	},
 };
 export default reviewApi;
