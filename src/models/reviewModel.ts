@@ -23,5 +23,6 @@ export interface Review {
 	images?: string[];
 	createdAt?: string;
 	updatedAt?: string;
+	isAnonymous?: boolean;
 	_id?: string;
 }
