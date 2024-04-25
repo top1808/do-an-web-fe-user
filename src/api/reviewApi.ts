@@ -1,4 +1,3 @@
-import { objectToQueryString } from '@/utils/FunctionHelpers';
 import axiosClient from './axiosClient';
 import { ReviewBody } from '@/models/reviewModel';
 
@@ -12,5 +11,4 @@ const reviewApi = {
 		return axiosClient.get(URL + '/get-product-without-review');
 	},
 };
-
 export default reviewApi;

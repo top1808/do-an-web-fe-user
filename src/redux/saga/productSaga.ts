@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import {
 	getProductInfoFailed,
 	getProductInfoSuccess,
+	getProductPurcharedFailed,
 	getProductPurcharedSuccess,
 	getProductsFailed,
 	getProductsRelativeFailed,
@@ -70,10 +71,12 @@ function* onSearchProducts(action: PayloadAction<string>) {
 function* onGetProductPurchased() {
 	try {
 		const response: AxiosResponse = yield call(reviewApi.getProductReview);
+		console.log(response.data);
+
 		yield put(getProductPurcharedSuccess(response.data.products as ProductSKU[]));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		toast(error.message);
+		yield put(getProductPurcharedFailed(error.response.data.message));
 	}
 }
 function* watchSearchProductsFlow() {

@@ -100,6 +100,11 @@ const ProductSlice = createSlice({
 		},
 		gettingProductPurchared: (state) => {
 			state.loading = true;
+			state.productPurchared = [];
+		},
+		getProductPurcharedFailed: (state, action: PayloadAction<string>) => {
+			state.loading = false;
+			action.payload && toast.error(action.payload);
 		},
 		getProductPurcharedSuccess: (state, action: PayloadAction<ProductSKU[]>) => {
 			state.loading = false;
@@ -108,6 +113,7 @@ const ProductSlice = createSlice({
 	},
 });
 export const {
+	getProductPurcharedFailed,
 	gettingProductPurchared,
 	getProductPurcharedSuccess,
 	setDefaultOption,

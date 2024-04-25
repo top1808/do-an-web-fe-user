@@ -74,7 +74,7 @@ const SideBarProfile = () => {
 			<Menu
 				mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
 				items={items}
-				defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title || t('Account')]}
+				defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title ?? t('Account')]}
 			/>
 		</div>
 	);
