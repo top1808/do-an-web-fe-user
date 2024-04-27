@@ -51,7 +51,7 @@ const EvaluateProduct = ({ reviews }: EvaluateProductProps) => {
 													style={{ fontSize: '1rem' }}
 													className='font-bold'
 												>
-													{item.customer?.name}
+													{item.customer?.name || 'Ẩn danh'}
 												</MText>
 											</MCol>
 											<MCol span={24}>
