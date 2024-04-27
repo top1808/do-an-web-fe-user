@@ -18,13 +18,10 @@ interface ProductsComponentProps {
 
 const ProductsComponent = (props: ProductsComponentProps) => {
 	const { products, pagination } = props;
-
 	const params = useSearchParams();
 	const category = params.get('category');
-
 	const path = usePathname();
 	const router = useRouter();
-
 	const onChangePagination = (page: number) => {
 		const query = objectToQueryString({ category, offset: (page - 1) * 12, limit: 12 });
 		router.push(path + query);
@@ -51,7 +48,8 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				lg={16}
 				xl={18}
 			>
-				<MRow gutter={[0, 10]}>
+				<MRow gutter={[0, 0]}>
+					<MCol span={24}></MCol>
 					<MCol span={24}>
 						<MRow gutter={[12, 12]}>
 							{products &&

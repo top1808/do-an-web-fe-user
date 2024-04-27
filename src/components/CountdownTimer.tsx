@@ -36,9 +36,10 @@ const CountdownTimer: React.FC<CountdownProps> = ({ startTime, endTime, children
 
 	return (
 		<>
-			{differenceStart < 0 && differenceEnd > 0 && (
+			{differenceStart <= 0 && differenceEnd > 0 && (
 				<>
-					<div className='py-2'>
+					<div className='py-2 flex gap-2'>
+						<div className='Mk_O5P'></div>
 						<p className='text-red-600 text-xl font-bold'>Đang diễn ra trong {counter}</p>
 					</div>
 					{children}

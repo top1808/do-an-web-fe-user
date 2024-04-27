@@ -8,8 +8,9 @@ export interface CardProductProps {
 	data: Product;
 	isSale?: boolean;
 	link?: string;
+	isTop?: boolean;
 }
-const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link }) => {
+const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) => {
 	return (
 		<Link
 			href={link || `/product/${data._id}`}
@@ -27,19 +28,28 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link }) => {
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-center'>{data.name}</MText>
 				</div>
-				<div
-					style={{ height: '1.6rem' }}
-					className={`text-ellipsis-1 text-base mt-2 text-center ${isSale ? 'line-through' : 'text-red-500 '}`}
-				>
-					{getProductPrice(data)}
-				</div>
+				{!isTop && (
+					<div
+						style={{ height: '1.6rem' }}
+						className={`text-ellipsis-1 text-base mt-2 text-center ${isSale ? 'line-through' : 'text-red-500 '}`}
+					>
+						{getProductPrice(data)}
+					</div>
+				)}
 				{isSale && (
 					<>
 						<div style={{ height: '1.6rem' }}>
 							<p className='text-center font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
 						</div>
-						<div className='absolute top-2 right-2'>
-							<p className='font-bold text-red-500'>{`- ${data.value}%`}</p>
+						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+							<p className='font-bold text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
+						</div>
+					</>
+				)}
+				{isTop && (
+					<>
+						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+							<p className='font-bold text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}

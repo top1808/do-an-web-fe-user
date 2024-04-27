@@ -5,7 +5,7 @@ import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
 import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputNumber } from 'antd';
+import { InputNumber, Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product } from '@/models/productModels';
@@ -18,8 +18,9 @@ import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { resetOptions, setDefaultOption } from '@/redux/reducers/productReducer';
+import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
+import EvaluateProduct from '../components/EvaluateProduct';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -29,6 +30,7 @@ type ProductSKUChoice = {
 	price: number;
 	promotionPrice?: number;
 	dateEnd?: string;
+	isPercent?: boolean;
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
@@ -60,7 +62,13 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			if (findProductSKU) {
 				const productDiscount = productInfor.discounts?.find((item) => item.productSKUBarcode === findProductSKU.barcode);
 				if (productDiscount && productDiscount.status) {
-					setProductSKU({ product: findProductSKU, promotionPrice: productDiscount.promotionPrice!, price: productDiscount.price!, discountValue: productDiscount.value! });
+					setProductSKU({
+						product: findProductSKU,
+						promotionPrice: productDiscount.promotionPrice!,
+						price: productDiscount.price!,
+						discountValue: productDiscount.value!,
+						isPercent: productDiscount.type === 'percent' ? true : false,
+					});
 				} else {
 					setProductSKU({ product: findProductSKU, price: findProductSKU.price || 0, discountValue: 0 });
 				}
@@ -76,9 +84,14 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				dispatch(setDefaultOption([...productWithBarcode.options.map((option) => option.option!)]));
 			}
 		} else {
-			dispatch(resetOptions(productInfor?.groupOptions?.length));
+			dispatch(setDefaultOption(Array.from({ length: productInfor?.groupOptions?.length || 2 }, () => '')));
 		}
 	}, [dispatch, productInfor, productInfor?.groupOptions?.length, searchParams]);
+
+	useEffect(() => {
+		dispatch(changeMainImage(productInfor?.images?.[0] || ''));
+	}, [dispatch, productInfor?.images]);
+
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
@@ -96,11 +109,17 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
+							<Rate
+								allowHalf
+								defaultValue={productInfor?.rate || 5}
+								disabled
+							/>
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
 								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
 								discountValue={productSKU.discountValue > 0 ? productSKU.discountValue : null}
 								promotionPrice={productSKU.promotionPrice ? productSKU.promotionPrice : null}
+								isPercent={productSKU.isPercent}
 							/>
 							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>
@@ -138,7 +157,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			<ProductRelative />
+			<EvaluateProduct reviews={productInfor?.reviews || []} />
+			{product.productsRelative?.length > 0 && <ProductRelative />}
 		</>
 	);
 };

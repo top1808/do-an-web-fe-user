@@ -6,6 +6,7 @@ interface SliderProps {
 	children: React.ReactNode;
 	length: number;
 	dot?: boolean;
+	autoPlay?: boolean;
 }
 
 const CustomSlider = (props: SliderProps) => {
@@ -44,7 +45,7 @@ const CustomSlider = (props: SliderProps) => {
 		speed: 500,
 		slidesToShow: props.length > 6 ? 6 : props.length,
 		slidesToScroll: props.length > 6 ? 3 : 1,
-		autoplay: true,
+		autoplay: props.autoPlay ?? true,
 		autoplaySpeed: 3000,
 		prevArrow: <SlickArrowLeft />,
 		nextArrow: <SlickArrowRight />,

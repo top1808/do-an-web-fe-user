@@ -13,23 +13,23 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 	return (
 		<Link
 			href={`/product?category=` + _id}
-			className='w-full block p-1'
+			className='w-full block'
 		>
 			<MRow
-				className='w-full bg-white shadow-md p-2'
+				className='w-full border-gray-400 border-[1px] border-solid p-2 hover:border-[5px]'
 				justify={'center'}
 				gutter={[16, 16]}
 			>
 				<MCol
 					span={24}
-					className='flex justify-center'
+					className='flex justify-center '
 				>
 					<MImage
 						src={image}
 						preview={false}
-						width={'40%'}
+						width={'60%'}
 						alt={name}
-						className='items-center'
+						className='rounded-full p-1 bg-slate-400'
 					/>
 				</MCol>
 				<MCol

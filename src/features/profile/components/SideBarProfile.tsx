@@ -1,7 +1,7 @@
 'use client';
 import { MenuItem } from '@/models/productModels';
 import { getItem } from '@/utils/FunctionHelpers';
-import { faBell, faBox, faKey, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBox, faClockRotateLeft, faHandMiddleFinger, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
 import React, { useState } from 'react';
@@ -59,11 +59,35 @@ const SideBarProfile = () => {
 				</Link>
 			),
 		},
+		{
+			title: 'Đánh giá sản phẩm',
+			icon: (
+				<Link href='/profile/product-purchased'>
+					<FontAwesomeIcon
+						icon={faStar}
+						color='#F4E71A'
+					/>
+				</Link>
+			),
+		},
+		{
+			title: 'Lịch sử đánh giá',
+			icon: (
+				<Link href='/profile/reviewed'>
+					<FontAwesomeIcon
+						icon={faClockRotateLeft}
+						color='brown'
+					/>
+				</Link>
+			),
+		},
 	];
 	const ITEMS = [
 		{ path: '/profile/change-password', title: t('ChangePassword') },
 		{ path: '/profile/notification', title: t('Notification') },
 		{ path: '/profile/purchased', title: t('Order') },
+		{ path: '/profile/product-purchased', title: 'Đánh giá sản phẩm' },
+		{ path: '/profile/reviewed', title: 'Lịch sử đánh giá' },
 	];
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);
@@ -71,13 +95,11 @@ const SideBarProfile = () => {
 
 	return (
 		<div className='w-full h-full'>
-			<div>
-				<Menu
-					mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
-					items={items}
-					defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title || t('Account')]}
-				/>
-			</div>
+			<Menu
+				mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
+				items={items}
+				defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title ?? t('Account')]}
+			/>
 		</div>
 	);
 };

@@ -8,7 +8,7 @@ const Banner = () => {
 		verticalAlign: 'middle',
 	};
 	return (
-		<div className='mt-2'>
+		<div className='mt-2 py-4 bg-white'>
 			<Image
 				src={banner.src}
 				alt='banner'

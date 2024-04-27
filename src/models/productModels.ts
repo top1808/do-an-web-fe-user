@@ -1,4 +1,5 @@
 import { MenuProps } from 'antd';
+import { Review } from './reviewModel';
 
 export interface Product {
 	productCode?: string;
@@ -11,7 +12,7 @@ export interface Product {
 	categoryIds?: string[];
 	promotionPrice?: number;
 	description?: string;
-	status?: boolean;
+	status?: string;
 	totalPrice?: number;
 	image?: string;
 	images?: string[];
@@ -20,7 +21,11 @@ export interface Product {
 	productSKUList?: ProductSKU[];
 	value?: number;
 	productSKUBarcode?: string;
+	productSKU?: ProductSKU;
 	discount?: DiscountProduct;
+	type?: string;
+	rate?: number;
+	reviews?: Review[];
 }
 export interface DiscountProduct {
 	createdAt?: string;
@@ -29,7 +34,7 @@ export interface DiscountProduct {
 	promotionPrice?: number;
 	type?: string;
 	value?: number;
-	_id: string;
+	_id?: string;
 	productSKUBarcode?: string;
 	updatedAt?: string;
 	status?: boolean;
@@ -45,6 +50,10 @@ export interface ProductSKU extends Product {
 	options: ProductSKUOption[];
 	price?: number;
 	productId?: string;
+	// test
+	productName?: string;
+	isReviewed?: boolean;
+	orderCode?: string;
 }
 
 export interface ProductGroupOption {

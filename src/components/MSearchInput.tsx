@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import MInput from './MInput';
 import MButton from './MButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 interface MSearchInputProps extends InputProps {
@@ -17,35 +17,39 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 
 	const [form] = Form.useForm();
 	const searchValue = Form.useWatch('search', form);
-
 	const params = useSearchParams();
 	const search = params.get('search') || '';
-
+	const handleSearch = () => {
+		if (searchValue.length > 0) {
+			linkRef?.current?.click();
+		}
+	};
 	useEffect(() => {
 		form.setFieldsValue({ search: search });
 	}, [form, search]);
 
 	return (
-		<div className='p-1 rounded w-full'>
+		<div className='p-1 rounded bg-white '>
 			<Link
 				href={'/search?search=' + searchValue}
 				hidden
 				ref={linkRef}
 			/>
 			<Form
-				onFinish={() => linkRef?.current?.click()}
-				className='w- full flex justify-center gap-2 h-8'
+				onFinish={handleSearch}
+				className='w-full flex justify-center gap-2 h-8'
 				form={form}
 				autoComplete='off'
 			>
-				<div className='h-full relative'>
+				<div className='h-full w-full relative'>
 					<Form.Item
 						name='search'
-						label=''
+						className='w-full'
 					>
 						<MInput
 							type='text'
-							className='pl-8 pr-8 h-8 text-sm sm:w-60 md:w-60 lg:w-80 xl:w-96 2xl:w-96 '
+							className='text-sm w-full pr-8'
+							bordered={false}
 							placeholder={props.placeHolder}
 						/>
 					</Form.Item>
@@ -55,19 +59,16 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 						icon={faXmark}
 						size='1x'
 					/>
-					<FontAwesomeIcon
-						color='gray'
-						icon={faMagnifyingGlass}
-						className='absolute top-2 left-2'
-					/>
 				</div>
 				<MButton
 					htmlType='submit'
-					type='primary'
+					className='bg-[#FA5130] rounded'
 					loading={props.loading}
-					disabled={!searchValue}
 				>
-					<FontAwesomeIcon icon={faSearch} />
+					<FontAwesomeIcon
+						color='white'
+						icon={faSearch}
+					/>
 				</MButton>
 			</Form>
 		</div>

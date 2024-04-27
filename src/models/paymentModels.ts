@@ -1,3 +1,4 @@
+import { ProductSKUOption } from './productModels';
 import { ApplyVoucherInfor } from './voucherModel';
 
 export interface DataPayment {
@@ -46,6 +47,7 @@ export interface Order {
 }
 
 export interface OrderProduct {
+	_id?: string;
 	productCode?: string;
 	productName?: string;
 	productQuantity?: number;
@@ -53,6 +55,7 @@ export interface OrderProduct {
 	quantity?: number;
 	totalPrice?: number;
 	image?: string;
+	options: ProductSKUOption[];
 }
 
 export interface ReponsePaySuccess {

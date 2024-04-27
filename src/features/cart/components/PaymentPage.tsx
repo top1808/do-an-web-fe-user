@@ -1,3 +1,4 @@
+'use client';
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
@@ -81,13 +82,14 @@ const PaymentPage = () => {
 			...data,
 			products: cart.items?.map((p) => ({
 				cartId: p._id,
-				productName: p.product?.name,
-				productCode: p.product?._id,
-				quantity: p.quantity,
-				price: p.price,
-				totalPrice: p.totalPrice,
+				productSKUBarcode: p?.productSKUBarcode || '',
+				productName: p.product?.name || '',
+				productCode: p.product?._id || '',
+				quantity: p.quantity || 0,
+				price: p.price || 0,
+				totalPrice: p.totalPrice || 0,
 				note: '',
-				options: p?.productSKU?.options,
+				options: p?.productSKU?.options || [],
 			})),
 			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPrice(cart.items),
@@ -141,9 +143,7 @@ const PaymentPage = () => {
 				icon: 'success',
 				confirmButtonText: 'Tiếp tục mua sắm',
 			}).then((result) => {
-				if (result.isConfirmed) {
-					window.location.assign('/');
-				}
+				window.location.assign('/');
 			});
 		} else if (cart.payingStatus === 'failed') {
 			Swal.fire({
