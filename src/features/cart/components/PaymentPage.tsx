@@ -143,9 +143,7 @@ const PaymentPage = () => {
 				icon: 'success',
 				confirmButtonText: 'Tiếp tục mua sắm',
 			}).then((result) => {
-				if (result.isConfirmed) {
-					window.location.assign('/');
-				}
+				window.location.assign('/');
 			});
 		} else if (cart.payingStatus === 'failed') {
 			Swal.fire({

@@ -4,6 +4,7 @@ import MCol from '@/components/MCol';
 import MForm from '@/components/MForm';
 import MInput from '@/components/MInput';
 import MRow from '@/components/MRow';
+import MUploadImage from '@/components/MUploadImage';
 import { FormChangeInfor } from '@/models/authModel';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changingInfor, getAuthState } from '@/redux/reducers/authReducer';
@@ -37,19 +38,11 @@ const InforUser = () => {
 					xs={24}
 					md={6}
 				>
-					<MForm.UploadImage
-						formLabel='Avatar'
+					<MUploadImage
+						image={currentUserInfo?.image || ''}
 						formName='image'
-						name='image'
-						action={`${process.env.API_UPLOAD_URL}image/upload`}
-						accept='image/*'
-						listType='picture-card'
-						initImage={currentUserInfo?.image}
-						multiple={false}
-						showUploadList={false}
-					>
-						{t('Upload')}
-					</MForm.UploadImage>
+						disableTitle
+					/>
 				</MCol>
 				<MCol
 					xs={24}
@@ -84,11 +77,11 @@ const InforUser = () => {
 									name='email'
 									label='Email'
 									className='w-full'
-									rules={[{ type: 'email', message: 'Email is invalid.' }]}
+									// rules={[{ type: 'email', message: 'Email is invalid.' }]}
 								>
 									<MInput
 										placeholder='Enter your email'
-										required
+										disabled
 									/>
 								</Form.Item>
 							</MRow>

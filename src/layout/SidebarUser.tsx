@@ -11,7 +11,7 @@ import Link from 'next/link';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -56,15 +56,6 @@ const SideBarUser: React.FC = () => {
 	return (
 		<>
 			<MRow gutter={[16, 16]}>
-				<MCol span={24}>
-					<div className='text-xl font-semibold'>
-						<FontAwesomeIcon
-							icon={faBars}
-							className='mr-2'
-						/>
-						Categories
-					</div>
-				</MCol>
 				<MCol span={24}>
 					<Menu
 						style={{ borderInlineEnd: 'none', padding: '10px' }}

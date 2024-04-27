@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import React from 'react';
 import { faFacebook, faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import Image from 'next/image';
 
 const Footer = () => {
 	const quickLink = [
@@ -108,7 +107,7 @@ const Footer = () => {
 		},
 	];
 	return (
-		<footer className='xs:px-1 md:px-8 xl:px-32 py-4 bg-[#FA5130] text-base font-semibold text-white'>
+		<footer className='xs:px-1 md:px-8 xl:px-32 py-4 mt-4 bg-[#FA5130] text-base font-semibold text-white'>
 			<MRow
 				justify={'space-between'}
 				gutter={[0, 8]}
