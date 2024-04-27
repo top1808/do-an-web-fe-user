@@ -71,7 +71,7 @@ const ListOrderProducts = () => {
 									alt={product.name || 'image'}
 								/>
 							</MCol>
-							<MCol span={12}>
+							<MCol span={10}>
 								<div>
 									<Link
 										href={`/product/${product.productCode}`}
@@ -89,22 +89,22 @@ const ListOrderProducts = () => {
 								))}
 							</MCol>
 							<MCol
-								span={2}
+								span={3}
 								className='text-end'
 							>
-								Giá: {customMoney(product?.price)}
+								{customMoney(product?.price)}
 							</MCol>
 							<MCol
 								span={2}
 								className='text-end'
 							>
-								Quantity: {product?.quantity}
+								x{product?.quantity}
 							</MCol>
 							<MCol
-								span={2}
+								span={3}
 								className='text-end text-red-500 font-semibold'
 							>
-								{customMoney((product?.price || 0) * (product?.quantity || 0))}
+								= {customMoney((product?.price || 0) * (product?.quantity || 0))}
 							</MCol>
 							<MCol
 								span={3}

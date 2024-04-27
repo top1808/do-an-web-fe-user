@@ -64,8 +64,8 @@ const SideBarProfile = () => {
 			icon: (
 				<Link href='/profile/product-purchased'>
 					<FontAwesomeIcon
-						icon={faClockRotateLeft}
-						color='red'
+						icon={faStar}
+						color='#F4E71A'
 					/>
 				</Link>
 			),
@@ -74,12 +74,8 @@ const SideBarProfile = () => {
 			title: 'Lịch sử đánh giá',
 			icon: (
 				<Link href='/profile/reviewed'>
-					{/* <FontAwesomeIcon
-						icon={faStar}
-						color='yellow'
-					/> */}
 					<FontAwesomeIcon
-						icon={faHandMiddleFinger}
+						icon={faClockRotateLeft}
 						color='brown'
 					/>
 				</Link>

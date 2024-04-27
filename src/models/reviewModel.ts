@@ -1,3 +1,4 @@
+import { Product } from './productModels';
 import { User } from './userModel';
 
 export interface ReviewBody {
@@ -17,7 +18,7 @@ export interface Review {
 	productOrderId?: string;
 	customer?: User;
 	customerId?: string;
-	product?: string;
+	product?: Product;
 	productSKU?: string;
 	orderCode?: string;
 	images?: string[];

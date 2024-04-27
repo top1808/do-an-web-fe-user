@@ -21,6 +21,7 @@ export interface Product {
 	productSKUList?: ProductSKU[];
 	value?: number;
 	productSKUBarcode?: string;
+	productSKU?: ProductSKU;
 	discount?: DiscountProduct;
 	type?: string;
 	rate?: number;
