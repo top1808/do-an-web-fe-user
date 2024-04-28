@@ -1,7 +1,9 @@
 import reviewApi from '@/api/reviewApi';
 import { AxiosResponse } from 'axios';
 import { call, fork, put, takeEvery } from 'redux-saga/effects';
-import { getReviewsFailed, getReviewsSuccess, gettingReviews } from '../reducers/reviewReducers';
+import { createReviewFailed, createReviewSuccess, creatingReview, getReviewsFailed, getReviewsSuccess, gettingReviews } from '../reducers/reviewReducers';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { ReviewBody } from '@/models/reviewModel';
 
 function* onGetReviewsByUser() {
 	try {
@@ -13,11 +15,21 @@ function* onGetReviewsByUser() {
 		yield put(getReviewsFailed(error.response.data.message));
 	}
 }
-
+function* onCreateReview(action: PayloadAction<ReviewBody>) {
+	try {
+		const response: AxiosResponse = yield call(reviewApi.createReview, action.payload);
+		yield put(createReviewSuccess(response.data.message));
+	} catch (error: any) {
+		yield put(createReviewFailed('Review failed!'));
+	}
+}
 function* watchGetReviewsByUserFlow() {
 	yield takeEvery(gettingReviews.type, onGetReviewsByUser);
 }
-
+function* watchCreateReviewsByUserFlow() {
+	yield takeEvery(creatingReview.type, onCreateReview);
+}
 export function* ReviewSaga() {
 	yield fork(watchGetReviewsByUserFlow);
+	yield fork(watchCreateReviewsByUserFlow);
 }

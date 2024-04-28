@@ -10,8 +10,6 @@ import { getCategoryState, gettingCategory } from '@/redux/reducers/categoryRedu
 import Link from 'next/link';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
