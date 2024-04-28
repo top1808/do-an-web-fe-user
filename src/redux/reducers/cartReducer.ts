@@ -11,6 +11,7 @@ interface CartState {
 	orderInfo: Order | null;
 	payingStatus: 'pending' | 'completed' | 'failed';
 	ipCustomer: string | null;
+	productsCheckout: CartProduct[];
 }
 const initialState: CartState = {
 	items: [],
@@ -20,6 +21,7 @@ const initialState: CartState = {
 	orderInfo: null,
 	payingStatus: 'pending',
 	ipCustomer: null,
+	productsCheckout: [],
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -106,9 +108,19 @@ const cartReducer = createSlice({
 		setIPCustomer: (state, action: PayloadAction<string>) => {
 			state.ipCustomer = action.payload;
 		},
+		addProductToCheckout: (state, action: PayloadAction<CartProduct>) => {
+			const isExists = state.productsCheckout.find((item) => item.productSKUBarcode === action.payload.productSKUBarcode);
+			if (isExists) {
+				const temp = state.productsCheckout.filter((item) => item.productSKUBarcode !== action.payload.productSKUBarcode);
+				state.productsCheckout = temp;
+			} else {
+				state.productsCheckout.push(action.payload);
+			}
+		},
 	},
 });
 export const {
+	addProductToCheckout,
 	payFailed,
 	paySuccess,
 	paying,
