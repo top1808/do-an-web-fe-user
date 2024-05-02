@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { Intent } from '@/models/chatbotModel';
+import { store } from '@/redux/store';
 
 const baseUrl = process.env.PYTHON_API_URL;
 
 const chatbotApi = {
 	chat(input: string) {
-		return axios.post(baseUrl + 'chatbot', { message: input });
+		const { currentUser } = store.getState().auth;
+		return axios.post(baseUrl + 'chatbot', { message: input, user: currentUser?.id });
 	},
 	getIntents() {
 		return axios.get(baseUrl + 'intents/get');
