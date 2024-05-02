@@ -47,7 +47,6 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 	return (
 		<MRow
 			align={'middle'}
-			style={{ borderBottom: ' 1px solid black' }}
 			className='px-2 py-1'
 			gutter={4}
 		>

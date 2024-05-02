@@ -1,8 +1,8 @@
-import { Product } from './productModels';
+import { Product, ProductSKU } from './productModels';
 import { User } from './userModel';
 
 export interface ReviewBody {
-	rate: number;
+	rate?: number;
 	content: string;
 	product?: string;
 	images?: string;
@@ -19,7 +19,7 @@ export interface Review {
 	customer?: User;
 	customerId?: string;
 	product?: Product;
-	productSKU?: string;
+	productSKU?: ProductSKU;
 	orderCode?: string;
 	images?: string[];
 	createdAt?: string;

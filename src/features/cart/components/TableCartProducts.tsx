@@ -6,17 +6,19 @@ import React, { useEffect, useState } from 'react';
 import MTitle from '@/components/MTitle';
 import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 import { Col } from 'antd';
 import { useTranslations } from 'next-intl';
-import { getCartState } from '@/redux/reducers/cartReducer';
+import { addProductToCheckout, getCartState } from '@/redux/reducers/cartReducer';
+import MButton from '@/components/MButton';
+import MCheckbox from '@/components/MCheckbox';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const cart = useAppSelector(getCartState);
 	const t = useTranslations('CartPage');
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
-
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		if (cart?.items) {
 			setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
@@ -27,11 +29,12 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 		<>
 			<div className='hidden lg:block'>
 				<MRow className='bg-gray-300 font-bold py-2 px-2 '>
+					<MCol span={1}></MCol>
 					<MCol
 						className='text-center'
 						span={3}
 					></MCol>
-					<Col span={21}>
+					<Col span={20}>
 						<MRow className='w-full'>
 							<MCol span={10}>
 								<MText>{t('Name')}</MText>
@@ -53,10 +56,21 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 
 			{data.map((item, index: number) => {
 				return (
-					<CartItem
+					<MRow
 						key={index}
-						item={item}
-					/>
+						style={{ borderBottom: ' 1px solid black' }}
+						align={'middle'}
+					>
+						<MCol
+							span={1}
+							className='flex justify-center'
+						>
+							<MCheckbox onChange={() => dispatch(addProductToCheckout(item))} />
+						</MCol>
+						<MCol span={23}>
+							<CartItem item={item} />
+						</MCol>
+					</MRow>
 				);
 			})}
 
@@ -66,6 +80,24 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 			>
 				{`${t('TotalPrice')}: ${summaryMoney}`}
 			</MTitle>
+			<MRow justify={'end'}>
+				<MCol>
+					<MButton
+						link='/'
+						className='mr-2 bg-green-500 hover:bg-green-300 text-white'
+					>
+						{t('ButtonContinueShopping')}
+					</MButton>
+				</MCol>
+				<MCol>
+					<MButton
+						type='primary'
+						link='/checkout'
+					>
+						Checkout
+					</MButton>
+				</MCol>
+			</MRow>
 		</>
 	);
 };

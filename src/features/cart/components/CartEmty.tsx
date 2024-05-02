@@ -1,17 +1,22 @@
 import MButton from '@/components/MButton';
-import MTitle from '@/components/MTitle';
-import Link from 'next/link';
+import Image from 'next/image';
 import React from 'react';
-
-const CartEmty = () => {
+import emptyCart from '../../../../public/images/empty_cart.png';
+const CartEmpty = () => {
 	return (
 		<div className='flex flex-col justify-center items-center gap-8 '>
-			<MTitle level={2}>Cart is empty</MTitle>
-			<MButton type='primary'>
-				<Link href={'/'}>Continue shopping</Link>
+			<Image
+				src={emptyCart}
+				alt='empty-cart'
+			/>
+			<MButton
+				type='primary'
+				link='/'
+			>
+				Continue shopping
 			</MButton>
 		</div>
 	);
 };
 
-export default CartEmty;
+export default CartEmpty;

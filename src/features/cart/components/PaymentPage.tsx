@@ -16,7 +16,7 @@ import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import MSelect from '@/components/MSelect';
 import { getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
@@ -30,6 +30,7 @@ import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
+
 	const auth = useAppSelector(getAuthState);
 	const voucher = useAppSelector(getVoucherState);
 	const address = useAppSelector(getAddressState);
@@ -37,6 +38,7 @@ const PaymentPage = () => {
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
 	const pathname = usePathname();
+	const params = useSearchParams();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
 	const getServiceDelivery = async (districID: string) => {
 		const body: ParamsGetService = {
@@ -117,11 +119,9 @@ const PaymentPage = () => {
 			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
 			paymentWithVPN({ ...data });
 		} else {
-			console.log('dataPost', dataPost);
 			dispatch(paying(dataPost));
 		}
 	};
-
 	useEffect(() => {
 		form.setFieldsValue({
 			customerName: auth.currentUserInfo?.name || form.getFieldValue('customerName') || '',
@@ -153,11 +153,31 @@ const PaymentPage = () => {
 				confirmButtonText: 'Ẩn',
 			});
 		}
-		localStorage.removeItem('tempDataPayement');
 	}, [cart.orderInfo, cart.payingStatus, dispatch]);
-
+	useEffect(() => {
+		if (params.get('vnp_ResponseCode')) {
+			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
+			if (isSuccess) {
+				const dataPayment = localStorage.getItem('tempDataPayement');
+				const data = JSON.parse(dataPayment!);
+				const totalPaid = Number(params.get('vnp_Amount') || 0) / 100;
+				dispatch(paying({ ...data, totalPaid: totalPaid }));
+			} else {
+				localStorage.removeItem('tempDataPayement');
+				toast.error('Payment failed');
+			}
+		} else {
+			localStorage.removeItem('tempDataPayement');
+		}
+	}, [dispatch, params]);
 	return (
 		<>
+			<MTitle
+				level={2}
+				className='text-center font-semibold'
+			>
+				Checkout
+			</MTitle>
 			<ModalVoucher />
 			<Form
 				autoComplete='off'
@@ -302,7 +322,6 @@ const PaymentPage = () => {
 							</div>
 						</div>
 					</MCol>
-
 					<MCol
 						xs={24}
 						md={7}

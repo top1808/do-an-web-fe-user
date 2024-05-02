@@ -4,7 +4,7 @@ import { getItem } from '@/utils/FunctionHelpers';
 import { faBell, faBox, faClockRotateLeft, faHandMiddleFinger, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -98,7 +98,7 @@ const SideBarProfile = () => {
 			<Menu
 				mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
 				items={items}
-				defaultSelectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title ?? t('Account')]}
+				selectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title ?? t('Account')]}
 			/>
 		</div>
 	);

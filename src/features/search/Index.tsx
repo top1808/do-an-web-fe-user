@@ -17,7 +17,6 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 	const { productsSearch } = product;
 	const dispatch = useAppDispatch();
 	const params = useSearchParams();
-
 	useEffect(() => {
 		dispatch(searchingProducts(params.get('search') || ''));
 	}, [dispatch, params]);

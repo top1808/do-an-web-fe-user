@@ -10,6 +10,7 @@ import discountProgramReducer from './discountProgramReducer';
 import notificationReducer from './notificationReducer';
 import addressReducer from './addressReducer';
 import reviewReducers from './reviewReducers';
+import chatbotReducer from './chatbotReducer';
 
 const rootReducer = combineReducers({
 	auth: authReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	notification: notificationReducer,
 	address: addressReducer,
 	review: reviewReducers,
+	chatbot: chatbotReducer,
 });
 
 export default rootReducer;

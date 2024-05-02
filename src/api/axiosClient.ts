@@ -12,7 +12,7 @@ const axiosClient = axios.create({
 		'Access-Control-Allow-Origin': '*',
 	},
 	withCredentials: true,
-	timeout: 30000,
+	timeout: 300000,
 });
 
 // Add a request interceptor

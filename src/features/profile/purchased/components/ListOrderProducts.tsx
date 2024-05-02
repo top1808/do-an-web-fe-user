@@ -9,12 +9,12 @@ import { ReviewBody } from '@/models/reviewModel';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getAuthState } from '@/redux/reducers/authReducer';
 import { getProductState, gettingProductPurchared } from '@/redux/reducers/productReducer';
+import { creatingReview, getReviewState } from '@/redux/reducers/reviewReducers';
 import { customMoney } from '@/utils/FunctionHelpers';
 import { Checkbox, Form, Modal, Rate } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 type ReviewProduct = {
 	isOpenModal: boolean;
@@ -22,6 +22,7 @@ type ReviewProduct = {
 };
 const ListOrderProducts = () => {
 	const products = useAppSelector(getProductState);
+	const reviewsState = useAppSelector(getReviewState);
 	const auth = useAppSelector(getAuthState);
 	const dispatch = useAppDispatch();
 	const [productSeletedReview, setProductSeletedReview] = useState<ReviewProduct>({ isOpenModal: false });
@@ -35,16 +36,14 @@ const ListOrderProducts = () => {
 			orderCode: productSeletedReview.product?.orderCode,
 			productOrderId: productSeletedReview.product?._id,
 		};
-		const res = await reviewApi.createReview(body);
-		if (res.status === 200) {
-			setProductSeletedReview({ isOpenModal: false, product: undefined });
-			// xu ly hien thi lai
-			dispatch(gettingProductPurchared());
-			toast.success('Review successfully !');
-		} else {
-			toast.error('Review failed !');
-		}
+		dispatch(creatingReview(body));
 	};
+	useEffect(() => {
+		if (reviewsState.isReviewStatus === 'completed') {
+			dispatch(gettingProductPurchared());
+			setProductSeletedReview({ isOpenModal: false });
+		}
+	}, [dispatch, reviewsState.isReviewStatus]);
 	useEffect(() => {
 		dispatch(gettingProductPurchared());
 	}, [dispatch]);
