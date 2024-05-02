@@ -18,7 +18,6 @@ interface ProductsComponentProps {
 
 const ProductsComponent = (props: ProductsComponentProps) => {
 	const { products, pagination } = props;
-	console.log(',,,,', products);
 	const params = useSearchParams();
 	const category = params.get('category');
 	const path = usePathname();

@@ -30,6 +30,7 @@ import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
+
 	const auth = useAppSelector(getAuthState);
 	const voucher = useAppSelector(getVoucherState);
 	const address = useAppSelector(getAddressState);
@@ -284,7 +285,7 @@ const PaymentPage = () => {
 								{`2. ${t('Product')}`}
 							</MTitle>
 							<div style={{ height: '30rem', overflow: 'auto' }}>
-								{cart.productsCheckout?.map((item) => {
+								{cart.items?.map((item) => {
 									return (
 										<div
 											key={item._id}
