@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Upload, UploadProps, Image } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { useTranslations } from 'next-intl';
 interface MUploadImageProps extends UploadProps {
 	image?: string;
 	formName?: string | string[];
@@ -10,12 +9,8 @@ interface MUploadImageProps extends UploadProps {
 }
 
 const MUploadImage: React.FC<MUploadImageProps> = ({ image, formName, disableTitle, notRequired, ...rest }) => {
-	const t = useTranslations('ProfilePage');
-
 	const [imageLocal, setImageLocal] = useState<string>('');
-
 	const [loading, setLoading] = useState(false);
-
 	const handleChange: UploadProps['onChange'] = (info) => {
 		if (info.file.status === 'uploading') {
 			setLoading(true);
@@ -73,7 +68,7 @@ const MUploadImage: React.FC<MUploadImageProps> = ({ image, formName, disableTit
 						type='button'
 					>
 						{loading ? <LoadingOutlined /> : <PlusOutlined />}
-						<div style={{ marginTop: 8 }}>{t('Upload')}</div>
+						<div style={{ marginTop: 8 }}>Upload</div>
 					</button>
 				)}
 			</Upload>

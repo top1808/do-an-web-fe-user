@@ -64,7 +64,7 @@ function* onUpdateCart(action: PayloadAction<CartProduct>) {
 		yield put(updateCartSuccess(response.data.message));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		yield put(updateCartFailed(error.response.data.message));
+		yield put(updateCartFailed(error.response.data));
 	}
 }
 

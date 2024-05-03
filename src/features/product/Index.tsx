@@ -10,6 +10,7 @@ import { PaginationModel } from '@/models/reponseModel';
 import MPagination from '@/components/MPagination';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { objectToQueryString } from '@/utils/FunctionHelpers';
+import SearchFilter from '@/components/SearchFilter';
 
 interface ProductsComponentProps {
 	products?: Product[];
@@ -39,7 +40,14 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 				lg={8}
 				xl={6}
 			>
-				<SideBarUser />
+				<MRow gutter={[16, 16]}>
+					<MCol span={24}>
+						<SideBarUser />
+					</MCol>
+					<MCol span={24}>
+						<SearchFilter />
+					</MCol>
+				</MRow>
 			</MCol>
 			<MCol
 				xs={24}
@@ -79,7 +87,7 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 							)}
 						</MRow>
 						<div className='w-full text-center mt-4'>
-							{products && (
+							{products && products.length > 0 && (
 								<MPagination
 									current={pagination?.page}
 									total={pagination?.total}

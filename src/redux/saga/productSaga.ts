@@ -22,11 +22,11 @@ import { CreateAction } from '@/models/actionModel';
 import { PayloadAction } from '@reduxjs/toolkit';
 import reviewApi from '@/api/reviewApi';
 import { ProductSKU } from '@/models/productModels';
-import { toast } from 'react-toastify';
 
 function* onGetProducts() {
 	try {
 		const response: AxiosResponse = yield call(productApi.getProducts);
+
 		yield put(getProductsSuccess(response.data.products));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
