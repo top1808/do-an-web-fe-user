@@ -22,6 +22,7 @@ const HomeUserComponent = () => {
 	const product = useAppSelector(getProductState);
 	const dispatch = useAppDispatch();
 	const t = useTranslations('HomePage');
+
 	useEffect(() => {
 		dispatch(gettingProduct());
 		dispatch(gettingCategory());

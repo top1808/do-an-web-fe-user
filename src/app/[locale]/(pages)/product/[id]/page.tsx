@@ -6,6 +6,8 @@ import React from 'react';
 async function getProductInfor(id: string) {
 	const res = await fetchServer('product/' + id);
 	const response = await res.json();
+	console.log(response.product);
+
 	return response.product;
 }
 

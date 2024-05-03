@@ -10,17 +10,9 @@ import { getCategoryState, gettingCategory } from '@/redux/reducers/categoryRedu
 import Link from 'next/link';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
+import { getItem } from '@/utils/FunctionHelpers';
 
 type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(label: React.ReactNode, key?: React.Key | null, icon?: React.ReactNode, children?: MenuItem[]): MenuItem {
-	return {
-		key,
-		icon,
-		children,
-		label,
-	} as MenuItem;
-}
 
 const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
