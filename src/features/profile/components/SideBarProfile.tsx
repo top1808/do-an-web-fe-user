@@ -1,10 +1,10 @@
 'use client';
 import { MenuItem } from '@/models/productModels';
 import { getItem } from '@/utils/FunctionHelpers';
-import { faBell, faBox, faClockRotateLeft, faHandMiddleFinger, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faBox, faClockRotateLeft, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';

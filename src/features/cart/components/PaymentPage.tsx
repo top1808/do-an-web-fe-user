@@ -286,38 +286,40 @@ const PaymentPage = () => {
 							</MTitle>
 							<div style={{ height: '30rem', overflow: 'auto' }}>
 								{cart.items?.map((item) => {
-									return (
-										<div
-											key={item._id}
-											className='flex gap-4 p-2 shadow-md'
-										>
-											<div>
-												<MImage
-													src={item.product?.images?.[0]}
-													alt='image'
-													preview={false}
-													height={60}
-													width={60}
-												/>
-											</div>
-											<div>
-												<MText className='font-medium'>{item?.product?.name}</MText>
+									if (item.isChecked) {
+										return (
+											<div
+												key={item._id}
+												className='flex gap-4 p-2 shadow-md'
+											>
 												<div>
-													{item?.product?.groupOptions?.map((group, index) => (
-														<span key={group?.groupName}>
-															<span className='text-gray-500'>
-																{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
-															</span>
-														</span>
-													))}
+													<MImage
+														src={item.product?.images?.[0]}
+														alt='image'
+														preview={false}
+														height={60}
+														width={60}
+													/>
 												</div>
-												<div className='flex gap-4'>
-													<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
-													<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
+												<div>
+													<MText className='font-medium'>{item?.product?.name}</MText>
+													<div>
+														{item?.product?.groupOptions?.map((group, index) => (
+															<span key={group?.groupName}>
+																<span className='text-gray-500'>
+																	{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
+																</span>
+															</span>
+														))}
+													</div>
+													<div className='flex gap-4'>
+														<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
+														<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
+													</div>
 												</div>
 											</div>
-										</div>
-									);
+										);
+									}
 								})}
 							</div>
 						</div>

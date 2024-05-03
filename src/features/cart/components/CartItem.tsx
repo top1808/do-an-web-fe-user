@@ -25,7 +25,6 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		if (timeoutId) {
 			clearTimeout(timeoutId);
 		}
-
 		const newTimeoutId = setTimeout(() => callApiUpdate(quantity), 500);
 		setTimeoutId(newTimeoutId);
 	};
@@ -108,7 +107,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 								setQuantity((value as number) || 1);
 							}}
 							onBlur={() => callApiUpdate(quantity)}
-							disabled={cart.statusUpdate === 'loading'}
+							disabled={cart.statusUpdate === 'loading' || !item?.isChecked}
 						/>
 					</MCol>
 					<MCol
@@ -128,12 +127,6 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 					</MCol>
 				</MRow>
 			</MCol>
-			{/* <MCol
-				className='text-end'
-				lg={3}
-			>
-				<MText>{`${customMoney(item?.price || 0)}`}</MText>
-			</MCol> */}
 		</MRow>
 	);
 };

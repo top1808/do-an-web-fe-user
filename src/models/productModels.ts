@@ -64,6 +64,7 @@ export interface ProductGroupOption {
 export interface CartProduct extends Product {
 	product?: Product;
 	productSKU?: ProductSKU;
+	isChecked?: boolean;
 }
 
 export type MenuItem = Required<MenuProps>['items'][number];

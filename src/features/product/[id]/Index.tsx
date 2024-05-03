@@ -21,6 +21,7 @@ import ProductOptions from '../components/ProductOptions';
 import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReducer';
 import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
+import Link from 'next/link';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -136,22 +137,26 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								/>
 							</div>
 						</div>
-						<div className='flex gap-4 pt-4 w-full lg:w-auto'>
+						<div className='flex gap-6 pt-4 w-full lg:w-auto'>
 							<MButton
 								className='bg-green-600 hover:bg-green-300 text-white'
-								onClick={handleAddToCart}
-								disabled={(productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product}
+								onClick={() => {
+									if ((productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product) {
+										toast.warning('Vui lòng chọn loại sản phẩm !');
+									} else {
+										handleAddToCart();
+									}
+								}}
 							>
 								<FontAwesomeIcon icon={faCartShopping} />
 								&nbsp; Thêm vào giỏ hàng
 							</MButton>
-							<MButton
-								className='bg-red-400 text-white'
-								onClick={() => {}}
+							<Link
+								className='bg-red-400 text-white py-[4px] px-[15px] rounded-lg align-middle hover:opacity-80 hover:text-white'
+								href={'/'}
 							>
-								<FontAwesomeIcon icon={faCheck} />
 								&nbsp; Mua ngay
-							</MButton>
+							</Link>
 						</div>
 					</MCol>
 				</MRow>

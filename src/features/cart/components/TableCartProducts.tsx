@@ -10,18 +10,29 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 import { Col } from 'antd';
 import { useTranslations } from 'next-intl';
-import { addProductToCheckout, getCartState } from '@/redux/reducers/cartReducer';
+import { getCartState, updatingCart } from '@/redux/reducers/cartReducer';
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const cart = useAppSelector(getCartState);
 	const t = useTranslations('CartPage');
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
 	const dispatch = useAppDispatch();
+
+	const callApiUpdate = (e: CheckboxChangeEvent, item: CartProduct) => {
+		const data: CartProduct = {
+			_id: item?._id,
+			isChecked: e.target.checked,
+			quantity: item?.quantity,
+		};
+		dispatch(updatingCart(data));
+	};
+
 	useEffect(() => {
 		if (cart?.items) {
-			setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
+			setSummaryMoney(customMoney(caculatorTotalPrice(cart.items.filter((item) => item.isChecked))));
 		}
 	}, [cart.items]);
 
@@ -65,7 +76,10 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 							span={1}
 							className='flex justify-center'
 						>
-							<MCheckbox onChange={() => dispatch(addProductToCheckout(item))} />
+							<MCheckbox
+								onChange={(e) => callApiUpdate(e, item)}
+								checked={item?.isChecked}
+							/>
 						</MCol>
 						<MCol span={23}>
 							<CartItem item={item} />

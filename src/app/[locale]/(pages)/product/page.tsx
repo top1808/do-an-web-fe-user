@@ -14,7 +14,6 @@ async function getProductByCategory(searchParams: { category: string; offset: st
 
 const ProductPage = async ({ params, searchParams }: { params: null; searchParams: { category: string; offset: string; limit: string } }) => {
 	const { products, pagination }: ReponseGetProductsByCategory = await getProductByCategory(searchParams);
-
 	return (
 		<ProductsComponent
 			products={products as Product[]}

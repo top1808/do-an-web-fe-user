@@ -30,7 +30,7 @@ const ReviewsComponent = () => {
 							<span>
 								<Link
 									href={'/profile/product-purchased'}
-									className='text-blue-600'
+									className='text-blue-600 ml-2'
 								>
 									Nhấn vào đây để đánh giá
 								</Link>
