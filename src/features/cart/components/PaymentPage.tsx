@@ -16,17 +16,19 @@ import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import MSelect from '@/components/MSelect';
-import { getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
+import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
 import { getCartState, paying } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
-import { getVoucherState } from '@/redux/reducers/voucherReducer';
+import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherReducer';
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
@@ -121,6 +123,9 @@ const PaymentPage = () => {
 			dispatch(paying(dataPost));
 		}
 	};
+	const handleBack = () => {
+		window.history.back();
+	};
 	useEffect(() => {
 		form.setFieldsValue({
 			customerName: auth.currentUserInfo?.name || form.getFieldValue('customerName') || '',
@@ -154,6 +159,8 @@ const PaymentPage = () => {
 		}
 	}, [cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
+		dispatch(clearAddressState());
+		dispatch(clearVoucherState());
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 			if (isSuccess) {
@@ -171,12 +178,23 @@ const PaymentPage = () => {
 	}, [dispatch, params]);
 	return (
 		<>
-			<MTitle
-				level={2}
-				className='text-center font-semibold'
-			>
-				Checkout
-			</MTitle>
+			<div className='relative'>
+				<MButton
+					className='absolute top-4 px-4'
+					type='primary'
+					onClick={handleBack}
+				>
+					<FontAwesomeIcon icon={faArrowLeft} />
+					&nbsp; Back
+				</MButton>
+				<MTitle
+					level={2}
+					className='text-center font-semibold py-4'
+				>
+					Checkout
+				</MTitle>
+			</div>
+
 			<ModalVoucher />
 			<Form
 				autoComplete='off'
@@ -402,7 +420,7 @@ const PaymentPage = () => {
 									</MText>
 								</div>
 								<MButton
-									className='mt-2'
+									className='mt-8'
 									htmlType='submit'
 									type='primary'
 									disabled={address?.fee <= 0}
