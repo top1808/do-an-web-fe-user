@@ -10,7 +10,7 @@ import { PAYMENT_METHOD } from '@/constant';
 import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleModal } from '@/redux/reducers/modalReducer';
-import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
+import { caculatorTotalPriceForCheckout, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, FormInstance, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
@@ -30,7 +30,6 @@ import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
-
 	const auth = useAppSelector(getAuthState);
 	const voucher = useAppSelector(getVoucherState);
 	const address = useAppSelector(getAddressState);
@@ -73,7 +72,7 @@ const PaymentPage = () => {
 				length: 20,
 				weight: 200,
 				width: 20,
-				insurance_value: caculatorTotalPrice(cart.items),
+				insurance_value: caculatorTotalPriceForCheckout(cart.items),
 				cod_failed_amount: 100000,
 			};
 			dispatch(gettingFeeDelivery(body));
@@ -94,9 +93,9 @@ const PaymentPage = () => {
 				options: p?.productSKU?.options || [],
 			})),
 			deliveryFee: address.fee,
-			totalProductPrice: caculatorTotalPrice(cart.items),
+			totalProductPrice: caculatorTotalPriceForCheckout(cart.items),
 			totalPaid: 0,
-			totalPrice: caculatorTotalPrice(cart.items) + address.fee,
+			totalPrice: caculatorTotalPriceForCheckout(cart.items) + address.fee,
 			voucher: voucher.voucherApply,
 		};
 		if (dataPost.paymentMethod === 'vnpay') {
@@ -384,7 +383,7 @@ const PaymentPage = () => {
 							<div className='w-full text-end p-2'>
 								<div className='flex items-center justify-between'>
 									<MText className='text-end text-sm'>{t('TotalPrice')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items))}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPriceForCheckout(cart.items))}</MText>
 								</div>
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>{t('DeliveryFee')}</MText>
@@ -398,7 +397,9 @@ const PaymentPage = () => {
 								)}
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>{t('TotalPaid')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>
+										{customMoney(caculatorTotalPriceForCheckout(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}
+									</MText>
 								</div>
 								<MButton
 									className='mt-2'
