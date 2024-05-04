@@ -83,17 +83,21 @@ const PaymentPage = () => {
 	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
 			...data,
-			products: cart.items?.map((p) => ({
-				cartId: p._id,
-				productSKUBarcode: p?.productSKUBarcode || '',
-				productName: p.product?.name || '',
-				productCode: p.product?._id || '',
-				quantity: p.quantity || 0,
-				price: p.price || 0,
-				totalPrice: p.totalPrice || 0,
-				note: '',
-				options: p?.productSKU?.options || [],
-			})),
+			products: cart.items
+				?.filter((p) => p.isChecked)
+				.map((p) => {
+					return {
+						cartId: p._id,
+						productSKUBarcode: p?.productSKUBarcode || '',
+						productName: p.product?.name || '',
+						productCode: p.product?._id || '',
+						quantity: p.quantity || 0,
+						price: p.price || 0,
+						totalPrice: p.totalPrice || 0,
+						note: '',
+						options: p?.productSKU?.options || [],
+					};
+				}),
 			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPriceForCheckout(cart.items),
 			totalPaid: 0,

@@ -55,7 +55,7 @@ export interface OrderProduct {
 	quantity?: number;
 	totalPrice?: number;
 	image?: string;
-	options: ProductSKUOption[];
+	options?: ProductSKUOption[];
 }
 
 export interface ReponsePaySuccess {

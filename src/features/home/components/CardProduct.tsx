@@ -2,6 +2,7 @@ import MImage from '@/components/MImage';
 import MText from '@/components/MText';
 import { Product } from '@/models/productModels';
 import { customMoney, getProductPrice } from '@/utils/FunctionHelpers';
+import { Rate } from 'antd';
 import Link from 'next/link';
 import React from 'react';
 export interface CardProductProps {
@@ -48,11 +49,20 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+						<div className='absolute top-1 left-0 p-1 bg-red-400'>
 							<p className='font-bold text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}
+
+				<div>
+					<Rate
+						allowHalf
+						className='text-sm'
+						disabled
+						defaultValue={(data?.rate || 0) > 0 ? data.rate : 5}
+					/>
+				</div>
 			</div>
 		</Link>
 	);

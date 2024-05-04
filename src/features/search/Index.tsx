@@ -24,11 +24,7 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 
 	return (
 		<MSkeleton loading={product.isSearching}>
-			<div className='py-4 px-2'>
-				<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {params.get('search')}.</MText> &nbsp;
-				<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
-			</div>
-			<MRow>
+			<MRow className='mt-4'>
 				<MCol
 					xs={24}
 					sm={24}
@@ -45,6 +41,10 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					lg={16}
 					xl={18}
 				>
+					<div className='py-4 px-2'>
+						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {params.get('search')}.</MText> &nbsp;
+						<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
+					</div>
 					<MRow gutter={[12, 12]}>
 						{productsSearch &&
 							productsSearch?.length > 0 &&

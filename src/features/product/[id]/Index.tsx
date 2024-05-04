@@ -22,6 +22,7 @@ import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReduc
 import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
 import Link from 'next/link';
+import MInputQuantity from '@/components/MInputQuantity';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -125,16 +126,16 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>
 								<MTitle level={3}>Số lượng</MTitle>
-								<InputNumber
-									min={1}
-									max={9999}
-									formatter={handleFormatterInputNumber}
-									parser={handleParserInputNumber}
-									onChange={(value) => {
-										value ? setQuantity(value) : setQuantity(1);
-									}}
-									value={quantity}
-								/>
+								<div className='w-[100px]'>
+									<MInputQuantity
+										value={quantity}
+										onClickMinus={() => setQuantity(quantity < 2 ? 1 : quantity - 1)}
+										onClickPlus={() => setQuantity(quantity > 98 ? 99 : quantity + 1)}
+										onChange={(value) => {
+											setQuantity((value as number) || 1);
+										}}
+									/>
+								</div>
 							</div>
 						</div>
 						<div className='flex gap-6 pt-4 w-full lg:w-auto'>
