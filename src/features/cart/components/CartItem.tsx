@@ -39,6 +39,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		const data: CartProduct = {
 			_id: item?._id,
 			quantity: quantity,
+			isChecked: item?.isChecked,
 		};
 		dispatch(updatingCart(data));
 	};
