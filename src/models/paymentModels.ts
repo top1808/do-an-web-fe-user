@@ -18,9 +18,9 @@ export interface DataPayment {
 	voucher?: ApplyVoucherInfor | null;
 	vnpayTransactionNo?: string | null;
 	deliveryMethod?: string;
-	customerProvince?: number;
-	customerDistrict?: number;
-	customerWard?: number;
+	customerProvince?: number | Address;
+	customerDistrict?: number | Address;
+	customerWard?: number | Address;
 }
 
 export interface Order {
@@ -69,7 +69,7 @@ export interface OrderParams {
 	status?: 'delivering' | 'delivered' | 'canceled' | 'all';
 }
 export interface Address {
-	value: number;
+	value: number | string;
 	label: string;
 }
 export interface ParamsGetFeeDelivery {
