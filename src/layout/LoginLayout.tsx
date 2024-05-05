@@ -1,20 +1,12 @@
-'use client';
 import MButton from '@/components/MButton';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import React, { useEffect } from 'react';
 
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
-	const { data: session } = useSession();
-
-	useEffect(() => {
-		if (session) {
-			redirect('/');
-		}
-	}, [session]);
-
+const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
+	const session = await getServerSession();
+	if (session?.user) redirect('/');
 	return (
 		<div className='h-screen w-screen overflow-hidden layout-login relative'>
 			<div className='absolute md:top-6 md:left-6 top-0 left-0'>
