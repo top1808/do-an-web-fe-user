@@ -101,6 +101,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 						lg={4}
 					>
 						<MInputQuantity
+							max={99}
 							value={quantity}
 							onClickMinus={() => onChangeQuantity(quantity - 1)}
 							onClickPlus={() => onChangeQuantity(quantity + 1)}

@@ -54,8 +54,20 @@ export interface ProductSKU extends Product {
 	productName?: string;
 	isReviewed?: boolean;
 	orderCode?: string;
+	//inventory
+	inventory: Inventory;
 }
-
+interface Inventory {
+	createdAt?: string;
+	currentQuantity: number;
+	historyImportId?: string[];
+	originalQuantity: number;
+	productCode?: string;
+	productSKUBarcode?: string;
+	soldQuantity: number;
+	updatedAt?: string;
+	_id?: string;
+}
 export interface ProductGroupOption {
 	groupName?: string;
 	options?: string[];

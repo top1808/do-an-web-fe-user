@@ -3,16 +3,16 @@ import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
-import { faCartShopping, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { InputNumber, Rate } from 'antd';
+import { Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { Product } from '@/models/productModels';
+import { Product, ProductSKU } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
-import { customMoney, getProductPrice, handleFormatterInputNumber, handleParserInputNumber } from '@/utils/FunctionHelpers';
+import { customMoney, getProductPrice } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
 import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
@@ -27,7 +27,7 @@ interface DetailProductComponent {
 	productInfor?: Product;
 }
 type ProductSKUChoice = {
-	product: Product | null;
+	product: ProductSKU | null;
 	discountValue: number;
 	price: number;
 	promotionPrice?: number;
@@ -111,11 +111,14 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
-							<Rate
-								allowHalf
-								defaultValue={productInfor?.rate || 5}
-								disabled
-							/>
+							<div className='flex gap-8'>
+								<Rate
+									allowHalf
+									defaultValue={productInfor?.rate || 5}
+									disabled
+								/>
+								{productSKU.product && <div className='text-xl'>{`Đã bán: ${productSKU?.product?.inventory.soldQuantity} sản phẩm`}</div>}
+							</div>
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
 								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
@@ -126,15 +129,29 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>
 								<MTitle level={3}>Số lượng</MTitle>
-								<div className='w-[100px]'>
-									<MInputQuantity
-										value={quantity}
-										onClickMinus={() => setQuantity(quantity < 2 ? 1 : quantity - 1)}
-										onClickPlus={() => setQuantity(quantity > 98 ? 99 : quantity + 1)}
-										onChange={(value) => {
-											setQuantity((value as number) || 1);
-										}}
-									/>
+								<div className='flex gap-4'>
+									<div className='w-[120px]'>
+										<MInputQuantity
+											className='w-full'
+											disabled={productSKU.product && productSKU.product?.inventory.currentQuantity > 0 ? false : true}
+											max={productSKU.product ? productSKU.product?.inventory.currentQuantity : 99}
+											value={quantity}
+											onClickMinus={() => setQuantity(quantity < 2 ? 1 : quantity - 1)}
+											onClickPlus={() =>
+												setQuantity(
+													quantity > (productSKU.product?.inventory.currentQuantity ? productSKU.product?.inventory.currentQuantity - 1 : 98)
+														? productSKU.product?.inventory.currentQuantity
+															? productSKU.product?.inventory.currentQuantity
+															: 99
+														: quantity + 1,
+												)
+											}
+											onChange={(value) => {
+												setQuantity((value as number) || 1);
+											}}
+										/>
+									</div>
+									<div className=' text-center'>{productSKU.product && <p>{`Còn: ${productSKU.product?.inventory.currentQuantity} sản phẩm`}</p>}</div>
 								</div>
 							</div>
 						</div>
@@ -144,6 +161,8 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								onClick={() => {
 									if ((productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product) {
 										toast.warning('Vui lòng chọn loại sản phẩm !');
+									} else if (productSKU.product?.inventory.currentQuantity === 0) {
+										toast.warning('Sản phẩm này tạm hết hàng ');
 									} else {
 										handleAddToCart();
 									}

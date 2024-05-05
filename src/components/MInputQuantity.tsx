@@ -9,7 +9,7 @@ interface MInputQuantityProps extends InputNumberProps {
 }
 
 const MInputQuantity = (props: MInputQuantityProps) => {
-	const { onClickMinus, onClickPlus, disabled, ...rest } = props;
+	const { onClickMinus, onClickPlus, disabled, max, ...rest } = props;
 	return (
 		<div className='flex align-middle select-none'>
 			<FontAwesomeIcon
@@ -20,8 +20,8 @@ const MInputQuantity = (props: MInputQuantityProps) => {
 			<InputNumber
 				className='w-11 rounded-none'
 				min={1}
-				max={99}
-				maxLength={2}
+				max={max}
+				maxLength={10}
 				style={{ height: 30 }}
 				inputMode='numeric'
 				disabled={disabled}
