@@ -42,7 +42,7 @@ const UserLogin = () => {
 	}, [error]);
 
 	return (
-		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
+		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg shadow-lg'>
 			<h1 className='text-center text-white md:text-black'>{t('Title')}</h1>
 			<Form
 				name='login'
@@ -129,7 +129,6 @@ const UserLogin = () => {
 					</MButton>
 				</MCol>
 			</MRow>
-
 			<MRow
 				className='mt-12'
 				justify={'center'}
