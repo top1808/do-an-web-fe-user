@@ -121,7 +121,11 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									defaultValue={productInfor?.rate || 5}
 									disabled
 								/>
-								{productSKU.product && <div className='text-xl'>{`Đã bán: ${productSKU?.product?.inventory.soldQuantity} sản phẩm`}</div>}
+								{productSKU.product ? (
+									<div className='text-xl'>{`Đã bán: ${productSKU?.product?.inventory.soldQuantity} sản phẩm`}</div>
+								) : (
+									<div className='text-xl'>{`Đã bán: ${productInfor?.soldQuantityOfProduct} sản phẩm`}</div>
+								)}
 							</div>
 							<CustomPriceProduct
 								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
