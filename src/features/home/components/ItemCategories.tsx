@@ -16,7 +16,7 @@ const ItemCategories = ({ data }: PropsItemCategory) => {
 			className='w-full block'
 		>
 			<MRow
-				className='w-full border-gray-400 border-[1px] border-solid p-2 hover:border-[5px]'
+				className='w-full border-gray-400 border-[1px] border-solid p-2 hover:opacity-80'
 				justify={'center'}
 				gutter={[16, 16]}
 			>
