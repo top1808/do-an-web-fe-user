@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { RootState } from '../store';
 
 interface OrderState {
-	isChangeStatusOrder?: boolean;
+	isChangeStatusOrder: boolean;
 	loading: boolean;
 	status: 'pending' | 'completed' | 'failed';
 	data?: Order[];

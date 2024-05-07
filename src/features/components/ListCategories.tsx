@@ -1,42 +1,49 @@
+'use client';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import { Category } from '@/models/categoryModels';
 import ItemCategories from '../home/components/ItemCategories';
 import CustomSlider from '@/components/CustomSlider';
-type Props = {
-	categories: Category[] | null;
-	title: string;
-};
-const ListCategories = ({ categories, title }: Props) => {
+import { getCategoryState, gettingCategory } from '@/redux/reducers/categoryReducer';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import MSkeleton from '@/components/MSkeleton';
+import { useEffect } from 'react';
+const ListCategories = () => {
+	const category = useAppSelector(getCategoryState);
+	const disatch = useAppDispatch();
+	useEffect(() => {
+		disatch(gettingCategory());
+	}, [disatch]);
 	return (
-		<MRow className='xs:mb-6 md:mb-0 bg-white px-2 '>
-			<MCol
-				span={24}
-				className='py-4'
-			>
-				<h3 className='text-gray-400 text-2xl font-semibold'>{title}</h3>
-			</MCol>
-			<MCol
-				span={24}
-				className='px-1'
-			>
-				{categories && categories.length > 0 && (
-					<CustomSlider
-						length={categories?.length}
-						autoPlay={false}
-					>
-						{categories.map((item) => {
-							return (
-								<ItemCategories
-									key={item._id}
-									data={item}
-								/>
-							);
-						})}
-					</CustomSlider>
-				)}
-			</MCol>
-		</MRow>
+		<MSkeleton loading={category.loading}>
+			<MRow className='xs:mb-6 md:mb-0 bg-white px-2 '>
+				<MCol
+					span={24}
+					className='py-4'
+				>
+					<h3 className='text-gray-400 text-2xl font-semibold'>{'Categories'}</h3>
+				</MCol>
+				<MCol
+					span={24}
+					className='px-1'
+				>
+					{category.data && category.data.length > 0 && (
+						<CustomSlider
+							length={category.data?.length}
+							autoPlay={false}
+						>
+							{category.data.map((item) => {
+								return (
+									<ItemCategories
+										key={item._id}
+										data={item}
+									/>
+								);
+							})}
+						</CustomSlider>
+					)}
+				</MCol>
+			</MRow>
+		</MSkeleton>
 	);
 };
 

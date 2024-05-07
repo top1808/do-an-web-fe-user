@@ -2,6 +2,7 @@
 
 import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
+import MSkeleton from '@/components/MSkeleton';
 import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { Order, OrderParams, OrderProduct } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -138,7 +139,7 @@ const Purchased = () => {
 					value: 'delivering',
 				},
 				{
-					text: 'Đang giao hàng',
+					text: 'Đã giao hàng',
 					value: 'delivered',
 				},
 				{
@@ -195,12 +196,14 @@ const Purchased = () => {
 
 	return (
 		<>
-			<Table
-				columns={columns}
-				dataSource={order.data?.map((item, index) => ({ ...item, index: index + 1, key: item._id }))}
-				virtual
-				scroll={{ x: 1000, y: 2000 }}
-			/>
+			<MSkeleton loading={order.isChangeStatusOrder}>
+				<Table
+					columns={columns}
+					dataSource={order.data?.map((item, index) => ({ ...item, index: index + 1, key: item._id }))}
+					virtual
+					scroll={{ x: 1000, y: 2000 }}
+				/>
+			</MSkeleton>
 		</>
 	);
 };
