@@ -4,24 +4,35 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import React, { useEffect, useState } from 'react';
 import MTitle from '@/components/MTitle';
-import { caculatorTotalPrice, customMoney } from '@/utils/FunctionHelpers';
+import { caculatorTotalPriceForCheckout, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import CartItem from './CartItem';
 import { Col } from 'antd';
 import { useTranslations } from 'next-intl';
-import { addProductToCheckout, getCartState } from '@/redux/reducers/cartReducer';
+import { getCartState, updatingCart } from '@/redux/reducers/cartReducer';
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import Link from 'next/link';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const cart = useAppSelector(getCartState);
 	const t = useTranslations('CartPage');
-	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPrice(data)));
+	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPriceForCheckout(data)));
 	const dispatch = useAppDispatch();
+
+	const callApiUpdate = (e: CheckboxChangeEvent, item: CartProduct) => {
+		const data: CartProduct = {
+			_id: item?._id,
+			isChecked: e.target.checked,
+			quantity: item?.quantity,
+		};
+		dispatch(updatingCart(data));
+	};
 	useEffect(() => {
 		if (cart?.items) {
-			setSummaryMoney(customMoney(caculatorTotalPrice(cart.items)));
+			setSummaryMoney(customMoney(caculatorTotalPriceForCheckout(cart.items)));
 		}
 	}, [cart.items]);
 
@@ -60,12 +71,16 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 						key={index}
 						style={{ borderBottom: ' 1px solid black' }}
 						align={'middle'}
+						className='bg-white'
 					>
 						<MCol
 							span={1}
 							className='flex justify-center'
 						>
-							<MCheckbox onChange={() => dispatch(addProductToCheckout(item))} />
+							<MCheckbox
+								onChange={(e) => callApiUpdate(e, item)}
+								checked={item?.isChecked}
+							/>
 						</MCol>
 						<MCol span={23}>
 							<CartItem item={item} />
@@ -90,12 +105,17 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 					</MButton>
 				</MCol>
 				<MCol>
-					<MButton
-						type='primary'
-						link='/checkout'
+					<Link
+						href={'/checkout'}
+						className={`${!data.some((item) => item?.isChecked) ? 'pointer-events-none' : ''}`}
 					>
-						Checkout
-					</MButton>
+						<MButton
+							type='primary'
+							disabled={!data.some((item) => item?.isChecked)}
+						>
+							Checkout
+						</MButton>
+					</Link>
 				</MCol>
 			</MRow>
 		</>

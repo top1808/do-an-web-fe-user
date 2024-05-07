@@ -1,5 +1,5 @@
 import { Address } from '@/models/paymentModels';
-import { MenuItem, Product } from '@/models/productModels';
+import { CartProduct, MenuItem, Product } from '@/models/productModels';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
 
@@ -26,7 +26,9 @@ export const caculatorTotalPrice = (data: Product[]) => {
 		return accumulator + (value?.totalPrice || 0);
 	}, 0);
 };
-
+export const caculatorTotalPriceForCheckout = (data: CartProduct[]) => {
+	return caculatorTotalPrice(data.filter((item) => item.isChecked));
+};
 export const handleFormatterInputNumber = (value: number | undefined) => {
 	if (value !== undefined) {
 		return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -100,5 +102,5 @@ export const revertDataAddressFromResponse = (data: any, type: string) => {
 			return temp;
 		});
 	}
-	return dataReturn.sort((a, b) => a.label.localeCompare(b.label));
+	return dataReturn.sort((a, b) => (a?.label || '').localeCompare(b?.label || ''));
 };

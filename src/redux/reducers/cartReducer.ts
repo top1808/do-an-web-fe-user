@@ -11,7 +11,7 @@ interface CartState {
 	orderInfo: Order | null;
 	payingStatus: 'pending' | 'completed' | 'failed';
 	ipCustomer: string | null;
-	productsCheckout: CartProduct[];
+	isLoadingPaying?: boolean;
 }
 const initialState: CartState = {
 	items: [],
@@ -21,7 +21,7 @@ const initialState: CartState = {
 	orderInfo: null,
 	payingStatus: 'pending',
 	ipCustomer: null,
-	productsCheckout: [],
+	isLoadingPaying: false,
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -75,9 +75,16 @@ const cartReducer = createSlice({
 		updateCartSuccess: (state, action: PayloadAction<Product>) => {
 			state.statusUpdate = 'completed';
 		},
-		updateCartFailed: (state, action: PayloadAction<string>) => {
+		updateCartFailed: (state, action: PayloadAction<any>) => {
+			const temp = state.items.map((item) => {
+				if (item._id === action.payload.cartItem._id) {
+					return action.payload.cartItem;
+				}
+				return item;
+			});
+			state.items = temp;
 			state.statusUpdate = 'completed';
-			action.payload && toast.error(action.payload);
+			action.payload && toast.error(action.payload.message);
 		},
 
 		clearingCart: (state) => {
@@ -93,34 +100,24 @@ const cartReducer = createSlice({
 		},
 
 		paying: (state, action: PayloadAction<DataPayment>) => {
-			state.loading = true;
+			state.isLoadingPaying = true;
 			state.payingStatus = 'pending';
 		},
 		paySuccess: (state, action: PayloadAction<ReponsePaySuccess>) => {
-			state.loading = false;
+			state.isLoadingPaying = false;
 			state.orderInfo = action.payload.order;
 			state.payingStatus = 'completed';
 		},
 		payFailed: (state, action: PayloadAction<string>) => {
-			state.loading = false;
+			state.isLoadingPaying = false;
 			state.payingStatus = 'failed';
 		},
 		setIPCustomer: (state, action: PayloadAction<string>) => {
 			state.ipCustomer = action.payload;
 		},
-		addProductToCheckout: (state, action: PayloadAction<CartProduct>) => {
-			const isExists = state.productsCheckout.find((item) => item.productSKUBarcode === action.payload.productSKUBarcode);
-			if (isExists) {
-				const temp = state.productsCheckout.filter((item) => item.productSKUBarcode !== action.payload.productSKUBarcode);
-				state.productsCheckout = temp;
-			} else {
-				state.productsCheckout.push(action.payload);
-			}
-		},
 	},
 });
 export const {
-	addProductToCheckout,
 	payFailed,
 	paySuccess,
 	paying,

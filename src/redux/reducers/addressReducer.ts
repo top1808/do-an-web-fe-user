@@ -70,9 +70,13 @@ const addressSlice = createSlice({
 			state.fee = 0;
 			toast.error('Get Fee Failed');
 		},
+		clearAddressState: (state) => {
+			state.fee = 0;
+		},
 	},
 });
 export const {
+	clearAddressState,
 	gettingDistricts,
 	gettingProvinces,
 	gettingWards,

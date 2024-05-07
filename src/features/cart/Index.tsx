@@ -1,28 +1,27 @@
 'use client';
-import MTitle from '@/components/MTitle';
 import { useEffect } from 'react';
 import TableCartProducts from './components/TableCartProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-
-import { getCartState, gettingCart, setIPCustomer } from '@/redux/reducers/cartReducer';
+import { getCartState, gettingCart } from '@/redux/reducers/cartReducer';
 import Loading from '@/components/Loading';
-import axios from 'axios';
 import CartEmpty from './components/CartEmty';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 
 const CartPageComponent = () => {
 	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(gettingCart());
-		axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 	}, [dispatch]);
 
 	return (
 		<>
 			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}
-
 			<div className='py-8'>
-				<MTitle level={2}>My cart</MTitle>
+				<h2 className='text-3xl text-red-400 text-center py-4'>
+					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; Giỏ hàng
+				</h2>
 				<div>{cart?.items?.length < 1 ? <CartEmpty /> : <TableCartProducts data={cart?.items} />}</div>
 			</div>
 		</>

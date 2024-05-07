@@ -1,34 +1,54 @@
-'use client';
-import MButton from '@/components/MButton';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import React, { useEffect } from 'react';
-
-const LoginLayout = ({ children }: { children: React.ReactNode }) => {
-	const { data: session } = useSession();
-
-	useEffect(() => {
-		if (session) {
-			redirect('/');
-		}
-	}, [session]);
-
+import Footer from './Footer';
+import MRow from '@/components/MRow';
+import MCol from '@/components/MCol';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHatCowboy } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
+import bannerLogin from '../../public/images/clothing-fashion-dress-shop-woman-women-pick-dresses-on-hangers-564e9ed1fd8c58e2724680210d3b87c9.png';
+import LocaleSwitcher from '@/components/LocaleSwitcher';
+const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
+	const session = await getServerSession();
+	if (session?.user) redirect('/');
 	return (
-		<div className='h-screen w-screen overflow-hidden layout-login relative'>
-			<div className='absolute md:top-6 md:left-6 top-0 left-0'>
-				<MButton
-					link='/'
-					type='link'
-					className='text-black font-bold'
+		<>
+			<header className=' w-full  relative bg-[#FA5130] py-8'>
+				<MRow
+					justify={'start'}
+					className='w-full'
+					gutter={[16, 16]}
+					align={'middle'}
 				>
-					<FontAwesomeIcon icon={faChevronLeft} />
-					&nbsp; Back Home
-				</MButton>
+					<MCol
+						xs={2}
+						md={4}
+					>
+						<Link
+							href={'/'}
+							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:opacity-80  justify-center h-full'
+						>
+							<FontAwesomeIcon icon={faHatCowboy} />
+							<span className='hidden md:block'>T&T</span>
+						</Link>
+					</MCol>
+				</MRow>
+				<div className='absolute top-2 right-2'>
+					<LocaleSwitcher />
+				</div>
+			</header>
+			<div className='flex justify-center items-center h-full py-8 bg-[#F8F1E4]'>
+				<div>
+					<Image
+						src={bannerLogin}
+						alt='banner-login'
+					/>
+				</div>
+				{children}
 			</div>
-			<div className='flex justify-center items-center h-full	'>{children}</div>
-		</div>
+			<Footer />
+		</>
 	);
 };
 

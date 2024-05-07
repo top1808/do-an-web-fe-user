@@ -33,7 +33,6 @@ function* onAddItemToCart(action: CreateAction<Product>) {
 		yield put(addItemToCartSuccess(body));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		if (error?.response?.status === 404) yield put(addItemToCartFail('Add to Cart failed !'));
 		yield put(addItemToCartFail(error.response.data.message));
 	}
 }
@@ -64,7 +63,7 @@ function* onUpdateCart(action: PayloadAction<CartProduct>) {
 		yield put(updateCartSuccess(response.data.message));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
-		yield put(updateCartFailed(error.response.data.message));
+		yield put(updateCartFailed(error.response.data));
 	}
 }
 

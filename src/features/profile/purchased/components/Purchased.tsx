@@ -37,7 +37,7 @@ const Purchased = () => {
 			cancelButtonText: 'Close',
 		}).then((res) => {
 			if (res.isConfirmed) {
-				dispatch(confirmingOrder(item._id || ''));
+				dispatch(confirmingOrder({ id: item._id || '', receivedDate: dayjs().format('YYYY-MM-DD') }));
 			}
 		});
 	};
@@ -53,7 +53,7 @@ const Purchased = () => {
 			cancelButtonText: 'Close',
 		}).then((res) => {
 			if (res.isConfirmed) {
-				dispatch(cancelingOrder({ id: item._id, reason: res.value }));
+				dispatch(cancelingOrder({ id: item._id, reason: res.value, receivedDate: dayjs().format('YYYY-MM-DD') }));
 			}
 		});
 	};
@@ -179,7 +179,7 @@ const Purchased = () => {
 							<FontAwesomeIcon icon={faCheck} />
 						</MButton>
 					)}
-					{item?.status !== 'delivered' && item?.status !== 'received' && item?.status !== 'canceled' && (
+					{item?.status === 'processing' && (
 						<MButton
 							title='Hủy đơn hàng'
 							className='bg-red-600 text-white hover:bg-red-400'
@@ -188,17 +188,6 @@ const Purchased = () => {
 							<FontAwesomeIcon icon={faBan} />
 						</MButton>
 					)}
-					{/* {item?.status === 'received' && (
-						<MButton
-							title='Đánh giá'
-							onClick={() => openModalReview(item)}
-						>
-							<FontAwesomeIcon
-								icon={faStar}
-								color='yellow'
-							/>
-						</MButton>
-					)} */}
 				</div>
 			),
 		},

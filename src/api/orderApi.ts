@@ -12,11 +12,11 @@ const orderApi = {
 	getById(id: string) {
 		return axiosClient.get(URL + '/' + id);
 	},
-	cancelOrder({ id, reason }: { id: string; reason: string }) {
-		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled', reason });
+	cancelOrder({ id, reason, receivedDate }: { id: string; reason: string; receivedDate: string }) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled', reason, receivedDate });
 	},
-	confirmReceivedOrder(id: string) {
-		return axiosClient.put(URL + '/change-status/' + id, { status: 'received' });
+	confirmReceivedOrder({ id, receivedDate }: { id: string; receivedDate: string }) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'received', receivedDate });
 	},
 };
 

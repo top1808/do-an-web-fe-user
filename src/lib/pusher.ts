@@ -9,15 +9,13 @@ const pusher = new Pusher(process.env.PUSHER_KEY || '', {
 });
 
 export const onGetPusherNotification = () => {
+	const { currentUser } = store.getState().auth;
 	const channel = pusher.subscribe('notifications');
 	channel.bind('sales_notify', (event: { data: NotificationModel; notification: NotificationModel }) => {
-		// console.log('🚀 ~ channel.bind ~ event:', event);
 		store.dispatch(gettingNotifications({ offset: '0', limit: '10' }));
-		const { currentUser } = store.getState().auth;
-		if (currentUser?._id !== event.data?.fromUser) {
+		if (currentUser?._id !== event.data?.fromUser && currentUser) {
 			const notify: NotificationModel = event.notification;
 			const data: NotificationModel = event.data;
-
 			notification.open({
 				message: notify?.title,
 				description: notify?.body,

@@ -51,7 +51,7 @@ const orderSlice = createSlice({
 			action.payload && toast.error(action.payload);
 		},
 
-		cancelingOrder: (state, action: PayloadAction<{ id?: string; reason?: string }>) => {
+		cancelingOrder: (state, action: PayloadAction<{ id?: string; reason?: string; receivedDate?: string }>) => {
 			state.isChangeStatusOrder = true;
 		},
 		cancelOrderSuccess: (state, action: PayloadAction<string>) => {
@@ -63,7 +63,7 @@ const orderSlice = createSlice({
 			action.payload && toast.error(action.payload);
 		},
 
-		confirmingOrder: (state, action: PayloadAction<string>) => {
+		confirmingOrder: (state, action: PayloadAction<{ id?: string; receivedDate?: string }>) => {
 			state.isChangeStatusOrder = true;
 		},
 		confirmOrderSuccess: (state, action: PayloadAction<string>) => {

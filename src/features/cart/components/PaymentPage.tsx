@@ -7,10 +7,10 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
-import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
+import { Address, DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleModal } from '@/redux/reducers/modalReducer';
-import { caculatorTotalPrice, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
+import { caculatorTotalPriceForCheckout, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
 import { Form, FormInstance, Radio } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
@@ -30,10 +30,10 @@ import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
-
 	const auth = useAppSelector(getAuthState);
 	const voucher = useAppSelector(getVoucherState);
 	const address = useAppSelector(getAddressState);
+
 	const dispatch = useAppDispatch();
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
@@ -67,13 +67,13 @@ const PaymentPage = () => {
 				from_district_id: 1450,
 				from_ward_code: 20805,
 				service_id: data.deliveryMethod!,
-				to_district_id: data.customerDistrict!,
-				to_ward_code: data.customerWard!,
+				to_district_id: data?.customerDistrict as number,
+				to_ward_code: data?.customerWard as number,
 				height: 50,
 				length: 20,
 				weight: 200,
 				width: 20,
-				insurance_value: caculatorTotalPrice(cart.items),
+				insurance_value: caculatorTotalPriceForCheckout(cart.items),
 				cod_failed_amount: 100000,
 			};
 			dispatch(gettingFeeDelivery(body));
@@ -94,11 +94,24 @@ const PaymentPage = () => {
 				options: p?.productSKU?.options || [],
 			})),
 			deliveryFee: address.fee,
-			totalProductPrice: caculatorTotalPrice(cart.items),
+			totalProductPrice: caculatorTotalPriceForCheckout(cart.items),
 			totalPaid: 0,
-			totalPrice: caculatorTotalPrice(cart.items) + address.fee,
+			totalPrice: caculatorTotalPriceForCheckout(cart.items) + address.fee,
 			voucher: voucher.voucherApply,
+			customerDistrict: {
+				value: data?.customerDistrict as number,
+				label: address.districts?.find((d: Address) => d.value === data.customerDistrict)?.label || '',
+			},
+			customerProvince: {
+				value: data?.customerProvince as number,
+				label: address.provinces?.find((d: Address) => d.value === data.customerProvince)?.label || '',
+			},
+			customerWard: {
+				value: data?.customerWard as number,
+				label: address.wards?.find((d: Address) => d.value === data.customerWard)?.label || '',
+			},
 		};
+
 		if (dataPost.paymentMethod === 'vnpay') {
 			const date = new Date();
 			const code =
@@ -228,7 +241,7 @@ const PaymentPage = () => {
 										form.setFieldValue('deliveryMethod', undefined);
 										dispatch(gettingDistricts(value));
 									}}
-									options={[...address.provinces]}
+									options={address.provinces}
 									placeholder={t('YourCity')}
 								/>
 							</Form.Item>
@@ -244,7 +257,7 @@ const PaymentPage = () => {
 										form.setFieldValue('customerWard', undefined);
 										dispatch(gettingWards(value));
 									}}
-									options={[...address.districts]}
+									options={address.districts}
 									placeholder={t('YourDistrict')}
 								/>
 							</Form.Item>
@@ -254,7 +267,7 @@ const PaymentPage = () => {
 							>
 								<MSelect
 									defaultActiveFirstOption={true}
-									options={[...address.wards]}
+									options={address.wards}
 									loading={address.loading}
 									onChange={() => getFeeOrder(form)}
 									placeholder={t('YourWard')}
@@ -286,38 +299,40 @@ const PaymentPage = () => {
 							</MTitle>
 							<div style={{ height: '30rem', overflow: 'auto' }}>
 								{cart.items?.map((item) => {
-									return (
-										<div
-											key={item._id}
-											className='flex gap-4 p-2 shadow-md'
-										>
-											<div>
-												<MImage
-													src={item.product?.images?.[0]}
-													alt='image'
-													preview={false}
-													height={60}
-													width={60}
-												/>
-											</div>
-											<div>
-												<MText className='font-medium'>{item?.product?.name}</MText>
+									if (item.isChecked) {
+										return (
+											<div
+												key={item._id}
+												className='flex gap-4 p-2 shadow-md'
+											>
 												<div>
-													{item?.product?.groupOptions?.map((group, index) => (
-														<span key={group?.groupName}>
-															<span className='text-gray-500'>
-																{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
-															</span>
-														</span>
-													))}
+													<MImage
+														src={item.product?.images?.[0]}
+														alt='image'
+														preview={false}
+														height={60}
+														width={60}
+													/>
 												</div>
-												<div className='flex gap-4'>
-													<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
-													<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
+												<div>
+													<MText className='font-medium'>{item?.product?.name}</MText>
+													<div>
+														{item?.product?.groupOptions?.map((group, index) => (
+															<span key={group?.groupName}>
+																<span className='text-gray-500'>
+																	{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
+																</span>
+															</span>
+														))}
+													</div>
+													<div className='flex gap-4'>
+														<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
+														<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
+													</div>
 												</div>
 											</div>
-										</div>
-									);
+										);
+									}
 								})}
 							</div>
 						</div>
@@ -382,7 +397,7 @@ const PaymentPage = () => {
 							<div className='w-full text-end p-2'>
 								<div className='flex items-center justify-between'>
 									<MText className='text-end text-sm'>{t('TotalPrice')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items))}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPriceForCheckout(cart.items))}</MText>
 								</div>
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>{t('DeliveryFee')}</MText>
@@ -396,7 +411,9 @@ const PaymentPage = () => {
 								)}
 								<div className='flex items-center justify-between mt-2'>
 									<MText className='text-end text-sm'>{t('TotalPaid')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPrice(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}</MText>
+									<MText className='text-end font-bold text-sm text-red-500'>
+										{customMoney(caculatorTotalPriceForCheckout(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}
+									</MText>
 								</div>
 								<MButton
 									className='mt-2'
