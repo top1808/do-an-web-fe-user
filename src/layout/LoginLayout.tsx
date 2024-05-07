@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHatCowboy } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
-import bannerLogin from '../../public/images/login.png';
+import bannerLogin from '../../public/images/clothing-fashion-dress-shop-woman-women-pick-dresses-on-hangers-564e9ed1fd8c58e2724680210d3b87c9.png';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 	const session = await getServerSession();
@@ -41,7 +41,7 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 					<LocaleSwitcher />
 				</div>
 			</header>
-			<div className='flex justify-center items-center h-full py-8 bg-[#D0011B]'>
+			<div className='flex justify-center items-center h-full py-8 bg-[#F8F1E4]'>
 				<div>
 					<Image
 						src={bannerLogin}
