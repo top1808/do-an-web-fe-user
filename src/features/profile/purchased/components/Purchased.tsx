@@ -53,7 +53,7 @@ const Purchased = () => {
 			cancelButtonText: 'Close',
 		}).then((res) => {
 			if (res.isConfirmed) {
-				dispatch(cancelingOrder({ id: item._id, reason: res.value }));
+				dispatch(cancelingOrder({ id: item._id, reason: res.value, receivedDate: dayjs().format('YYYY-MM-DD') }));
 			}
 		});
 	};

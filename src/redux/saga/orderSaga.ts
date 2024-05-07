@@ -43,7 +43,7 @@ function* onGetOrderInfo(action: PayloadAction<string>) {
 	}
 }
 
-function* onCancelOrder(action: PayloadAction<{ id: string; reason: string }>) {
+function* onCancelOrder(action: PayloadAction<{ id: string; reason: string; receivedDate: string }>) {
 	try {
 		const response: AxiosResponse = yield call(orderApi.cancelOrder, action.payload);
 		yield put(cancelOrderSuccess(response.data.message));
