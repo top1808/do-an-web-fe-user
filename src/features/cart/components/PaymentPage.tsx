@@ -29,8 +29,8 @@ import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherRedu
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faSackDollar } from '@fortawesome/free-solid-svg-icons';
-import MSkeleton from '@/components/MSkeleton';
 import axios from 'axios';
+import LayoutLoading from '@/components/LayoutLoading';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
@@ -58,6 +58,7 @@ const PaymentPage = () => {
 					value: option.service_id,
 				};
 			});
+			form.setFieldValue('deliveryMethod', optionsService[0].value);
 			setServices(optionsService);
 		} else {
 			toast.warning('Hệ thống không hỗ trợ giao hàng huyện này !');
@@ -202,7 +203,7 @@ const PaymentPage = () => {
 					&nbsp; Checkout
 				</h2>
 			</div>
-			<MSkeleton loading={cart.isLoadingPaying}>
+			<LayoutLoading isLoading={cart.isLoadingPaying || false}>
 				<ModalVoucher />
 				<Form
 					autoComplete='off'
@@ -440,7 +441,7 @@ const PaymentPage = () => {
 						</MCol>
 					</MRow>
 				</Form>
-			</MSkeleton>
+			</LayoutLoading>
 		</>
 	);
 };
