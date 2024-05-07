@@ -11,6 +11,7 @@ interface CartState {
 	orderInfo: Order | null;
 	payingStatus: 'pending' | 'completed' | 'failed';
 	ipCustomer: string | null;
+	isLoadingPaying?: boolean;
 }
 const initialState: CartState = {
 	items: [],
@@ -20,6 +21,7 @@ const initialState: CartState = {
 	orderInfo: null,
 	payingStatus: 'pending',
 	ipCustomer: null,
+	isLoadingPaying: false,
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -98,16 +100,16 @@ const cartReducer = createSlice({
 		},
 
 		paying: (state, action: PayloadAction<DataPayment>) => {
-			state.loading = true;
+			state.isLoadingPaying = true;
 			state.payingStatus = 'pending';
 		},
 		paySuccess: (state, action: PayloadAction<ReponsePaySuccess>) => {
-			state.loading = false;
+			state.isLoadingPaying = false;
 			state.orderInfo = action.payload.order;
 			state.payingStatus = 'completed';
 		},
 		payFailed: (state, action: PayloadAction<string>) => {
-			state.loading = false;
+			state.isLoadingPaying = false;
 			state.payingStatus = 'failed';
 		},
 		setIPCustomer: (state, action: PayloadAction<string>) => {

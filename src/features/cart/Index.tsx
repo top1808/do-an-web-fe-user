@@ -4,9 +4,8 @@ import { useEffect } from 'react';
 import TableCartProducts from './components/TableCartProducts';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-import { getCartState, gettingCart, setIPCustomer } from '@/redux/reducers/cartReducer';
+import { getCartState, gettingCart } from '@/redux/reducers/cartReducer';
 import Loading from '@/components/Loading';
-import axios from 'axios';
 import CartEmpty from './components/CartEmty';
 
 const CartPageComponent = () => {
@@ -14,7 +13,6 @@ const CartPageComponent = () => {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(gettingCart());
-		axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 	}, [dispatch]);
 
 	return (

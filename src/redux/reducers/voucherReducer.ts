@@ -48,8 +48,11 @@ const voucherSlice = createSlice({
 			state.isApplying = false;
 			action.payload && toast.error(action.payload);
 		},
+		clearVoucherState: (state) => {
+			state.voucherApply = null;
+		},
 	},
 });
-export const { gettingVouchers, getVouchersSuccess, getVouchersFailed, applyVoucherFailed, applyVoucherSuccess, applyingVoucher } = voucherSlice.actions;
+export const { gettingVouchers, getVouchersSuccess, getVouchersFailed, applyVoucherFailed, applyVoucherSuccess, applyingVoucher, clearVoucherState } = voucherSlice.actions;
 export default voucherSlice.reducer;
 export const getVoucherState = (state: RootState) => state.voucher as VoucherState;
