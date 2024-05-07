@@ -14,7 +14,7 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 	if (session?.user) redirect('/');
 	return (
 		<>
-			<header className='py-8 md:px-8 xl:px-32 relative'>
+			<header className=' w-full  relative bg-[#FA5130] py-8'>
 				<MRow
 					justify={'start'}
 					className='w-full'
@@ -27,14 +27,11 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 					>
 						<Link
 							href={'/'}
-							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-[#FA5130] hover:opacity-80  justify-center h-full'
+							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:opacity-80  justify-center h-full'
 						>
 							<FontAwesomeIcon icon={faHatCowboy} />
 							<span className='hidden md:block'>T&T</span>
 						</Link>
-					</MCol>
-					<MCol>
-						<h2 className=' text-2xl font-semibold'>Login</h2>
 					</MCol>
 				</MRow>
 				<div className='absolute top-2 right-2'>

@@ -174,10 +174,10 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='py-8 md:px-8 xl:px-32 bg-[#FA5130] relative'>
+		<header className='py-8  bg-[#FA5130] relative'>
 			<MRow
 				justify={'space-between'}
-				className='w-full'
+				className='max-w-[1400px] w-full mx-auto'
 			>
 				<MCol
 					xs={2}

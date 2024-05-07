@@ -14,6 +14,7 @@ import { getCartState, updatingCart } from '@/redux/reducers/cartReducer';
 import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
+import Link from 'next/link';
 
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const cart = useAppSelector(getCartState);
@@ -70,6 +71,7 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 						key={index}
 						style={{ borderBottom: ' 1px solid black' }}
 						align={'middle'}
+						className='bg-white'
 					>
 						<MCol
 							span={1}
@@ -103,13 +105,14 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 					</MButton>
 				</MCol>
 				<MCol>
-					<MButton
-						type='primary'
-						link='/checkout'
-						disabled={!data.some((item) => item?.isChecked)}
-					>
-						Checkout
-					</MButton>
+					<Link href={'/checkout'}>
+						<MButton
+							type='primary'
+							disabled={!data.some((item) => item?.isChecked)}
+						>
+							Checkout
+						</MButton>
+					</Link>
 				</MCol>
 			</MRow>
 		</>

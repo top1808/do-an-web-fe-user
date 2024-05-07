@@ -99,7 +99,7 @@ const Footer = () => {
 			child: <MText className='text-sm'>Email: top1808@gmail.com</MText>,
 		},
 		{
-			key: 'Hotline-off',
+			key: 'Time-off',
 			child: <MText className='text-sm'>Giờ làm việc: 8:30 - 22:00 hằng ngày.</MText>,
 		},
 	];
@@ -162,178 +162,179 @@ const Footer = () => {
 	];
 	return (
 		<footer>
-			<div className='xs:px-1 md:px-8 xl:px-32 py-8 bg-white'>
-				<MRow gutter={[4, 16]}>
-					<MCol span={4}>
-						<MRow gutter={[8, 8]}>
-							<MCol
-								span={24}
-								className='mb-4'
-							>
-								<MText className='text-xl font-bold'>Về chúng tôi</MText>
-							</MCol>
-							{aboutUs.map((item) => (
+			<div className='  bg-white'>
+				<div className='max-w-[1400px] mx-auto py-8'>
+					<MRow gutter={[4, 16]}>
+						<MCol span={4}>
+							<MRow gutter={[8, 8]}>
 								<MCol
 									span={24}
-									key={item.title}
+									className='mb-4'
 								>
-									<Link
-										href={item.url}
-										className='text-sm   block'
-									>
-										{item.title}
-									</Link>
+									<MText className='text-xl font-bold'>Về chúng tôi</MText>
 								</MCol>
-							))}
-						</MRow>
-					</MCol>
-					<MCol span={5}>
-						<MRow gutter={[8, 8]}>
-							<MCol
-								span={24}
-								className='mb-4'
-							>
-								<MText className='text-xl font-bold'>Hỗ trợ khách hàng</MText>
-							</MCol>
-							{helps.map((item) => (
+								{aboutUs.map((item) => (
+									<MCol
+										span={24}
+										key={item.title}
+									>
+										<Link
+											href={item.url}
+											className='text-sm   block'
+										>
+											{item.title}
+										</Link>
+									</MCol>
+								))}
+							</MRow>
+						</MCol>
+						<MCol span={5}>
+							<MRow gutter={[8, 8]}>
 								<MCol
 									span={24}
-									key={item.title}
+									className='mb-4'
 								>
-									<Link
-										href={item.url}
-										className='text-sm   block'
-									>
-										{item.title}
-									</Link>
+									<MText className='text-xl font-bold'>Hỗ trợ khách hàng</MText>
 								</MCol>
-							))}
-						</MRow>
-					</MCol>
-					<MCol span={5}>
-						<MRow gutter={[8, 8]}>
-							<MCol
-								span={24}
-								className='mb-4'
-							>
-								<MText className='text-xl font-bold'>Chính sách</MText>
-							</MCol>
-							{policies.map((item) => (
+								{helps.map((item) => (
+									<MCol
+										span={24}
+										key={item.title}
+									>
+										<Link
+											href={item.url}
+											className='text-sm   block'
+										>
+											{item.title}
+										</Link>
+									</MCol>
+								))}
+							</MRow>
+						</MCol>
+						<MCol span={5}>
+							<MRow gutter={[8, 8]}>
 								<MCol
 									span={24}
-									key={item.title}
+									className='mb-4'
 								>
-									<Link
-										href={item.url}
-										className='text-sm   block'
-									>
-										{item.title}
-									</Link>
+									<MText className='text-xl font-bold'>Chính sách</MText>
 								</MCol>
-							))}
-						</MRow>
-					</MCol>
-					<MCol span={5}>
-						<MRow gutter={[8, 8]}>
-							<MCol
-								span={24}
-								className='mb-4'
-							>
-								<MText className='text-xl font-bold'>Liên hệ</MText>
-							</MCol>
-							{contacts.map((item) => (
+								{policies.map((item) => (
+									<MCol
+										span={24}
+										key={item.title}
+									>
+										<Link
+											href={item.url}
+											className='text-sm   block'
+										>
+											{item.title}
+										</Link>
+									</MCol>
+								))}
+							</MRow>
+						</MCol>
+						<MCol span={5}>
+							<MRow gutter={[8, 8]}>
 								<MCol
 									span={24}
-									key={item.key}
+									className='mb-4'
 								>
-									{item.child}
+									<MText className='text-xl font-bold'>Liên hệ</MText>
 								</MCol>
-							))}
-						</MRow>
-					</MCol>
-					<MCol span={5}>
-						<MRow gutter={[8, 8]}>
-							<MCol
-								span={24}
-								className='mb-4'
-							>
-								<MText className='text-xl font-bold'>Liên kết và thanh toán</MText>
-							</MCol>
-							<MCol span={24}>
-								<MText className='text-base  font-semibold'>Chúng tôi kết nối thanh toán qua</MText>
-							</MCol>
-							<MCol>
-								<Image
-									src={cod}
-									alt='cod'
-								/>
-							</MCol>
-							<MCol>
-								<Image
-									src={vnpay}
-									alt='vnpay-icon'
-								/>
-							</MCol>
-							<MCol span={24}>
-								<MText className='text-base  font-semibold'>Chúng tôi liên kết với dịch vụ giao hàng</MText>
-							</MCol>
-							<MCol>
-								<Image
-									src={ghn}
-									alt='ghn-icon'
-								/>
-							</MCol>
-						</MRow>
-					</MCol>
-				</MRow>
-				<MRow
-					gutter={[4, 16]}
-					justify={'start'}
-				>
-					<MCol span={24}>
-						<MText className='text-base font-semibold'>Theo dõi chúng tôi trên</MText>
-					</MCol>
-					<MCol span={24}>
-						<MRow
-							justify={'start'}
-							gutter={[8, 8]}
-						>
-							{socials.map((item, index) => (
-								<MCol key={index}>
-									<Link
-										href={item.url}
-										className={`xs:text-xl md:text-2xl xl:text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full xl:h-12 xs:h-10 xl:w-12 xs:w-10 ${item.bgColor}`}
+								{contacts.map((item) => (
+									<MCol
+										span={24}
+										key={item.key}
 									>
-										{item.icon}
-									</Link>
+										{item.child}
+									</MCol>
+								))}
+							</MRow>
+						</MCol>
+						<MCol span={5}>
+							<MRow gutter={[8, 8]}>
+								<MCol
+									span={24}
+									className='mb-4'
+								>
+									<MText className='text-xl font-bold'>Liên kết và thanh toán</MText>
 								</MCol>
-							))}
-						</MRow>
-					</MCol>
-				</MRow>
-			</div>
-			<div className='bg-black'>
-				<div className='xs:px-1 md:px-8 xl:px-32 py-4'>
-					<MRow className='p-2 mt-2'>
-						<MCol
-							span={24}
-							className='text-center'
-						>
-							<MText className='text-base  text-white'>
-								Copyright © 2023 All rights reserved | This template is made with
-								<FontAwesomeIcon
-									color='red'
-									icon={faHeart}
-									className='mx-1'
-								/>
-								by the best designer in the world.
-							</MText>
+								<MCol span={24}>
+									<MText className='text-base  font-semibold'>Chúng tôi kết nối thanh toán qua</MText>
+								</MCol>
+								<MCol>
+									<Image
+										src={cod}
+										alt='cod'
+									/>
+								</MCol>
+								<MCol>
+									<Image
+										src={vnpay}
+										alt='vnpay-icon'
+									/>
+								</MCol>
+								<MCol span={24}>
+									<MText className='text-base  font-semibold'>Chúng tôi liên kết với dịch vụ giao hàng</MText>
+								</MCol>
+								<MCol>
+									<Image
+										src={ghn}
+										alt='ghn-icon'
+									/>
+								</MCol>
+							</MRow>
 						</MCol>
 					</MRow>
+					<MRow
+						gutter={[4, 16]}
+						justify={'start'}
+					>
+						<MCol span={24}>
+							<MText className='text-base font-semibold'>Theo dõi chúng tôi trên</MText>
+						</MCol>
+						<MCol span={24}>
+							<MRow
+								justify={'start'}
+								gutter={[8, 8]}
+							>
+								{socials.map((item, index) => (
+									<MCol key={index}>
+										<Link
+											href={item.url}
+											className={`xs:text-xl md:text-2xl xl:text-4xl font-bold flex items-center text-gradien text-blue-700 hover:text-blue-500 rounded-full xl:h-12 xs:h-10 xl:w-12 xs:w-10 ${item.bgColor}`}
+										>
+											{item.icon}
+										</Link>
+									</MCol>
+								))}
+							</MRow>
+						</MCol>
+					</MRow>
+				</div>
+				<div className='bg-black'>
+					<div className=' py-4'>
+						<MRow className='p-2 mt-2'>
+							<MCol
+								span={24}
+								className='text-center'
+							>
+								<MText className='text-base  text-white'>
+									Copyright © 2023 All rights reserved | This template is made with
+									<FontAwesomeIcon
+										color='red'
+										icon={faHeart}
+										className='mx-1'
+									/>
+									by the best designer in the world.
+								</MText>
+							</MCol>
+						</MRow>
+					</div>
 				</div>
 			</div>
 		</footer>
 	);
 };
-
 export default Footer;

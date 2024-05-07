@@ -16,7 +16,7 @@ import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import MSelect from '@/components/MSelect';
 import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
@@ -28,7 +28,7 @@ import { getAuthState } from '@/redux/reducers/authReducer';
 import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherReducer';
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import MSkeleton from '@/components/MSkeleton';
 import axios from 'axios';
 
@@ -194,12 +194,13 @@ const PaymentPage = () => {
 					<FontAwesomeIcon icon={faArrowLeft} />
 					&nbsp; Back
 				</MButton>
-				<MTitle
-					level={2}
-					className='text-center font-semibold py-4'
-				>
-					Checkout
-				</MTitle>
+				<h2 className='text-center text-3xl font-semibold py-4 '>
+					<FontAwesomeIcon
+						icon={faSackDollar}
+						color='green'
+					/>
+					&nbsp; Checkout
+				</h2>
 			</div>
 			<MSkeleton loading={cart.isLoadingPaying}>
 				<ModalVoucher />
@@ -212,7 +213,7 @@ const PaymentPage = () => {
 						<MCol
 							xs={24}
 							md={7}
-							className='shadow-md'
+							className='shadow-md bg-white'
 						>
 							<MTitle
 								level={5}
@@ -298,7 +299,7 @@ const PaymentPage = () => {
 						<MCol
 							md={9}
 							xs={24}
-							className='flex flex-col justify-between shadow-md'
+							className='flex flex-col justify-between shadow-md bg-white'
 						>
 							<div>
 								<MTitle
@@ -351,7 +352,7 @@ const PaymentPage = () => {
 						<MCol
 							xs={24}
 							md={7}
-							className='shadow-md'
+							className='shadow-md bg-white'
 						>
 							<MTitle
 								level={5}
