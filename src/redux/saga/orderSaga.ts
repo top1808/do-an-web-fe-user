@@ -54,7 +54,7 @@ function* onCancelOrder(action: PayloadAction<{ id: string; reason: string; rece
 	}
 }
 
-function* onConfirmReceivedOrder(action: PayloadAction<string>) {
+function* onConfirmReceivedOrder(action: PayloadAction<{ id: string; receivedDate: string }>) {
 	try {
 		const response: AxiosResponse = yield call(orderApi.confirmReceivedOrder, action.payload);
 		yield put(confirmOrderSuccess(response.data.message));

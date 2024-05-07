@@ -15,8 +15,8 @@ const orderApi = {
 	cancelOrder({ id, reason, receivedDate }: { id: string; reason: string; receivedDate: string }) {
 		return axiosClient.put(URL + '/change-status/' + id, { status: 'canceled', reason, receivedDate });
 	},
-	confirmReceivedOrder(id: string) {
-		return axiosClient.put(URL + '/change-status/' + id, { status: 'received' });
+	confirmReceivedOrder({ id, receivedDate }: { id: string; receivedDate: string }) {
+		return axiosClient.put(URL + '/change-status/' + id, { status: 'received', receivedDate });
 	},
 };
 
