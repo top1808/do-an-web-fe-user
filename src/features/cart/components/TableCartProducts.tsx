@@ -105,7 +105,10 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 					</MButton>
 				</MCol>
 				<MCol>
-					<Link href={'/checkout'}>
+					<Link
+						href={'/checkout'}
+						className={`${!data.some((item) => item?.isChecked) ? 'pointer-events-none' : ''}`}
+					>
 						<MButton
 							type='primary'
 							disabled={!data.some((item) => item?.isChecked)}
