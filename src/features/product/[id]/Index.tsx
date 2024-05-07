@@ -3,7 +3,7 @@ import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MTitle from '@/components/MTitle';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faMoneyCheckDollar, faRotateRight, faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
@@ -53,6 +53,9 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
 	}
 	useEffect(() => {
+		setQuantity(1);
+	}, [productSKU.product]);
+	useEffect(() => {
 		if (product.options.length === productInfor?.groupOptions?.length) {
 			const findProductSKU = productInfor?.productSKUList?.find((item) => {
 				const optionsProduct = item.options?.map((option) => option.option);
@@ -71,6 +74,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 						discountValue: productDiscount.value!,
 						isPercent: productDiscount.type === 'percent' ? true : false,
 					});
+					setQuantity(1);
 				} else {
 					setProductSKU({ product: findProductSKU, price: findProductSKU.price || 0, discountValue: 0 });
 				}
@@ -97,17 +101,17 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	return (
 		<>
 			<div className='p-8 shadow-md bg-white'>
-				<MRow gutter={12}>
+				<MRow gutter={[24, 0]}>
 					<MCol
-						lg={8}
+						lg={10}
 						xs={24}
 					>
 						<ProductImageWrap images={productInfor?.images || []} />
 					</MCol>
 					<MCol
-						lg={16}
+						lg={14}
 						xs={24}
-						className='flex flex-col justify-between'
+						className='flex flex-col gap-8'
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
@@ -155,6 +159,47 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								</div>
 							</div>
 						</div>
+						<MRow
+							className='my-1'
+							gutter={[12, 12]}
+						>
+							<MCol span={4}>
+								<div className='text-center'>
+									<FontAwesomeIcon
+										icon={faTruckFast}
+										size='2xl'
+										color='red'
+									/>
+								</div>
+								<div>
+									<p className='text-center text-base'>Xem tình trạng giao hàng ở đơn hàng (*)</p>
+								</div>
+							</MCol>
+							<MCol span={4}>
+								<div className='text-center'>
+									<FontAwesomeIcon
+										icon={faRotateRight}
+										size='2xl'
+										color='blue'
+									/>
+								</div>
+								<div>
+									<p className='text-center text-base'>1 đổi 1 trong vòng 3 ngày</p>
+								</div>
+							</MCol>
+							<MCol span={4}>
+								<div className='text-center'>
+									<FontAwesomeIcon
+										icon={faMoneyCheckDollar}
+										size='2xl'
+										color='red'
+									/>
+								</div>
+								<div>
+									<p className='text-center text-base'>Kiếm tra hàng trước khi thanh toán</p>
+								</div>
+							</MCol>
+						</MRow>
 						<div className='flex gap-6 pt-4 w-full lg:w-auto'>
 							<MButton
 								className='bg-green-600 hover:bg-green-300 text-white'

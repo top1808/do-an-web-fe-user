@@ -4,7 +4,6 @@ import { NextRequest } from 'next/server';
 
 const locales = ['vi', 'en'];
 const publicPages = ['/', '/login', '/register', '/product/[productId]', '/search', '/product'];
-
 const intlMiddleware = createIntlMiddleware({
 	locales,
 	localePrefix: 'as-needed',
