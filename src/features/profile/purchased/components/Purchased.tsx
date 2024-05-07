@@ -37,7 +37,7 @@ const Purchased = () => {
 			cancelButtonText: 'Close',
 		}).then((res) => {
 			if (res.isConfirmed) {
-				dispatch(confirmingOrder(item._id || ''));
+				dispatch(confirmingOrder({ id: item._id || '', receivedDate: dayjs().format('YYYY-MM-DD') }));
 			}
 		});
 	};
