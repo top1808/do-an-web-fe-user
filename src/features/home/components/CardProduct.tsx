@@ -29,35 +29,29 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-start'>{data.name}</MText>
 				</div>
-				{!isTop && (
-					<>
-						<div className='my-1'>
-							<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
-						</div>
-						<div className='my-1'>
-							<p className='text-start font-bold '>{`Đã bán: ${data.soldQuantityOfProduct}`}</p>
-						</div>
-					</>
-				)}
+				<div className='my-1'>
+					<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
+				</div>
 				{isSale && (
 					<>
 						<div style={{ height: '1.6rem' }}>
 							<p className='text-start font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
-							<p className='text-end font-bold '>{`Đã bán: 1k`}</p>
 						</div>
-						<div className='absolute top-1 left-0 p-0 bg-red-500'>
-							<p className='font-bold text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
+						<div className='absolute top-1 right-0 px-2 py-1 bg-red-500 rounded'>
+							<p className='font-bold text-xs text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
 						</div>
 					</>
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-1 left-0 p-1 bg-red-400'>
-							<p className='font-bold text-white'>{`TOP`}</p>
+						<div className='absolute top-1 right-0 px-2 py-1 bg-red-400 rounded'>
+							<p className='font-bold text-xs text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}
-
+				<div className='my-1'>
+					<p className='text-start font-bold text-sm'>{`Đã bán: ${data.soldQuantityOfProduct || 0}`}</p>
+				</div>
 				<div>
 					<Rate
 						allowHalf

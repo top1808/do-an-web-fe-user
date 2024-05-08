@@ -104,3 +104,11 @@ export const revertDataAddressFromResponse = (data: any, type: string) => {
 	}
 	return dataReturn.sort((a, b) => (a?.label || '').localeCompare(b?.label || ''));
 };
+export function getProductsTopSales(products?: Product[], count?: number) {
+	if (products && products.length > 0) {
+		const temp = [...products];
+		temp.sort((a, b) => b.soldQuantityOfProduct! - a.soldQuantityOfProduct!);
+		return temp.slice(0, count || 10);
+	}
+	return products;
+}

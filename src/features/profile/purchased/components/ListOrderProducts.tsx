@@ -1,9 +1,11 @@
 'use client';
-import reviewApi from '@/api/reviewApi';
+
 import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
+import MUploadImage from '@/components/MUploadImage';
+import MUploadImageMultiple from '@/components/UploadImageMutiple';
 import { ProductSKU } from '@/models/productModels';
 import { ReviewBody } from '@/models/reviewModel';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -30,12 +32,14 @@ const ListOrderProducts = () => {
 	const handleSubmitReview = async (value: ReviewBody) => {
 		const body: ReviewBody = {
 			...value,
+			images: value.imageUploads?.map((item) => item?.response?.image || ''),
 			customer: auth.currentUserInfo?._id,
 			product: productSeletedReview.product?.productCode,
 			productSKU: productSeletedReview.product?.productSKUBarcode,
 			orderCode: productSeletedReview.product?.orderCode,
 			productOrderId: productSeletedReview.product?._id,
 		};
+		delete body.imageUploads;
 		dispatch(creatingReview(body));
 	};
 	useEffect(() => {
@@ -118,24 +122,6 @@ const ListOrderProducts = () => {
 								>
 									Đánh giá
 								</MButton>
-								{/* {product.isReviewed ? (
-									<MButton
-										disabled
-										type='primary'
-									>
-										Đã đánh giá
-									</MButton>
-								) : (
-									<MButton
-										type='primary'
-										onClick={() => {
-											form.setFieldsValue({ rate: 5, content: '' });
-											setproductSeletedReview({ isOpenModal: true, product: product });
-										}}
-									>
-										Đánh giá
-									</MButton>
-								)} */}
 							</MCol>
 						</MRow>
 					))}
@@ -165,6 +151,7 @@ const ListOrderProducts = () => {
 					>
 						<TextArea />
 					</Form.Item>
+					<MUploadImageMultiple initFileList={[]}>Upload</MUploadImageMultiple>
 					<Form.Item<ReviewBody>
 						name='isAnonymous'
 						label='Anonymous'

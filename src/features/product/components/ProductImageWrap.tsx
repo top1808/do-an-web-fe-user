@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changeMainImage } from '@/redux/reducers/productReducer';
 import { Image } from 'antd';
-import React, { useEffect } from 'react';
 
 interface ProductImageWrapProps {
 	images: string[];

@@ -1,4 +1,5 @@
 import MCol from '@/components/MCol';
+import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
@@ -7,7 +8,6 @@ import { formatDate } from '@/utils/FunctionHelpers';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Rate } from 'antd';
-import Image from 'next/image';
 import React from 'react';
 type EvaluateProductProps = {
 	reviews: Review[];
@@ -65,11 +65,13 @@ const EvaluateProduct = ({ reviews }: EvaluateProductProps) => {
 												<MCol span={24}>
 													<MRow gutter={[16, 16]}>
 														{item.images.map((i, index) => (
-															<Image
-																key={`${item._id}${index}`}
-																src={i}
-																alt={`${item._id}${index}`}
-															/>
+															<MCol key={`${item._id}${index}`}>
+																<MImage
+																	src={i}
+																	alt={`${item._id}${index}`}
+																	height={120}
+																/>
+															</MCol>
 														))}
 													</MRow>
 												</MCol>
