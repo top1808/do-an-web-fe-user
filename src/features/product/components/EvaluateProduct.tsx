@@ -37,12 +37,22 @@ const EvaluateProduct = ({ reviews }: EvaluateProductProps) => {
 									style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 								>
 									<MCol>
-										<div className='rounded-full bg-slate-200 p-3 text-center w-[50px]'>
-											<FontAwesomeIcon
-												icon={faUser}
-												size='lg'
+										{item.customer?.image ? (
+											<MImage
+												src={item.customer?.image}
+												width={60}
+												height={60}
+												preview={false}
+												style={{ borderRadius: '999px' }}
 											/>
-										</div>
+										) : (
+											<div className='rounded-full bg-slate-200 p-3 text-center w-[50px]'>
+												<FontAwesomeIcon
+													icon={faUser}
+													size='lg'
+												/>
+											</div>
+										)}
 									</MCol>
 									<MCol>
 										<MRow>

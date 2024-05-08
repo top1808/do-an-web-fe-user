@@ -45,14 +45,12 @@ const ReviewsComponent = () => {
 									<MRow
 										key={item._id}
 										gutter={[16, 16]}
+										align={'middle'}
 										className='py-4 px-2'
 										style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 									>
 										<MCol span={6}>
 											<MRow>
-												<MCol span={24}>
-													<p>{`${item.customer?.name || ''}`}</p>
-												</MCol>
 												<MCol span={24}>
 													<Rate
 														disabled

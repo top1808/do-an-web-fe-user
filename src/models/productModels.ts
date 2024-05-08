@@ -27,6 +27,9 @@ export interface Product {
 	rate?: number;
 	reviews?: Review[];
 	soldQuantityOfProduct?: number;
+	totalReviews?: number;
+	minPromotionPrice?: number;
+	maxPromotionPrice?: number;
 }
 export interface DiscountProduct {
 	createdAt?: string;

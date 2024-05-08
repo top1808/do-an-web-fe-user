@@ -29,26 +29,38 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-start'>{data.name}</MText>
 				</div>
-				<div className='my-1'>
-					<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
+				<div style={{ height: '2.4rem' }}>
+					<p className={`text-start text-ellipsis-1 text-sm ${data.discounts ? 'line-through' : 'text-red-500'}   ${isSale && 'hidden'}`}>{getProductPrice(data)}</p>
+					<p className={`text-start text-ellipsis-1 text-sm text-red-500`}>{` ${
+						!isSale && data.discounts ? `${customMoney(data?.minPromotionPrice)} - ${customMoney(data?.maxPromotionPrice)}` : ' '
+					}`}</p>
 				</div>
 				{isSale && (
 					<>
 						<div style={{ height: '1.6rem' }}>
+							<p className='text-start text-ellipsis-1 text-sm line-through'>{customMoney(data.price)}</p>
+						</div>
+						<div style={{ height: '1.6rem' }}>
 							<p className='text-start font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
 						</div>
-						<div className='absolute top-1 left-0 p-0 bg-red-500'>
+						<div className='absolute top-1 right-0 p-0 bg-red-500'>
 							<p className='font-bold text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
 						</div>
 					</>
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-1 left-0 p-1 bg-red-400'>
+						<div className='absolute top-1 left-0 p-1 bg-red-400 text-xs/[0.75rem]'>
 							<p className='font-bold text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}
+				{data.discounts && (
+					<div className='absolute top-1 right-0 p-1 bg-red-400 text-xs/[0.75rem]'>
+						<p className='font-bold text-white'>{`Sale`}</p>
+					</div>
+				)}
+
 				<div className='my-1'>
 					<p className='text-start font-bold text-sm'>{`Đã bán: ${data.soldQuantityOfProduct || 0}`}</p>
 				</div>
@@ -59,7 +71,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 						disabled
 						defaultValue={(data?.rate || 0) > 0 ? data.rate : 5}
 					/>
-					<span className='text-base pl-2'>{`(${data.reviews?.length || 0})`}</span>
+					<span className='text-base pl-2'>{`(${data.totalReviews || 0})`}</span>
 				</div>
 			</div>
 		</Link>

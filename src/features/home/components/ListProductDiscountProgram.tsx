@@ -12,6 +12,7 @@ import CardProduct from './CardProduct';
 const ListProductDiscountProgram = () => {
 	const discountProgram = useAppSelector(discountProgramState);
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
