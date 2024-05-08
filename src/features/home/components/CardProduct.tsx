@@ -1,7 +1,7 @@
 import MImage from '@/components/MImage';
 import MText from '@/components/MText';
 import { Product } from '@/models/productModels';
-import { customMoney, getProductPrice } from '@/utils/FunctionHelpers';
+import { customMoney, getProductPrice, getProductPromotionPrice } from '@/utils/FunctionHelpers';
 import { Rate } from 'antd';
 import Link from 'next/link';
 import React from 'react';
@@ -31,9 +31,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				</div>
 				<div style={{ height: '2.4rem' }}>
 					<p className={`text-start text-ellipsis-1 text-sm ${data.discounts ? 'line-through' : 'text-red-500'}   ${isSale && 'hidden'}`}>{getProductPrice(data)}</p>
-					<p className={`text-start text-ellipsis-1 text-sm text-red-500`}>{` ${
-						!isSale && data.discounts ? `${customMoney(data?.minPromotionPrice)} - ${customMoney(data?.maxPromotionPrice)}` : ' '
-					}`}</p>
+					<p className={`text-start text-ellipsis-1 text-sm text-red-500`}>{` ${!isSale && getProductPromotionPrice(data)}`}</p>
 				</div>
 				{isSale && (
 					<>
