@@ -12,6 +12,7 @@ import { getProductState, gettingProduct } from '@/redux/reducers/productReducer
 const ListProducts = () => {
 	const product = useAppSelector(getProductState);
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		dispatch(gettingProduct());
 	}, [dispatch]);

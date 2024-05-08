@@ -4,6 +4,16 @@ const createNextIntlPlugin = require('next-intl/plugin');
 const withNextIntl = createNextIntlPlugin();
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'res.cloudinary.com',
+				port: '',
+				pathname: '/**',
+			},
+		],
+	},
 	env: {
 		API_URL: process.env.NEXT_PUBLIC_API_URL,
 		NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,

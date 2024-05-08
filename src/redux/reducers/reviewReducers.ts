@@ -7,6 +7,7 @@ interface ReviewState {
 	status: 'pending' | 'completed' | 'failed';
 	data?: Review[];
 	isReviewStatus?: 'pending' | 'completed' | 'failed';
+	ownReview?: Review[];
 }
 
 const initialState: ReviewState = {
