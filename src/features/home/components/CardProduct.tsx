@@ -37,15 +37,15 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 						<div style={{ height: '1.6rem' }}>
 							<p className='text-start font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
 						</div>
-						<div className='absolute top-1 left-0 p-0 bg-red-500'>
-							<p className='font-bold text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
+						<div className='absolute top-1 right-0 px-2 py-1 bg-red-500 rounded'>
+							<p className='font-bold text-xs text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
 						</div>
 					</>
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-1 left-0 p-1 bg-red-400'>
-							<p className='font-bold text-white'>{`TOP`}</p>
+						<div className='absolute top-1 right-0 px-2 py-1 bg-red-400 rounded'>
+							<p className='font-bold text-xs text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}
