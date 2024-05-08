@@ -71,8 +71,8 @@ const PaymentPage = () => {
 				from_district_id: 1450,
 				from_ward_code: 20805,
 				service_id: data.deliveryMethod!,
-				to_district_id: data?.customerDistrict as Number,
-				to_ward_code: data?.customerWard as Number,
+				to_district_id: data?.customerDistrict as number,
+				to_ward_code: data?.customerWard as number,
 				height: 50,
 				length: 20,
 				weight: 200,
@@ -457,5 +457,4 @@ const PaymentPage = () => {
 		</>
 	);
 };
-
 export default PaymentPage;

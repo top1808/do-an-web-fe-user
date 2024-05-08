@@ -29,16 +29,12 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-start'>{data.name}</MText>
 				</div>
-				{!isTop && (
-					<>
-						<div className='my-1'>
-							<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
-						</div>
-						<div className='my-1'>
-							<p className='text-start font-bold '>{`Đã bán: ${data.soldQuantityOfProduct}`}</p>
-						</div>
-					</>
-				)}
+				<div className='my-1'>
+					<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
+				</div>
+				<div className='my-1'>
+					<p className='text-start font-bold '>{`Đã bán: ${data.soldQuantityOfProduct}`}</p>
+				</div>
 				{isSale && (
 					<>
 						<div style={{ height: '1.6rem' }}>
