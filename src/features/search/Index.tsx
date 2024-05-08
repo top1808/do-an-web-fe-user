@@ -56,7 +56,6 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 										sm={12}
 										md={8}
 										lg={6}
-										xl={4}
 									>
 										<CardProduct data={product} />
 									</MCol>

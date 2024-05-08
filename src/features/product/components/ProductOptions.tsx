@@ -1,3 +1,4 @@
+import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { ProductGroupOption } from '@/models/productModels';
@@ -28,12 +29,12 @@ const ProductOptions = (props: ProductOptionsProps) => {
 						{group?.options?.map((option) => (
 							<MCol
 								xs={8}
-								lg={4}
+								lg={6}
 								key={option}
 							>
 								<div
 									onClick={() => handleChoiceOption(index, option)}
-									className={`border border-solid border-gray-400 rounded p-2 text-center cursor-pointer hover:border-orange-400 hover:text-orange-400 ${
+									className={` border border-solid border-gray-400 rounded p-2 text-center cursor-pointer hover:border-orange-400 hover:text-orange-400 ${
 										product?.options?.[index] === option && 'border-orange-400 text-orange-400'
 									}`}
 								>

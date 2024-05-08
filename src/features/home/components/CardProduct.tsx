@@ -32,14 +32,10 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div className='my-1'>
 					<p className={`text-start text-ellipsis-1 text-sm   ${isSale ? 'line-through' : 'text-red-500 '}`}>{getProductPrice(data)}</p>
 				</div>
-				<div className='my-1'>
-					<p className='text-start font-bold '>{`Đã bán: ${data.soldQuantityOfProduct}`}</p>
-				</div>
 				{isSale && (
 					<>
 						<div style={{ height: '1.6rem' }}>
 							<p className='text-start font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
-							<p className='text-end font-bold '>{`Đã bán: 1k`}</p>
 						</div>
 						<div className='absolute top-1 left-0 p-0 bg-red-500'>
 							<p className='font-bold text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
@@ -53,7 +49,9 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 						</div>
 					</>
 				)}
-
+				<div className='my-1'>
+					<p className='text-start font-bold text-sm'>{`Đã bán: ${data.soldQuantityOfProduct || 0}`}</p>
+				</div>
 				<div>
 					<Rate
 						allowHalf
