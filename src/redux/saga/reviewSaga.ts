@@ -8,6 +8,7 @@ import { ReviewBody } from '@/models/reviewModel';
 function* onGetReviewsByUser() {
 	try {
 		const response: AxiosResponse = yield call(reviewApi.getReviewsByUser);
+
 		yield put(getReviewsSuccess(response.data.reviews));
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {

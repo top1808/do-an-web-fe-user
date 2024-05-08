@@ -20,7 +20,7 @@ const ListCategories = () => {
 					span={24}
 					className='py-4'
 				>
-					<h3 className='text-gray-400 text-2xl font-semibold'>{'Categories'}</h3>
+					<h3 className='text-2xl font-semibold'>{'Categories'}</h3>
 				</MCol>
 				<MCol
 					span={24}

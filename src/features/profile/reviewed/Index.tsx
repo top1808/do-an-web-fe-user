@@ -9,14 +9,12 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getReviewState, gettingReviews } from '@/redux/reducers/reviewReducers';
 import { customMoney, formatDate } from '@/utils/FunctionHelpers';
 import { Rate } from 'antd';
-import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 
 const ReviewsComponent = () => {
 	const dispatch = useAppDispatch();
 	const reviewState = useAppSelector(getReviewState);
-
 	useEffect(() => {
 		dispatch(gettingReviews());
 	}, [dispatch]);
@@ -38,7 +36,7 @@ const ReviewsComponent = () => {
 						</p>
 					</div>
 				)}
-				{reviewState.data && reviewState.data.length > 1 && (
+				{reviewState.data && reviewState.data.length > 0 && (
 					<>
 						<MTitle level={3}>Đánh giá</MTitle>
 						<div>
@@ -46,7 +44,7 @@ const ReviewsComponent = () => {
 								return (
 									<MRow
 										key={item._id}
-										gutter={12}
+										gutter={[16, 16]}
 										className='py-4 px-2'
 										style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 									>
@@ -62,21 +60,29 @@ const ReviewsComponent = () => {
 														allowHalf
 													/>
 												</MCol>
-												{item.images && item.images.length > 0 && (
-													<MCol span={24}>
-														<MRow gutter={[16, 16]}>
-															{item.images.map((i, index) => (
-																<Image
-																	key={`${item._id}${index}`}
-																	src={i}
-																	alt={`${item._id}${index}`}
-																/>
-															))}
-														</MRow>
-													</MCol>
-												)}
 												<MCol span={24}>
 													<MText className='font-medium'>{formatDate(item.createdAt)}</MText>
+												</MCol>
+												<MCol
+													span={24}
+													className='mt-2'
+												>
+													<MText>{item.content}</MText>
+												</MCol>
+												<MCol span={24}>
+													<MRow gutter={[16, 16]}>
+														{item.images && item.images.length > 0 && (
+															<MCol>
+																{item.images.map((i, index) => (
+																	<MImage
+																		key={`${item._id}${index}`}
+																		src={i}
+																		alt={`${item._id}${index}`}
+																	/>
+																))}
+															</MCol>
+														)}
+													</MRow>
 												</MCol>
 											</MRow>
 										</MCol>
@@ -107,12 +113,6 @@ const ReviewsComponent = () => {
 													</div>
 												</MCol>
 											</MRow>
-										</MCol>
-										<MCol
-											span={24}
-											className='mt-2'
-										>
-											<MText>{item.content}</MText>
 										</MCol>
 									</MRow>
 								);

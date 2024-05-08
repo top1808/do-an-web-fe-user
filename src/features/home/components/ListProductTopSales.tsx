@@ -3,17 +3,13 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MSkeleton from '@/components/MSkeleton';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
 import CardProduct from './CardProduct';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getProductState, gettingProduct } from '@/redux/reducers/productReducer';
-
+import { useAppSelector } from '@/redux/hooks';
+import { getProductState } from '@/redux/reducers/productReducer';
+import { getProductsTopSales } from '@/utils/FunctionHelpers';
 const ListProductTopSales = () => {
 	const product = useAppSelector(getProductState);
-	const dispatch = useAppDispatch();
-	useEffect(() => {
-		dispatch(gettingProduct());
-	}, [dispatch]);
+
 	return (
 		<MSkeleton loading={product.loading}>
 			<div className='bg-white px-2'>
@@ -34,7 +30,7 @@ const ListProductTopSales = () => {
 						{ xs: 2, sm: 12, xl: 16 },
 					]}
 				>
-					{product.data?.map((product, index) => {
+					{getProductsTopSales(product.data)?.map((product, index) => {
 						return (
 							<MCol
 								key={index}
