@@ -19,3 +19,23 @@
 .ant-input-number-handler-wrap {
   display: none !important;
 }
+
+.ant-carousel .slick-dots.slick-dots-bottom {
+  z-index: 1;
+}
+
+.ant-carousel .slick-slider li button {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+}
+
+.ant-carousel .slick-slider li button::before, .ant-carousel .slick-slider li button::after {
+  display: none;
+}
+
+.ant-carousel .slick-slider li.slick-active button {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+}

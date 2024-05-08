@@ -7,7 +7,7 @@ import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { PAYMENT_METHOD } from '@/constant';
-import { DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
+import { Address, DataPayment, ParamsGetFeeDelivery, ParamsGetService } from '@/models/paymentModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { toggleModal } from '@/redux/reducers/modalReducer';
 import { caculatorTotalPriceForCheckout, customMoney, paymentWithVPN } from '@/utils/FunctionHelpers';
@@ -71,8 +71,8 @@ const PaymentPage = () => {
 				from_district_id: 1450,
 				from_ward_code: 20805,
 				service_id: data.deliveryMethod!,
-				to_district_id: data.customerDistrict!,
-				to_ward_code: data.customerWard!,
+				to_district_id: data?.customerDistrict as Number,
+				to_ward_code: data?.customerWard as Number,
 				height: 50,
 				length: 20,
 				weight: 200,
@@ -106,6 +106,18 @@ const PaymentPage = () => {
 			totalPaid: 0,
 			totalPrice: caculatorTotalPriceForCheckout(cart.items) + address.fee,
 			voucher: voucher.voucherApply,
+			customerDistrict: {
+				value: data?.customerDistrict as number,
+				label: address.districts?.find((d: Address) => d.value === data.customerDistrict)?.label || '',
+			},
+			customerProvince: {
+				value: data?.customerProvince as number,
+				label: address.provinces?.find((d: Address) => d.value === data.customerProvince)?.label || '',
+			},
+			customerWard: {
+				value: data?.customerWard as number,
+				label: address.wards?.find((d: Address) => d.value === data.customerWard)?.label || '',
+			},
 		};
 		if (dataPost.paymentMethod === 'vnpay') {
 			const date = new Date();

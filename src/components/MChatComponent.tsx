@@ -37,7 +37,7 @@ const MChatComponent = () => {
 	if (!modal?.isOpenChat) return <></>;
 	return (
 		<div className='max-w-full w-96 h-[30rem] fixed bottom-0 right-40 rounded overflow-hidden flex flex-col z-10 shadow'>
-			<div className='flex justify-end items-center bg-blue-500 p-4'>
+			<div className='flex justify-end items-center bg-orange-600 p-4'>
 				<FontAwesomeIcon
 					icon={faClose}
 					size='xl'
