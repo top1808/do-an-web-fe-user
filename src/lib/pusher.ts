@@ -3,6 +3,7 @@ import Pusher from 'pusher-js';
 import { notification } from 'antd';
 import { store } from '@/redux/store';
 import { gettingNotifications } from '@/redux/reducers/notificationReducer';
+import { gettingOrders } from '@/redux/reducers/orderReducer';
 
 const pusher = new Pusher(process.env.PUSHER_KEY || '', {
 	cluster: 'ap1',
@@ -13,6 +14,8 @@ export const onGetPusherNotification = () => {
 	const channel = pusher.subscribe('notifications');
 	channel.bind('sales_notify', (event: { data: NotificationModel; notification: NotificationModel }) => {
 		store.dispatch(gettingNotifications({ offset: '0', limit: '10' }));
+		store.dispatch(gettingOrders({}));
+
 		if (currentUser?._id !== event.data?.fromUser && currentUser) {
 			const notify: NotificationModel = event.notification;
 			const data: NotificationModel = event.data;
