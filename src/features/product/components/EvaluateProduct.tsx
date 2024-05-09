@@ -23,16 +23,16 @@ type EvaluateProductProps = {
 const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 	const ratesArray = [5, 4, 3, 2, 1];
 	const [filterRate, setFilterRate] = useState<number[]>([]);
-	const handleOnChangeFilterRate = (e: CheckboxChangeEvent) => {
+	const handleOnChangeFilterRate = (e: CheckboxChangeEvent, r: number) => {
 		if (e.target.checked) {
-			if (!filterRate.includes(e.target.value)) {
+			if (!filterRate.includes(r)) {
 				const ratesTemp = [...filterRate];
-				ratesTemp.push(e.target.value);
+				ratesTemp.push(r);
 				setFilterRate(ratesTemp);
 			}
 		} else {
 			const temp = [...filterRate];
-			setFilterRate(temp.filter((item) => item !== e.target.value));
+			setFilterRate(temp.filter((item) => item !== r));
 		}
 	};
 	return (
@@ -156,8 +156,7 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 											>
 												<MCheckbox
 													disabled={reviews.filter((item) => item.rate === r).length < 1}
-													onChange={handleOnChangeFilterRate}
-													value={r}
+													onChange={(e) => handleOnChangeFilterRate(e, r)}
 												/>
 												<FIlterRate
 													title={`${r} star`}
