@@ -12,6 +12,7 @@ import CardProduct from './CardProduct';
 const ListProductDiscountProgram = () => {
 	const discountProgram = useAppSelector(discountProgramState);
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
@@ -47,17 +48,14 @@ const ListProductDiscountProgram = () => {
 							</div>
 							{program.products && program.products.length > 0 && (
 								<CustomSlider length={program.products.length}>
-									{program.products
-										// ?.sort((a, b) => (b?.soldQuantityOfProduct || 0) - (a?.soldQuantityOfProduct || 0))
-										?.slice(0, 6)
-										.map((item) => (
-											<CardProduct
-												data={item}
-												key={item._id}
-												isSale={true}
-												link={`/product/${item.productCode!}?barcode=${item.productSKUBarcode}`}
-											/>
-										))}
+									{program.products.map((item) => (
+										<CardProduct
+											data={item}
+											key={item._id}
+											isSale={true}
+											link={`/product/${item.productCode!}?barcode=${item.productSKUBarcode}`}
+										/>
+									))}
 								</CustomSlider>
 							)}
 						</CountdownTimer>

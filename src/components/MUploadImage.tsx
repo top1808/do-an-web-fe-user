@@ -3,7 +3,7 @@ import { Form, Upload, UploadProps, Image } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 interface MUploadImageProps extends UploadProps {
 	image?: string;
-	formName?: string | string[];
+	formName?: string;
 	disableTitle?: boolean;
 	notRequired?: boolean;
 }
@@ -36,7 +36,7 @@ const MUploadImage: React.FC<MUploadImageProps> = ({ image, formName, disableTit
 	return (
 		<Form.Item
 			label={disableTitle ? '' : 'Image'}
-			name={formName || 'imageUpload'}
+			valuePropName={formName || 'imageUpload'}
 			getValueFromEvent={getFile}
 			rules={[
 				{
