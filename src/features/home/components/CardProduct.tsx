@@ -29,22 +29,32 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-start'>{data.name}</MText>
 				</div>
-				<div style={{ height: '2.4rem' }}>
-					<p className={`text-start text-ellipsis-1 text-sm ${data.discounts ? 'line-through' : 'text-red-500'}   ${isSale && 'hidden'}`}>{getProductPrice(data)}</p>
-					<p className={`text-start text-ellipsis-1 text-sm text-red-500`}>{` ${!isSale && getProductPromotionPrice(data)}`}</p>
-				</div>
+				{!isSale && (
+					<div
+						className='flex flex-col justify-end'
+						style={{ height: '2.4rem' }}
+					>
+						<p className={`text-start text-ellipsis-1 text-base ${data.discounts ? 'line-through text-gray-500 font-semibold text-sm' : 'text-red-500 font-bold'}   ${isSale && 'hidden'}`}>
+							{getProductPrice(data)}
+						</p>
+						<p className={`text-start text-ellipsis-1 text-base font-bold text-red-500`}>{getProductPromotionPrice(data)}</p>
+					</div>
+				)}
 				{isSale && (
-					<>
-						<div style={{ height: '1.6rem' }}>
-							<p className='text-start text-ellipsis-1 text-sm line-through'>{customMoney(data.price)}</p>
+					<div
+						className='flex flex-col justify-end my-2'
+						style={{ height: '2.4rem' }}
+					>
+						<div>
+							<p className='text-start text-ellipsis-1 line-through text-gray-500 font-semibold text-sm'>{customMoney(data.price)}</p>
 						</div>
-						<div style={{ height: '1.6rem' }}>
-							<p className='text-start font-bold text-red-500'>{customMoney(data.promotionPrice)}</p>
+						<div>
+							<p className='text-start font-bold text-base text-red-500'>{customMoney(data.promotionPrice)}</p>
 						</div>
 						<div className='absolute top-1 right-0 px-2 py-1 bg-red-500 rounded'>
 							<p className='font-bold text-xs text-white'>{`- ${data.type === 'percent' ? data.value + '%' : customMoney(data.value)}`}</p>
 						</div>
-					</>
+					</div>
 				)}
 				{isTop && (
 					<>

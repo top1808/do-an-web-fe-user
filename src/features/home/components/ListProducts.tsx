@@ -45,7 +45,7 @@ const ListProducts = () => {
 				</MRow>
 				<div className='w-full flex justify-center mt-6'>
 					<Link href='/product?category=all'>
-						<MButton>{'See more'}</MButton>
+						<MButton className='h-10 w-80'>{'Xem Thêm...'}</MButton>
 					</Link>
 				</div>
 			</div>
