@@ -42,7 +42,6 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const [productSKU, setProductSKU] = useState<ProductSKUChoice>({ product: null, discountValue: 0, price: 0 });
 	const [quantity, setQuantity] = useState<number>(1);
 	const searchParams = useSearchParams();
-
 	function handleAddToCart() {
 		const data = {
 			...productSKU.product,
@@ -231,7 +230,10 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				</MRow>
 			</div>
 			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
-			<EvaluateProduct reviews={productInfor?.reviews || []} />
+			<EvaluateProduct
+				rate={productInfor?.rate || 5}
+				reviews={productInfor?.reviews || []}
+			/>
 			{product.productsRelative?.length > 0 && <ProductRelative />}
 		</>
 	);

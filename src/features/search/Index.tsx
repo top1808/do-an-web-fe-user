@@ -24,7 +24,10 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 
 	return (
 		<MSkeleton loading={product.isSearching}>
-			<MRow className='mt-4'>
+			<MRow
+				className='mt-4'
+				gutter={[16, 16]}
+			>
 				<MCol
 					xs={24}
 					sm={24}

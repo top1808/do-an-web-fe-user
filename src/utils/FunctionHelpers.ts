@@ -1,5 +1,6 @@
 import { Address } from '@/models/paymentModels';
 import { CartProduct, MenuItem, Product } from '@/models/productModels';
+import { Review } from '@/models/reviewModel';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
 
@@ -119,3 +120,9 @@ export function getProductsTopSales(products?: Product[], count?: number) {
 	}
 	return products;
 }
+export const filterReviewsByRating = (reviews: Review[], rating: number[]) => {
+	if (rating.length === 0) return reviews;
+	const temp = [...reviews];
+	const filteredReviews = temp.filter((review) => rating.includes(review.rate ?? 0));
+	return filteredReviews;
+};

@@ -108,7 +108,7 @@ const SearchFilter = () => {
 		}
 	};
 	return (
-		<div>
+		<div className='bg-white shadow-md p-2 rounded-lg'>
 			<MTitle level={4}>
 				<FontAwesomeIcon
 					icon={faFilter}
@@ -124,10 +124,20 @@ const SearchFilter = () => {
 					<MRow gutter={[8, 8]}>
 						<h3>Promotion</h3>
 						<MCol span={24}>
-							<Checkbox onChange={(e) => handleOnChangeFilterPromotion('onSale', e)}>On sale</Checkbox>
+							<Checkbox
+								checked={searchParams.get('onSale') === 'true'}
+								onChange={(e) => handleOnChangeFilterPromotion('onSale', e)}
+							>
+								On sale
+							</Checkbox>
 						</MCol>
 						<MCol span={24}>
-							<Checkbox onChange={(e) => handleOnChangeFilterPromotion('freeShip', e)}>Free ship</Checkbox>
+							<Checkbox
+								checked={searchParams.get('freeShip') === 'true'}
+								onChange={(e) => handleOnChangeFilterPromotion('freeShip', e)}
+							>
+								Free ship
+							</Checkbox>
 						</MCol>
 					</MRow>
 				</MCol>
@@ -136,7 +146,7 @@ const SearchFilter = () => {
 						<h3>Price</h3>
 						<MCol span={24}>
 							<MSelect
-								defaultValue='default'
+								value={searchParams.get('priceFilter') ?? 'default'}
 								style={{ width: 150 }}
 								onChange={(value) => {
 									router.push(pathname + '?' + createQueryString('priceFilter', value));
@@ -161,6 +171,7 @@ const SearchFilter = () => {
 								style={{ width: '100%' }}
 								mode='inline'
 								items={items}
+								selectedKeys={searchParams.getAll('ratingFilter') ?? []}
 							/>
 						</MCol>
 					</MRow>
