@@ -68,7 +68,14 @@ export const getProductPrice = (product: Product) => {
 			: customMoney(product?.minPrice)
 		: customMoney(product?.price);
 };
-
+export const getProductPromotionPrice = (product: Product) => {
+	if (product.discounts) {
+		return product?.minPromotionPrice !== product?.maxPromotionPrice
+			? `${customMoney(product?.minPromotionPrice)} - ${customMoney(product?.maxPromotionPrice)}`
+			: customMoney(product?.minPromotionPrice);
+	}
+	return '';
+};
 export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {
 	const vnpay = new VNPay({
 		api_Host: 'https://sandbox.vnpayment.vn',
