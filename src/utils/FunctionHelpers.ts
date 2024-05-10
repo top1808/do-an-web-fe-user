@@ -1,5 +1,5 @@
 import { Address } from '@/models/paymentModels';
-import { CartProduct, MenuItem, Product } from '@/models/productModels';
+import { CartProduct, DiscountProduct, MenuItem, Product } from '@/models/productModels';
 import { Review } from '@/models/reviewModel';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
@@ -125,4 +125,19 @@ export const filterReviewsByRating = (reviews: Review[], rating: number[]) => {
 	const temp = [...reviews];
 	const filteredReviews = temp.filter((review) => rating.includes(review.rate ?? 0));
 	return filteredReviews;
+};
+export const getProductsSKUSalesByOneOption = (product?: Product) => {
+	if (product?.groupOptions?.length === 1 && product.discounts && product.discounts?.length > 0) {
+		const result = product.discounts.map((item) => {
+			return item.options?.[0].option ?? '';
+		});
+		return result;
+	}
+	return undefined;
+};
+export const getProductsSKUSales = (productDiscount: DiscountProduct[]) => {
+	const result = productDiscount.map((item) => {
+		return `${item.options?.[0].groupName} : ${item.options?.[0].option}, ${item.options?.[1].groupName} : ${item.options?.[1].option} giảm ${item.value}${item.type === 'percent' ? '%' : 'đ'}`;
+	});
+	return result;
 };

@@ -33,7 +33,8 @@ export default function middleware(req: NextRequest) {
 	const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 	if (isPublicPage) {
 		if (token && authPages.some((page) => pathname.includes(page))) {
-			return NextResponse.redirect(new URL('/', req.url));
+			const pathRedirect = `/${req.cookies.get('NEXT_LOCALE')?.value}`;
+			return NextResponse.redirect(new URL(pathRedirect, req.url));
 		}
 		return intlMiddleware(req);
 	} else {

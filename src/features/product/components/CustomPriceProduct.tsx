@@ -5,17 +5,21 @@ import { customMoney } from '@/utils/FunctionHelpers';
 import React from 'react';
 
 const CustomPriceProduct = ({
+	isProductSKU,
 	isPercent,
 	oldPrice,
 	price = 0,
 	discountValue,
 	promotionPrice,
+	priceProductDiscount,
 }: {
+	isProductSKU?: boolean;
 	isPercent?: boolean;
-	oldPrice?: number | null;
+	oldPrice?: number;
 	price?: string | number;
-	discountValue?: number | null;
-	promotionPrice?: number | null;
+	discountValue?: number;
+	promotionPrice?: number;
+	priceProductDiscount?: string;
 }) => {
 	return (
 		<div className='bg-white p-2'>
@@ -23,16 +27,20 @@ const CustomPriceProduct = ({
 				gutter={16}
 				align={'middle'}
 			>
-				{!!oldPrice && (
+				{oldPrice && (
 					<MCol>
 						<MText className='line-through text-gray-500 text-md'>{customMoney(oldPrice)}</MText>
 					</MCol>
 				)}
 				<MCol>
-					<MText className={`text-xl font-bold  ${promotionPrice ? 'line-through text-gray-600 text-xs' : 'text-red-500'}`}>{price}</MText>
+					<MText className={`text-xl font-bold  ${promotionPrice || (priceProductDiscount && !isProductSKU) ? 'line-through text-gray-600 text-xs' : 'text-red-500'}`}>{price}</MText>
 				</MCol>
-
-				{!!discountValue && (
+				{priceProductDiscount && !oldPrice && !discountValue && !isProductSKU && (
+					<MCol>
+						<MText className={`text-xl font-bold text-red-500 }`}>{priceProductDiscount}</MText>
+					</MCol>
+				)}
+				{discountValue && (
 					<>
 						<MCol>
 							<MText className={`text-xl font-bold text-red-500 }`}>{customMoney(promotionPrice!)}</MText>

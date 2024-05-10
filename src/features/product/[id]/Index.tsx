@@ -12,7 +12,7 @@ import { Product, ProductSKU } from '@/models/productModels';
 import { addingItemToCart } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
-import { customMoney, getProductPrice } from '@/utils/FunctionHelpers';
+import { customMoney, getProductPrice, getProductPromotionPrice, getProductsSKUSalesByOneOption } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
 import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
@@ -23,6 +23,7 @@ import { useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
 import Link from 'next/link';
 import MInputQuantity from '@/components/MInputQuantity';
+import ListProductsSKUSale from '../components/ListProductsSKUSale';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -36,12 +37,12 @@ type ProductSKUChoice = {
 };
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
-	const product = useAppSelector((state) => state.product);
 	const { data: session } = useSession();
+	const product = useAppSelector((state) => state.product);
 	const dispatch = useAppDispatch();
+	const searchParams = useSearchParams();
 	const [productSKU, setProductSKU] = useState<ProductSKUChoice>({ product: null, discountValue: 0, price: 0 });
 	const [quantity, setQuantity] = useState<number>(1);
-	const searchParams = useSearchParams();
 	function handleAddToCart() {
 		const data = {
 			...productSKU.product,
@@ -126,14 +127,26 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									<div className='text-xl'>{`Đã bán: ${productInfor?.soldQuantityOfProduct} sản phẩm`}</div>
 								)}
 							</div>
-							<CustomPriceProduct
-								oldPrice={productInfor?.promotionPrice ? productInfor?.price : null}
-								price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
-								discountValue={productSKU.discountValue > 0 ? productSKU.discountValue : null}
-								promotionPrice={productSKU.promotionPrice ? productSKU.promotionPrice : null}
-								isPercent={productSKU.isPercent}
+							<div className='flex gap-4 items-center'>
+								<CustomPriceProduct
+									isProductSKU={productSKU.product ? true : false}
+									priceProductDiscount={productInfor?.discounts && productInfor.discounts.length > 0 ? getProductPromotionPrice(productInfor) : undefined}
+									oldPrice={productInfor?.promotionPrice ? productInfor?.price : undefined}
+									price={productSKU.price > 0 ? customMoney(productSKU.price) : getProductPrice(productInfor as Product)}
+									discountValue={productSKU.discountValue > 0 ? productSKU.discountValue : undefined}
+									promotionPrice={productSKU.promotionPrice ? productSKU.promotionPrice : undefined}
+									isPercent={productSKU.isPercent}
+								/>
+								{productInfor?.discounts && productInfor.discounts.length > 0 && productInfor.groupOptions && productInfor.groupOptions?.length > 1 && (
+									<div>
+										<ListProductsSKUSale data={productInfor.discounts} />
+									</div>
+								)}
+							</div>
+							<ProductOptions
+								groupOptions={productInfor?.groupOptions}
+								productsSKUSales={getProductsSKUSalesByOneOption(productInfor)}
 							/>
-							<ProductOptions groupOptions={productInfor?.groupOptions} />
 							<div className='pt-4'>
 								<MTitle level={3}>Số lượng</MTitle>
 								<div className='flex gap-4'>
