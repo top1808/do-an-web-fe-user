@@ -1,9 +1,9 @@
 import { withAuth } from 'next-auth/middleware';
 import createIntlMiddleware from 'next-intl/middleware';
-import { NextRequest } from 'next/server';
-
+import { NextRequest, NextResponse } from 'next/server';
 const locales = ['vi', 'en'];
 const publicPages = ['/', '/login', '/register', '/product/[productId]', '/search', '/product'];
+const authPages = ['/login', '/register'];
 const intlMiddleware = createIntlMiddleware({
 	locales,
 	localePrefix: 'as-needed',
@@ -26,9 +26,15 @@ const authMiddleware = withAuth(
 );
 
 export default function middleware(req: NextRequest) {
+	const pathname = req.nextUrl.pathname;
+	const token = req.cookies.get('next-auth.session-token')?.value;
+
 	const publicPathnameRegex = RegExp(`^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p.replace(/\[(\w+)\]/g, '[^/]+'))).join('|')})/?$`, 'i');
 	const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 	if (isPublicPage) {
+		if (token && authPages.some((page) => pathname.includes(page))) {
+			return NextResponse.redirect(new URL('/', req.url));
+		}
 		return intlMiddleware(req);
 	} else {
 		return (authMiddleware as any)(req);
