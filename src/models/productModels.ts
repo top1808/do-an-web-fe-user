@@ -1,5 +1,6 @@
 import { MenuProps } from 'antd';
 import { Review } from './reviewModel';
+import { PaginationModel } from './reponseModel';
 
 export interface Product {
 	productCode?: string;
@@ -82,5 +83,13 @@ export interface CartProduct extends Product {
 	productSKU?: ProductSKU;
 	isChecked?: boolean;
 }
+export interface ProductParams {
+	offset?: string;
+	limit?: string;
+}
 
+export interface ReponseGetProductsByCategory {
+	products?: Product[];
+	pagination?: PaginationModel;
+}
 export type MenuItem = Required<MenuProps>['items'][number];

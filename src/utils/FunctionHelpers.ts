@@ -12,7 +12,9 @@ export const customMoney = (money?: number) => {
 		currency: 'VND',
 	});
 };
-
+export const compareString = (a?: string, b?: string) => {
+	return a?.toLowerCase() === b?.toLowerCase() ? true : false;
+};
 export function getItem(label?: React.ReactNode, key?: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
 	return {
 		key,
@@ -137,7 +139,10 @@ export const getProductsSKUSalesByOneOption = (product?: Product) => {
 };
 export const getProductsSKUSales = (productDiscount: DiscountProduct[]) => {
 	const result = productDiscount.map((item) => {
-		return `${item.options?.[0].groupName} : ${item.options?.[0].option}, ${item.options?.[1].groupName} : ${item.options?.[1].option} giảm ${item.value}${item.type === 'percent' ? '%' : 'đ'}`;
+		return {
+			value: `${item.options?.[0].option},${item.options?.[1].option}`,
+			lable: `${item.options?.[0].groupName} : ${item.options?.[0].option}, ${item.options?.[1].groupName} : ${item.options?.[1].option} giảm ${item.value}${item.type === 'percent' ? '%' : 'đ'}`,
+		};
 	});
 	return result;
 };

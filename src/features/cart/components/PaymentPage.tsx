@@ -159,6 +159,7 @@ const PaymentPage = () => {
 
 	useEffect(() => {
 		dispatch(gettingProvinces());
+
 		if (cart.payingStatus === 'completed' && cart.orderInfo) {
 			Swal.fire({
 				html: `Mã đơn hàng của bạn là <a color="blue" href='/profile/purchased'>${cart.orderInfo?.orderCode}</a>`,
@@ -176,7 +177,7 @@ const PaymentPage = () => {
 				confirmButtonText: 'Ẩn',
 			});
 		}
-	}, [cart.orderInfo, cart.payingStatus, dispatch]);
+	}, [cart.items, cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
 		dispatch(clearAddressState());
 		dispatch(clearVoucherState());
@@ -215,7 +216,7 @@ const PaymentPage = () => {
 					&nbsp; Checkout
 				</h2>
 			</div>
-			<LayoutLoading isLoading={cart.isLoadingPaying || false}>
+			<LayoutLoading isLoading={false}>
 				<ModalVoucher />
 				<Form
 					autoComplete='off'

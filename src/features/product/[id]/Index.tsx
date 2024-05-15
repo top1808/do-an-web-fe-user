@@ -9,19 +9,18 @@ import { Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { Product, ProductSKU } from '@/models/productModels';
-import { addingItemToCart } from '@/redux/reducers/cartReducer';
+import { addingItemToCart, getCartState } from '@/redux/reducers/cartReducer';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
-import { customMoney, getProductPrice, getProductPromotionPrice, getProductsSKUSalesByOneOption } from '@/utils/FunctionHelpers';
+import { compareString, customMoney, getProductPrice, getProductPromotionPrice, getProductsSKUSalesByOneOption } from '@/utils/FunctionHelpers';
 import CustomPriceProduct from '../components/CustomPriceProduct';
 import ProductDescription from '../components/ProductDescription';
 import ProductRelative from '../components/ProductRelative';
 import ProductImageWrap from '../components/ProductImageWrap';
 import ProductOptions from '../components/ProductOptions';
-import { changeMainImage, setDefaultOption } from '@/redux/reducers/productReducer';
-import { useSearchParams } from 'next/navigation';
+import { changeMainImage, getProductState, setDefaultOption } from '@/redux/reducers/productReducer';
+import { useRouter, useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
-import Link from 'next/link';
 import MInputQuantity from '@/components/MInputQuantity';
 import ListProductsSKUSale from '../components/ListProductsSKUSale';
 interface DetailProductComponent {
@@ -38,12 +37,16 @@ type ProductSKUChoice = {
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
 	const { data: session } = useSession();
-	const product = useAppSelector((state) => state.product);
+	const product = useAppSelector(getProductState);
+	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const [productSKU, setProductSKU] = useState<ProductSKUChoice>({ product: null, discountValue: 0, price: 0 });
+	const [isPayingNow, setIsPayingNow] = useState<boolean>(false);
 	const [quantity, setQuantity] = useState<number>(1);
-	function handleAddToCart() {
+
+	function handleAddToCart(isPaying?: boolean) {
 		const data = {
 			...productSKU.product,
 			productId: productInfor?._id,
@@ -51,7 +54,15 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			price: productSKU.promotionPrice ? productSKU.promotionPrice : productSKU.price,
 		};
 		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
+		isPaying && setIsPayingNow(true);
 	}
+	useEffect(() => {
+		if (isPayingNow) {
+			if (cart.statusUpdate === 'completed') {
+				router.push('/cart');
+			}
+		}
+	}, [cart.statusUpdate, router, isPayingNow]);
 	useEffect(() => {
 		setQuantity(1);
 	}, [productSKU.product]);
@@ -59,7 +70,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		if (product.options.length === productInfor?.groupOptions?.length) {
 			const findProductSKU = productInfor?.productSKUList?.find((item) => {
 				const optionsProduct = item.options?.map((option) => option.option);
-				if (product.options.every((element, index) => element === optionsProduct[index])) {
+				if (product.options.every((element, index) => compareString(element, optionsProduct[index]))) {
 					return item;
 				}
 				return null;
@@ -175,11 +186,47 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								</div>
 							</div>
 						</div>
+						<div className='flex gap-6 py-2 w-full lg:w-auto'>
+							<MButton
+								size='large'
+								type='primary'
+								className='bg-green-600 text-white hover:bg-green-300 hover:text-white hover:border-white '
+								onClick={() => {
+									if ((productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product) {
+										toast.warning('Vui lòng chọn loại sản phẩm !');
+									} else if (productSKU.product?.inventory.currentQuantity === 0) {
+										toast.warning('Sản phẩm này tạm hết hàng ');
+									} else {
+										handleAddToCart();
+									}
+								}}
+							>
+								<FontAwesomeIcon
+									icon={faCartShopping}
+									className='hover:text-white'
+								/>
+								&nbsp; Thêm vào giỏ hàng
+							</MButton>
+							<MButton
+								size='large'
+								type='primary'
+								onClick={() => {
+									if (productSKU.product) {
+										handleAddToCart(true);
+									} else {
+										toast.warning('Vui lòng chọn loại sản phẩm !');
+									}
+								}}
+								className='bg-red-400 text-white py-[4px] px-[15px] rounded-lg align-middle hover:opacity-80 hover:text-white'
+							>
+								&nbsp; Mua ngay
+							</MButton>
+						</div>
 						<MRow
 							className='my-1'
 							gutter={[12, 12]}
 						>
-							<MCol span={4}>
+							<MCol span={8}>
 								<div className='text-center'>
 									<FontAwesomeIcon
 										icon={faTruckFast}
@@ -191,7 +238,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									<p className='text-center text-base'>Xem tình trạng giao hàng ở đơn hàng (*)</p>
 								</div>
 							</MCol>
-							<MCol span={4}>
+							<MCol span={8}>
 								<div className='text-center'>
 									<FontAwesomeIcon
 										icon={faRotateRight}
@@ -203,7 +250,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									<p className='text-center text-base'>1 đổi 1 trong vòng 3 ngày</p>
 								</div>
 							</MCol>
-							<MCol span={4}>
+							<MCol span={8}>
 								<div className='text-center'>
 									<FontAwesomeIcon
 										icon={faMoneyCheckDollar}
@@ -216,29 +263,6 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								</div>
 							</MCol>
 						</MRow>
-						<div className='flex gap-6 pt-4 w-full lg:w-auto'>
-							<MButton
-								className='bg-green-600 hover:bg-green-300 text-white'
-								onClick={() => {
-									if ((productInfor?.groupOptions?.length || 0) > 0 && !productSKU.product) {
-										toast.warning('Vui lòng chọn loại sản phẩm !');
-									} else if (productSKU.product?.inventory.currentQuantity === 0) {
-										toast.warning('Sản phẩm này tạm hết hàng ');
-									} else {
-										handleAddToCart();
-									}
-								}}
-							>
-								<FontAwesomeIcon icon={faCartShopping} />
-								&nbsp; Thêm vào giỏ hàng
-							</MButton>
-							<Link
-								className='bg-red-400 text-white py-[4px] px-[15px] rounded-lg align-middle hover:opacity-80 hover:text-white'
-								href={'/'}
-							>
-								&nbsp; Mua ngay
-							</Link>
-						</div>
 					</MCol>
 				</MRow>
 			</div>

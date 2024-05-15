@@ -15,13 +15,11 @@ import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import Link from 'next/link';
-
 const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	const cart = useAppSelector(getCartState);
 	const t = useTranslations('CartPage');
 	const [summaryMoney, setSummaryMoney] = useState<string>(customMoney(caculatorTotalPriceForCheckout(data)));
 	const dispatch = useAppDispatch();
-
 	const callApiUpdate = (e: CheckboxChangeEvent, item: CartProduct) => {
 		const data: CartProduct = {
 			_id: item?._id,
@@ -65,10 +63,10 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 				</MRow>
 			</div>
 
-			{data.map((item, index: number) => {
+			{data.map((item) => {
 				return (
 					<MRow
-						key={index}
+						key={item._id}
 						style={{ borderBottom: ' 1px solid black' }}
 						align={'middle'}
 						className='bg-white'

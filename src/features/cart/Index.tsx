@@ -14,7 +14,6 @@ const CartPageComponent = () => {
 	useEffect(() => {
 		dispatch(gettingCart());
 	}, [dispatch]);
-
 	return (
 		<>
 			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}

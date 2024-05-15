@@ -15,7 +15,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 	return (
 		<Link
 			href={link || `/product/${data._id}`}
-			className='block max-w-xs relative '
+			className='block max-w-xs relative'
 		>
 			<div className='shadow-md px-1 py-4 bg-white border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
@@ -29,8 +29,11 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				<div style={{ height: '3rem' }}>
 					<MText className='text-base text-ellipsis-2 text-start'>{data.name}</MText>
 				</div>
-				<div style={{ height: '2.4rem' }}>
-					<p className={`text-start text-ellipsis-1 text-sm ${data.discounts ? 'line-through' : 'text-red-500'}   ${isSale && 'hidden'}`}>{getProductPrice(data)}</p>
+				<div
+					style={{ height: '2.4rem' }}
+					className={`${isSale && 'hidden'}`}
+				>
+					<p className={`text-start text-ellipsis-1 text-sm ${data.discounts ? 'line-through' : 'text-red-500'}   `}>{getProductPrice(data)}</p>
 					<p className={`text-start text-ellipsis-1 text-sm text-red-500`}>{` ${!isSale && getProductPromotionPrice(data)}`}</p>
 				</div>
 				{isSale && (

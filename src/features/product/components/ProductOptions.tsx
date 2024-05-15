@@ -3,6 +3,7 @@ import MRow from '@/components/MRow';
 import { ProductGroupOption } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { selectOption } from '@/redux/reducers/productReducer';
+import { compareString } from '@/utils/FunctionHelpers';
 
 import React from 'react';
 
@@ -32,7 +33,7 @@ const ProductOptions = ({ groupOptions, productsSKUSales }: ProductOptionsProps)
 								lg={6}
 								key={option}
 							>
-								{productsSKUSales && productsSKUSales.includes(option) && (
+								{productsSKUSales && productsSKUSales.includes(option?.toLowerCase()) && (
 									<div className='absolute top-1 right-2 bg-red-500'>
 										<p className='text-xs text-white px-[2px]'>Sale</p>
 									</div>
@@ -40,7 +41,7 @@ const ProductOptions = ({ groupOptions, productsSKUSales }: ProductOptionsProps)
 								<div
 									onClick={() => handleChoiceOption(index, option)}
 									className={` border border-solid border-gray-400 rounded p-2 text-center cursor-pointer hover:border-orange-400 hover:text-orange-400 ${
-										product?.options?.[index] === option && 'border-orange-400 text-orange-400'
+										compareString(product?.options?.[index], option) && 'border-orange-400 text-orange-400'
 									}`}
 								>
 									{option}
