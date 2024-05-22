@@ -1,5 +1,5 @@
 import MText from '@/components/MText';
-
+import parse from 'html-react-parser';
 import React from 'react';
 
 const ProductDescription = ({ description }: { description: string }) => {
@@ -13,8 +13,10 @@ const ProductDescription = ({ description }: { description: string }) => {
 			</MText>
 			<div
 				className='p-4 text-base'
-				dangerouslySetInnerHTML={{ __html: description }}
-			></div>
+				// dangerouslySetInnerHTML={{ __html: description }}
+			>
+				{parse(description)}
+			</div>
 		</div>
 	);
 };
