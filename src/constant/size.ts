@@ -14,6 +14,7 @@ export interface SIZE {
 	sizes: TypeSizeShoe[];
 	type: string;
 }
+
 // table size shoe
 const tableTemp: SIZE[] = [
 	{

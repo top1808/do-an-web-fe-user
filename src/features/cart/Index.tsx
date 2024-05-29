@@ -18,7 +18,7 @@ const CartPageComponent = () => {
 		<>
 			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}
 			<div className='py-8'>
-				<h2 className='text-3xl text-red-400 text-center py-4'>
+				<h2 className='text-3xl text-red-400  py-4'>
 					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; Giỏ hàng
 				</h2>
 				<div>{cart?.items?.length < 1 ? <CartEmpty /> : <TableCartProducts data={cart?.items} />}</div>
