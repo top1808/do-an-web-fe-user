@@ -55,6 +55,10 @@ const handler = NextAuth({
 			return true;
 		},
 		async redirect({ url, baseUrl }) {
+			if (url.split('=')[1]) {
+				return decodeURIComponent(`${baseUrl}${url.split('=')[1]}`);
+			}
+
 			return baseUrl;
 		},
 		async jwt({ token, user, account, profile }) {

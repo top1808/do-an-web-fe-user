@@ -7,11 +7,10 @@ interface CartState {
 	items: CartProduct[];
 	status: string;
 	loading: boolean;
-	statusUpdate: 'pending' | 'loading' | 'completed';
+	statusUpdate: 'pending' | 'loading' | 'completed' | 'failed';
 	orderInfo: Order | null;
 	payingStatus: 'pending' | 'completed' | 'failed';
 	ipCustomer: string | null;
-	isLoadingPaying?: boolean;
 }
 const initialState: CartState = {
 	items: [],
@@ -21,7 +20,6 @@ const initialState: CartState = {
 	orderInfo: null,
 	payingStatus: 'pending',
 	ipCustomer: null,
-	isLoadingPaying: false,
 };
 const cartReducer = createSlice({
 	name: 'cart',
@@ -46,14 +44,14 @@ const cartReducer = createSlice({
 		},
 
 		addingItemToCart: (state, action: PayloadAction<Product>) => {
-			state.statusUpdate = 'loading';
+			state.statusUpdate = 'pending';
 		},
 		addItemToCartSuccess: (state, action: PayloadAction<Product>) => {
 			state.statusUpdate = 'completed';
 			toast.success('Item add to cart successfully');
 		},
 		addItemToCartFail: (state, action: PayloadAction<string>) => {
-			state.statusUpdate = 'completed';
+			state.statusUpdate = 'failed';
 			action.payload && toast.error(action.payload);
 		},
 
@@ -65,7 +63,7 @@ const cartReducer = createSlice({
 			toast.success('Item removed from cart successfully');
 		},
 		removeItemInCartFail: (state, action: PayloadAction<string>) => {
-			state.statusUpdate = 'completed';
+			state.statusUpdate = 'failed';
 			action.payload && toast.error(action.payload);
 		},
 
@@ -83,7 +81,7 @@ const cartReducer = createSlice({
 				return item;
 			});
 			state.items = temp;
-			state.statusUpdate = 'completed';
+			state.statusUpdate = 'failed';
 			action.payload && toast.error(action.payload.message);
 		},
 
@@ -95,22 +93,20 @@ const cartReducer = createSlice({
 			toast.success('Cart cleared successfully');
 		},
 		clearCartFail: (state, action: PayloadAction<string>) => {
-			state.statusUpdate = 'completed';
+			state.statusUpdate = 'failed';
 			action.payload && toast.error(action.payload);
 		},
 
 		paying: (state, action: PayloadAction<DataPayment>) => {
-			state.isLoadingPaying = true;
 			state.payingStatus = 'pending';
 		},
 		paySuccess: (state, action: PayloadAction<ReponsePaySuccess>) => {
-			state.isLoadingPaying = false;
 			state.orderInfo = action.payload.order;
 			state.payingStatus = 'completed';
 		},
 		payFailed: (state, action: PayloadAction<string>) => {
-			state.isLoadingPaying = false;
 			state.payingStatus = 'failed';
+			action.payload && toast.error(action.payload);
 		},
 		setIPCustomer: (state, action: PayloadAction<string>) => {
 			state.ipCustomer = action.payload;

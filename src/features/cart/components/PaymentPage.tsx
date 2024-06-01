@@ -149,6 +149,7 @@ const PaymentPage = () => {
 
 	useEffect(() => {
 		dispatch(gettingProvinces());
+
 		if (cart.payingStatus === 'completed' && cart.orderInfo) {
 			Swal.fire({
 				html: `Mã đơn hàng của bạn là <a color="blue" href='/profile/purchased'>${cart.orderInfo?.orderCode}</a>`,
@@ -166,7 +167,7 @@ const PaymentPage = () => {
 				confirmButtonText: 'Ẩn',
 			});
 		}
-	}, [cart.orderInfo, cart.payingStatus, dispatch]);
+	}, [cart.items, cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
@@ -185,28 +186,35 @@ const PaymentPage = () => {
 	}, [dispatch, params]);
 	return (
 		<>
-			<MTitle
-				level={2}
-				className='text-center font-semibold'
-			>
-				Checkout
-			</MTitle>
-			<ModalVoucher />
-			<Form
-				autoComplete='off'
-				onFinish={onSubmit}
-				form={form}
-			>
-				<MRow justify='space-between'>
-					<MCol
-						xs={24}
-						md={7}
-						className='shadow-md'
-					>
-						<MTitle
-							level={5}
-							className='p-2 w-full bg-lime-600 text-base'
-							style={{ color: 'white' }}
+			<div className='relative'>
+				<MButton
+					className='absolute top-4 px-4'
+					type='primary'
+					onClick={handleBack}
+				>
+					<FontAwesomeIcon icon={faArrowLeft} />
+					&nbsp; Back
+				</MButton>
+				<h2 className='text-center text-3xl font-semibold py-4 '>
+					<FontAwesomeIcon
+						icon={faSackDollar}
+						color='green'
+					/>
+					&nbsp; Checkout
+				</h2>
+			</div>
+			<LayoutLoading isLoading={false}>
+				<ModalVoucher />
+				<Form
+					autoComplete='off'
+					onFinish={onSubmit}
+					form={form}
+				>
+					<MRow justify='space-between'>
+						<MCol
+							xs={24}
+							md={7}
+							className='shadow-md bg-white'
 						>
 							{`1. ${t('DeliverAddress')}`}
 						</MTitle>

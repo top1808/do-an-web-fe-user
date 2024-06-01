@@ -69,7 +69,7 @@ const SideBarUser: React.FC = () => {
 							),
 							...items,
 						]}
-						selectedKeys={[searchParams?.get('category') || '']}
+						selectedKeys={[searchParams?.get('category') || 'all']}
 					/>
 				</MCol>
 			</MRow>

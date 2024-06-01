@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getCartState, removingItemToCart, updatingCart } from '@/redux/reducers/cartReducer';
 import { customMoney } from '@/utils/FunctionHelpers';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CartItemProps {
 	item?: CartProduct;
@@ -20,7 +20,6 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 	const dispatch = useAppDispatch();
 	const [quantity, setQuantity] = useState<number>(item?.quantity || 1);
 	const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-
 	const resetTimer = (quantity: number) => {
 		if (timeoutId) {
 			clearTimeout(timeoutId);
@@ -28,13 +27,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		const newTimeoutId = setTimeout(() => callApiUpdate(quantity), 500);
 		setTimeoutId(newTimeoutId);
 	};
-
 	const onChangeQuantity = (newValue: number) => {
 		const newQuantity = newValue > 0 ? (newValue > 99 ? 99 : newValue) : 1;
 		setQuantity(newQuantity);
 		resetTimer(newQuantity);
 	};
-
 	const callApiUpdate = (quantity: number) => {
 		const data: CartProduct = {
 			_id: item?._id,
@@ -43,7 +40,9 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		};
 		dispatch(updatingCart(data));
 	};
-
+	useEffect(() => {
+		setQuantity(item?.quantity || 1);
+	}, [item?.quantity]);
 	return (
 		<MRow
 			align={'middle'}

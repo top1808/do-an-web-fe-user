@@ -15,7 +15,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 	return (
 		<Link
 			href={link || `/product/${data._id}`}
-			className='block max-w-xs relative '
+			className='block max-w-xs relative'
 		>
 			<div className='shadow-md px-1 py-4 bg-white border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
