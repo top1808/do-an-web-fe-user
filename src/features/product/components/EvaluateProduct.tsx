@@ -138,13 +138,11 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 								<div className='px-4'>
 									<div>
 										<h3>
-											{rate}{' '}
-											<span>
-												<FontAwesomeIcon
-													icon={faStar}
-													color='yellow'
-												/>
-											</span>{' '}
+											<Rate
+												disabled
+												defaultValue={rate}
+												allowHalf
+											/>
 											{`(${reviews.length} reviews)`}
 										</h3>
 									</div>
