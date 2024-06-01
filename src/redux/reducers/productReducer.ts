@@ -14,7 +14,6 @@ interface ProductState {
 	options: string[];
 	productPurchared?: ProductSKU[];
 }
-
 const initialState: ProductState = {
 	loading: false,
 	status: 'pending',

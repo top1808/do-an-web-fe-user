@@ -1,5 +1,3 @@
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
 import Footer from './Footer';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
@@ -10,8 +8,6 @@ import Image from 'next/image';
 import bannerLogin from '../../public/images/clothing-fashion-dress-shop-woman-women-pick-dresses-on-hangers-564e9ed1fd8c58e2724680210d3b87c9.png';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
-	const session = await getServerSession();
-	if (session?.user) redirect('/');
 	return (
 		<>
 			<header className=' w-full  relative bg-[#FA5130] py-8'>

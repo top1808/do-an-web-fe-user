@@ -12,9 +12,7 @@ const persistConfig = {
 	whitelist: ['auth', 'chatbot'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
 const sagaMiddleware = createSagaMiddleware();
-
 export const store = configureStore({
 	reducer: persistedReducer,
 	middleware: (getDefaultMiddleware) =>
