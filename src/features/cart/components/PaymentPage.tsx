@@ -27,6 +27,9 @@ import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
 import { getVoucherState } from '@/redux/reducers/voucherReducer';
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
+import LayoutLoading from '@/components/LayoutLoading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
@@ -78,6 +81,10 @@ const PaymentPage = () => {
 			};
 			dispatch(gettingFeeDelivery(body));
 		}
+	};
+
+	const handleBack = () => {
+		window.history.back();
 	};
 	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
@@ -216,226 +223,232 @@ const PaymentPage = () => {
 							md={7}
 							className='shadow-md bg-white'
 						>
-							{`1. ${t('DeliverAddress')}`}
-						</MTitle>
-						<div className='p-4'>
-							<Form.Item<DataPayment>
-								name={'customerName'}
-								rules={[{ required: true, message: 'Please input your name!' }]}
-							>
-								<MInput placeholder={t('Name')} />
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name={'customerPhone'}
-								rules={[{ required: true, message: 'Please input your phone!' }, { validator: validatePhoneNumber }]}
-							>
-								<MInput placeholder={t('PhoneNumber')} />
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name='customerEmail'
-								rules={[{ required: true, message: 'Please input your mail !' }, { validator: validateEmail }]}
-							>
-								<MInput placeholder='Email' />
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name='customerProvince'
-								rules={[{ required: true, message: 'Please choose province !' }]}
-							>
-								<MSelect
-									loading={address.loading}
-									onChange={(value) => {
-										form.setFieldValue('customerDistrict', undefined);
-										form.setFieldValue('customerWard', undefined);
-										form.setFieldValue('deliveryMethod', undefined);
-										dispatch(gettingDistricts(value));
-									}}
-									options={address.provinces}
-									placeholder={t('YourCity')}
-								/>
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name='customerDistrict'
-								rules={[{ required: true, message: 'Please choose district !' }]}
-							>
-								<MSelect
-									loading={address.loading}
-									defaultActiveFirstOption={true}
-									onChange={(value) => {
-										getServiceDelivery(value);
-										form.setFieldValue('customerWard', undefined);
-										dispatch(gettingWards(value));
-									}}
-									options={address.districts}
-									placeholder={t('YourDistrict')}
-								/>
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name='customerWard'
-								rules={[{ required: true, message: 'Please choose ward !' }]}
-							>
-								<MSelect
-									defaultActiveFirstOption={true}
-									options={address.wards}
-									loading={address.loading}
-									onChange={() => getFeeOrder(form)}
-									placeholder={t('YourWard')}
-								/>
-							</Form.Item>
-							<Form.Item<DataPayment>
-								name={'deliveryAddress'}
-								rules={[{ required: true, message: 'Please input your address!' }]}
-							>
-								<MInput placeholder={t('DetailAddress')} />
-							</Form.Item>
-							<Form.Item<DataPayment> name='note'>
-								<TextArea placeholder={t('Note')} />
-							</Form.Item>
-						</div>
-					</MCol>
-					<MCol
-						md={9}
-						xs={24}
-						className='flex flex-col justify-between shadow-md'
-					>
-						<div>
 							<MTitle
 								level={5}
 								className='p-2 w-full bg-lime-600 text-base'
 								style={{ color: 'white' }}
 							>
-								{`2. ${t('Product')}`}
+								{`1. ${t('DeliverAddress')}`}
 							</MTitle>
-							<div style={{ height: '30rem', overflow: 'auto' }}>
-								{cart.items?.map((item) => {
-									if (item.isChecked) {
-										return (
-											<div
-												key={item._id}
-												className='flex gap-4 p-2 shadow-md'
-											>
-												<div>
-													<MImage
-														src={item.product?.images?.[0]}
-														alt='image'
-														preview={false}
-														height={60}
-														width={60}
-													/>
-												</div>
-												<div>
-													<MText className='font-medium'>{item?.product?.name}</MText>
-													<div>
-														{item?.product?.groupOptions?.map((group, index) => (
-															<span key={group?.groupName}>
-																<span className='text-gray-500'>
-																	{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
-																</span>
-															</span>
-														))}
-													</div>
-													<div className='flex gap-4'>
-														<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
-														<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
-													</div>
-												</div>
-											</div>
-										);
-									}
-								})}
-							</div>
-						</div>
-					</MCol>
-					<MCol
-						xs={24}
-						md={7}
-						className='shadow-md'
-					>
-						<MTitle
-							level={5}
-							className='p-2 w-full bg-lime-600 text-base'
-							style={{ color: 'white' }}
-						>
-							{`3. ${t('Payment')}`}
-						</MTitle>
-						<Form.Item<DataPayment>
-							name={'deliveryMethod'}
-							label={<span className='px-2'>{t('TypeService')}</span>}
-							rules={[{ required: true, message: 'Please choose delivery method !' }]}
-						>
-							<MSelect
-								className='px-2'
-								onChange={() => getFeeOrder(form)}
-								placeholder={t('TypeService')}
-								options={services}
-							/>
-						</Form.Item>
-						<div className='p-2 flex flex-col justify-between'>
-							<div>
-								<h4 className='text-base'>{t('PaymentMethod')}</h4>
-								<Form.Item<DataPayment> name={'paymentMethod'}>
-									<Radio.Group
-										className='px-2'
-										optionType='default'
-										options={[
-											...PAYMENT_METHOD.map(({ label, value }) => ({
-												label: t(label),
-												value: value,
-											})),
-										]}
+							<div className='p-4'>
+								<Form.Item<DataPayment>
+									name={'customerName'}
+									rules={[{ required: true, message: 'Please input your name!' }]}
+								>
+									<MInput placeholder={t('Name')} />
+								</Form.Item>
+								<Form.Item<DataPayment>
+									name={'customerPhone'}
+									rules={[{ required: true, message: 'Please input your phone!' }, { validator: validatePhoneNumber }]}
+								>
+									<MInput placeholder={t('PhoneNumber')} />
+								</Form.Item>
+								<Form.Item<DataPayment>
+									name='customerEmail'
+									rules={[{ required: true, message: 'Please input your mail !' }, { validator: validateEmail }]}
+								>
+									<MInput placeholder='Email' />
+								</Form.Item>
+								<Form.Item<DataPayment>
+									name='customerProvince'
+									rules={[{ required: true, message: 'Please choose province !' }]}
+								>
+									<MSelect
+										loading={address.loading}
+										onChange={(value) => {
+											form.setFieldValue('customerDistrict', undefined);
+											form.setFieldValue('customerWard', undefined);
+											form.setFieldValue('deliveryMethod', undefined);
+											dispatch(gettingDistricts(value));
+										}}
+										options={address.provinces}
+										placeholder={t('YourCity')}
 									/>
 								</Form.Item>
-								<div className='flex gap-2 items-center justify-between'>
-									<MText className='text-base font-bold'>Voucher</MText>
+								<Form.Item<DataPayment>
+									name='customerDistrict'
+									rules={[{ required: true, message: 'Please choose district !' }]}
+								>
+									<MSelect
+										loading={address.loading}
+										defaultActiveFirstOption={true}
+										onChange={(value) => {
+											getServiceDelivery(value);
+											form.setFieldValue('customerWard', undefined);
+											dispatch(gettingWards(value));
+										}}
+										options={address.districts}
+										placeholder={t('YourDistrict')}
+									/>
+								</Form.Item>
+								<Form.Item<DataPayment>
+									name='customerWard'
+									rules={[{ required: true, message: 'Please choose ward !' }]}
+								>
+									<MSelect
+										defaultActiveFirstOption={true}
+										options={address.wards}
+										loading={address.loading}
+										onChange={() => getFeeOrder(form)}
+										placeholder={t('YourWard')}
+									/>
+								</Form.Item>
+								<Form.Item<DataPayment>
+									name={'deliveryAddress'}
+									rules={[{ required: true, message: 'Please input your address!' }]}
+								>
+									<MInput placeholder={t('DetailAddress')} />
+								</Form.Item>
+								<Form.Item<DataPayment> name='note'>
+									<TextArea placeholder={t('Note')} />
+								</Form.Item>
+							</div>
+						</MCol>
+						<MCol
+							md={9}
+							xs={24}
+							className='flex flex-col justify-between shadow-md'
+						>
+							<div>
+								<MTitle
+									level={5}
+									className='p-2 w-full bg-lime-600 text-base'
+									style={{ color: 'white' }}
+								>
+									{`2. ${t('Product')}`}
+								</MTitle>
+								<div style={{ height: '30rem', overflow: 'auto' }}>
+									{cart.items?.map((item) => {
+										if (item.isChecked) {
+											return (
+												<div
+													key={item._id}
+													className='flex gap-4 p-2 shadow-md'
+												>
+													<div>
+														<MImage
+															src={item.product?.images?.[0]}
+															alt='image'
+															preview={false}
+															height={60}
+															width={60}
+														/>
+													</div>
+													<div>
+														<MText className='font-medium'>{item?.product?.name}</MText>
+														<div>
+															{item?.product?.groupOptions?.map((group, index) => (
+																<span key={group?.groupName}>
+																	<span className='text-gray-500'>
+																		{group?.groupName}: {index === 0 ? item?.productSKU?.options?.[0].option + ', ' : item?.productSKU?.options?.[1].option}
+																	</span>
+																</span>
+															))}
+														</div>
+														<div className='flex gap-4'>
+															<MText className='font-medium'>{`${t('ColumnQuantityProduct')}: ${item.quantity}`}</MText>
+															<MText className='font-medium'>{`${t('ColumnPriceProduct')}: ${customMoney(item?.totalPrice || 0)}`}</MText>
+														</div>
+													</div>
+												</div>
+											);
+										}
+									})}
+								</div>
+							</div>
+						</MCol>
+						<MCol
+							xs={24}
+							md={7}
+							className='shadow-md'
+						>
+							<MTitle
+								level={5}
+								className='p-2 w-full bg-lime-600 text-base'
+								style={{ color: 'white' }}
+							>
+								{`3. ${t('Payment')}`}
+							</MTitle>
+							<Form.Item<DataPayment>
+								name={'deliveryMethod'}
+								label={<span className='px-2'>{t('TypeService')}</span>}
+								rules={[{ required: true, message: 'Please choose delivery method !' }]}
+							>
+								<MSelect
+									className='px-2'
+									onChange={() => getFeeOrder(form)}
+									placeholder={t('TypeService')}
+									options={services}
+								/>
+							</Form.Item>
+							<div className='p-2 flex flex-col justify-between'>
+								<div>
+									<h4 className='text-base'>{t('PaymentMethod')}</h4>
+									<Form.Item<DataPayment> name={'paymentMethod'}>
+										<Radio.Group
+											className='px-2'
+											optionType='default'
+											options={[
+												...PAYMENT_METHOD.map(({ label, value }) => ({
+													label: t(label),
+													value: value,
+												})),
+											]}
+										/>
+									</Form.Item>
+									<div className='flex gap-2 items-center justify-between'>
+										<MText className='text-base font-bold'>Voucher</MText>
+										<MButton
+											type='link'
+											className='p-0 text-blue-600'
+											onClick={() => dispatch(toggleModal())}
+										>
+											{voucher.voucherApply ? (
+												<div className='flex gap-2'>
+													<div className='text-red-500'>-{customMoney(voucher?.voucherApply?.discountValue)}</div>
+													{t('ChooseVoucher')}
+												</div>
+											) : (
+												t('ChooseVoucher')
+											)}
+										</MButton>
+									</div>
+								</div>
+								<div className='w-full text-end p-2'>
+									<div className='flex items-center justify-between'>
+										<MText className='text-end text-sm'>{t('TotalPrice')}</MText>
+										<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPriceForCheckout(cart.items))}</MText>
+									</div>
+									<div className='flex items-center justify-between mt-2'>
+										<MText className='text-end text-sm'>{t('DeliveryFee')}</MText>
+										<MText className='text-end font-bold text-sm text-red-500'>{customMoney(address.fee)}</MText>
+									</div>
+									{voucher.voucherApply && (
+										<div className='flex items-center justify-between mt-2'>
+											<MText className='text-end text-sm'>Voucher</MText>
+											<MText className='text-end font-bold text-sm text-red-500'>-{customMoney(voucher.voucherApply?.discountValue)}</MText>
+										</div>
+									)}
+									<div className='flex items-center justify-between mt-2'>
+										<MText className='text-end text-sm'>{t('TotalPaid')}</MText>
+										<MText className='text-end font-bold text-sm text-red-500'>
+											{customMoney(caculatorTotalPriceForCheckout(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}
+										</MText>
+									</div>
 									<MButton
-										type='link'
-										className='p-0 text-blue-600'
-										onClick={() => dispatch(toggleModal())}
+										className='mt-2'
+										htmlType='submit'
+										type='primary'
+										disabled={address?.fee <= 0}
 									>
-										{voucher.voucherApply ? (
-											<div className='flex gap-2'>
-												<div className='text-red-500'>-{customMoney(voucher?.voucherApply?.discountValue)}</div>
-												{t('ChooseVoucher')}
-											</div>
-										) : (
-											t('ChooseVoucher')
-										)}
+										{t('PlaceOrder')}
 									</MButton>
 								</div>
 							</div>
-							<div className='w-full text-end p-2'>
-								<div className='flex items-center justify-between'>
-									<MText className='text-end text-sm'>{t('TotalPrice')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(caculatorTotalPriceForCheckout(cart.items))}</MText>
-								</div>
-								<div className='flex items-center justify-between mt-2'>
-									<MText className='text-end text-sm'>{t('DeliveryFee')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>{customMoney(address.fee)}</MText>
-								</div>
-								{voucher.voucherApply && (
-									<div className='flex items-center justify-between mt-2'>
-										<MText className='text-end text-sm'>Voucher</MText>
-										<MText className='text-end font-bold text-sm text-red-500'>-{customMoney(voucher.voucherApply?.discountValue)}</MText>
-									</div>
-								)}
-								<div className='flex items-center justify-between mt-2'>
-									<MText className='text-end text-sm'>{t('TotalPaid')}</MText>
-									<MText className='text-end font-bold text-sm text-red-500'>
-										{customMoney(caculatorTotalPriceForCheckout(cart.items) + address.fee - (voucher.voucherApply?.discountValue || 0))}
-									</MText>
-								</div>
-								<MButton
-									className='mt-2'
-									htmlType='submit'
-									type='primary'
-									disabled={address?.fee <= 0}
-								>
-									{t('PlaceOrder')}
-								</MButton>
-							</div>
-						</div>
-					</MCol>
-				</MRow>
-			</Form>
+						</MCol>
+					</MRow>
+				</Form>
+			</LayoutLoading>
 		</>
 	);
 };
