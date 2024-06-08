@@ -18,12 +18,12 @@ const MInputQuantity = (props: MInputQuantityProps) => {
 				icon={faMinus}
 				onClick={disabled ? () => {} : onClickMinus}
 			/>
+
 			<InputNumber
-				className='w-11 rounded-none'
 				min={1}
 				max={max}
-				maxLength={10}
-				style={{ height: 30 }}
+				maxLength={3}
+				style={{ height: 30, borderRadius: 0 }}
 				inputMode='numeric'
 				disabled={disabled}
 				{...rest}
