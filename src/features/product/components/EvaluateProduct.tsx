@@ -56,11 +56,11 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 									return (
 										<MRow
 											key={item._id}
-											gutter={12}
 											className='py-4 px-2'
+											justify={'start'}
 											style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 										>
-											<MCol>
+											<MCol span={3}>
 												{item.customer?.image ? (
 													<MImage
 														src={item.customer?.image}
@@ -78,8 +78,8 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 													</div>
 												)}
 											</MCol>
-											<MCol>
-												<MRow>
+											<MCol span={21}>
+												<MRow gutter={[16, 0]}>
 													<MCol span={24}>
 														<MText
 															style={{ fontSize: '1rem' }}
@@ -121,10 +121,6 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 															</MRow>
 														</MCol>
 													)}
-
-													<MCol span={24}>
-														<MText className='font-medium'>{formatDate(item.createdAt)}</MText>
-													</MCol>
 													<MCol span={24}>
 														<MText>{item.content}</MText>
 													</MCol>
@@ -138,13 +134,13 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 								<div className='px-4'>
 									<div>
 										<h3>
-											{rate}{' '}
+											{rate}
 											<span>
 												<FontAwesomeIcon
 													icon={faStar}
 													color='yellow'
 												/>
-											</span>{' '}
+											</span>
 											{`(${reviews.length} reviews)`}
 										</h3>
 									</div>
