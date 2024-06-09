@@ -3,10 +3,10 @@ const PAYMENT_METHOD = [
 		label: 'Cash',
 		value: 'cash',
 	},
-	{
-		label: 'VNPay',
-		value: 'vnpay',
-	},
+	// {
+	// 	label: 'VNPay',
+	// 	value: 'vnpay',
+	// },
 ];
 
 const ORDER_STATUS = [

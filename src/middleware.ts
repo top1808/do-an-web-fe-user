@@ -2,7 +2,7 @@ import { withAuth } from 'next-auth/middleware';
 import createIntlMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 const locales = ['vi', 'en'];
-const publicPages = ['/', '/login', '/register', '/product/[productId]', '/search', '/product'];
+const publicPages = ['/', '/login', '/register', '/product/[productId]', '/search', '/product', '/verify-email'];
 const authPages = ['/login', '/register'];
 const intlMiddleware = createIntlMiddleware({
 	locales,

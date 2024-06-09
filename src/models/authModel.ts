@@ -15,6 +15,7 @@ interface FormChangeInfor {
 	address?: string;
 	name?: string;
 	image?: string;
+	email?: string;
 }
 
 interface FormRegister extends FormLogin {

@@ -11,6 +11,7 @@ import MChatComponent from '@/components/MChatComponent';
 import { toggleChat } from '@/redux/reducers/modalReducer';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getAuthState } from '@/redux/reducers/authReducer';
+
 interface LayoutProps {
 	children?: React.ReactNode;
 }
@@ -19,6 +20,7 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 	const auth = useAppSelector(getAuthState);
 
 	const dispatch = useAppDispatch();
+
 	useEffect(() => {
 		registerServiceWorker();
 		requestPermission();

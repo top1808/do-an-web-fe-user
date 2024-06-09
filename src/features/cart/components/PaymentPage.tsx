@@ -43,6 +43,7 @@ const PaymentPage = () => {
 	const pathname = usePathname();
 	const params = useSearchParams();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
+
 	const getServiceDelivery = async (districID: string) => {
 		const body: ParamsGetService = {
 			from_district: '1450',
@@ -64,12 +65,12 @@ const PaymentPage = () => {
 		}
 	};
 	const getFeeOrder = async (form: FormInstance<DataPayment>) => {
-		if (form.getFieldValue('deliveryMethod') && form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {
+		if (form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {
 			const data: DataPayment = form.getFieldsValue();
 			const body: ParamsGetFeeDelivery = {
 				from_district_id: 1450,
 				from_ward_code: 20805,
-				service_id: data.deliveryMethod!,
+				service_id: services[0]?.value as number,
 				to_district_id: data?.customerDistrict as number,
 				to_ward_code: data?.customerWard as number,
 				height: 50,
@@ -307,7 +308,7 @@ const PaymentPage = () => {
 						<MCol
 							md={9}
 							xs={24}
-							className='flex flex-col justify-between shadow-md'
+							className='flex flex-col justify-between shadow-md bg-white'
 						>
 							<div>
 								<MTitle
@@ -360,7 +361,7 @@ const PaymentPage = () => {
 						<MCol
 							xs={24}
 							md={7}
-							className='shadow-md'
+							className='shadow-md bg-white'
 						>
 							<MTitle
 								level={5}
@@ -369,7 +370,7 @@ const PaymentPage = () => {
 							>
 								{`3. ${t('Payment')}`}
 							</MTitle>
-							<Form.Item<DataPayment>
+							{/* <Form.Item<DataPayment>
 								name={'deliveryMethod'}
 								label={<span className='px-2'>{t('TypeService')}</span>}
 								rules={[{ required: true, message: 'Please choose delivery method !' }]}
@@ -380,7 +381,7 @@ const PaymentPage = () => {
 									placeholder={t('TypeService')}
 									options={services}
 								/>
-							</Form.Item>
+							</Form.Item> */}
 							<div className='p-2 flex flex-col justify-between'>
 								<div>
 									<h4 className='text-base'>{t('PaymentMethod')}</h4>
