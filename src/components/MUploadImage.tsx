@@ -36,7 +36,7 @@ const MUploadImage: React.FC<MUploadImageProps> = ({ image, formName, disableTit
 	return (
 		<Form.Item
 			label={disableTitle ? '' : 'Image'}
-			valuePropName={formName || 'imageUpload'}
+			name={formName || 'imageUpload'}
 			getValueFromEvent={getFile}
 			rules={[
 				{
