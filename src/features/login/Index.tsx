@@ -42,8 +42,8 @@ const UserLogin = () => {
 	}, [error]);
 
 	return (
-		<div className='w-1/4 rounded-lg shadow-lg bg-gray-100 py-4'>
-			<h1 className='text-center text-white md:text-black'>{t('Title')}</h1>
+		<div className='w-full xl:w-1/4 rounded-lg shadow-lg bg-gray-100 py-4'>
+			<h1 className='text-center text-black'>{t('Title')}</h1>
 			<Form
 				name='login'
 				initialValues={{ remember: true }}
@@ -51,22 +51,19 @@ const UserLogin = () => {
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
+				layout='vertical'
 			>
 				<Form.Item<FieldType>
-					label={<label className='text-white md:text-black'>Email</label>}
+					label={<label className='text-black'>Email</label>}
 					name='email'
-					labelAlign='left'
 					hasFeedback
 					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
 				>
 					<Input />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<label className='text-white md:text-black'>{t('Password')}</label>}
+					label={t('Password')}
 					name='password'
-					labelAlign='left'
 					hasFeedback
 					rules={[
 						{ required: true, message: 'Please input your password!' },
@@ -82,7 +79,7 @@ const UserLogin = () => {
 					wrapperCol={{ md: { offset: 7, span: 17 }, xs: { offset: 7, span: 17 } }}
 				>
 					<MCheckbox>
-						<span className='text-white md:text-black'>{t('RememberMe')}</span>
+						<span className='text-black'>{t('RememberMe')}</span>
 					</MCheckbox>
 				</Form.Item>
 				<Form.Item<FieldType> className='flex justify-center'>
@@ -95,13 +92,13 @@ const UserLogin = () => {
 					</MButton>
 				</Form.Item>
 			</Form>
-			<h2 className='text-center text-white md:text-black'>{t('LoginWith')}</h2>
+			<h2 className='text-center text-black'>{t('LoginWith')}</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
 				className='mt-5'
 			>
-				<MCol>
+				{/* <MCol>
 					<MButton
 						type='primary'
 						shape='circle'
@@ -114,7 +111,7 @@ const UserLogin = () => {
 							className='text-3xl'
 						/>
 					</MButton>
-				</MCol>
+				</MCol> */}
 				<MCol>
 					<MButton
 						shape='circle'
@@ -134,10 +131,10 @@ const UserLogin = () => {
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 items-center'>
-					<h2 className='text-white md:text-black'>{t('RecommendedSignUp')}</h2>
+					<h2 className='text-black'>{t('RecommendedSignUp')}</h2>
 					<Link
 						href={'/register'}
-						className='text-blue-200 md:text-blue-600 font-bold text-xl'
+						className='text-blue-600 font-bold text-xl'
 					>
 						{t('ButtonSignup')}
 					</Link>

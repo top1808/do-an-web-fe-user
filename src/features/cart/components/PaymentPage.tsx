@@ -18,14 +18,14 @@ import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
 import { usePathname, useSearchParams } from 'next/navigation';
 import MSelect from '@/components/MSelect';
-import { getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
+import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
 import { getCartState, paying } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
-import { getVoucherState } from '@/redux/reducers/voucherReducer';
+import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherReducer';
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 import LayoutLoading from '@/components/LayoutLoading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -177,6 +177,10 @@ const PaymentPage = () => {
 		}
 	}, [cart.items, cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
+		dispatch(clearAddressState());
+		dispatch(clearVoucherState());
+		// get IP customer
+		// axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 			if (isSuccess) {

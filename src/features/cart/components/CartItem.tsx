@@ -41,8 +41,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		dispatch(updatingCart(data));
 	};
 	useEffect(() => {
-		setQuantity(item?.quantity || 1);
-	}, [item?.quantity]);
+		if (cart.statusUpdate === 'failed') {
+			setQuantity(item?.quantity || 1);
+		}
+	}, [item?.quantity, cart.statusUpdate]);
 	return (
 		<MRow
 			align={'middle'}
@@ -70,7 +72,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 				xs={16}
 				lg={21}
 			>
-				<MRow className='w-full'>
+				<MRow
+					className='w-full'
+					gutter={[16, 0]}
+					align={'middle'}
+				>
 					<MCol
 						xs={24}
 						lg={10}
@@ -124,7 +130,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 						<MButtonDelete
 							title={`Xóa sản phẩm ${item?.product?.name}? `}
 							onConfirm={() => dispatch(removingItemToCart(item?._id as string))}
-						></MButtonDelete>
+						/>
 					</MCol>
 				</MRow>
 			</MCol>

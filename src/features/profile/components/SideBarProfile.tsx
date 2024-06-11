@@ -4,14 +4,13 @@ import { getItem } from '@/utils/FunctionHelpers';
 import { faBell, faBox, faClockRotateLeft, faKey, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Menu } from 'antd';
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const SideBarProfile = () => {
-	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
-	window.onresize = () => setSizeDevice(window.innerWidth);
+	const sizeDevice = useWindowSize();
 	const t = useTranslations('ProfilePage');
 	const path = usePathname();
 	const listItem = [
@@ -22,6 +21,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						color='blue'
 						icon={faUser}
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -33,6 +33,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						color='#EBB636'
 						icon={faKey}
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -44,6 +45,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						color='black'
 						icon={faBell}
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -55,6 +57,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						icon={faBox}
 						color='green'
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -66,6 +69,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						icon={faStar}
 						color='#F4E71A'
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -77,6 +81,7 @@ const SideBarProfile = () => {
 					<FontAwesomeIcon
 						icon={faClockRotateLeft}
 						color='brown'
+						size={sizeDevice.width < 576 ? '2xl' : '1x'}
 					/>
 				</Link>
 			),
@@ -92,13 +97,16 @@ const SideBarProfile = () => {
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);
 	});
-
+	const itemsMobile: MenuItem[] = listItem.map((item) => {
+		return getItem(item.icon, item.title);
+	});
 	return (
 		<div className='w-full h-full'>
 			<Menu
-				mode={sizeDevice > 576 ? 'vertical' : 'horizontal'}
-				items={items}
+				mode={sizeDevice.width > 576 ? 'vertical' : 'horizontal'}
+				items={sizeDevice.width > 576 ? items : itemsMobile}
 				selectedKeys={[ITEMS.find((item) => path.includes(item.path))?.title ?? t('Account')]}
+				style={{ width: '100%' }}
 			/>
 		</div>
 	);

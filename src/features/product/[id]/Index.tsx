@@ -126,7 +126,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 					>
 						<div>
 							<MTitle level={3}>{productInfor?.name}</MTitle>
-							<div className='flex gap-8'>
+							<div className='flex gap-8 xs:gap-2'>
 								<Rate
 									allowHalf
 									defaultValue={productInfor?.rate || 5}
@@ -138,7 +138,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									<div className='text-xl'>{`Đã bán: ${productInfor?.soldQuantityOfProduct} sản phẩm`}</div>
 								)}
 							</div>
-							<div className='flex gap-4 items-center'>
+							<div className='flex lg:gap-4 gap-1 items-center'>
 								<CustomPriceProduct
 									isProductSKU={productSKU.product ? true : false}
 									priceProductDiscount={productInfor?.discounts && productInfor.discounts.length > 0 ? getProductPromotionPrice(productInfor) : undefined}

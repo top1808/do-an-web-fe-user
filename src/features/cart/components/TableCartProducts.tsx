@@ -3,7 +3,6 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import React, { useEffect, useState } from 'react';
-import MTitle from '@/components/MTitle';
 import { caculatorTotalPriceForCheckout, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -35,9 +34,13 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 	}, [cart.items]);
 
 	return (
-		<MRow gutter={[16, 16]}>
+		<MRow
+			gutter={[16, 16]}
+			className='px-2'
+		>
 			<MCol
-				span={18}
+				xl={18}
+				xs={24}
 				className='rounded-md'
 			>
 				<div className='hidden lg:block'>
@@ -99,7 +102,10 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 					</MButton>
 				</div>
 			</MCol>
-			<MCol span={6}>
+			<MCol
+				xl={6}
+				xs={24}
+			>
 				<MRow
 					className='bg-white p-2 w-full shadow-xl rounded-md'
 					justify={'space-between'}

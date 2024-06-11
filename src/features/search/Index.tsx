@@ -55,8 +55,7 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 								return (
 									<MCol
 										key={index}
-										xs={24}
-										sm={12}
+										xs={12}
 										md={8}
 										lg={6}
 									>

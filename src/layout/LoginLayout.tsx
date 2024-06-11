@@ -14,18 +14,17 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 				<MRow
 					justify={'start'}
 					className='w-full'
-					gutter={[16, 16]}
 					align={'middle'}
 				>
-					<MCol
-						xs={2}
-						md={4}
-					>
+					<MCol span={4}>
 						<Link
 							href={'/'}
 							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:opacity-80  justify-center h-full'
 						>
-							<FontAwesomeIcon icon={faHatCowboy} />
+							<FontAwesomeIcon
+								icon={faHatCowboy}
+								size='2xl'
+							/>
 							<span className='hidden md:block'>T&T</span>
 						</Link>
 					</MCol>
@@ -35,7 +34,7 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 				</div>
 			</header>
 			<div className='flex justify-center items-center h-full py-8 bg-[#F8F1E4]'>
-				<div>
+				<div className='hidden sm:block'>
 					<Image
 						src={bannerLogin}
 						alt='banner-login'
