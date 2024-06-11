@@ -3,7 +3,6 @@ import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import MText from '@/components/MText';
 import React, { useEffect, useState } from 'react';
-import MTitle from '@/components/MTitle';
 import { caculatorTotalPriceForCheckout, customMoney } from '@/utils/FunctionHelpers';
 import { CartProduct } from '@/models/productModels';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';

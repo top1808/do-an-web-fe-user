@@ -41,8 +41,10 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 		dispatch(updatingCart(data));
 	};
 	useEffect(() => {
-		setQuantity(item?.quantity || 1);
-	}, [item?.quantity]);
+		if (cart.statusUpdate === 'failed') {
+			setQuantity(item?.quantity || 1);
+		}
+	}, [item?.quantity, cart.statusUpdate]);
 	return (
 		<MRow
 			align={'middle'}

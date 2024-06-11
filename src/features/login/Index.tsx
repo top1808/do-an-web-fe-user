@@ -101,7 +101,7 @@ const UserLogin = () => {
 				gutter={12}
 				className='mt-5'
 			>
-				<MCol>
+				{/* <MCol>
 					<MButton
 						type='primary'
 						shape='circle'
@@ -114,7 +114,7 @@ const UserLogin = () => {
 							className='text-3xl'
 						/>
 					</MButton>
-				</MCol>
+				</MCol> */}
 				<MCol>
 					<MButton
 						shape='circle'
