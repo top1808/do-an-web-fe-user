@@ -51,22 +51,19 @@ const UserLogin = () => {
 				onFinishFailed={() => {}}
 				autoComplete='off'
 				className='m-12'
-				labelCol={{ span: 8 }}
-				wrapperCol={{ span: 16 }}
+				layout='vertical'
 			>
 				<Form.Item<FieldType>
 					label={<label className='text-white md:text-black'>Email</label>}
 					name='email'
-					labelAlign='left'
 					hasFeedback
 					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
 				>
 					<Input />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<label className='text-white md:text-black'>{t('Password')}</label>}
+					label={t('Password')}
 					name='password'
-					labelAlign='left'
 					hasFeedback
 					rules={[
 						{ required: true, message: 'Please input your password!' },

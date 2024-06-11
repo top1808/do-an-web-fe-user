@@ -72,7 +72,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 				xs={16}
 				lg={21}
 			>
-				<MRow className='w-full'>
+				<MRow
+					className='w-full'
+					gutter={[16, 0]}
+					align={'middle'}
+				>
 					<MCol
 						xs={24}
 						lg={10}
@@ -126,7 +130,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 						<MButtonDelete
 							title={`Xóa sản phẩm ${item?.product?.name}? `}
 							onConfirm={() => dispatch(removingItemToCart(item?._id as string))}
-						></MButtonDelete>
+						/>
 					</MCol>
 				</MRow>
 			</MCol>
