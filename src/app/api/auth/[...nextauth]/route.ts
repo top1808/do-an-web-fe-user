@@ -27,7 +27,7 @@ const handler = NextAuth({
 					return null;
 				} catch (error) {
 					const err = error as AxiosError<{ message: string }>;
-					throw new Error(err?.response?.data.message);
+					throw new Error(err?.response?.data?.message);
 				}
 			},
 		}),
@@ -41,7 +41,7 @@ const handler = NextAuth({
 		}),
 	],
 	callbacks: {
-		async signIn({ user, account, credentials }) {
+		async signIn({ user, account }) {
 			if (account && (account.provider === 'google' || account.provider === 'facebook')) {
 				const res: AxiosResponse<{ customer: User }> = await authApi.checkExist(user.id);
 				if (res.data?.customer) return true;
@@ -55,13 +55,18 @@ const handler = NextAuth({
 			return true;
 		},
 		async redirect({ url, baseUrl }) {
-			if (url.split('=')[1]) {
-				return decodeURIComponent(`${baseUrl}${url.split('=')[1]}`);
+			try {
+				const parsedUrl = new URL(url, baseUrl);
+				const callbackUrl = parsedUrl.searchParams.get('callbackUrl');
+				if (callbackUrl) {
+					return decodeURIComponent(`${baseUrl}${callbackUrl}`);
+				}
+				return baseUrl;
+			} catch (error) {
+				return baseUrl;
 			}
-
-			return baseUrl;
 		},
-		async jwt({ token, user, account, profile }) {
+		async jwt({ token, user, account }) {
 			if (account) {
 				token.accessToken = account.access_token;
 			}
@@ -74,7 +79,7 @@ const handler = NextAuth({
 
 			return token;
 		},
-		async session({ session, token, user }) {
+		async session({ session, token }) {
 			session.user.id = token.id as string;
 			session.accessToken = token.accessToken;
 			return session;
