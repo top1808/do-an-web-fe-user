@@ -260,7 +260,7 @@ const Header = () => {
 											icon={faUser}
 											className='text-lg xl:text-xl'
 										/>
-										<span className='hidden lg:inline-block'>{t('ButtonLogin')}</span>
+										<span className='hidden lg:inline-block ml-2'>{t('ButtonLogin')}</span>
 									</Link>
 								</div>
 							) : (

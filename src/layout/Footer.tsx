@@ -162,7 +162,7 @@ const Footer = () => {
 	];
 	return (
 		<footer>
-			<div className='  bg-white'>
+			<div className='bg-white'>
 				<div className='max-w-[1200px] mx-auto py-8'>
 					<MRow gutter={[4, 16]}>
 						<MCol span={4}>
