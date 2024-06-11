@@ -36,7 +36,7 @@ const UserRegister = () => {
 	};
 	return (
 		<div className='md:w-3/5 xl:w-1/4 w-screen md:bg-white md:py-8 md:px-4 rounded-lg'>
-			<h1 className='text-center text-white md:text-black xs:pt-10'>{t('Title')}</h1>
+			<h1 className='text-center text-black xs:pt-10'>{t('Title')}</h1>
 			<Form
 				name='resigter'
 				labelCol={{ span: 9 }}
@@ -48,7 +48,7 @@ const UserRegister = () => {
 				className='m-8 xs:mt-2'
 			>
 				<Form.Item<FieldType>
-					label={<span className='text-white md:text-black'>Email</span>}
+					label={<span className='text-black'>Email</span>}
 					name='email'
 					hasFeedback
 					labelAlign='left'
@@ -58,7 +58,7 @@ const UserRegister = () => {
 				</Form.Item>
 
 				<Form.Item<FieldType>
-					label={<span className='text-white md:text-black'>{t('Password')}</span>}
+					label={<span className='text-black'>{t('Password')}</span>}
 					name='password'
 					hasFeedback
 					labelAlign='left'
@@ -70,7 +70,7 @@ const UserRegister = () => {
 					<Input.Password />
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<span className='text-white md:text-black'>{t('ConfirmPassword')}</span>}
+					label={<span className='text-black'>{t('ConfirmPassword')}</span>}
 					name='confirmPassword'
 					labelAlign='left'
 					dependencies={['password']}
@@ -103,7 +103,7 @@ const UserRegister = () => {
 					</MButton>
 				</Form.Item>
 			</Form>
-			<h2 className='text-center text-white md:text-black'>{t('SignUpWith')}</h2>
+			<h2 className='text-center text-black'>{t('SignUpWith')}</h2>
 			<MRow
 				justify={'center'}
 				gutter={12}
@@ -141,7 +141,7 @@ const UserRegister = () => {
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 xs:gap-1 items-center'>
-					<h2 className='text-white md:text-black'>{t('RecommendedSignIn')}</h2>
+					<h2 className='text-black'>{t('RecommendedSignIn')}</h2>
 					<Link
 						href={'/login'}
 						className='text-blue-600 font-bold text-xl xs:text-blue-300'

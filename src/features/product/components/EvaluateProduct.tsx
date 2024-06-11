@@ -51,7 +51,10 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 				) : (
 					<div className='p-2'>
 						<MRow gutter={[16, 16]}>
-							<MCol span={14}>
+							<MCol
+								xl={14}
+								xs={24}
+							>
 								{filterReviewsByRating(reviews, filterRate).map((item) => {
 									return (
 										<MRow
@@ -78,7 +81,10 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 													</div>
 												)}
 											</MCol>
-											<MCol span={21}>
+											<MCol
+												xl={21}
+												xs={24}
+											>
 												<MRow gutter={[16, 0]}>
 													<MCol span={24}>
 														<MText
@@ -130,7 +136,10 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 									);
 								})}
 							</MCol>
-							<MCol span={10}>
+							<MCol
+								xl={10}
+								xs={24}
+							>
 								<div className='px-4'>
 									<div>
 										<h3>

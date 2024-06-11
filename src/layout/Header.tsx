@@ -179,7 +179,7 @@ const Header = () => {
 		<header className='py-8 bg-[#FA5130] relative'>
 			<MRow
 				justify={'space-between'}
-				className='max-w-[1200px] w-full mx-auto'
+				className='max-w-[1200px] w-full mx-auto xs:px-[2px]'
 			>
 				<MCol
 					xs={2}
