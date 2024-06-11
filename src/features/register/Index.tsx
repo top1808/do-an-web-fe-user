@@ -30,7 +30,6 @@ const UserRegister = () => {
 		try {
 			const res = await authApi.register(dataResigter);
 			toast.success(res.data.message);
-			window.location.assign('/login');
 		} catch (error: any) {
 			toast.error(error.response.data.message);
 		}

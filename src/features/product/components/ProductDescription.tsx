@@ -13,9 +13,9 @@ const ProductDescription = ({ description }: { description: string }) => {
 			</MText>
 			<div
 				className='p-4 text-base'
-				// dangerouslySetInnerHTML={{ __html: description }}
+				dangerouslySetInnerHTML={{ __html: description }}
 			>
-				{parse(description)}
+				{/* {parse(description)} */}
 			</div>
 		</div>
 	);

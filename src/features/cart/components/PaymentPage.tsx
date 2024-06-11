@@ -22,27 +22,28 @@ import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDeliver
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
-import { getCartState, paying, setIPCustomer } from '@/redux/reducers/cartReducer';
+import { getCartState, paying } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
 import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherReducer';
 import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
+import LayoutLoading from '@/components/LayoutLoading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faSackDollar } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import LayoutLoading from '@/components/LayoutLoading';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
 	const auth = useAppSelector(getAuthState);
 	const voucher = useAppSelector(getVoucherState);
 	const address = useAppSelector(getAddressState);
+
 	const dispatch = useAppDispatch();
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
 	const pathname = usePathname();
 	const params = useSearchParams();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
+
 	const getServiceDelivery = async (districID: string) => {
 		const body: ParamsGetService = {
 			from_district: '1450',
@@ -58,19 +59,18 @@ const PaymentPage = () => {
 					value: option.service_id,
 				};
 			});
-			form.setFieldValue('deliveryMethod', optionsService[0].value);
 			setServices(optionsService);
 		} else {
 			toast.warning('Hệ thống không hỗ trợ giao hàng huyện này !');
 		}
 	};
 	const getFeeOrder = async (form: FormInstance<DataPayment>) => {
-		if (form.getFieldValue('deliveryMethod') && form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {
+		if (form.getFieldValue('customerDistrict') && form.getFieldValue('customerWard')) {
 			const data: DataPayment = form.getFieldsValue();
 			const body: ParamsGetFeeDelivery = {
 				from_district_id: 1450,
 				from_ward_code: 20805,
-				service_id: data.deliveryMethod!,
+				service_id: services[0]?.value as number,
 				to_district_id: data?.customerDistrict as number,
 				to_ward_code: data?.customerWard as number,
 				height: 50,
@@ -82,6 +82,10 @@ const PaymentPage = () => {
 			};
 			dispatch(gettingFeeDelivery(body));
 		}
+	};
+
+	const handleBack = () => {
+		window.history.back();
 	};
 	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
@@ -119,6 +123,7 @@ const PaymentPage = () => {
 				label: address.wards?.find((d: Address) => d.value === data.customerWard)?.label || '',
 			},
 		};
+
 		if (dataPost.paymentMethod === 'vnpay') {
 			const date = new Date();
 			const code =
@@ -141,9 +146,6 @@ const PaymentPage = () => {
 		} else {
 			dispatch(paying(dataPost));
 		}
-	};
-	const handleBack = () => {
-		window.history.back();
 	};
 	useEffect(() => {
 		form.setFieldsValue({
@@ -181,7 +183,8 @@ const PaymentPage = () => {
 	useEffect(() => {
 		dispatch(clearAddressState());
 		dispatch(clearVoucherState());
-		axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
+		// get IP customer
+		// axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 			if (isSuccess) {
@@ -267,7 +270,7 @@ const PaymentPage = () => {
 											form.setFieldValue('deliveryMethod', undefined);
 											dispatch(gettingDistricts(value));
 										}}
-										options={[...address.provinces]}
+										options={address.provinces}
 										placeholder={t('YourCity')}
 									/>
 								</Form.Item>
@@ -283,7 +286,7 @@ const PaymentPage = () => {
 											form.setFieldValue('customerWard', undefined);
 											dispatch(gettingWards(value));
 										}}
-										options={[...address.districts]}
+										options={address.districts}
 										placeholder={t('YourDistrict')}
 									/>
 								</Form.Item>
@@ -293,7 +296,7 @@ const PaymentPage = () => {
 								>
 									<MSelect
 										defaultActiveFirstOption={true}
-										options={[...address.wards]}
+										options={address.wards}
 										loading={address.loading}
 										onChange={() => getFeeOrder(form)}
 										placeholder={t('YourWard')}
@@ -375,7 +378,7 @@ const PaymentPage = () => {
 							>
 								{`3. ${t('Payment')}`}
 							</MTitle>
-							<Form.Item<DataPayment>
+							{/* <Form.Item<DataPayment>
 								name={'deliveryMethod'}
 								label={<span className='px-2'>{t('TypeService')}</span>}
 								rules={[{ required: true, message: 'Please choose delivery method !' }]}
@@ -386,7 +389,7 @@ const PaymentPage = () => {
 									placeholder={t('TypeService')}
 									options={services}
 								/>
-							</Form.Item>
+							</Form.Item> */}
 							<div className='p-2 flex flex-col justify-between'>
 								<div>
 									<h4 className='text-base'>{t('PaymentMethod')}</h4>
@@ -442,7 +445,7 @@ const PaymentPage = () => {
 										</MText>
 									</div>
 									<MButton
-										className='mt-8'
+										className='mt-2'
 										htmlType='submit'
 										type='primary'
 										disabled={address?.fee <= 0}

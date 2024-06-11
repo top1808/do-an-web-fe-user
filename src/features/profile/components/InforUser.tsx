@@ -11,23 +11,28 @@ import { changingInfor, getAuthState } from '@/redux/reducers/authReducer';
 import { checkPhoneNumber } from '@/utils/FunctionHelpers';
 import { Form } from 'antd';
 import { useTranslations } from 'next-intl';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const InforUser = () => {
 	const auth = useAppSelector(getAuthState);
 	const { currentUserInfo } = auth;
 	const dispatch = useAppDispatch();
 	const t = useTranslations('ProfilePage');
+	const [form] = Form.useForm();
 	const onSubmit = (data: FormChangeInfor) => {
 		dispatch(changingInfor(data));
 	};
 
+	useEffect(() => {
+		form.setFieldsValue({ name: currentUserInfo?.name, email: currentUserInfo?.email, phoneNumber: currentUserInfo?.phoneNumber, address: currentUserInfo?.address, image: currentUserInfo?.image });
+	}, [currentUserInfo?.address, currentUserInfo?.email, currentUserInfo?.image, currentUserInfo?.name, currentUserInfo?.phoneNumber, form]);
+
 	return (
 		<Form
-			initialValues={{ name: currentUserInfo?.name, email: currentUserInfo?.email, phoneNumber: currentUserInfo?.phoneNumber, address: currentUserInfo?.address, image: currentUserInfo?.image }}
 			onFinish={onSubmit}
 			labelCol={{ span: 4 }}
 			wrapperCol={{ span: 20 }}
+			form={form}
 		>
 			<h2 className='text-center'>{t('Account')}</h2>
 			<MRow
@@ -42,6 +47,7 @@ const InforUser = () => {
 						image={currentUserInfo?.image || ''}
 						formName='image'
 						disableTitle
+						notRequired
 					/>
 				</MCol>
 				<MCol
@@ -135,7 +141,7 @@ const InforUser = () => {
 			<MRow className='flex justify-center'>
 				<MButton
 					type='primary'
-					className='bg-lime-600 hover:bg-lime-500'
+					className='bg-orange-600 hover:bg-orange-500'
 					htmlType='submit'
 				>
 					{t('SaveChanges')}
