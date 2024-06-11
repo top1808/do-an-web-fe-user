@@ -72,7 +72,7 @@ const CustomSlider = (props: SliderProps) => {
 				settings: {
 					prevArrow: <></>,
 					nextArrow: <></>,
-					slidesToShow: 3,
+					slidesToShow: 2,
 					slidesToScroll: 1,
 					initialSlide: 2,
 					dots: !dot ? dot : true,

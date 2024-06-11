@@ -10,7 +10,6 @@ import { getAuthState } from '@/redux/reducers/authReducer';
 import Swal from 'sweetalert2';
 const HomeUserComponent = () => {
 	const auth = useAppSelector(getAuthState);
-
 	useEffect(() => {
 		if (auth?.currentUserInfo?.name?.toLowerCase() === 'no name') {
 			Swal.fire({

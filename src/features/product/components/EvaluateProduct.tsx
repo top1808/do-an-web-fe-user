@@ -51,16 +51,19 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 				) : (
 					<div className='p-2'>
 						<MRow gutter={[16, 16]}>
-							<MCol span={14}>
+							<MCol
+								xl={14}
+								xs={24}
+							>
 								{filterReviewsByRating(reviews, filterRate).map((item) => {
 									return (
 										<MRow
 											key={item._id}
-											gutter={12}
 											className='py-4 px-2'
+											justify={'start'}
 											style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 										>
-											<MCol>
+											<MCol span={3}>
 												{item.customer?.image ? (
 													<MImage
 														src={item.customer?.image}
@@ -78,8 +81,11 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 													</div>
 												)}
 											</MCol>
-											<MCol>
-												<MRow>
+											<MCol
+												xl={21}
+												xs={24}
+											>
+												<MRow gutter={[16, 0]}>
 													<MCol span={24}>
 														<MText
 															style={{ fontSize: '1rem' }}
@@ -121,10 +127,6 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 															</MRow>
 														</MCol>
 													)}
-
-													<MCol span={24}>
-														<MText className='font-medium'>{formatDate(item.createdAt)}</MText>
-													</MCol>
 													<MCol span={24}>
 														<MText>{item.content}</MText>
 													</MCol>
@@ -134,7 +136,10 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 									);
 								})}
 							</MCol>
-							<MCol span={10}>
+							<MCol
+								xl={10}
+								xs={24}
+							>
 								<div className='px-4'>
 									<div>
 										<h3>
@@ -143,7 +148,6 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 												defaultValue={rate}
 												allowHalf
 											/>
-											{`(${reviews.length} reviews)`}
 										</h3>
 									</div>
 									<div>

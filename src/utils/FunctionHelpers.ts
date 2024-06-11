@@ -15,13 +15,14 @@ export const customMoney = (money?: number) => {
 export const compareString = (a?: string, b?: string) => {
 	return a?.toLowerCase() === b?.toLowerCase() ? true : false;
 };
-export function getItem(label?: React.ReactNode, key?: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group'): MenuItem {
+export function getItem(label?: React.ReactNode, key?: React.Key, icon?: React.ReactNode, children?: MenuItem[], type?: 'group', disabled?: boolean): MenuItem {
 	return {
 		key,
 		icon,
 		children,
 		label,
 		type,
+		disabled,
 	} as MenuItem;
 }
 export const caculatorTotalPrice = (data: Product[]) => {

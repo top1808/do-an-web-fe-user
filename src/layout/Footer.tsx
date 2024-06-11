@@ -11,6 +11,9 @@ import vnpay from '../../public/icons/vnpay.svg';
 import ghn from '../../public/icons/logo-ghn-new.png';
 
 import Image from 'next/image';
+import { MenuItem } from '@/models/productModels';
+import { getItem } from '@/utils/FunctionHelpers';
+import { Menu } from 'antd';
 
 const Footer = () => {
 	const aboutUs = [
@@ -31,7 +34,6 @@ const Footer = () => {
 			url: '/',
 		},
 	];
-
 	const helps = [
 		{
 			title: 'Hướng dẫn đặt hàng',
@@ -160,9 +162,67 @@ const Footer = () => {
 			bgColor: 'bg-white',
 		},
 	];
+	const items: MenuItem[] = [
+		getItem(
+			<MText className='text-sm font-bold'>Về chúng tôi</MText>,
+			'aboutUs',
+			<></>,
+			aboutUs.map((item) => {
+				return getItem(
+					<Link
+						href={item.url}
+						className='text-sm   block'
+					>
+						{item.title}
+					</Link>,
+					item.title,
+				);
+			}),
+		),
+		getItem(
+			<MText className='text-sm font-bold'>Hỗ trợ khách hàng</MText>,
+			'helps',
+			<></>,
+			helps.map((item) => {
+				return getItem(
+					<Link
+						href={item.url}
+						className='text-sm   block'
+					>
+						{item.title}
+					</Link>,
+					item.title,
+				);
+			}),
+		),
+		getItem(
+			<MText className='text-sm font-bold'>Chính sách</MText>,
+			'policies',
+			<></>,
+			policies.map((item) => {
+				return getItem(
+					<Link
+						href={item.url}
+						className='text-sm   block'
+					>
+						{item.title}
+					</Link>,
+					item.title,
+				);
+			}),
+		),
+		getItem(
+			<MText className='text-sm font-bold'>Liên hệ</MText>,
+			'contact',
+			<></>,
+			contacts.map((item) => {
+				return getItem(item.child, item.key);
+			}),
+		),
+	];
 	return (
 		<footer>
-			<div className='  bg-white'>
+			<div className='bg-white hidden xl:block'>
 				<div className='max-w-[1200px] mx-auto py-8'>
 					<MRow gutter={[4, 16]}>
 						<MCol span={4}>
@@ -313,25 +373,71 @@ const Footer = () => {
 						</MCol>
 					</MRow>
 				</div>
-				<div className='bg-black'>
-					<div className=' py-4'>
-						<MRow className='p-2 mt-2'>
-							<MCol
-								span={24}
-								className='text-center'
-							>
-								<MText className='text-base  text-white'>
-									Copyright © 2023 All rights reserved | This template is made with
-									<FontAwesomeIcon
-										color='red'
-										icon={faHeart}
-										className='mx-1'
-									/>
-									by the best designer in the world.
-								</MText>
-							</MCol>
-						</MRow>
-					</div>
+			</div>
+			<MRow className='bg-white block xl:hidden'>
+				<MCol span={24}>
+					<Menu
+						style={{ width: '100%' }}
+						mode='inline'
+						items={items}
+					/>
+				</MCol>
+				<MCol
+					span={24}
+					className='px-2'
+				>
+					<MRow gutter={[8, 8]}>
+						<MCol
+							span={24}
+							className='mb-4'
+						>
+							<MText className='text-xl font-bold'>Liên kết và thanh toán</MText>
+						</MCol>
+						<MCol span={24}>
+							<MText className='text-base  font-semibold'>Chúng tôi kết nối thanh toán qua</MText>
+						</MCol>
+						<MCol>
+							<Image
+								src={cod}
+								alt='cod'
+							/>
+						</MCol>
+						<MCol>
+							<Image
+								src={vnpay}
+								alt='vnpay-icon'
+							/>
+						</MCol>
+						<MCol span={24}>
+							<MText className='text-base  font-semibold'>Chúng tôi liên kết với dịch vụ giao hàng</MText>
+						</MCol>
+						<MCol>
+							<Image
+								src={ghn}
+								alt='ghn-icon'
+							/>
+						</MCol>
+					</MRow>
+				</MCol>
+			</MRow>
+			<div className='bg-black'>
+				<div className=' py-4'>
+					<MRow className='p-2 mt-2'>
+						<MCol
+							span={24}
+							className='text-center'
+						>
+							<MText className='text-base  text-white'>
+								Copyright © 2023 All rights reserved | This template is made with
+								<FontAwesomeIcon
+									color='red'
+									icon={faHeart}
+									className='mx-1'
+								/>
+								by the best designer in the world.
+							</MText>
+						</MCol>
+					</MRow>
 				</div>
 			</div>
 		</footer>

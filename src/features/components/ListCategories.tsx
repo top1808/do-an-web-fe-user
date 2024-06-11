@@ -9,10 +9,10 @@ import MSkeleton from '@/components/MSkeleton';
 import { useEffect } from 'react';
 const ListCategories = () => {
 	const category = useAppSelector(getCategoryState);
-	const disatch = useAppDispatch();
+	const dispatch = useAppDispatch();
 	useEffect(() => {
-		disatch(gettingCategory());
-	}, [disatch]);
+		dispatch(gettingCategory());
+	}, [dispatch]);
 	return (
 		<MSkeleton loading={category.loading}>
 			<MRow className='xs:mb-6 md:mb-0 bg-white px-2 '>
