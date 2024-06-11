@@ -125,7 +125,9 @@ const Header = () => {
 	}, [dispatch, session]);
 
 	useEffect(() => {
-		dispatch(gettingCart());
+		if (cart.statusUpdate !== 'loading') {
+			dispatch(gettingCart());
+		}
 	}, [dispatch, cart.statusUpdate]);
 	useEffect(() => {
 		if (notification?.data) {
@@ -174,7 +176,7 @@ const Header = () => {
 	}, [dispatch, pathname]);
 
 	return (
-		<header className='py-8  bg-[#FA5130] relative'>
+		<header className='py-8 bg-[#FA5130] relative'>
 			<MRow
 				justify={'space-between'}
 				className='max-w-[1200px] w-full mx-auto'
@@ -185,20 +187,20 @@ const Header = () => {
 				>
 					<Link
 						href={'/'}
-						className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:text-gray-200  justify-center h-full'
+						className='text-2xl md:text-4xl font-bold flex items-center text-gradien text-white hover:text-gray-200  justify-center h-full'
 					>
 						<FontAwesomeIcon icon={faHatCowboy} />
 						<span className='hidden md:block'>T&T</span>
 					</Link>
 				</MCol>
 				<MCol
-					xs={14}
+					xs={15}
 					md={12}
 				>
 					<MSearchInput placeHolder={t('SearchBar')} />
 				</MCol>
 				<MCol
-					xs={8}
+					xs={6}
 					md={8}
 				>
 					<ul className='flex justify-center gap-4 h-full text-lg items-center w-full md:gap-8'>
@@ -285,7 +287,7 @@ const Header = () => {
 					</ul>
 				</MCol>
 			</MRow>
-			<div className='absolute top-2 right-2'>
+			<div className='absolute top-1 right-2'>
 				<LocaleSwitcher />
 			</div>
 		</header>
