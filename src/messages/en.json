@@ -14,8 +14,8 @@
 		"Password": "Password",
 		"RememberMe": "Remember",
 		"ButtonLogin": "Login",
-		"LoginWith": "Or Sign In Using",
-		"RecommendedSignUp": "If You Don't Have Account ?",
+		"LoginWith": "OR",
+		"RecommendedSignUp": "New to T&T ?",
 		"ButtonSignup": "Sign Up"
 	},
 	"SignUp": {
@@ -23,7 +23,7 @@
 		"Password": "Password",
 		"ConfirmPassword": "Confirm Password",
 		"ButtonSignUp": "Sign Up",
-		"SignUpWith": "Or Sign Up Using",
+		"SignUpWith": "OR",
 		"RecommendedSignIn": "If You Have Account ?",
 		"ButtonSignIn": "Sign In"
 	},

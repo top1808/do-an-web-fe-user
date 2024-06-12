@@ -86,6 +86,11 @@ export interface CartProduct extends Product {
 export interface ProductParams {
 	offset?: string;
 	limit?: string;
+	rate?: string;
+	sortBy?: string;
+	sortType?: string;
+	minPrice?: number;
+	maxPrice?: number;
 }
 
 export interface ReponseGetProductsByCategory {
