@@ -10,7 +10,7 @@ import LocaleSwitcher from '@/components/LocaleSwitcher';
 const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (
 		<>
-			<header className=' w-full  relative bg-[#FA5130] py-8'>
+			<header className=' w-full  relative bg-whitepy-8 py-4'>
 				<MRow
 					justify={'start'}
 					className='w-full'
@@ -19,7 +19,7 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 					<MCol span={4}>
 						<Link
 							href={'/'}
-							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-white hover:opacity-80  justify-center h-full'
+							className='text-xl md:text-4xl font-bold flex items-center text-gradien text-[#FA5130] hover:opacity-80  justify-center h-full'
 						>
 							<FontAwesomeIcon
 								icon={faHatCowboy}
@@ -33,12 +33,17 @@ const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 					<LocaleSwitcher />
 				</div>
 			</header>
-			<div className='flex justify-center items-center h-full py-8 bg-[#F8F1E4]'>
-				<div className='hidden sm:block'>
-					<Image
-						src={bannerLogin}
-						alt='banner-login'
+			<div className='flex justify-center items-center gap-16 h-full py-8 bg-[#FA5130]'>
+				<div className='hidden sm:block text-center'>
+					<FontAwesomeIcon
+						icon={faHatCowboy}
+						size='9x'
+						color='white'
 					/>
+					<p className='text-white text-5xl text-center font-bold'>T&T</p>
+					<div className='w-[400px]'>
+						<p className='text-white text-2xl text-center font-semibold row-span-2'>Nền tảng thương mại yêu thích nhất Đông Nam Á</p>
+					</div>
 				</div>
 				{children}
 			</div>

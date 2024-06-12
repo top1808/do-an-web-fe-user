@@ -6,9 +6,6 @@ import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
 import { FormLogin } from '@/models/authModel';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Input } from 'antd';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
@@ -42,7 +39,7 @@ const UserLogin = () => {
 	}, [error]);
 
 	return (
-		<div className='w-full xl:w-1/4 rounded-lg shadow-lg bg-gray-100 py-4'>
+		<div className='w-full xl:w-1/4 rounded-lg shadow-lg bg-white py-4'>
 			<h1 className='text-center text-black'>{t('Title')}</h1>
 			<Form
 				name='login'
@@ -50,19 +47,20 @@ const UserLogin = () => {
 				onFinish={handleClickLogin}
 				onFinishFailed={() => {}}
 				autoComplete='off'
-				className='m-12'
+				className='px-8 py-1 xl:py-4 w-full'
 				layout='vertical'
 			>
 				<Form.Item<FieldType>
-					label={<label className='text-black'>Email</label>}
 					name='email'
 					hasFeedback
 					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
 				>
-					<Input />
+					<Input
+						placeholder='Email'
+						className='py-2 px-4'
+					/>
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={t('Password')}
 					name='password'
 					hasFeedback
 					rules={[
@@ -70,7 +68,10 @@ const UserLogin = () => {
 						{ min: 6, message: 'Min length password is 6' },
 					]}
 				>
-					<Input.Password />
+					<Input.Password
+						placeholder='Password'
+						className='py-2 px-4'
+					/>
 				</Form.Item>
 				<Form.Item<FieldType>
 					name='remember'
@@ -82,61 +83,47 @@ const UserLogin = () => {
 						<span className='text-black'>{t('RememberMe')}</span>
 					</MCheckbox>
 				</Form.Item>
-				<Form.Item<FieldType> className='flex justify-center'>
-					<MButton
-						type='primary'
-						htmlType='submit'
-						size='large'
-					>
-						{t('ButtonLogin')}
-					</MButton>
-				</Form.Item>
+
+				<MButton
+					className='bg-orange-600 text-white'
+					htmlType='submit'
+					style={{ width: '100%' }}
+					size='large'
+				>
+					{t('ButtonLogin')}
+				</MButton>
 			</Form>
-			<h2 className='text-center text-black'>{t('LoginWith')}</h2>
+			<div className='flex w-full justify-between items-center px-2'>
+				<div className='bg-gray-200 h-[2px] w-2/5'></div>
+				<h2 className='text-center text-gray-400'>{t('LoginWith')}</h2>
+				<div className='bg-gray-200 h-[2px] w-2/5'></div>
+			</div>
+			<div className='w-full px-8 py-4'>
+				<MButton
+					onClick={() => signIn('google')}
+					style={{ height: '3rem' }}
+					className='text-2xl w-full bg-white '
+				>
+					<p>
+						<span className='font-bold text-blue-600'>G</span>
+						<span className='font-bold text-red-500'>o</span>
+						<span className='font-bold text-yellow-500'>o</span>
+						<span className='font-bold text-blue-500'>g</span>
+						<span className='font-bold text-green-500'>l</span>
+						<span className='font-bold text-red-500'>e</span>
+					</p>
+				</MButton>
+			</div>
 			<MRow
-				justify={'center'}
-				gutter={12}
-				className='mt-5'
-			>
-				{/* <MCol>
-					<MButton
-						type='primary'
-						shape='circle'
-						style={{ width: '3.6rem', height: '3.6rem' }}
-						onClick={() => signIn('facebook')}
-					>
-						<FontAwesomeIcon
-							icon={faFacebook}
-							color='white'
-							className='text-3xl'
-						/>
-					</MButton>
-				</MCol> */}
-				<MCol>
-					<MButton
-						shape='circle'
-						style={{ width: '3.6rem', height: '3.6rem', backgroundColor: 'red' }}
-						onClick={() => signIn('google')}
-					>
-						<FontAwesomeIcon
-							color='white'
-							icon={faGoogle}
-							className='text-3xl'
-						/>
-					</MButton>
-				</MCol>
-			</MRow>
-			<MRow
-				className='mt-12'
+				className='mt-8'
 				justify={'center'}
 			>
 				<MCol className='flex flex-col gap-3 items-center'>
-					<h2 className='text-black'>{t('RecommendedSignUp')}</h2>
 					<Link
 						href={'/register'}
 						className='text-blue-600 font-bold text-xl'
 					>
-						{t('ButtonSignup')}
+						<span className='text-gray-400'>{t('RecommendedSignUp')}</span> {t('ButtonSignup')}
 					</Link>
 				</MCol>
 			</MRow>
