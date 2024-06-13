@@ -1,33 +1,20 @@
 'use client';
-
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getProductState, searchingProducts } from '@/redux/reducers/productReducer';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
-import Loading from '@/components/Loading';
 import { Product } from '@/models/productModels';
+import SideBarUser from '@/layout/SidebarUser';
 
 interface SearchPageComponentProps {
 	searchResults: Product[];
+	keySearch?: string;
 }
 
-const SearchPageComponent = (props: SearchPageComponentProps) => {
-	const product = useAppSelector(getProductState);
-	const { productsSearch } = product;
-	const dispatch = useAppDispatch();
-	const params = useSearchParams();
-	useEffect(() => {
-		dispatch(searchingProducts(params.get('search') || ''));
-	}, [dispatch, params]);
-
+const SearchPageComponent = ({ searchResults, keySearch }: SearchPageComponentProps) => {
 	return (
 		<>
-			{product.isSearching && <Loading isScreen={true} />}
 			<MRow
 				className='mt-4'
 				gutter={[16, 16]}
@@ -39,7 +26,14 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					lg={8}
 					xl={6}
 				>
-					<SearchFilter />
+					<MRow gutter={[16, 16]}>
+						<MCol span={24}>
+							<SideBarUser />
+						</MCol>
+						<MCol span={24}>
+							<SearchFilter />
+						</MCol>
+					</MRow>
 				</MCol>
 				<MCol
 					xs={24}
@@ -49,13 +43,12 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					xl={18}
 				>
 					<div className='py-4 px-2'>
-						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {params.get('search')}.</MText> &nbsp;
-						<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
+						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {keySearch}.</MText> &nbsp;
+						<MText className='text-xl font-bold'>Tìm thấy {searchResults.length} sản phẩm</MText>
 					</div>
 					<MRow gutter={[12, 12]}>
-						{productsSearch &&
-							productsSearch?.length > 0 &&
-							productsSearch.map((product, index) => {
+						{searchResults.length > 0 &&
+							searchResults.map((product, index) => {
 								return (
 									<MCol
 										key={index}
