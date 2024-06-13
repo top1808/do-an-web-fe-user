@@ -7,11 +7,14 @@ import { getProductState, searchingProducts } from '@/redux/reducers/productRedu
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
-import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
+import Loading from '@/components/Loading';
+import { Product } from '@/models/productModels';
 
-interface SearchPageComponentProps {}
+interface SearchPageComponentProps {
+	searchResults: Product[];
+}
 
 const SearchPageComponent = (props: SearchPageComponentProps) => {
 	const product = useAppSelector(getProductState);
@@ -23,7 +26,8 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 	}, [dispatch, params]);
 
 	return (
-		<MSkeleton loading={product.isSearching}>
+		<>
+			{product.isSearching && <Loading isScreen={true} />}
 			<MRow
 				className='mt-4'
 				gutter={[16, 16]}
@@ -66,7 +70,7 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					</MRow>
 				</MCol>
 			</MRow>
-		</MSkeleton>
+		</>
 	);
 };
 

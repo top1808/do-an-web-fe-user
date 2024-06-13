@@ -4,8 +4,6 @@ import MCol from '@/components/MCol';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHatCowboy } from '@fortawesome/free-solid-svg-icons';
-import Image from 'next/image';
-import bannerLogin from '../../public/images/clothing-fashion-dress-shop-woman-women-pick-dresses-on-hangers-564e9ed1fd8c58e2724680210d3b87c9.png';
 import LocaleSwitcher from '@/components/LocaleSwitcher';
 const LoginLayout = async ({ children }: { children: React.ReactNode }) => {
 	return (

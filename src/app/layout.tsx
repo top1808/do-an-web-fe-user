@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<StyledComponentsRegistry>
 					<Providers>
 						<NextTopLoader />
-						<main>{children}</main>
+						{children}
 						<ToastContainer />
 					</Providers>
 				</StyledComponentsRegistry>

@@ -16,7 +16,7 @@ const CartPageComponent = () => {
 	}, [dispatch]);
 	return (
 		<>
-			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}
+			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading isScreen={true} />}
 			<div className='py-8'>
 				<h2 className='text-3xl text-red-400  py-4'>
 					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; Giỏ hàng
