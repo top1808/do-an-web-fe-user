@@ -11,19 +11,24 @@
 	},
 	"Login": {
 		"Title": "Login",
+		"Email": "Email",
 		"Password": "Password",
 		"RememberMe": "Remember",
 		"ButtonLogin": "Login",
-		"LoginWith": "Or Sign In Using",
-		"RecommendedSignUp": "If You Don't Have Account ?",
-		"ButtonSignup": "Sign Up"
+		"LoginWith": "Login With",
+		"RecommendedSignUp": "New to T&T ?",
+		"ButtonSignup": "Sign Up",
+		"PasswordWrong": "Password is wrong.",
+		"EmailNotFound": "Email is not found.",
+		"EmailNotVerified": "Email is not verified."
+		
 	},
 	"SignUp": {
 		"Title": "Sign Up",
 		"Password": "Password",
 		"ConfirmPassword": "Confirm Password",
 		"ButtonSignUp": "Sign Up",
-		"SignUpWith": "Or Sign Up Using",
+		"SignUpWith": "Login With",
 		"RecommendedSignIn": "If You Have Account ?",
 		"ButtonSignIn": "Sign In"
 	},

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import MText from '@/components/MText';
 
 type FieldType = {
 	username?: string;
@@ -39,40 +40,38 @@ const UserRegister = () => {
 			<h1 className='text-center text-black xs:pt-10'>{t('Title')}</h1>
 			<Form
 				name='resigter'
-				labelCol={{ span: 9 }}
-				wrapperCol={{ span: 15 }}
 				initialValues={{ remember: true }}
 				onFinish={(value) => handleRegister(value)}
 				onFinishFailed={() => {}}
 				autoComplete='off'
-				className='m-8 xs:mt-2'
+				className='px-8 py-1 xl:py-4 w-full'
 			>
 				<Form.Item<FieldType>
-					label={<span className='text-black'>Email</span>}
 					name='email'
 					hasFeedback
-					labelAlign='left'
 					rules={[{ required: true, type: 'email', message: 'Please input your Email!' }]}
 				>
-					<Input />
+					<Input
+						placeholder='Email'
+						className='py-2 px-4'
+					/>
 				</Form.Item>
 
 				<Form.Item<FieldType>
-					label={<span className='text-black'>{t('Password')}</span>}
 					name='password'
 					hasFeedback
-					labelAlign='left'
 					rules={[
 						{ required: true, message: 'Please input your password!' },
 						{ min: 6, message: 'Min length password is 6' },
 					]}
 				>
-					<Input.Password />
+					<Input.Password
+						placeholder='Password'
+						className='py-2 px-4'
+					/>
 				</Form.Item>
 				<Form.Item<FieldType>
-					label={<span className='text-black'>{t('ConfirmPassword')}</span>}
 					name='confirmPassword'
-					labelAlign='left'
 					dependencies={['password']}
 					hasFeedback
 					rules={[
@@ -90,48 +89,46 @@ const UserRegister = () => {
 						}),
 					]}
 				>
-					<Input.Password />
+					<Input.Password
+						placeholder='Confirm Password'
+						className='py-2 px-4'
+					/>
 				</Form.Item>
 
 				<Form.Item<FieldType> className='flex justify-center'>
 					<MButton
-						type='primary'
+						className='bg-orange-600 text-white'
 						htmlType='submit'
+						style={{ width: '100%' }}
 						size='large'
 					>
 						{t('ButtonSignUp')}
 					</MButton>
 				</Form.Item>
 			</Form>
-			<h2 className='text-center text-black'>{t('SignUpWith')}</h2>
+			<div className='flex w-full justify-between items-center px-2'>
+				<div className='bg-gray-200 h-[2px] w-1/6'></div>
+				<MText className='text-center text-xl font-bold text-gray-400'>{t('SignUpWith')}</MText>
+				<div className='bg-gray-200 h-[2px] w-1/6'></div>
+			</div>
 			<MRow
 				justify={'center'}
 				gutter={12}
 				className='mt-5 xs:mt-2'
 			>
-				{/* <MCol>
-					<MButton
-						type='primary'
-						shape='circle'
-						style={{ width: '3.6rem', height: '3.6rem' }}
-					>
-						<FontAwesomeIcon
-							icon={faFacebook}
-							color='white'
-							className='text-3xl'
-						/>
-					</MButton>
-				</MCol> */}
 				<MCol>
 					<MButton
-						shape='circle'
-						style={{ width: '3.6rem', height: '3.6rem', backgroundColor: 'red' }}
+						style={{ height: '3rem' }}
+						className='text-2xl w-full bg-white '
 					>
-						<FontAwesomeIcon
-							color='white'
-							icon={faGoogle}
-							className='text-3xl'
-						/>
+						<p>
+							<span className='font-bold text-blue-600'>G</span>
+							<span className='font-bold text-red-500'>o</span>
+							<span className='font-bold text-yellow-500'>o</span>
+							<span className='font-bold text-blue-500'>g</span>
+							<span className='font-bold text-green-500'>l</span>
+							<span className='font-bold text-red-500'>e</span>
+						</p>
 					</MButton>
 				</MCol>
 			</MRow>

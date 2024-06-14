@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-import { Product } from '@/models/productModels';
+import { Product, ProductFilterParams } from '@/models/productModels';
 
 const URL = '/product';
 
@@ -19,8 +19,8 @@ const ProductApi = {
 	getProductsRelative(id: string) {
 		return axiosClient.get(URL + '/get-product-relative/' + id);
 	},
-	searchProducts(search: string) {
-		return axiosClient.get(URL + '/search/' + search);
+	searchProducts(params: ProductFilterParams) {
+		return axiosClient.get(URL + '/search/' + params.search, { params });
 	},
 };
 

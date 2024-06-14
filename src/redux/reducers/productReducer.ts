@@ -1,4 +1,4 @@
-import { Product, ProductSKU } from '@/models/productModels';
+import { Product, ProductFilterParams, ProductSKU } from '@/models/productModels';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { RootState } from '../store';
@@ -70,7 +70,7 @@ const ProductSlice = createSlice({
 			action.payload && toast.error(action.payload);
 		},
 
-		searchingProducts: (state, action: PayloadAction<string>) => {
+		searchingProducts: (state, action: PayloadAction<ProductFilterParams>) => {
 			state.isSearching = true;
 			state.productsSearch = [];
 		},

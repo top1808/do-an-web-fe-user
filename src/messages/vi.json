@@ -11,19 +11,23 @@
 	},
 	"Login": {
 		"Title": "Đăng nhập",
+		"Email": "Email",
 		"Password": "Mật khẩu",
 		"RememberMe": "Ghi nhớ",
 		"ButtonLogin": "Đăng nhập",
 		"LoginWith": "Đăng nhập bằng",
 		"RecommendedSignUp": "Nếu bạn chưa có tài khoản ?",
-		"ButtonSignup": "Đăng ký"
+		"ButtonSignup": "Đăng ký",
+		"PasswordWrong": "Sai mật khẩu.",
+		"EmailNotFound": "Email không tồn tại.",
+		"EmailNotVerified": "Email chưa được xác thực."
 	},
 	"SignUp": {
 		"Title": "Đăng ký",
 		"Password": "Mật khẩu",
 		"ConfirmPassword": "Xác nhận mật khẩu",
 		"ButtonSignUp": "Đăng ký",
-		"SignUpWith": "Bạn có thể đăng ký bằng",
+		"SignUpWith": "Bạn có thể đăng nhập bằng",
 		"RecommendedSignIn": "Nếu bạn đã có tài khoản ?",
 		"ButtonSignIn": "Đăng nhập"
 	},
