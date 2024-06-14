@@ -10,6 +10,7 @@ import CardProduct from '../home/components/CardProduct';
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
+import { ProductFilterParams } from '@/models/productModels';
 
 interface SearchPageComponentProps {}
 
@@ -17,10 +18,18 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 	const product = useAppSelector(getProductState);
 	const { productsSearch } = product;
 	const dispatch = useAppDispatch();
-	const params = useSearchParams();
+	const seachParams = useSearchParams();
 	useEffect(() => {
-		dispatch(searchingProducts(params.get('search') || ''));
-	}, [dispatch, params]);
+		const params: ProductFilterParams = {
+			search: seachParams.get('search') || '',
+			sortBy: seachParams.get('sortBy') || '',
+			sortType: seachParams.get('sortType') || '',
+			rate: seachParams.get('rate') || '',
+			minPrice: Number(seachParams.get('minPrice') || 0),
+			maxPrice: Number(seachParams.get('maxPrice') || 0),
+		};
+		dispatch(searchingProducts(params));
+	}, [dispatch, seachParams]);
 
 	return (
 		<MSkeleton loading={product.isSearching}>
@@ -45,7 +54,7 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					xl={18}
 				>
 					<div className='py-4 px-2'>
-						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {params.get('search')}.</MText> &nbsp;
+						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {seachParams.get('search')}.</MText> &nbsp;
 						<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
 					</div>
 					<MRow gutter={[12, 12]}>

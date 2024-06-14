@@ -21,7 +21,7 @@ import {
 import { CreateAction } from '@/models/actionModel';
 import { PayloadAction } from '@reduxjs/toolkit';
 import reviewApi from '@/api/reviewApi';
-import { ProductSKU } from '@/models/productModels';
+import { ProductFilterParams, ProductSKU } from '@/models/productModels';
 
 function* onGetProducts() {
 	try {
@@ -57,7 +57,7 @@ function* onGetProductsRelative(action: PayloadAction<string>) {
 		yield put(getProductsRelativeFailed(error.response.data.message));
 	}
 }
-function* onSearchProducts(action: PayloadAction<string>) {
+function* onSearchProducts(action: PayloadAction<ProductFilterParams>) {
 	try {
 		const response: AxiosResponse = yield call(productApi.searchProducts, action.payload);
 

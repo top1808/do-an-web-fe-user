@@ -85,7 +85,7 @@ const SearchFilter = () => {
 			const params = new URLSearchParams(searchParams.toString());
 			if (value) {
 				if (name === 'sortType') {
-					params.set('sortBy', 'price');
+					params.set('sortBy', 'maxPrice');
 				}
 				params.set(name, value);
 			} else {

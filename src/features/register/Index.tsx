@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import MText from '@/components/MText';
 
 type FieldType = {
 	username?: string;
@@ -106,9 +107,9 @@ const UserRegister = () => {
 				</Form.Item>
 			</Form>
 			<div className='flex w-full justify-between items-center px-2'>
-				<div className='bg-gray-200 h-[2px] w-2/5'></div>
-				<h2 className='text-center text-gray-400'>{t('SignUpWith')}</h2>
-				<div className='bg-gray-200 h-[2px] w-2/5'></div>
+				<div className='bg-gray-200 h-[2px] w-1/6'></div>
+				<MText className='text-center text-xl font-bold text-gray-400'>{t('SignUpWith')}</MText>
+				<div className='bg-gray-200 h-[2px] w-1/6'></div>
 			</div>
 			<MRow
 				justify={'center'}

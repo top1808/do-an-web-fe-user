@@ -97,4 +97,14 @@ export interface ReponseGetProductsByCategory {
 	products?: Product[];
 	pagination?: PaginationModel;
 }
+
+export interface ProductFilterParams {
+	search?: string;
+	sortBy?: string;
+	sortType?: string;
+	rate?: string;
+	minPrice?: number;
+	maxPrice?: number;
+}
+
 export type MenuItem = Required<MenuProps>['items'][number];

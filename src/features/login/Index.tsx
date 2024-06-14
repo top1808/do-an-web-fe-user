@@ -5,13 +5,14 @@ import MButton from '@/components/MButton';
 import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
+import MText from '@/components/MText';
 import { FormLogin } from '@/models/authModel';
 import { Form, Input } from 'antd';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 type FieldType = {
@@ -22,28 +23,32 @@ type FieldType = {
 	buttonLogin?: string;
 };
 const UserLogin = () => {
-	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUser') || '{}');
+	const accountUser: FormLogin = JSON.parse(localStorage.getItem('accountUserSale') || '{}');
+	const [loading, setLoading] = useState(false);
 	const error = useSearchParams().get('error');
 	const t = useTranslations('Login');
-	const handleClickLogin = (data: FormLogin) => {
-		signIn('credentials', {
+	const handleClickLogin = async (data: FormLogin) => {
+		localStorage.setItem('accountUserSale', JSON.stringify(data));
+		setLoading(true);
+		await signIn('credentials', {
 			email: data.email,
 			password: data.password,
 		});
+		setLoading(false);
 	};
 
 	useEffect(() => {
 		if (error) {
-			toast.error(error);
+			toast.error(t(error));
 		}
-	}, [error]);
+	}, [error, t]);
 
 	return (
 		<div className='w-full xl:w-1/4 rounded-lg shadow-lg bg-white py-4'>
 			<h1 className='text-center text-black'>{t('Title')}</h1>
 			<Form
 				name='login'
-				initialValues={{ remember: true }}
+				initialValues={{ remember: true, email: accountUser.email, password: accountUser.password }}
 				onFinish={handleClickLogin}
 				onFinishFailed={() => {}}
 				autoComplete='off'
@@ -52,6 +57,7 @@ const UserLogin = () => {
 			>
 				<Form.Item<FieldType>
 					name='email'
+					label={t('Email')}
 					hasFeedback
 					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
 				>
@@ -62,6 +68,7 @@ const UserLogin = () => {
 				</Form.Item>
 				<Form.Item<FieldType>
 					name='password'
+					label={t('Password')}
 					hasFeedback
 					rules={[
 						{ required: true, message: 'Please input your password!' },
@@ -89,20 +96,26 @@ const UserLogin = () => {
 					htmlType='submit'
 					style={{ width: '100%' }}
 					size='large'
+					loading={loading}
 				>
 					{t('ButtonLogin')}
 				</MButton>
 			</Form>
 			<div className='flex w-full justify-between items-center px-2'>
-				<div className='bg-gray-200 h-[2px] w-2/5'></div>
-				<h2 className='text-center text-gray-400'>{t('LoginWith')}</h2>
-				<div className='bg-gray-200 h-[2px] w-2/5'></div>
+				<div className='bg-gray-200 h-[2px] w-1/5'></div>
+				<MText className='text-center text-xl font-bold text-gray-400'>{t('LoginWith')}</MText>
+				<div className='bg-gray-200 h-[2px] w-1/5'></div>
 			</div>
 			<div className='w-full px-8 py-4'>
 				<MButton
-					onClick={() => signIn('google')}
+					onClick={async () => {
+						setLoading(true);
+						await signIn('google');
+						setLoading(false);
+					}}
 					style={{ height: '3rem' }}
-					className='text-2xl w-full bg-white '
+					className='text-2xl w-full bg-white'
+					loading={loading}
 				>
 					<p>
 						<span className='font-bold text-blue-600'>G</span>
