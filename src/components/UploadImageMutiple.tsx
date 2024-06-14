@@ -77,7 +77,7 @@ const MUploadImageMultiple: React.FC<MUploadImageMultipleProps> = (props) => {
 					accept='image/*'
 					{...rest}
 				>
-					{!props.disabled && fileList.length < 5 && children}
+					{!props.disabled && fileList.length < 5 && '+ Upload'}
 				</MUpload>
 			</Form.Item>
 			<Modal

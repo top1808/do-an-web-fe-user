@@ -123,10 +123,10 @@ export function getProductsTopSales(products?: Product[], count?: number) {
 	}
 	return products;
 }
-export const filterReviewsByRating = (reviews: Review[], rating: number[]) => {
-	if (rating.length === 0) return reviews;
+export const filterReviewsByRating = (reviews: Review[], rating: number) => {
+	if (rating === -1) return reviews;
 	const temp = [...reviews];
-	const filteredReviews = temp.filter((review) => rating.includes(review.rate ?? 0));
+	const filteredReviews = temp.filter((review) => rating >= review.rate! && review.rate! >= rating - 1);
 	return filteredReviews;
 };
 export const getProductsSKUSalesByOneOption = (product?: Product) => {

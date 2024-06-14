@@ -18,7 +18,6 @@ const MInputQuantity = (props: MInputQuantityProps) => {
 				icon={faMinus}
 				onClick={disabled ? () => {} : onClickMinus}
 			/>
-
 			<InputNumber
 				min={1}
 				max={max}
@@ -26,6 +25,7 @@ const MInputQuantity = (props: MInputQuantityProps) => {
 				style={{ height: 30, borderRadius: 0 }}
 				inputMode='numeric'
 				disabled={disabled}
+				type='number'
 				{...rest}
 			/>
 			<FontAwesomeIcon
