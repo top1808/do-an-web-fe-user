@@ -1,10 +1,10 @@
 import React from 'react';
 import MSpin from './MSpin';
 
-const Loading = () => {
+const Loading = ({ isScreen }: { isScreen?: boolean }) => {
 	return (
 		<div
-			className='flex items-center justify-center absolute top-0 left-0 bottom-0 right-0'
+			className={`flex items-center justify-center absolute top-0 left-0 bottom-0 right-0 ${isScreen ? ' h-screen bg-slate-100' : ''}`}
 			style={{ zIndex: 99999 }}
 		>
 			<MSpin size='large'></MSpin>

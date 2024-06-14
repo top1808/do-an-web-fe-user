@@ -4,7 +4,6 @@ import MButton from '@/components/MButton';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
-import MUploadImage from '@/components/MUploadImage';
 import MUploadImageMultiple from '@/components/UploadImageMutiple';
 import { ProductSKU } from '@/models/productModels';
 import { ReviewBody } from '@/models/reviewModel';

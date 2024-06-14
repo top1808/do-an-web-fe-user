@@ -1,38 +1,20 @@
 'use client';
-
 import MCol from '@/components/MCol';
 import MRow from '@/components/MRow';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getProductState, searchingProducts } from '@/redux/reducers/productReducer';
-import { useSearchParams } from 'next/navigation';
-import React, { useEffect } from 'react';
 import CardProduct from '../home/components/CardProduct';
-import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
-import { ProductFilterParams } from '@/models/productModels';
+import { Product } from '@/models/productModels';
+import SideBarUser from '@/layout/SidebarUser';
 
-interface SearchPageComponentProps {}
+interface SearchPageComponentProps {
+	searchResults: Product[];
+	keySearch?: string;
+}
 
-const SearchPageComponent = (props: SearchPageComponentProps) => {
-	const product = useAppSelector(getProductState);
-	const { productsSearch } = product;
-	const dispatch = useAppDispatch();
-	const seachParams = useSearchParams();
-	useEffect(() => {
-		const params: ProductFilterParams = {
-			search: seachParams.get('search') || '',
-			sortBy: seachParams.get('sortBy') || '',
-			sortType: seachParams.get('sortType') || '',
-			rate: seachParams.get('rate') || '',
-			minPrice: Number(seachParams.get('minPrice') || 0),
-			maxPrice: Number(seachParams.get('maxPrice') || 0),
-		};
-		dispatch(searchingProducts(params));
-	}, [dispatch, seachParams]);
-
+const SearchPageComponent = ({ searchResults, keySearch }: SearchPageComponentProps) => {
 	return (
-		<MSkeleton loading={product.isSearching}>
+		<>
 			<MRow
 				className='mt-4'
 				gutter={[16, 16]}
@@ -44,7 +26,14 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					lg={8}
 					xl={6}
 				>
-					<SearchFilter />
+					<MRow gutter={[16, 16]}>
+						<MCol span={24}>
+							<SideBarUser />
+						</MCol>
+						<MCol span={24}>
+							<SearchFilter />
+						</MCol>
+					</MRow>
 				</MCol>
 				<MCol
 					xs={24}
@@ -54,13 +43,12 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					xl={18}
 				>
 					<div className='py-4 px-2'>
-						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {seachParams.get('search')}.</MText> &nbsp;
-						<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
+						<MText className='text-xl font-bold'>Từ khóa tìm kiếm: {keySearch}.</MText> &nbsp;
+						<MText className='text-xl font-bold'>Tìm thấy {searchResults.length} sản phẩm</MText>
 					</div>
 					<MRow gutter={[12, 12]}>
-						{productsSearch &&
-							productsSearch?.length > 0 &&
-							productsSearch.map((product, index) => {
+						{searchResults.length > 0 &&
+							searchResults.map((product, index) => {
 								return (
 									<MCol
 										key={index}
@@ -75,7 +63,7 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 					</MRow>
 				</MCol>
 			</MRow>
-		</MSkeleton>
+		</>
 	);
 };
 
