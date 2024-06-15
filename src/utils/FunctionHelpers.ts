@@ -126,7 +126,7 @@ export function getProductsTopSales(products?: Product[], count?: number) {
 export const filterReviewsByRating = (reviews: Review[], rating: number) => {
 	if (rating === -1) return reviews;
 	const temp = [...reviews];
-	const filteredReviews = temp.filter((review) => rating >= review.rate! && review.rate! >= rating - 1);
+	const filteredReviews = temp.filter((review) => rating + 1 > review.rate! && review.rate! >= rating);
 	return filteredReviews;
 };
 export const getProductsSKUSalesByOneOption = (product?: Product) => {

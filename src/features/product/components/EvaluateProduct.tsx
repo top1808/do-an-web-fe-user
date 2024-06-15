@@ -1,17 +1,15 @@
 'use client';
-import MCheckbox from '@/components/MCheckbox';
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
-
 import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { Review } from '@/models/reviewModel';
 import { filterReviewsByRating, formatDate } from '@/utils/FunctionHelpers';
 import { faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Rate } from 'antd';
-import React, { useState } from 'react';
+import { List, Rate } from 'antd';
+import React, { useEffect, useState } from 'react';
 import MButton from '@/components/MButton';
 
 type EvaluateProductProps = {
@@ -51,6 +49,33 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 	];
 	const [filterRate, setFilterRate] = useState<number>(-1);
 
+	const [data, setData] = useState<Review[]>([]);
+	const onLoadMore = () => {
+		// call api load more
+		// .....
+		// temp use data client
+		setData((prev) => [...prev, ...filterReviewsByRating(reviews, filterRate).slice(prev.length, prev.length + 3)]);
+	};
+	// Button loadMore
+	const loadMore =
+		data.length < reviews.length ? (
+			<div
+				style={{
+					textAlign: 'center',
+					marginTop: 12,
+					height: 32,
+					lineHeight: '32px',
+				}}
+			>
+				<MButton onClick={() => onLoadMore()}>loading more</MButton>
+			</div>
+		) : null;
+	useEffect(() => {
+		// call api load more
+		// .....
+		// temp use data client
+		setData(filterReviewsByRating(reviews, filterRate).slice(0, 3) || []);
+	}, [filterRate, reviews]);
 	return (
 		<>
 			<div className='shadow-xl mt-4 bg-white'>
@@ -97,7 +122,92 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 								</div>
 							</MCol>
 							<MCol span={24}>
-								{filterReviewsByRating(reviews, filterRate).map((item) => {
+								<List
+									className='demo-loadmore-list'
+									loading={false}
+									itemLayout='horizontal'
+									loadMore={loadMore}
+									dataSource={data}
+									renderItem={(item) => (
+										<List.Item key={item._id}>
+											<MRow
+												className='py-4 px-2 w-full'
+												justify={'start'}
+											>
+												<MCol span={2}>
+													{item.customer?.image ? (
+														<MImage
+															src={item.customer?.image}
+															width={50}
+															height={50}
+															preview={false}
+															style={{ borderRadius: '999px' }}
+														/>
+													) : (
+														<div className='rounded-full bg-slate-200 p-3 text-center w-[50px] h-[50px]'>
+															<FontAwesomeIcon
+																icon={faUser}
+																size='lg'
+															/>
+														</div>
+													)}
+												</MCol>
+												<MCol
+													xl={22}
+													xs={24}
+												>
+													<MRow>
+														<MCol span={24}>
+															<MText
+																style={{ fontSize: '1rem' }}
+																className='font-bold'
+															>
+																{item.customer?.name || 'Ẩn danh'}
+															</MText>
+														</MCol>
+														<MCol span={24}>
+															<MText
+																style={{ fontSize: '0.8rem' }}
+																className='font-semibold'
+															>
+																{formatDate(item.createdAt) || ''}
+															</MText>
+														</MCol>
+														<MCol span={24}>
+															<Rate
+																disabled
+																defaultValue={item.rate}
+																allowHalf
+															/>
+														</MCol>
+														<MCol span={24}>
+															{item.images && item.images.length > 0 && (
+																<MRow justify={'start'}>
+																	{item.images.map((i, index) => (
+																		<MCol
+																			key={`${item._id}${index}`}
+																			span={8}
+																		>
+																			<MImage
+																				src={i}
+																				alt={`${item._id}${index}`}
+																				height={120}
+																			/>
+																		</MCol>
+																	))}
+																</MRow>
+															)}
+														</MCol>
+														<MCol span={24}>
+															<MText>{item.content}</MText>
+														</MCol>
+													</MRow>
+												</MCol>
+											</MRow>
+										</List.Item>
+									)}
+								/>
+								{/* {filterReviewsByRating(reviews, filterRate).map((item) => {
 									return (
 										<MRow
 											key={item._id}
@@ -176,7 +286,7 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 											</MCol>
 										</MRow>
 									);
-								})}
+								})} */}
 							</MCol>
 						</MRow>
 					</div>
