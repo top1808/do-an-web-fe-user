@@ -14,10 +14,7 @@ async function getProductByCategory(searchParams: { category: string; offset: st
 		sortBy: searchParams.sortBy ?? '',
 		sortType: searchParams.sortType ?? '',
 	});
-	console.log(`product/get-by-category/${searchParams.category ?? 'all'}${query}`);
-
 	const res = await fetchServer(`product/get-by-category/${searchParams.category ?? 'all'}` + query);
-
 	const response = await res.json();
 	return response as ReponseGetProductsByCategory;
 }
@@ -40,7 +37,6 @@ const ProductPage = async ({
 	searchParams: { category: string; offset: string; limit: string; rate: string; minPrice: number; maxPrice: number; sortBy: string; sortType: string };
 }) => {
 	const { products, pagination }: ReponseGetProductsByCategory = await getProductByCategory(searchParams);
-
 	return (
 		<ProductsComponent
 			products={products as Product[]}
