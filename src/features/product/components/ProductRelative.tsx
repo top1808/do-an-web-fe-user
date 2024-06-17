@@ -15,7 +15,10 @@ const ProductRelative = (props: ProductRelativeProps) => {
 	const params = useParams();
 
 	useEffect(() => {
-		dispatch(gettingProducstRelative(params.id as string));
+		const slugs = (params.id as string)?.split('-');
+		const id = slugs[slugs.length - 1];
+
+		dispatch(gettingProducstRelative(id as string));
 	}, [dispatch, params.id]);
 	return (
 		<MSkeleton loading={product.loading}>

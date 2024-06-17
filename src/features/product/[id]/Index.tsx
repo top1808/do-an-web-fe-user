@@ -70,7 +70,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 		if (product.options.length === productInfor?.groupOptions?.length) {
 			const findProductSKU = productInfor?.productSKUList?.find((item) => {
 				const optionsProduct = item.options?.map((option) => option.option);
-				if (product.options.every((element, index) => compareString(element, optionsProduct[index]))) {
+				if (product.options.every((element: string, index: number) => compareString(element, optionsProduct[index]))) {
 					return item;
 				}
 				return null;
@@ -271,7 +271,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				rate={productInfor?.rate || 5}
 				reviews={productInfor?.reviews || []}
 			/>
-			{product.productsRelative?.length > 0 && <ProductRelative />}
+			<ProductRelative />
 		</>
 	);
 };
