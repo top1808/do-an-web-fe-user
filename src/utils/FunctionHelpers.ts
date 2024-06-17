@@ -5,7 +5,10 @@ import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
 
 export const vietnamesePhoneNumberRegex = /(0|\+84)(\d{9})\b/;
-
+export const getSlugFromNameProduct = ({ name, id }: { name?: string; id?: string }) => {
+	const cleaned = name?.replace(/[./-]/g, ' ').replace(/\s+/g, ' ').trim();
+	return cleaned?.split(' ').join('-').toLowerCase() + '-' + id;
+};
 export const customMoney = (money?: number) => {
 	return (money || 0)?.toLocaleString('vi-VN', {
 		style: 'currency',

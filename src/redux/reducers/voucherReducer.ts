@@ -5,7 +5,7 @@ import { RootState } from '../store';
 interface VoucherState {
 	loading: boolean;
 	isApplying: boolean;
-	status: 'pending' | 'completed' | 'failed';
+	status: 'init' | 'pending' | 'completed' | 'failed';
 	data?: VoucherModel[];
 	voucherApply?: ApplyVoucherInfor | null;
 }
@@ -13,7 +13,7 @@ interface VoucherState {
 const initialState: VoucherState = {
 	loading: false,
 	isApplying: false,
-	status: 'pending',
+	status: 'init',
 	data: [],
 	voucherApply: null,
 };
@@ -28,11 +28,13 @@ const voucherSlice = createSlice({
 		},
 		getVouchersSuccess: (state, action: PayloadAction<VoucherModel[]>) => {
 			state.loading = false;
+			state.status = 'completed';
 			state.data = action.payload;
 		},
 		getVouchersFailed: (state, action: PayloadAction<string>) => {
 			state.loading = false;
 			state.data = [];
+			state.status = 'failed';
 			action.payload && toast.error(action.payload);
 		},
 
