@@ -117,14 +117,12 @@ const UserLogin = () => {
 					className='text-2xl w-full bg-white'
 					loading={loading}
 				>
-					<p>
-						<span className='font-bold text-blue-600'>G</span>
-						<span className='font-bold text-red-500'>o</span>
-						<span className='font-bold text-yellow-500'>o</span>
-						<span className='font-bold text-blue-500'>g</span>
-						<span className='font-bold text-green-500'>l</span>
-						<span className='font-bold text-red-500'>e</span>
-					</p>
+					<span className='font-bold text-blue-600'>G</span>
+					<span className='font-bold text-red-500'>o</span>
+					<span className='font-bold text-yellow-500'>o</span>
+					<span className='font-bold text-blue-500'>g</span>
+					<span className='font-bold text-green-500'>l</span>
+					<span className='font-bold text-red-500'>e</span>
 				</MButton>
 			</div>
 			<MRow

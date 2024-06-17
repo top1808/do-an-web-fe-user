@@ -1,7 +1,7 @@
 import MImage from '@/components/MImage';
 import MText from '@/components/MText';
 import { Product } from '@/models/productModels';
-import { customMoney, getProductPrice, getProductPromotionPrice } from '@/utils/FunctionHelpers';
+import { customMoney, getProductPrice, getProductPromotionPrice, getSlugFromNameProduct } from '@/utils/FunctionHelpers';
 import { Rate } from 'antd';
 import Link from 'next/link';
 import React from 'react';
@@ -14,7 +14,7 @@ export interface CardProductProps {
 const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) => {
 	return (
 		<Link
-			href={link || `/product/${data._id}`}
+			href={link || `/product/${getSlugFromNameProduct({ name: data.name, id: data._id })}`}
 			className='block max-w-xs relative'
 		>
 			<div className='shadow-md px-1 py-4 bg-white border-blue-100 w-full card hover:opacity-70'>
