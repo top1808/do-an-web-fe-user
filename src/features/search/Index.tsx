@@ -11,12 +11,6 @@ import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
 import { ProductFilterParams } from '@/models/productModels';
-import SideBarUser from '@/layout/SidebarUser';
-import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
-import { getProductState, searchingProducts } from '@/redux/reducers/productReducer';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import Loading from '@/components/Loading';
 
 const SearchPageComponent = () => {
 	const product = useAppSelector(getProductState);
