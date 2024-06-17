@@ -11,14 +11,18 @@ import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
 import SearchFilter from '@/components/SearchFilter';
 import { ProductFilterParams } from '@/models/productModels';
+import SideBarUser from '@/layout/SidebarUser';
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+import { getProductState, searchingProducts } from '@/redux/reducers/productReducer';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import Loading from '@/components/Loading';
 
-interface SearchPageComponentProps {}
-
-const SearchPageComponent = (props: SearchPageComponentProps) => {
+const SearchPageComponent = () => {
 	const product = useAppSelector(getProductState);
 	const { productsSearch } = product;
-	const dispatch = useAppDispatch();
 	const seachParams = useSearchParams();
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		const params: ProductFilterParams = {
 			search: seachParams.get('search') || '',
@@ -58,12 +62,11 @@ const SearchPageComponent = (props: SearchPageComponentProps) => {
 						<MText className='text-xl font-bold'>Tìm thấy {productsSearch.length} sản phẩm</MText>
 					</div>
 					<MRow gutter={[12, 12]}>
-						{productsSearch &&
-							productsSearch?.length > 0 &&
-							productsSearch.map((product, index) => {
+						{productsSearch.length > 0 &&
+							productsSearch.map((product) => {
 								return (
 									<MCol
-										key={index}
+										key={product._id}
 										xs={12}
 										md={8}
 										lg={6}
