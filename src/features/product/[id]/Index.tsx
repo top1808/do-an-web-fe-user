@@ -271,7 +271,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 				rate={productInfor?.rate || 5}
 				reviews={productInfor?.reviews || []}
 			/>
-			{product.productsRelative?.length > 0 && <ProductRelative />}
+			<ProductRelative />
 		</>
 	);
 };

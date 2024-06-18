@@ -6,6 +6,9 @@ import { getProductState, gettingProducstRelative } from '@/redux/reducers/produ
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '@/features/home/components/CardProduct';
+import { Card } from 'antd';
+import MRow from '@/components/MRow';
+import MCol from '@/components/MCol';
 
 interface ProductRelativeProps {}
 
@@ -26,17 +29,27 @@ const ProductRelative = (props: ProductRelativeProps) => {
 				>
 					Sản phẩm liên quan
 				</MText>
-				<CustomSlider
+				{/* <CustomSlider
 					length={product.productsRelative?.length || 0}
 					dot={false}
 				>
 					{product.productsRelative.map((item) => (
-						<CardProduct
-							data={item}
-							key={item._id}
-						/>
+						<div key={item._id}>
+							<CardProduct data={item} />
+						</div>
 					))}
-				</CustomSlider>
+				</CustomSlider> */}
+				<MRow gutter={[16, 16]}>
+					{product.productsRelative.map((item) => (
+						<MCol
+							xs={12}
+							xl={4}
+							key={item._id}
+						>
+							<CardProduct data={item} />
+						</MCol>
+					))}
+				</MRow>
 			</div>
 		</MSkeleton>
 	);

@@ -27,6 +27,7 @@ const authMiddleware = withAuth(
 
 export default function middleware(req: NextRequest) {
 	const pathname = req.nextUrl.pathname;
+
 	const token = req.cookies.get('next-auth.session-token')?.value;
 
 	const publicPathnameRegex = RegExp(`^(/(${locales.join('|')}))?(${publicPages.flatMap((p) => (p === '/' ? ['', '/'] : p.replace(/\[(\w+)\]/g, '[^/]+'))).join('|')})/?$`, 'i');
