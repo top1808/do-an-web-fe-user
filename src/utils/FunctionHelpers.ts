@@ -5,7 +5,10 @@ import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
 
 export const vietnamesePhoneNumberRegex = /(0|\+84)(\d{9})\b/;
-
+export const getSlugFromNameProduct = ({ name, id }: { name?: string; id?: string }) => {
+	const cleaned = name?.replace(/[./-]/g, ' ').replace(/\s+/g, ' ').trim();
+	return cleaned?.split(' ').join('-').toLowerCase() + '-' + id;
+};
 export const customMoney = (money?: number) => {
 	return (money || 0)?.toLocaleString('vi-VN', {
 		style: 'currency',
@@ -123,10 +126,10 @@ export function getProductsTopSales(products?: Product[], count?: number) {
 	}
 	return products;
 }
-export const filterReviewsByRating = (reviews: Review[], rating: number[]) => {
-	if (rating.length === 0) return reviews;
+export const filterReviewsByRating = (reviews: Review[], rating: number) => {
+	if (rating === -1) return reviews;
 	const temp = [...reviews];
-	const filteredReviews = temp.filter((review) => rating.includes(review.rate ?? 0));
+	const filteredReviews = temp.filter((review) => review.rate! === rating);
 	return filteredReviews;
 };
 export const getProductsSKUSalesByOneOption = (product?: Product) => {

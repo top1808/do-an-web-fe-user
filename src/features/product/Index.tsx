@@ -92,6 +92,7 @@ const ProductsComponent = (props: ProductsComponentProps) => {
 									current={pagination?.page}
 									total={pagination?.total}
 									onChange={onChangePagination}
+									pageSize={12}
 								/>
 							)}
 						</div>

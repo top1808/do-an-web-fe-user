@@ -8,6 +8,7 @@ import { discountProgramState, gettingDiscountPrograms } from '@/redux/reducers/
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import CardProduct from './CardProduct';
+import { getSlugFromNameProduct } from '@/utils/FunctionHelpers';
 
 const ListProductDiscountProgram = () => {
 	const discountProgram = useAppSelector(discountProgramState);
@@ -53,7 +54,7 @@ const ListProductDiscountProgram = () => {
 											data={item}
 											key={item._id}
 											isSale={true}
-											link={`/product/${item.productCode!}?barcode=${item.productSKUBarcode}`}
+											link={`/product/${getSlugFromNameProduct({ name: item.name, id: item.productCode })}?barcode=${item.productSKUBarcode}`}
 										/>
 									))}
 								</CustomSlider>
