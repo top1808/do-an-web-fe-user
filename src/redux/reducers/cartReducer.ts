@@ -110,6 +110,9 @@ const cartReducer = createSlice({
 		setIPCustomer: (state, action: PayloadAction<string>) => {
 			state.ipCustomer = action.payload;
 		},
+		resetStatus: (state) => {
+			state.payingStatus = 'init';
+		},
 	},
 });
 export const {
@@ -132,6 +135,7 @@ export const {
 	getCartFailed,
 	updateCartFailed,
 	setIPCustomer,
+	resetStatus,
 } = cartReducer.actions;
 export default cartReducer.reducer;
 export const getCartState = (state: RootState) => state.cart as CartState;

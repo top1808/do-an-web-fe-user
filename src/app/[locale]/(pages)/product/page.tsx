@@ -14,7 +14,6 @@ async function getProductByCategory(searchParams: { category: string; offset: st
 		sortBy: searchParams.sortBy ?? '',
 		sortType: searchParams.sortType ?? '',
 	});
-	console.log(`product/get-by-category/${searchParams.category ?? 'all'}${query}`);
 
 	const res = await fetchServer(`product/get-by-category/${searchParams.category ?? 'all'}` + query);
 
