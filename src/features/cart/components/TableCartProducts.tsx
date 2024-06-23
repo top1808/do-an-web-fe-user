@@ -92,15 +92,6 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 						</MRow>
 					);
 				})}
-				<div className='justify-end flex mt-4'>
-					<MButton
-						link='/'
-						className='mr-2 bg-green-500 hover:bg-green-300 text-white'
-						size='large'
-					>
-						{t('ButtonContinueShopping')}
-					</MButton>
-				</div>
 			</MCol>
 			<MCol
 				xl={6}
@@ -143,7 +134,7 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 								size='large'
 								className='w-full'
 							>
-								Checkout
+								{t('Checkout')}
 							</MButton>
 						</Link>
 					</MCol>

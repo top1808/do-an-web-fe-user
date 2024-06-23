@@ -6,10 +6,13 @@ import { getCartState, gettingCart } from '@/redux/reducers/cartReducer';
 import Loading from '@/components/Loading';
 import CartEmpty from './components/CartEmty';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faBasketShopping } from '@fortawesome/free-solid-svg-icons';
+import MButton from '@/components/MButton';
+import { useRouter } from 'next/navigation';
 
 const CartPageComponent = () => {
 	const cart = useAppSelector(getCartState);
+	const router = useRouter();
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(gettingCart());
@@ -18,6 +21,13 @@ const CartPageComponent = () => {
 		<>
 			{(cart?.loading || cart.statusUpdate === 'loading') && <Loading />}
 			<div className='py-8'>
+				<MButton
+					type='primary'
+					onClick={() => router.back()}
+				>
+					<FontAwesomeIcon icon={faArrowLeft} />
+					&nbsp; Back
+				</MButton>
 				<h2 className='text-3xl text-red-400  py-4'>
 					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; Giỏ hàng
 				</h2>

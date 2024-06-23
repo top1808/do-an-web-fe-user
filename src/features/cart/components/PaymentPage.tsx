@@ -196,7 +196,7 @@ const PaymentPage = () => {
 	}, [dispatch, params]);
 	return (
 		<>
-			{cart.payingStatus === 'pending' && <Loading isScreen={true} />}
+			{cart.payingStatus === 'loading' && <Loading />}
 			<div className='relative'>
 				<MButton
 					className='absolute top-4 px-4'

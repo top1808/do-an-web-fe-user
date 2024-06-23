@@ -67,7 +67,8 @@
 		"Cash": "Thanh toán khi nhận hàng",
 		"VNPay": "VNPay",
 		"Done": "Hoàn tất",
-		"Note": "Ghi chú"
+		"Note": "Ghi chú",
+		"Checkout": "Tiếp tục thanh toán"
 	},
 	"ProfilePage": {
 		"Account": "Thông tin tài khoản",

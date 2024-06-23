@@ -68,7 +68,8 @@
 		"Cash": "Cash",
 		"VNPay": "VNPay",
 		"Done": "Done",
-		"Note": "Note"
+		"Note": "Note",
+		"Checkout": "Continue checkout"
 	},
 	"ProfilePage": {
 		"Account": "Information Account",
