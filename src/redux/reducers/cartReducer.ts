@@ -9,7 +9,7 @@ interface CartState {
 	loading: boolean;
 	statusUpdate: 'pending' | 'loading' | 'completed' | 'failed';
 	orderInfo: Order | null;
-	payingStatus: 'init' | 'pending' | 'completed' | 'failed';
+	payingStatus: 'init' | 'loading' | 'completed' | 'failed';
 	ipCustomer: string | null;
 }
 const initialState: CartState = {
@@ -97,7 +97,7 @@ const cartReducer = createSlice({
 		},
 
 		paying: (state, action: PayloadAction<DataPayment>) => {
-			state.payingStatus = 'pending';
+			state.payingStatus = 'loading';
 		},
 		paySuccess: (state, action: PayloadAction<ReponsePaySuccess>) => {
 			state.orderInfo = action.payload.order;

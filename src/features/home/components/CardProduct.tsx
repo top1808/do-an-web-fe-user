@@ -17,7 +17,7 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 			href={link || `/product/${getSlugFromNameProduct({ name: data.name, id: data._id })}`}
 			className='block max-w-xs relative'
 		>
-			<div className='shadow-md px-1 py-4 bg-white border-blue-100 w-full card hover:opacity-70'>
+			<div className='shadow-md px-2 py-4 bg-white border-blue-100 w-full card hover:opacity-70'>
 				<div className='flex justify-center items-center'>
 					<MImage
 						src={data.image ? data.image : data?.images?.[0]}
@@ -64,8 +64,8 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 					</>
 				)}
 				{data.discounts && (
-					<div className='absolute top-1 right-0 p-1 bg-red-400 text-xs/[0.75rem]'>
-						<p className='font-bold text-white'>{`Sale`}</p>
+					<div className='absolute top-1 left-0 px-2 py-1 bg-red-400 text-xs/[0.75rem] rounded'>
+						<p className='font-bold text-white '>{`Sale`}</p>
 					</div>
 				)}
 
