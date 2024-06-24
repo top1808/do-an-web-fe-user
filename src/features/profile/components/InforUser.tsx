@@ -190,7 +190,7 @@ const InforUser = () => {
 										<MSelect
 											loading={address.loading}
 											defaultActiveFirstOption={true}
-											disabled={address?.districts?.length > 0 ? false : true}
+											disabled={address?.districts?.length > 1 ? false : true}
 											onChange={(value) => {
 												form.setFieldValue('userWard', undefined);
 												dispatch(gettingWards(value));
@@ -206,7 +206,7 @@ const InforUser = () => {
 										rules={[{ required: true, message: 'Please choose ward !' }]}
 									>
 										<MSelect
-											disabled={address?.wards?.length > 0 ? false : true}
+											disabled={address?.wards?.length > 1 ? false : true}
 											defaultActiveFirstOption={true}
 											options={address.wards || [currentUserInfo?.userWard]}
 											placeholder={t('Ward')}
