@@ -91,6 +91,9 @@
 		"Action": "Action",
 		"ExpectedDelivery": "Expected delivery",
 		"Upload": "Upload",
-		"Order": "Order"
+		"Order": "Order",
+		"Province": "Choice City/province",
+		"District": "Choice District",
+		"Ward": "Choice Ward"
 	}
 }

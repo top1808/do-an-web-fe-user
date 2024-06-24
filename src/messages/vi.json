@@ -91,6 +91,9 @@
 		"Status": "Trạng thái",
 		"Action": "Hành động",
 		"ExpectedDelivery": "Giao hàng dự kiến",
-		"Upload": "Tải lên"
+		"Upload": "Tải lên",
+		"Province": "Chọn tỉnh/thành phố",
+		"District": "Chọn quận/huyện",
+		"Ward": "Chọn phương/xã"
 	}
 }

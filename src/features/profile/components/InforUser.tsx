@@ -178,6 +178,7 @@ const InforUser = () => {
 												dispatch(gettingDistricts(value));
 											}}
 											options={address.provinces || [currentUserInfo?.userProvince]}
+											placeholder={t('Province')}
 										/>
 									</Form.Item>
 								</MCol>
@@ -195,6 +196,7 @@ const InforUser = () => {
 												dispatch(gettingWards(value));
 											}}
 											options={address.districts || [currentUserInfo?.userDistrict]}
+											placeholder={t('District')}
 										/>
 									</Form.Item>
 								</MCol>
@@ -207,6 +209,7 @@ const InforUser = () => {
 											disabled={address?.wards?.length > 0 ? false : true}
 											defaultActiveFirstOption={true}
 											options={address.wards || [currentUserInfo?.userWard]}
+											placeholder={t('Ward')}
 										/>
 									</Form.Item>
 								</MCol>
