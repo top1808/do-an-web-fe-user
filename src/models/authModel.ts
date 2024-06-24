@@ -1,3 +1,5 @@
+import { Address } from './paymentModels';
+
 interface FormLogin {
 	email?: string;
 	password?: string;
@@ -16,6 +18,9 @@ interface FormChangeInfor {
 	name?: string;
 	image?: string;
 	email?: string;
+	userProvince?: Address;
+	userDistrict?: Address;
+	userWard?: Address;
 }
 
 interface FormRegister extends FormLogin {

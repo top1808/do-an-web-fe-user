@@ -21,7 +21,6 @@
 		"PasswordWrong": "Password is wrong.",
 		"EmailNotFound": "Email is not found.",
 		"EmailNotVerified": "Email is not verified."
-		
 	},
 	"SignUp": {
 		"Title": "Sign Up",
@@ -76,7 +75,7 @@
 		"Avatar": "Avatar",
 		"Name": "Name",
 		"Phone": "Phone",
-		"Address": "Address",
+		"Address": "Detail address",
 		"SaveChanges": "Save Changes",
 		"ChangePassword": "Change Password",
 		"CurrentPassword": "Current Password",

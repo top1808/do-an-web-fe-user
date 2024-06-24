@@ -60,6 +60,7 @@ const authSlice = createSlice({
 		},
 		getInfoCurrentUserSuccess(state, action: PayloadAction<User>) {
 			state.logging = false;
+
 			state.currentUserInfo = action.payload;
 		},
 		getInfoCurrentUserFailed(state, action: PayloadAction<string>) {
