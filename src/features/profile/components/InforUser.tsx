@@ -22,7 +22,6 @@ const InforUser = () => {
 	const dispatch = useAppDispatch();
 	const t = useTranslations('ProfilePage');
 	const [form] = Form.useForm();
-
 	const onSubmit = (data: any) => {
 		const body: FormChangeInfor = {
 			...data,
@@ -39,9 +38,9 @@ const InforUser = () => {
 				label: address.wards?.find((d: Address) => d.value === data.userWard)?.label || '',
 			},
 		};
-		console.log(body);
+		// console.log(body);
 
-		// dispatch(changingInfor(data));
+		dispatch(changingInfor(body));
 	};
 	useEffect(() => {
 		dispatch(gettingProvinces());
@@ -171,6 +170,8 @@ const InforUser = () => {
 									>
 										<MSelect
 											loading={address.loading}
+											showSearch={true}
+											optionFilterProp='label'
 											onChange={(value) => {
 												form.setFieldValue('customerDistrict', undefined);
 												form.setFieldValue('customerWard', undefined);
@@ -189,6 +190,8 @@ const InforUser = () => {
 									>
 										<MSelect
 											loading={address.loading}
+											showSearch={true}
+											optionFilterProp='label'
 											defaultActiveFirstOption={true}
 											disabled={address?.districts?.length > 1 ? false : true}
 											onChange={(value) => {
@@ -206,6 +209,8 @@ const InforUser = () => {
 										rules={[{ required: true, message: 'Please choose ward !' }]}
 									>
 										<MSelect
+											showSearch={true}
+											optionFilterProp='label'
 											disabled={address?.wards?.length > 1 ? false : true}
 											defaultActiveFirstOption={true}
 											options={address.wards || [currentUserInfo?.userWard]}
