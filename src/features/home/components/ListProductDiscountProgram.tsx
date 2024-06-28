@@ -1,6 +1,5 @@
 'use client';
 import CountdownTimer from '@/components/CountdownTimer';
-import CustomSlider from '@/components/CustomSlider';
 import MSkeleton from '@/components/MSkeleton';
 import MTitle from '@/components/MTitle';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -9,11 +8,12 @@ import Link from 'next/link';
 import React, { useEffect } from 'react';
 import CardProduct from './CardProduct';
 import { getSlugFromNameProduct } from '@/utils/FunctionHelpers';
+import MRow from '@/components/MRow';
+import MCol from '@/components/MCol';
 
 const ListProductDiscountProgram = () => {
 	const discountProgram = useAppSelector(discountProgramState);
 	const dispatch = useAppDispatch();
-
 	useEffect(() => {
 		dispatch(gettingDiscountPrograms());
 	}, [dispatch]);
@@ -40,25 +40,29 @@ const ListProductDiscountProgram = () => {
 								</div>
 								<div>
 									<Link
-										href={'/'}
+										href={'/program-discount'}
 										className='underline font-semibold text-orange-500'
 									>
 										See all
 									</Link>
 								</div>
 							</div>
-							{program.products && program.products.length > 0 && (
-								<CustomSlider length={program.products.length}>
-									{program.products.map((item) => (
-										<CardProduct
-											data={item}
+							<MRow>
+								{program.products &&
+									program.products.length > 0 &&
+									program.products.slice(0, 12).map((item) => (
+										<MCol
+											span={4}
 											key={item._id}
-											isSale={true}
-											link={`/product/${getSlugFromNameProduct({ name: item.name, id: item.productCode })}?barcode=${item.productSKUBarcode}`}
-										/>
+										>
+											<CardProduct
+												data={item}
+												isSale={true}
+												link={`/product/${getSlugFromNameProduct({ name: item.name, id: item.productCode })}?barcode=${item.productSKUBarcode}`}
+											/>
+										</MCol>
 									))}
-								</CustomSlider>
-							)}
+							</MRow>
 						</CountdownTimer>
 					</div>
 				))

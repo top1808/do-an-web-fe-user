@@ -15,14 +15,14 @@ const ListProductTopSales = () => {
 			<div className='bg-white px-2'>
 				<div className='flex justify-between h-14 items-center'>
 					<h3 className='h-full text-center leading-10 py-4 font-semibold text-gray-600'>TOP PRODUCTS</h3>
-					<div>
+					{/* <div>
 						<Link
 							href={'/'}
 							className='underline font-semibold text-orange-500'
 						>
 							See all
 						</Link>
-					</div>
+					</div> */}
 				</div>
 				<MRow
 					gutter={[

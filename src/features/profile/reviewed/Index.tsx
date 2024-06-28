@@ -7,7 +7,7 @@ import MText from '@/components/MText';
 import MTitle from '@/components/MTitle';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getReviewState, gettingReviews } from '@/redux/reducers/reviewReducers';
-import { customMoney, formatDate } from '@/utils/FunctionHelpers';
+import { customMoney, formatDate, getSlugFromNameProduct } from '@/utils/FunctionHelpers';
 import { Rate } from 'antd';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
@@ -85,32 +85,35 @@ const ReviewsComponent = () => {
 											</MRow>
 										</MCol>
 										<MCol span={18}>
-											<MRow gutter={8}>
-												<MCol span={3}>
-													<MImage
-														src={item.product?.images?.[0] || ''}
-														alt={item.product?.name}
-													/>
-												</MCol>
-												<MCol span={21}>
-													<div>
-														<p>{item?.product?.name}</p>
-													</div>
-													<div>
-														{item?.productSKU?.options?.map((group) => (
-															<div key={group?.groupName}>
-																<p className='text-gray-500'>
-																	{group?.groupName}: {group?.option}
-																</p>
-															</div>
-														))}
-													</div>
+											<Link href={`/product/${getSlugFromNameProduct({ name: item?.product?.name, id: item?.product?._id })}`}>
+												<MRow gutter={8}>
+													<MCol span={3}>
+														<MImage
+															src={item.product?.images?.[0] || ''}
+															alt={item.product?.name}
+															preview={false}
+														/>
+													</MCol>
+													<MCol span={21}>
+														<div>
+															<p>{item?.product?.name}</p>
+														</div>
+														<div>
+															{item?.productSKU?.options?.map((group) => (
+																<div key={group?.groupName}>
+																	<p className='text-gray-500'>
+																		{group?.groupName}: {group?.option}
+																	</p>
+																</div>
+															))}
+														</div>
 
-													<div>
-														<p>{`Giá: ${customMoney(item?.productSKU?.price)}`}</p>
-													</div>
-												</MCol>
-											</MRow>
+														<div>
+															<p>{`Giá: ${customMoney(item?.productSKU?.price)}`}</p>
+														</div>
+													</MCol>
+												</MRow>
+											</Link>
 										</MCol>
 									</MRow>
 								);

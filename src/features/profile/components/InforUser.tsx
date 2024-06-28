@@ -162,11 +162,15 @@ const InforUser = () => {
 									<MInput placeholder='Enter your phone number' />
 								</Form.Item>
 							</MRow>
-							<MRow>
-								<MCol span={8}>
+							<MRow justify={'end'}>
+								<MCol
+									span={7}
+									className='flex justify-end'
+								>
 									<Form.Item
 										name='userProvince'
 										rules={[{ required: true, message: 'Please choose province !' }]}
+										className='w-full'
 									>
 										<MSelect
 											loading={address.loading}
@@ -183,12 +187,13 @@ const InforUser = () => {
 										/>
 									</Form.Item>
 								</MCol>
-								<MCol span={8}>
+								<MCol span={7}>
 									<Form.Item
 										name='userDistrict'
 										rules={[{ required: true, message: 'Please choose district !' }]}
 									>
 										<MSelect
+											className='flex justify-end'
 											loading={address.loading}
 											showSearch={true}
 											optionFilterProp='label'
@@ -203,7 +208,7 @@ const InforUser = () => {
 										/>
 									</Form.Item>
 								</MCol>
-								<MCol span={8}>
+								<MCol span={7}>
 									<Form.Item
 										name='userWard'
 										rules={[{ required: true, message: 'Please choose ward !' }]}
