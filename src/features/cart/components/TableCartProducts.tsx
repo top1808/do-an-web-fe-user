@@ -37,106 +37,114 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 		<MRow
 			gutter={[16, 16]}
 			className='px-2'
+			justify={'end'}
 		>
 			<MCol
-				xl={18}
-				xs={24}
+				span={24}
 				className='rounded-md'
 			>
-				<div className='hidden lg:block'>
-					<MRow className='bg-gray-300 font-bold py-2 px-2 '>
+				<div className='hidden lg:block mb-4'>
+					<MRow className='shadow-xl bg-white font-bold py-4 px-2'>
 						<MCol span={1}></MCol>
 						<MCol
 							className='text-center'
 							span={3}
-						></MCol>
+						>
+							<p>Image</p>
+						</MCol>
 						<Col span={20}>
 							<MRow className='w-full'>
-								<MCol span={10}>
+								<MCol span={12}>
 									<MText>{t('Name')}</MText>
 								</MCol>
 								<MCol span={4}>
 									<MText>{t('ColumnPriceProduct')}</MText>
 								</MCol>
-								<MCol span={4}>
+								<MCol span={3}>
 									<MText>{t('ColumnQuantityProduct')}</MText>
 								</MCol>
-								<MCol span={4}>
-									<MText>{t('TotalPrice')}</MText>
+								<MCol span={3}>
+									<MText>{t('SubTotal')}</MText>
 								</MCol>
 								<MCol span={2}></MCol>
 							</MRow>
 						</Col>
 					</MRow>
 				</div>
-				{data.map((item) => {
-					return (
-						<MRow
-							key={item._id}
-							style={{ borderBottom: '1px solid black' }}
-							align={'middle'}
-							className='bg-white'
-						>
-							<MCol
-								span={1}
-								className='flex justify-center'
+				<div className='flex flex-col gap-4'>
+					{data.map((item) => {
+						return (
+							<MRow
+								key={item._id}
+								align={'middle'}
+								className='bg-white shadow-xl py-1'
 							>
-								<MCheckbox
-									onChange={(e) => callApiUpdate(e, item)}
-									checked={item?.isChecked}
-								/>
-							</MCol>
-							<MCol span={23}>
-								<CartItem item={item} />
-							</MCol>
-						</MRow>
-					);
-				})}
+								<MCol
+									span={1}
+									className='flex justify-center'
+								>
+									<MCheckbox
+										onChange={(e) => callApiUpdate(e, item)}
+										checked={item?.isChecked}
+									/>
+								</MCol>
+								<MCol span={23}>
+									<CartItem item={item} />
+								</MCol>
+							</MRow>
+						);
+					})}
+				</div>
 			</MCol>
 			<MCol
-				xl={6}
-				xs={24}
+				span={24}
+				className='sticky bottom-0 '
 			>
 				<MRow
-					className='bg-white p-2 w-full shadow-xl rounded-md'
-					justify={'space-between'}
-					gutter={[0, 16]}
+					className='rounded-md shadow-2xl bg-white ư-full'
+					align={'middle'}
 				>
-					<MCol span={24}>
-						<h3 className='text-2xl'>Thông tin thanh toán</h3>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-500'>Total items: </p>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-700'>{cart?.items.filter((item) => item?.isChecked).length}</p>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-500'>Total count: </p>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-700'>{cart?.items.filter((item) => item?.isChecked).reduce((a, b) => a + (b?.quantity || 0), 0)}</p>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-500'>{`${t('TotalPrice')}:`} </p>
-					</MCol>
-					<MCol span={10}>
-						<p className='text-lg font-semibold text-gray-700'>{`${summaryMoney}`}</p>
-					</MCol>
-					<MCol span={24}>
-						<Link
-							href={'/checkout'}
-							className={`${!data.some((item) => item?.isChecked) ? 'pointer-events-none' : ''}`}
-						>
-							<MButton
-								type='primary'
-								disabled={!data.some((item) => item?.isChecked)}
-								size='large'
-								className='w-full'
+					<MCol span={12}>
+						<MRow justify={'start'}>
+							<MCol
+								span={24}
+								className='px-8 py-2'
 							>
-								{t('Checkout')}
-							</MButton>
-						</Link>
+								<p className='text-lg font-semibold text-gray-500'>{`Total checked: ${cart?.items.filter((item) => item?.isChecked).length} items.`}</p>
+							</MCol>
+						</MRow>
+					</MCol>
+					<MCol
+						span={12}
+						className='px-8 py-4 w-full '
+					>
+						<MRow
+							gutter={[8, 0]}
+							justify={'end'}
+							align={'bottom'}
+						>
+							<MCol>
+								<p className='text-lg font-semibold text-gray-500 text-end'>{`Total quantity items: ${cart?.items.filter((item) => item?.isChecked).reduce((a, b) => a + (b?.quantity || 0), 0)}`}</p>
+								<p className='text-lg font-semibold text-gray-500'>
+									{t('TotalPrice')} <span className='text-lg font-semibold text-red-500'>{summaryMoney}</span>
+								</p>
+							</MCol>
+							<MCol>
+								<Link
+									href={'/checkout'}
+									className={`${!data.some((item) => item?.isChecked) ? 'pointer-events-none' : ''}`}
+								>
+									<MButton
+										type='primary'
+										disabled={!data.some((item) => item?.isChecked)}
+										size='large'
+										className='w-full'
+									>
+										{t('Checkout')}
+									</MButton>
+								</Link>
+							</MCol>
+						</MRow>
 					</MCol>
 				</MRow>
 			</MCol>

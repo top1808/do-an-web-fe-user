@@ -79,7 +79,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 				>
 					<MCol
 						xs={24}
-						lg={10}
+						lg={12}
 					>
 						<Link href={`/product/${item?.product?._id}`}>
 							<MText className='hover:text-blue-600 text-base font-medium'>{item?.product?.name}</MText>
@@ -103,7 +103,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 					</MCol>
 					<MCol
 						xs={12}
-						lg={4}
+						lg={3}
 					>
 						<MInputQuantity
 							max={99}
@@ -119,7 +119,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
 					</MCol>
 					<MCol
 						xs={0}
-						lg={4}
+						lg={3}
 					>
 						<MText>{`${customMoney((item?.price || 0) * (item?.quantity || 0))}`}</MText>
 					</MCol>

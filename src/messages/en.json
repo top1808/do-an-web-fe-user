@@ -41,6 +41,7 @@
 		"MyCart": "My Cart",
 		"Product": "Product",
 		"TotalPrice": "Total Price",
+		"SubTotal": "Subtotal",
 		"TitleProcessCompleted": "Completed",
 		"ColumnPriceProduct": "Price",
 		"ColumnQuantityProduct": "Quantity",
