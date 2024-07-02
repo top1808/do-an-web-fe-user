@@ -19,56 +19,49 @@ const ListProductDiscountProgram = () => {
 	}, [dispatch]);
 	return (
 		<MSkeleton loading={discountProgram.loading}>
-			{discountProgram?.data ? (
+			{discountProgram?.data &&
 				discountProgram?.data?.map((program) => (
-					<div
+					<CountdownTimer
 						key={program._id}
-						className='py-4 px-2 bg-white'
+						endTime={program.dateEnd as string}
+						startTime={program.dateStart as string}
 					>
-						<CountdownTimer
-							endTime={program.dateEnd as string}
-							startTime={program.dateStart as string}
-						>
-							<div className='flex justify-between border-0 border-b-[1px] border-solid  border-gray-400'>
-								<div>
-									<MTitle
-										level={3}
-										underline
-									>
-										{program.name}
-									</MTitle>
-								</div>
-								<div>
-									<Link
-										href={'/program-discount'}
-										className='underline font-semibold text-orange-500'
-									>
-										See all
-									</Link>
-								</div>
+						<div className='flex justify-between border-0 border-b-[1px] border-solid  border-gray-400'>
+							<div>
+								<MTitle
+									level={3}
+									underline
+								>
+									{program.name}
+								</MTitle>
 							</div>
-							<MRow>
-								{program.products &&
-									program.products.length > 0 &&
-									program.products.slice(0, 12).map((item) => (
-										<MCol
-											span={4}
-											key={item._id}
-										>
-											<CardProduct
-												data={item}
-												isSale={true}
-												link={`/product/${getSlugFromNameProduct({ name: item.name, id: item.productCode })}?barcode=${item.productSKUBarcode}`}
-											/>
-										</MCol>
-									))}
-							</MRow>
-						</CountdownTimer>
-					</div>
-				))
-			) : (
-				<></>
-			)}
+							<div>
+								<Link
+									href={'/program-discount'}
+									className='underline font-semibold text-orange-500'
+								>
+									See all
+								</Link>
+							</div>
+						</div>
+						<MRow>
+							{program.products &&
+								program.products.length > 0 &&
+								program.products.slice(0, 12).map((item) => (
+									<MCol
+										span={4}
+										key={item._id}
+									>
+										<CardProduct
+											data={item}
+											isSale={true}
+											link={`/product/${getSlugFromNameProduct({ name: item.name, id: item.productCode })}?barcode=${item.productSKUBarcode}`}
+										/>
+									</MCol>
+								))}
+						</MRow>
+					</CountdownTimer>
+				))}
 		</MSkeleton>
 	);
 };
