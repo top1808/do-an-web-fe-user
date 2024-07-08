@@ -16,7 +16,7 @@ import TextArea from 'antd/es/input/TextArea';
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import ModalVoucher from './ModalVoucher';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import MSelect from '@/components/MSelect';
 import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDelivery, gettingProvinces, gettingWards } from '@/redux/reducers/addressReducer';
 import AddressApi from '@/api/addressApi';
@@ -39,7 +39,6 @@ const PaymentPage = () => {
 	const dispatch = useAppDispatch();
 	const t = useTranslations('CartPage');
 	const [form] = Form.useForm();
-	const pathname = usePathname();
 	const params = useSearchParams();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
 
@@ -119,24 +118,7 @@ const PaymentPage = () => {
 			},
 		};
 		if (dataPost.paymentMethod === 'vnpay') {
-			const date = new Date();
-			const code =
-				date.getFullYear() +
-				('0' + (date.getMonth() + 1)).slice(-2) +
-				('0' + date.getDate()).slice(-2) +
-				('0' + date.getHours()).slice(-2) +
-				('0' + date.getMinutes()).slice(-2) +
-				('0' + date.getSeconds()).slice(-2);
-			const ip = cart.ipCustomer!;
-			const data = {
-				amount: dataPost.totalPrice || 0,
-				code: code,
-				ip: ip,
-				info: `Thanh toán cho order ${code}`,
-				returnURL: `http://localhost:3000${pathname}`,
-			};
-			localStorage.setItem('tempDataPayement', JSON.stringify(dataPost));
-			paymentWithVPN({ ...data });
+			paymentWithVPN(dataPost);
 		} else {
 			dispatch(paying(dataPost));
 		}
@@ -149,9 +131,8 @@ const PaymentPage = () => {
 			deliveryAddress: auth.currentUserInfo?.address || form.getFieldValue('deliveryAddress') || '',
 			note: form.getFieldValue('note') || '',
 			paymentMethod: 'cash',
-			deliveryFee: address.fee,
 		});
-	}, [form, auth, address.fee]);
+	}, [form, auth]);
 
 	useEffect(() => {
 		dispatch(gettingProvinces());
@@ -162,6 +143,7 @@ const PaymentPage = () => {
 				icon: 'success',
 				confirmButtonText: 'Tiếp tục mua sắm',
 			}).then((result) => {
+				localStorage.removeItem('tempDataPayement');
 				window.location.assign('/');
 			});
 		} else if (cart.payingStatus === 'failed') {
@@ -174,11 +156,8 @@ const PaymentPage = () => {
 		}
 	}, [cart.items, cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
-		// clear voucher, fee delivery was choice
 		dispatch(clearAddressState());
 		dispatch(clearVoucherState());
-		// get IP customer
-		// axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 			if (isSuccess) {
@@ -192,7 +171,9 @@ const PaymentPage = () => {
 			}
 		} else {
 			localStorage.removeItem('tempDataPayement');
+			toast.error('Payment failed ! Please try again');
 		}
+		console.log(params);
 	}, [dispatch, params]);
 	return (
 		<>

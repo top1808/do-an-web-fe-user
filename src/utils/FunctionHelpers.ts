@@ -1,6 +1,7 @@
-import { Address } from '@/models/paymentModels';
+import { Address, DataPayment } from '@/models/paymentModels';
 import { CartProduct, DiscountProduct, MenuItem, Product } from '@/models/productModels';
 import { Review } from '@/models/reviewModel';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import { VNPay } from 'vnpay';
 
@@ -83,20 +84,34 @@ export const getProductPromotionPrice = (product: Product) => {
 	}
 	return '';
 };
-export const paymentWithVPN = async ({ amount, code, ip, info, returnURL }: { amount: number; code: string; ip: string; info: string; returnURL: string }) => {
-	const vnpay = new VNPay({
-		api_Host: 'https://sandbox.vnpayment.vn',
-		tmnCode: '0HU69EBU',
-		secureSecret: 'VEXPZRANPKSPPPFTGBPBNIZHIDOCFNQA',
-	});
-	const urlString = await vnpay.buildPaymentUrl({
-		vnp_Amount: amount, // giá tiền (đơn vị VND)
-		vnp_IpAddr: ip, // địa chỉ ip của khách hàng
-		vnp_TxnRef: code, // mã giao dịch của bạn
-		vnp_OrderInfo: info,
-		vnp_ReturnUrl: returnURL,
-	});
-	window.location.href = urlString;
+export const paymentWithVPN = async (dataPost: DataPayment) => {
+	try {
+		const date = new Date();
+		const code =
+			date.getFullYear() +
+			('0' + (date.getMonth() + 1)).slice(-2) +
+			('0' + date.getDate()).slice(-2) +
+			('0' + date.getHours()).slice(-2) +
+			('0' + date.getMinutes()).slice(-2) +
+			('0' + date.getSeconds()).slice(-2);
+		localStorage.setItem('tempDataPayement', JSON.stringify({ ...dataPost }));
+		const vnpay = new VNPay({
+			api_Host: 'https://sandbox.vnpayment.vn',
+			tmnCode: '0HU69EBU',
+			secureSecret: 'VEXPZRANPKSPPPFTGBPBNIZHIDOCFNQA',
+		});
+		const ip = await axios.get('https://api.ipify.org/');
+		const urlString = await vnpay.buildPaymentUrl({
+			vnp_Amount: dataPost.totalPrice || 0, // giá tiền (đơn vị VND)
+			vnp_IpAddr: ip.data, // địa chỉ ip của khách hàng
+			vnp_TxnRef: code, // mã giao dịch của bạn
+			vnp_OrderInfo: `Thanh toán cho order ${code}`,
+			vnp_ReturnUrl: 'http://localhost:3000/checkout',
+		});
+		window.location.href = urlString;
+	} catch (error) {
+		localStorage.removeItem('tempDataPayement');
+	}
 };
 export const revertDataAddressFromResponse = (data: any, type: string) => {
 	let dataReturn: Address[] = [];
