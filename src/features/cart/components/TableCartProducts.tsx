@@ -110,13 +110,13 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 								span={24}
 								className='px-8 py-2'
 							>
-								<p className='text-lg font-semibold text-gray-500'>{`Total checked: ${cart?.items.filter((item) => item?.isChecked).length} items.`}</p>
+								<p className='text-sm xl:text-lg font-semibold text-gray-500'>{`Total checked: ${cart?.items.filter((item) => item?.isChecked).length}.`}</p>
 							</MCol>
 						</MRow>
 					</MCol>
 					<MCol
 						span={12}
-						className='px-8 py-4 w-full '
+						className='px-4 py-2 xl:px-8 xl:py-4 w-full '
 					>
 						<MRow
 							gutter={[8, 0]}
@@ -124,9 +124,11 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 							align={'bottom'}
 						>
 							<MCol>
-								<p className='text-lg font-semibold text-gray-500 text-end'>{`Total quantity items: ${cart?.items.filter((item) => item?.isChecked).reduce((a, b) => a + (b?.quantity || 0), 0)}`}</p>
-								<p className='text-lg font-semibold text-gray-500'>
-									{t('TotalPrice')} <span className='text-lg font-semibold text-red-500'>{summaryMoney}</span>
+								<p className='text-sm xl:text-lg font-semibold text-gray-500 text-end'>{`Total quantity items: ${cart?.items
+									.filter((item) => item?.isChecked)
+									.reduce((a, b) => a + (b?.quantity || 0), 0)}`}</p>
+								<p className='text-sm xl:text-lg font-semibold text-gray-500'>
+									{t('TotalPrice')} <span className='text-sm xl:text-lg font-semibold text-red-500'>{summaryMoney}</span>
 								</p>
 							</MCol>
 							<MCol>
@@ -137,7 +139,6 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 									<MButton
 										type='primary'
 										disabled={!data.some((item) => item?.isChecked)}
-										size='large'
 										className='w-full'
 									>
 										{t('Checkout')}

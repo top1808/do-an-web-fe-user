@@ -46,11 +46,14 @@ const SideBarUser: React.FC = () => {
 	return (
 		<>
 			<MRow gutter={[16, 16]}>
-				<MCol span={24}>
+				<MCol
+					span={24}
+					className='hidden lg:block'
+				>
 					<Menu
 						style={{ borderInlineEnd: 'none', padding: '10px' }}
-						mode={sizeDevice > 768 ? 'vertical' : 'horizontal'}
 						className='rounded-md font-semibold'
+						// overflowedIndicator={<p className='font-bold'>Xem thêm...</p>}
 						items={[
 							getItem(
 								<Link
@@ -70,6 +73,35 @@ const SideBarUser: React.FC = () => {
 							...items,
 						]}
 						selectedKeys={[searchParams?.get('category') || 'all']}
+					/>
+				</MCol>
+				<MCol
+					span={24}
+					className='block lg:hidden'
+				>
+					<Menu
+						style={{ width: '100%' }}
+						mode='inline'
+						items={[
+							getItem(<p>Danh mục</p>, 'category', <></>, [
+								getItem(
+									<Link
+										href={'/product?category=all'}
+										className='flex gap-2 align-middle'
+									>
+										<MImage
+											width={sizeDevice > 576 ? 30 : 20}
+											height={sizeDevice > 576 ? 30 : 20}
+											src={iconAll.src}
+											preview={false}
+										/>
+										ALL
+									</Link>,
+									'all',
+								),
+								...items,
+							]),
+						]}
 					/>
 				</MCol>
 			</MRow>
