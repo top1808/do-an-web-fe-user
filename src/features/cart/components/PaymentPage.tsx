@@ -22,7 +22,7 @@ import { clearAddressState, getAddressState, gettingDistricts, gettingFeeDeliver
 import AddressApi from '@/api/addressApi';
 import { DefaultOptionType } from 'antd/es/select';
 import { toast } from 'react-toastify';
-import { getCartState, paying } from '@/redux/reducers/cartReducer';
+import { getCartState, paying, resetStatus } from '@/redux/reducers/cartReducer';
 import { useTranslations } from 'next-intl';
 import { getAuthState } from '@/redux/reducers/authReducer';
 import { clearVoucherState, getVoucherState } from '@/redux/reducers/voucherReducer';
@@ -88,17 +88,19 @@ const PaymentPage = () => {
 	const onSubmit = async (data: DataPayment) => {
 		const dataPost: DataPayment = {
 			...data,
-			products: cart.items?.map((p) => ({
-				cartId: p._id,
-				productSKUBarcode: p?.productSKUBarcode || '',
-				productName: p.product?.name || '',
-				productCode: p.product?._id || '',
-				quantity: p.quantity || 0,
-				price: p.price || 0,
-				totalPrice: p.totalPrice || 0,
-				note: '',
-				options: p?.productSKU?.options || [],
-			})),
+			products: cart.items
+				?.filter((p) => p.isChecked)
+				?.map((p) => ({
+					cartId: p._id,
+					productSKUBarcode: p?.productSKUBarcode || '',
+					productName: p.product?.name || '',
+					productCode: p.product?._id || '',
+					quantity: p.quantity || 0,
+					price: p.price || 0,
+					totalPrice: p.totalPrice || 0,
+					note: '',
+					options: p?.productSKU?.options || [],
+				})),
 			deliveryFee: address.fee,
 			totalProductPrice: caculatorTotalPriceForCheckout(cart.items),
 			totalPaid: 0,
@@ -152,12 +154,17 @@ const PaymentPage = () => {
 				text: 'Có lỗi xảy ra trong quá trình thanh toán',
 				icon: 'error',
 				confirmButtonText: 'Ẩn',
+			}).then((result) => {
+				dispatch(resetStatus());
 			});
 		}
 	}, [cart.items, cart.orderInfo, cart.payingStatus, dispatch]);
 	useEffect(() => {
 		dispatch(clearAddressState());
 		dispatch(clearVoucherState());
+
+		// get IP customer
+		// axios.get('https://api.ipify.org/').then((res) => dispatch(setIPCustomer(res.data)));
 		if (params.get('vnp_ResponseCode')) {
 			const isSuccess = params.get('vnp_ResponseCode') === '00' ? true : false;
 			if (isSuccess) {
