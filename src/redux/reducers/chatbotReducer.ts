@@ -11,7 +11,7 @@ interface ChatbotState {
 	intentEdit?: Intent | null;
 	isChatting?: boolean;
 	myMessage?: string[];
-	botResponses?: string[];
+	botResponses?: string[] | string[][];
 }
 
 const initialState: ChatbotState = {
@@ -102,7 +102,7 @@ const chatbotSlice = createSlice({
 		chatting: (state, action: PayloadAction<string>) => {
 			state.isChatting = true;
 			state.myMessage?.push(action.payload);
-			state.botResponses?.push('');
+			(state.botResponses as string[])?.push('');
 		},
 		chatSuccess: (state, action: PayloadAction<string>) => {
 			state.isChatting = false;

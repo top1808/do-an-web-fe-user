@@ -1,6 +1,6 @@
 import { faClose, faPaperPlane, faRobot, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Form, Input } from 'antd';
+import { Form, Image, Input } from 'antd';
 import React, { useEffect } from 'react';
 import MButton from './MButton';
 import MRow from './MRow';
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getModalState, toggleChat } from '@/redux/reducers/modalReducer';
 import { chatting, getChatbotState } from '@/redux/reducers/chatbotReducer';
 import MLoadingThreeDot from './MLoadingThreeDot';
+import Link from 'next/link';
 
 const MChatComponent = () => {
 	const modal = useAppSelector(getModalState);
@@ -57,7 +58,37 @@ const MChatComponent = () => {
 						</div>
 						<div className='flex gap-2 items-center mt-2'>
 							<FontAwesomeIcon icon={faRobot} />
-							<div className='bg-blue-500 rounded-xl p-2 px-4 text-white'>{chatbot.isChatting && i === (chatbot.myMessage?.length || 0) - 1 ? <MLoadingThreeDot /> : chatbot.botResponses?.[i]}</div>
+							<div className='bg-blue-500 rounded-xl p-2 px-4 text-white'>
+								{chatbot.isChatting && i === (chatbot.myMessage?.length || 0) - 1 ? (
+									<MLoadingThreeDot />
+								) : Array.isArray(chatbot.botResponses?.[i]) ? (
+									(chatbot.botResponses?.[i] as string[])?.map((data: string) => (
+										<React.Fragment key={data}>
+											{data.includes('image/upload') ? (
+												<Image
+													src={data}
+													alt={data}
+													style={{ width: 100, height: 100 }}
+													className='rounded p-2'
+												/>
+											) : data.includes('/product/') ? (
+												<div>
+													<Link
+														href={data}
+														className='underline'
+													>
+														Bấm vào đây để xem sản phẩm
+													</Link>
+												</div>
+											) : (
+												<div>{data}</div>
+											)}
+										</React.Fragment>
+									))
+								) : (
+									chatbot.botResponses?.[i]
+								)}
+							</div>
 						</div>
 					</div>
 				))}
