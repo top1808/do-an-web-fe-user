@@ -49,7 +49,8 @@ const ListProductDiscountProgram = () => {
 								program.products.length > 0 &&
 								program.products.slice(0, 12).map((item) => (
 									<MCol
-										span={4}
+										xl={4}
+										xs={12}
 										key={item._id}
 									>
 										<CardProduct

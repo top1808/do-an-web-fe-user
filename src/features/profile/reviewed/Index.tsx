@@ -38,7 +38,24 @@ const ReviewsComponent = () => {
 				)}
 				{reviewState.data && reviewState.data.length > 0 && (
 					<>
-						<MTitle level={3}>Đánh giá</MTitle>
+						<MTitle
+							level={3}
+							className='text-center'
+						>
+							Đánh giá
+						</MTitle>
+						<MRow
+							gutter={[16, 16]}
+							align={'middle'}
+							className='py-4 px-2'
+						>
+							<MCol span={12}>
+								<MText className='font-medium'>Thông tin đánh giá</MText>
+							</MCol>
+							<MCol span={12}>
+								<MText className='font-medium'>Sản phẩm được đánh giá</MText>
+							</MCol>
+						</MRow>
 						<div>
 							{reviewState.data.map((item) => {
 								return (
@@ -49,7 +66,7 @@ const ReviewsComponent = () => {
 										className='py-4 px-2'
 										style={{ borderTop: '1px solid rgb(200, 210, 227)' }}
 									>
-										<MCol span={6}>
+										<MCol span={12}>
 											<MRow>
 												<MCol span={24}>
 													<Rate
@@ -73,6 +90,8 @@ const ReviewsComponent = () => {
 															<MCol>
 																{item.images.map((i, index) => (
 																	<MImage
+																		width={100}
+																		height={100}
 																		key={`${item._id}${index}`}
 																		src={i}
 																		alt={`${item._id}${index}`}
@@ -84,7 +103,7 @@ const ReviewsComponent = () => {
 												</MCol>
 											</MRow>
 										</MCol>
-										<MCol span={18}>
+										<MCol span={12}>
 											<Link href={`/product/${getSlugFromNameProduct({ name: item?.product?.name, id: item?.product?._id })}`}>
 												<MRow gutter={8}>
 													<MCol span={3}>

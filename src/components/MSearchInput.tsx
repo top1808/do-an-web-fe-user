@@ -63,7 +63,7 @@ export const MSearchInput: React.FC<MSearchInputProps> = (props) => {
 				<MButton
 					htmlType='submit'
 					className='bg-[#FA5130] rounded'
-					loading={props.loading}
+					// loading={props.loading}
 				>
 					<FontAwesomeIcon
 						color='white'

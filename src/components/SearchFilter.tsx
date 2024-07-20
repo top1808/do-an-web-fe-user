@@ -137,27 +137,6 @@ const SearchFilter = () => {
 				gutter={[16, 16]}
 				className='p-2'
 			>
-				{/* <MCol span={24}>
-					<MRow gutter={[8, 8]}>
-						<h3>Promotion</h3>
-						<MCol span={24}>
-							<Checkbox
-								checked={searchParams.get('onSale') === 'true'}
-								onChange={(e) => handleOnChangeFilterPromotion('onSale', e)}
-							>
-								On sale
-							</Checkbox>
-						</MCol>
-						<MCol span={24}>
-							<Checkbox
-								checked={searchParams.get('freeShip') === 'true'}
-								onChange={(e) => handleOnChangeFilterPromotion('freeShip', e)}
-							>
-								Free ship
-							</Checkbox>
-						</MCol>
-					</MRow>
-				</MCol> */}
 				<MCol span={24}>
 					<MRow gutter={[8, 8]}>
 						<h3>Price</h3>
