@@ -63,7 +63,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Đánh giá sản phẩm',
+			title: t('Review.Title'),
 			icon: (
 				<Link href='/profile/product-purchased'>
 					<FontAwesomeIcon
@@ -75,7 +75,7 @@ const SideBarProfile = () => {
 			),
 		},
 		{
-			title: 'Lịch sử đánh giá',
+			title: t('HistoryReview.Title'),
 			icon: (
 				<Link href='/profile/reviewed'>
 					<FontAwesomeIcon
@@ -91,8 +91,8 @@ const SideBarProfile = () => {
 		{ path: '/profile/change-password', title: t('ChangePassword') },
 		{ path: '/profile/notification', title: t('Notification') },
 		{ path: '/profile/purchased', title: t('Order') },
-		{ path: '/profile/product-purchased', title: 'Đánh giá sản phẩm' },
-		{ path: '/profile/reviewed', title: 'Lịch sử đánh giá' },
+		{ path: '/profile/product-purchased', title: t('Review.Title') },
+		{ path: '/profile/reviewed', title: t('HistoryReview.Title') },
 	];
 	const items: MenuItem[] = listItem.map((item) => {
 		return getItem(item.title, item.title, item.icon);

@@ -15,6 +15,7 @@ import { creatingReview, getReviewState } from '@/redux/reducers/reviewReducers'
 import { customMoney } from '@/utils/FunctionHelpers';
 import { Checkbox, Form, Modal, Rate } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -27,6 +28,7 @@ const ListOrderProducts = () => {
 	const reviewsState = useAppSelector(getReviewState);
 	const auth = useAppSelector(getAuthState);
 	const dispatch = useAppDispatch();
+	const t = useTranslations('ProfilePage');
 	const [productSeletedReview, setProductSeletedReview] = useState<ReviewProduct>({ isOpenModal: false });
 	const [form] = Form.useForm();
 	const handleSubmitReview = async (value: ReviewBody) => {
@@ -56,7 +58,7 @@ const ListOrderProducts = () => {
 			<div className='flex flex-col gap-4'>
 				{products.productPurchared && products.productPurchared.length < 1 && (
 					<div>
-						<p className='text-lg font-semibold'>Hiện tại không có sản phẩm nào để bạn có thể đánh giá. Vui lòng mua/đặt thêm hàng để có thể sử dụng chức năng này !</p>
+						<p className='text-lg font-semibold'>{t('Review.Exceptions')}</p>
 					</div>
 				)}
 				{products.productPurchared &&
@@ -120,7 +122,7 @@ const ListOrderProducts = () => {
 										setProductSeletedReview({ isOpenModal: true, product: product });
 									}}
 								>
-									Đánh giá
+									{t('Review.Title')}
 								</MButton>
 							</MCol>
 						</MRow>
@@ -141,20 +143,20 @@ const ListOrderProducts = () => {
 				>
 					<Form.Item<ReviewBody>
 						name='rate'
-						label='Rate'
+						label={t('Review.Rate')}
 					>
 						<Rate allowHalf />
 					</Form.Item>
 					<Form.Item<ReviewBody>
 						name='content'
-						label='Content'
+						label={t('Review.Content')}
 					>
 						<TextArea />
 					</Form.Item>
 					<MUploadImageMultiple initFileList={[]}>Upload</MUploadImageMultiple>
 					<Form.Item<ReviewBody>
 						name='isAnonymous'
-						label='Anonymous'
+						label={t('Review.Anonymous')}
 						valuePropName='checked'
 					>
 						<Checkbox checked />

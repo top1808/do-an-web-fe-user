@@ -1,5 +1,4 @@
 'use client';
-
 import MCol from '@/components/MCol';
 import MImage from '@/components/MImage';
 import MRow from '@/components/MRow';
@@ -9,12 +8,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getReviewState, gettingReviews } from '@/redux/reducers/reviewReducers';
 import { customMoney, formatDate, getSlugFromNameProduct } from '@/utils/FunctionHelpers';
 import { Rate } from 'antd';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 
 const ReviewsComponent = () => {
 	const dispatch = useAppDispatch();
 	const reviewState = useAppSelector(getReviewState);
+	const t = useTranslations('ProfilePage');
 	useEffect(() => {
 		dispatch(gettingReviews());
 	}, [dispatch]);
@@ -42,7 +43,7 @@ const ReviewsComponent = () => {
 							level={3}
 							className='text-center'
 						>
-							Đánh giá
+							{t('HistoryReview.Title')}
 						</MTitle>
 						<MRow
 							gutter={[16, 16]}
@@ -50,10 +51,10 @@ const ReviewsComponent = () => {
 							className='py-4 px-2'
 						>
 							<MCol span={12}>
-								<MText className='font-medium'>Thông tin đánh giá</MText>
+								<MText className='font-medium'>{t('HistoryReview.InformationReview')}</MText>
 							</MCol>
 							<MCol span={12}>
-								<MText className='font-medium'>Sản phẩm được đánh giá</MText>
+								<MText className='font-medium'>{t('HistoryReview.ProductReview')}</MText>
 							</MCol>
 						</MRow>
 						<div>

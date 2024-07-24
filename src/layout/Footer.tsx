@@ -14,95 +14,96 @@ import Image from 'next/image';
 import { MenuItem } from '@/models/productModels';
 import { getItem } from '@/utils/FunctionHelpers';
 import { Menu } from 'antd';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+	const t = useTranslations('Footer');
 	const aboutUs = [
 		{
-			title: 'Chúng tôi là ai',
+			title: t('AboutUs'),
 			url: '/',
 		},
 		{
-			title: 'Cam kết của chúng tôi',
+			title: t('Commitment'),
 			url: '/',
 		},
 		{
-			title: 'Tin tuyển dụng',
+			title: t('Jobs'),
 			url: '/',
 		},
 		{
-			title: 'Hệ thống cửa hàng',
+			title: t('Stores'),
 			url: '/',
 		},
 	];
 	const helps = [
 		{
-			title: 'Hướng dẫn đặt hàng',
+			title: t('OrderingGuide'),
 			url: '/',
 		},
 		{
-			title: 'Phương thức thanh toán',
+			title: t('PaymentMethods'),
 			url: '/',
 		},
 		{
-			title: 'Chính sách thành viên',
+			title: t('MembershipPolicy'),
 			url: '/',
 		},
 		{
-			title: 'Chính sách tích - tiêu điểm',
+			title: t('PointsPolicy'),
 			url: '/',
 		},
 	];
-
 	const policies = [
 		{
-			title: 'Chính sách vận chuyển',
+			title: t('ShippingPolicy'),
 			url: '/',
 		},
 		{
-			title: 'Chính sách đổi trả',
+			title: t('ReturnPolicy'),
 			url: '/',
 		},
 		{
-			title: 'Điều kiện & Điều khoản',
+			title: t('Terms&Conditions'),
 			url: '/',
 		},
 		{
-			title: 'Chính sách bảo mật',
+			title: t('PrivacyPolicy'),
 			url: '/',
 		},
 	];
 	const contacts = [
 		{
 			key: 'help-online',
-			child: <MText className='text-base font-semibold'>Hỗ trợ tư vấn mua online:</MText>,
+			child: <MText className='text-base font-semibold'>{t('SupportOnline.Help')}</MText>,
 		},
 		{
 			key: 'Hotline-online',
-			child: <MText className='text-sm'>Hotline: 0247 308 2882</MText>,
+			child: <MText className='text-sm'>{t('SupportOnline.Hotline')}</MText>,
 		},
 		{
 			key: 'Email-online',
-			child: <MText className='text-sm'>Email: Vietthang11012002@gmail.com</MText>,
+			child: <MText className='text-sm'>{t('SupportOnline.Email')}</MText>,
 		},
 		{
 			key: 'time',
-			child: <MText className='text-sm'>Giờ làm việc: 8:30 - 22:00 hằng ngày.</MText>,
+			child: <MText className='text-sm'>{t('SupportOnline.WorkingHours')}</MText>,
 		},
 		{
 			key: 'help-off',
-			child: <MText className='text-base  font-semibold'>Hỗ trợ khiếu nại và bảo hành sản phẩm:</MText>,
+			child: <MText className='text-base  font-semibold'>{t('ComplaintSuport.Help')}</MText>,
 		},
 		{
 			key: 'Hotline-off',
-			child: <MText className='text-sm'>Hotline: 024 7300 6999</MText>,
+			child: <MText className='text-sm'>{t('ComplaintSuport.Hotline')}</MText>,
 		},
 		{
 			key: 'email-off',
-			child: <MText className='text-sm'>Email: top1808@gmail.com</MText>,
+			child: <MText className='text-sm'>{t('ComplaintSuport.Email')}</MText>,
 		},
 		{
 			key: 'Time-off',
-			child: <MText className='text-sm'>Giờ làm việc: 8:30 - 22:00 hằng ngày.</MText>,
+			child: <MText className='text-sm'>{t('ComplaintSuport.WorkingHours')}</MText>,
 		},
 	];
 	const socials = [
@@ -164,7 +165,7 @@ const Footer = () => {
 	];
 	const items: MenuItem[] = [
 		getItem(
-			<MText className='text-sm font-bold'>Về chúng tôi</MText>,
+			<MText className='text-sm font-bold'>{t('About')}</MText>,
 			'aboutUs',
 			<></>,
 			aboutUs.map((item) => {
@@ -180,7 +181,7 @@ const Footer = () => {
 			}),
 		),
 		getItem(
-			<MText className='text-sm font-bold'>Hỗ trợ khách hàng</MText>,
+			<MText className='text-sm font-bold'>{t('CustomerSupport')}</MText>,
 			'helps',
 			<></>,
 			helps.map((item) => {
@@ -196,7 +197,7 @@ const Footer = () => {
 			}),
 		),
 		getItem(
-			<MText className='text-sm font-bold'>Chính sách</MText>,
+			<MText className='text-sm font-bold'>{t('Policy')}</MText>,
 			'policies',
 			<></>,
 			policies.map((item) => {
@@ -212,7 +213,7 @@ const Footer = () => {
 			}),
 		),
 		getItem(
-			<MText className='text-sm font-bold'>Liên hệ</MText>,
+			<MText className='text-sm font-bold'>{t('Contact')}</MText>,
 			'contact',
 			<></>,
 			contacts.map((item) => {
@@ -220,6 +221,7 @@ const Footer = () => {
 			}),
 		),
 	];
+
 	return (
 		<footer>
 			<div className='bg-white hidden xl:block'>
@@ -231,7 +233,7 @@ const Footer = () => {
 									span={24}
 									className='mb-4'
 								>
-									<MText className='text-xl font-bold'>Về chúng tôi</MText>
+									<MText className='text-xl font-bold'>{t('About')}</MText>
 								</MCol>
 								{aboutUs.map((item) => (
 									<MCol
@@ -254,7 +256,7 @@ const Footer = () => {
 									span={24}
 									className='mb-4'
 								>
-									<MText className='text-xl font-bold'>Hỗ trợ khách hàng</MText>
+									<MText className='text-xl font-bold'>{t('CustomerSupport')}</MText>
 								</MCol>
 								{helps.map((item) => (
 									<MCol
@@ -277,7 +279,7 @@ const Footer = () => {
 									span={24}
 									className='mb-4'
 								>
-									<MText className='text-xl font-bold'>Chính sách</MText>
+									<MText className='text-xl font-bold'>{t('Policy')}</MText>
 								</MCol>
 								{policies.map((item) => (
 									<MCol
@@ -300,7 +302,7 @@ const Footer = () => {
 									span={24}
 									className='mb-4'
 								>
-									<MText className='text-xl font-bold'>Liên hệ</MText>
+									<MText className='text-xl font-bold'>{t('Contact')}</MText>
 								</MCol>
 								{contacts.map((item) => (
 									<MCol
@@ -352,7 +354,7 @@ const Footer = () => {
 						justify={'start'}
 					>
 						<MCol span={24}>
-							<MText className='text-base font-semibold'>Theo dõi chúng tôi trên</MText>
+							<MText className='text-base font-semibold'>{t('Socials')}</MText>
 						</MCol>
 						<MCol span={24}>
 							<MRow
@@ -391,10 +393,10 @@ const Footer = () => {
 							span={24}
 							className='mb-4'
 						>
-							<MText className='text-xl font-bold'>Liên kết và thanh toán</MText>
+							<MText className='text-xl font-bold'>{t('LinksAndPayments')}</MText>
 						</MCol>
 						<MCol span={24}>
-							<MText className='text-base  font-semibold'>Chúng tôi kết nối thanh toán qua</MText>
+							<MText className='text-base  font-semibold'>{t('AccecptedPayments')}</MText>
 						</MCol>
 						<MCol>
 							<Image
@@ -409,7 +411,7 @@ const Footer = () => {
 							/>
 						</MCol>
 						<MCol span={24}>
-							<MText className='text-base  font-semibold'>Chúng tôi liên kết với dịch vụ giao hàng</MText>
+							<MText className='text-base  font-semibold'>{t('AccecptedDelivery')}</MText>
 						</MCol>
 						<MCol>
 							<Image

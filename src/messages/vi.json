@@ -94,6 +94,52 @@
 		"Upload": "Tải lên",
 		"Province": "Chọn tỉnh/thành phố",
 		"District": "Chọn quận/huyện",
-		"Ward": "Chọn phương/xã"
+		"Ward": "Chọn phương/xã",
+		"HistoryReview": {
+			"Title": "Lịch sử đánh giá",
+			"InformationReview": "Thông tin đánh giá",
+			"ProductReview": "Sản phẩm được đánh giá"
+		},
+		"Review": {
+			"Title": "Đánh giá",
+			"Exceptions": "Hiện tại không có sản phẩm nào để bạn có thể đánh giá. Vui lòng mua/đặt thêm hàng để có thể sử dụng chức năng này !",
+			"Rate": "Số sao",
+			"Content": "Nội dung",
+			"Anonymous": "Ẩn danh"
+		}
+	},
+	"Footer": {
+		"About": "Về chúng tôi",
+		"CustomerSupport": "Hỗ trợ khách hàng",
+		"Policy": "Chính sách",
+		"Contact": "Liên hệ",
+		"AboutUs": "Chúng tôi là ai",
+		"Commitment": "Cam kết của chúng tôi",
+		"Jobs": "Tin tuyển dụng",
+		"Stores": "Hệ thống cửa hàng",
+		"OrderingGuide": "Hướng dẫn đặt hàng",
+		"PaymentMethods": "Phương thức thanh toán",
+		"MembershipPolicy": "Chính sách thành viên",
+		"PointsPolicy": "Chính sách tích - tiêu điểm",
+		"ShippingPolicy": "Chính sách vận chuyển",
+		"ReturnPolicy": "Chính sách đổi trả",
+		"Terms&Conditions": "Điều kiện & Điều khoản",
+		"PrivacyPolicy": "Chính sách bảo mật",
+		"SupportOnline": {
+			"Help": "Online purchasing support:",
+			"Hotline": "Hotline: 0247 308 2882",
+			"Email": "Email: Vietthang11012002@gmail.com",
+			"WorkingHours": "Giờ làm việc: 8:30 - 22:00 hằng ngày."
+		},
+		"ComplaintSuport": {
+			"Help": "Hỗ trợ khiếu nại và bảo hành sản phẩm:",
+			"Hotline": "Hotline: 024 7300 6999",
+			"Email": "Email: top1808@gmail.com",
+			"WorkingHours": "Giờ làm việc: 8:30 - 22:00 hằng ngày."
+		},
+		"Socials": "Theo dõi chúng tôi trên",
+		"LinksAndPayments": "Liên kết và thanh toán",
+		"AccecptedPayments": "Chúng tôi kết nối thanh toán qua",
+		"AccecptedDelivery": "Chúng tôi liên kết với dịch vụ giao hàng"
 	}
 }

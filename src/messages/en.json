@@ -95,6 +95,52 @@
 		"Order": "Order",
 		"Province": "Choice City/province",
 		"District": "Choice District",
-		"Ward": "Choice Ward"
+		"Ward": "Choice Ward",
+		"HistoryReview": {
+			"Title": "Review history",
+			"InformationReview": "Information Review",
+			"ProductReview": "Product Review"
+		},
+		"Review": {
+			"Title": "Review",
+			"Exceptions": "There are currently no products for you to rate. Please purchase/order additional items to be able to use this function !",
+			"Rate": "Rate",
+			"Content": "Content",
+			"Anonymous": "Anonymous"
+		}
+	},
+	"Footer": {
+		"About": "About",
+		"CustomerSupport": "Customer Support",
+		"Policy": "Policy",
+		"Contact": "Contact",
+		"AboutUs": "About us",
+		"Commitment": "Our commitment",
+		"Jobs": "Job opportunities",
+		"Stores": "Store system",
+		"OrderingGuide": "Ordering Guide",
+		"PaymentMethods": "Payment Methods",
+		"MembershipPolicy": "Membership Policy",
+		"PointsPolicy": "Points Policy",
+		"ShippingPolicy": "Shipping Policy",
+		"ReturnPolicy": "Return Policy",
+		"Terms&Conditions": "Terms & Conditions",
+		"PrivacyPolicy": "Privacy Policy",
+		"SupportOnline": {
+			"Help": "Online purchasing support:",
+			"Hotline": "Hotline: 0247 308 2882",
+			"Email": "Email: Vietthang11012002@gmail.com",
+			"WorkingHours": "Working hours: 8:30 AM - 10:00 PM daily."
+		},
+		"ComplaintSuport": {
+			"Help": "Complaint and product warranty support:",
+			"Hotline": "Hotline: 024 7300 6999",
+			"Email": "Email: top1808@gmail.com",
+			"WorkingHours": "Working hours: 8:30 AM - 10:00 PM daily."
+		},
+		"Socials": "Follow us on",
+		"LinksAndPayments": "Links and Payments",
+		"AccecptedPayments": "We accept payment via",
+		"AccecptedDelivery": "We are affiliated with the delivery service"
 	}
 }
