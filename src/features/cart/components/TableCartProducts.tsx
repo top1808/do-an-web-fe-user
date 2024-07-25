@@ -50,7 +50,7 @@ const TableCartProducts = ({ data }: { data: CartProduct[] }) => {
 							className='text-center'
 							span={3}
 						>
-							<p>Image</p>
+							<p>{t('Image')}</p>
 						</MCol>
 						<Col span={20}>
 							<MRow className='w-full'>

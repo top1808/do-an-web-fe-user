@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faFilter } from '@fortawesome/free-solid-svg-icons';
 import MRow from './MRow';
 import MCol from './MCol';
-import Checkbox, { CheckboxChangeEvent } from 'antd/es/checkbox';
+import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { InputNumber, Menu, Rate } from 'antd';
 import MSelect from './MSelect';
 import { MenuItem } from '@/models/productModels';
 import MButton from './MButton';
-import MInput from './MInput';
+import { useTranslations } from 'next-intl';
 type RangePrice = {
 	minPrice?: number | null;
 	maxPrice?: number | null;
@@ -19,6 +19,7 @@ type RangePrice = {
 const SearchFilter = () => {
 	const router = useRouter();
 	const pathname = usePathname();
+	const t = useTranslations('SearchAndFilter');
 	const searchParams = useSearchParams();
 	const [rangePrice, setRangePrice] = useState<RangePrice>({});
 	const items: MenuItem[] = [
@@ -39,7 +40,7 @@ const SearchFilter = () => {
 						disabled
 						defaultValue={4}
 					/>
-					<p>& Up</p>
+					<p>{`${t('Up')}`}</p>
 				</div>
 			),
 		},
@@ -51,7 +52,7 @@ const SearchFilter = () => {
 						disabled
 						defaultValue={3}
 					/>
-					<p>& Up</p>
+					<p>{`${t('Up')}`}</p>
 				</div>
 			),
 		},
@@ -63,7 +64,7 @@ const SearchFilter = () => {
 						disabled
 						defaultValue={2}
 					/>
-					<p>& Up</p>
+					<p>{`${t('Up')}`}</p>
 				</div>
 			),
 		},
@@ -75,7 +76,7 @@ const SearchFilter = () => {
 						disabled
 						defaultValue={1}
 					/>
-					<p>& Up</p>
+					<p>{`${t('Up')}`}</p>
 				</div>
 			),
 		},
@@ -109,15 +110,15 @@ const SearchFilter = () => {
 		}
 		return newParams.toString();
 	}, [searchParams]);
-	const handleOnChangeFilterPromotion = (value: string, e: CheckboxChangeEvent) => {
-		if (e.target.checked) {
-			// add query
-			router.push(pathname + '?' + createQueryString(value, 'true'));
-		} else {
-			// remove query
-			router.push(pathname + '?' + createQueryString(value, ''));
-		}
-	};
+	// const handleOnChangeFilterPromotion = (value: string, e: CheckboxChangeEvent) => {
+	// 	if (e.target.checked) {
+	// 		// add query
+	// 		router.push(pathname + '?' + createQueryString(value, 'true'));
+	// 	} else {
+	// 		// remove query
+	// 		router.push(pathname + '?' + createQueryString(value, ''));
+	// 	}
+	// };
 	const handleApplyRangePrice = () => {
 		const params = new URLSearchParams(searchParams.toString());
 		rangePrice.minPrice ? params.set('minPrice', rangePrice.minPrice + '') : params.delete('minPrice');
@@ -131,7 +132,7 @@ const SearchFilter = () => {
 					icon={faFilter}
 					className='mr-2'
 				/>
-				SEARCH FILTER
+				{t('SearchAndFilter')}
 			</MTitle>
 			<MRow
 				gutter={[16, 16]}
@@ -142,19 +143,19 @@ const SearchFilter = () => {
 						<h3>Price</h3>
 						<MCol span={24}>
 							<MSelect
-								value={searchParams.get('sortType') ?? 'default'}
+								value={searchParams.get('sortType') ?? t('Default')}
 								style={{ width: 150 }}
 								onChange={(value) => {
 									router.push(pathname + '?' + createQueryString('sortType', value));
 								}}
 								options={[
-									{ value: '', label: '(Default)' },
-									{ value: 'asc', label: 'Giá tăng dần' },
-									{ value: 'desc', label: 'Giá giảm dần' },
+									{ value: '', label: <>{`(${t('Default')})`}</> },
+									{ value: 'asc', label: <>{`${t('ASC')}`}</> },
+									{ value: 'desc', label: <>{`${t('DESC')}`}</> },
 								]}
 							/>
 						</MCol>
-						<h3>Price Range</h3>
+						<h3>{t('PriceRange')}</h3>
 						<MCol span={24}>
 							<MRow
 								justify={'space-between'}
@@ -167,7 +168,7 @@ const SearchFilter = () => {
 										value={rangePrice.minPrice}
 										onChange={(value) => setRangePrice((prev) => ({ ...prev, minPrice: value }))}
 										min={0}
-										placeholder='Min price'
+										placeholder={t('MinPrice')}
 										controls={false}
 									/>
 								</MCol>
@@ -180,7 +181,7 @@ const SearchFilter = () => {
 										value={rangePrice.maxPrice}
 										onChange={(value) => setRangePrice((prev) => ({ ...prev, maxPrice: value }))}
 										min={0}
-										placeholder='Max price'
+										placeholder={t('MaxPrice')}
 										controls={false}
 									/>
 								</MCol>
@@ -189,7 +190,7 @@ const SearchFilter = () => {
 										className='w-full bg-red-600 text-white'
 										onClick={handleApplyRangePrice}
 									>
-										Apply
+										{t('Apply')}
 									</MButton>
 								</MCol>
 							</MRow>
@@ -198,7 +199,7 @@ const SearchFilter = () => {
 				</MCol>
 				<MCol span={24}>
 					<MRow gutter={[8, 8]}>
-						<h3>Rating</h3>
+						<h3>{t('Rating')}</h3>
 						<MCol span={24}>
 							<Menu
 								onClick={(e) => {

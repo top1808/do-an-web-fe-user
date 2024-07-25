@@ -23,6 +23,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import EvaluateProduct from '../components/EvaluateProduct';
 import MInputQuantity from '@/components/MInputQuantity';
 import ListProductsSKUSale from '../components/ListProductsSKUSale';
+import { useTranslations } from 'next-intl';
 interface DetailProductComponent {
 	productInfor?: Product;
 }
@@ -37,6 +38,7 @@ type ProductSKUChoice = {
 const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 	const { productInfor } = props;
 	const { data: session } = useSession();
+	const t = useTranslations('Product');
 	const product = useAppSelector(getProductState);
 	const cart = useAppSelector(getCartState);
 	const dispatch = useAppDispatch();
@@ -133,9 +135,9 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									disabled
 								/>
 								{productSKU.product ? (
-									<div className='text-xl'>{`Đã bán: ${productSKU?.product?.inventory.soldQuantity} sản phẩm`}</div>
+									<div className='text-xl'>{t('Sold', { quantity: productSKU?.product?.inventory.soldQuantity })}</div>
 								) : (
-									<div className='text-xl'>{`Đã bán: ${productInfor?.soldQuantityOfProduct} sản phẩm`}</div>
+									<div className='text-xl'>{t('Sold', { quantity: productInfor?.soldQuantityOfProduct })}</div>
 								)}
 							</div>
 							<div className='flex lg:gap-4 gap-1 items-center'>
@@ -159,7 +161,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								productsSKUSales={getProductsSKUSalesByOneOption(productInfor)}
 							/>
 							<div className='pt-4'>
-								<MTitle level={3}>Số lượng</MTitle>
+								<MTitle level={3}>{t('Quantity')}</MTitle>
 								<div className='flex gap-4'>
 									<div className='w-[120px]'>
 										<MInputQuantity
@@ -182,7 +184,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 											}}
 										/>
 									</div>
-									<div className=' text-center'>{productSKU.product && <p>{`Còn: ${productSKU.product?.inventory.currentQuantity} sản phẩm`}</p>}</div>
+									<div className=' text-center'>{productSKU.product && <p>{t('Left', { quantity: productSKU.product?.inventory.currentQuantity })}</p>}</div>
 								</div>
 							</div>
 						</div>
@@ -205,7 +207,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									icon={faCartShopping}
 									className='hover:text-white'
 								/>
-								&nbsp; Thêm vào giỏ hàng
+								&nbsp; {t('AddToCart')}
 							</MButton>
 							<MButton
 								size='large'
@@ -219,7 +221,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 								}}
 								className='bg-red-400 text-white py-[4px] px-[15px] rounded-lg align-middle hover:opacity-80 hover:text-white'
 							>
-								&nbsp; Mua ngay
+								&nbsp; {t('PayNow')}
 							</MButton>
 						</div>
 						<MRow
@@ -235,7 +237,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									/>
 								</div>
 								<div>
-									<p className='text-center text-base'>Xem tình trạng giao hàng ở đơn hàng (*)</p>
+									<p className='text-center text-base'>{t('ViewDeliveryDtatus')}</p>
 								</div>
 							</MCol>
 							<MCol span={8}>
@@ -247,7 +249,7 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									/>
 								</div>
 								<div>
-									<p className='text-center text-base'>1 đổi 1 trong vòng 3 ngày</p>
+									<p className='text-center text-base'>{t('ReturnPolicy')}</p>
 								</div>
 							</MCol>
 							<MCol span={8}>
@@ -259,19 +261,24 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 									/>
 								</div>
 								<div>
-									<p className='text-center text-base'>Kiếm tra hàng trước khi thanh toán</p>
+									<p className='text-center text-base'>{t('CheckPolicy')}</p>
 								</div>
 							</MCol>
 						</MRow>
 					</MCol>
 				</MRow>
 			</div>
-			{productInfor?.description && <ProductDescription description={productInfor?.description} />}
+			{productInfor?.description && (
+				<ProductDescription
+					description={productInfor?.description}
+					title={t('Description')}
+				/>
+			)}
 			<EvaluateProduct
 				rate={productInfor?.rate || 5}
 				reviews={productInfor?.reviews || []}
 			/>
-			<ProductRelative />
+			<ProductRelative title={t('RelatedProducts')} />
 		</>
 	);
 };

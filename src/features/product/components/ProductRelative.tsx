@@ -1,18 +1,18 @@
 import MSkeleton from '@/components/MSkeleton';
 import MText from '@/components/MText';
-import CustomSlider from '@/components/CustomSlider';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getProductState, gettingProducstRelative } from '@/redux/reducers/productReducer';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
 import CardProduct from '@/features/home/components/CardProduct';
-import { Card } from 'antd';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 
-interface ProductRelativeProps {}
+interface ProductRelativeProps {
+	title: string;
+}
 
-const ProductRelative = (props: ProductRelativeProps) => {
+const ProductRelative = ({ title }: ProductRelativeProps) => {
 	const product = useAppSelector(getProductState);
 	const dispatch = useAppDispatch();
 	const params = useParams();
@@ -30,7 +30,7 @@ const ProductRelative = (props: ProductRelativeProps) => {
 					className='text-xl font-bold'
 					style={{ color: 'red' }}
 				>
-					Sản phẩm liên quan
+					{title}
 				</MText>
 				{/* <CustomSlider
 					length={product.productsRelative?.length || 0}

@@ -11,12 +11,14 @@ import Link from 'next/link';
 import MRow from '@/components/MRow';
 import MCol from '@/components/MCol';
 import { getItem } from '@/utils/FunctionHelpers';
+import { useTranslations } from 'next-intl';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const SideBarUser: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const category = useAppSelector(getCategoryState);
+	const t = useTranslations('Category');
 	const searchParams = useSearchParams();
 	const [sizeDevice, setSizeDevice] = useState(document.documentElement.clientWidth);
 	window.onresize = () => setSizeDevice(window.innerWidth);
@@ -33,7 +35,7 @@ const SideBarUser: React.FC = () => {
 						src={item?.image}
 						preview={false}
 					/>
-					{item.name}
+					{t(item.name)}
 				</Link>,
 				item._id,
 			),
@@ -66,7 +68,7 @@ const SideBarUser: React.FC = () => {
 										src={iconAll.src}
 										preview={false}
 									/>
-									ALL
+									{t('Tất cả')}
 								</Link>,
 								'all',
 							),

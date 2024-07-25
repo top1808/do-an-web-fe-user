@@ -69,7 +69,8 @@
 		"VNPay": "VNPay",
 		"Done": "Done",
 		"Note": "Note",
-		"Checkout": "Continue checkout"
+		"Checkout": "Continue checkout",
+		"Image": "Image"
 	},
 	"ProfilePage": {
 		"Account": "Information Account",
@@ -88,7 +89,19 @@
 		"DeliverAddress": "Delivery Address",
 		"CreateAt": "Create At",
 		"PaymentMethod": "Payment Method",
-		"Status": "Status",
+		"Status": {
+			"Title": "Status",
+			"Processing": "Processing",
+			"Confirmed": "Confirmed",
+			"Delivering": "Delivering",
+			"Delivered": "Delivered",
+			"Received": "Received",
+			"Canceled": "Canceled"
+		},
+		"OrderDetail": "Detail order",
+		"DeliveryFee": "Delivery fee",
+		"TotalPaid": "Total Paid",
+		"Back": "Back",
 		"Action": "Action",
 		"ExpectedDelivery": "Expected delivery",
 		"Upload": "Upload",
@@ -142,5 +155,45 @@
 		"LinksAndPayments": "Links and Payments",
 		"AccecptedPayments": "We accept payment via",
 		"AccecptedDelivery": "We are affiliated with the delivery service"
+	},
+	"Category": {
+		"Tất cả": "All",
+		"Thời trang nữ": "Women's fashion",
+		"Đồng hồ": "Watches",
+		"Đồ trẻ em": "Children's clothing",
+		"Thời trang nam": "Men's fashion",
+		"Giày dép": "Footwear",
+		"Phụ kiện & Trang sức nữ": "Women's accessories & jewelry",
+		"Balo": "Backpacks",
+		"Túi ví": "Bags & wallets"
+	},
+	"SearchAndFilter": {
+		"SearchAndFilter": "Sort and Filter",
+		"ASC": "Ascending",
+		"DESC": "Descending",
+		"Price": "Price",
+		"Default": "Default",
+		"PriceRange": "Price Range",
+		"Apply": "Apply",
+		"Rating": "Rating",
+		"Up": "Up",
+		"MinPrice": "Min Price",
+		"MaxPrice": "Max Price"
+	},
+	"Product": {
+		"Description": "Description",
+		"Sold": "Sold: {quantity} products",
+		"Left": "Left: {quantity} products",
+		"AddToCart": "Add to cart",
+		"PayNow": "Pay now",
+		"Quantity": "Quantity",
+		"ViewDeliveryDtatus": "View delivery status of orders",
+		"ReturnPolicy": "1 for 1 exchange within 3 days",
+		"CheckPolicy": "Check the goods before payment",
+		"Review": {
+			"Title": "Review product",
+			"NoReview": "There are no reviews yet"
+		},
+		"RelatedProducts": "Related products"
 	}
 }

@@ -11,32 +11,32 @@ const PAYMENT_METHOD = [
 
 const ORDER_STATUS = [
 	{
-		label: 'Đang xử lý',
+		label: 'Processing',
 		value: 'processing',
 		color: 'yellow',
 	},
 	{
-		label: 'Đã xác nhận',
+		label: 'Confirmed',
 		value: 'confirmed',
 		color: 'green',
 	},
 	{
-		label: 'Đang giao hàng',
+		label: 'Delivering',
 		value: 'delivering',
 		color: 'geekblue',
 	},
 	{
-		label: 'Đã giao hàng',
+		label: 'Delivered',
 		value: 'delivered',
 		color: 'orange',
 	},
 	{
-		label: 'Đã nhận hàng',
+		label: 'Received',
 		value: 'received',
 		color: 'pink',
 	},
 	{
-		label: 'Đã hủy',
+		label: 'Canceled',
 		value: 'canceled',
 		color: 'red',
 	},

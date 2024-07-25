@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { List, Rate } from 'antd';
 import React, { useEffect, useState } from 'react';
 import MButton from '@/components/MButton';
+import { useTranslations } from 'next-intl';
 
 type EvaluateProductProps = {
 	reviews: Review[];
@@ -21,6 +22,8 @@ type FilterRating = {
 	value: number;
 };
 const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
+	const t = useTranslations('Product');
+
 	const ratesArray: FilterRating[] = [
 		{
 			label: 'Tất cả',
@@ -84,11 +87,11 @@ const EvaluateProduct = ({ reviews, rate }: EvaluateProductProps) => {
 					className='p-2'
 					style={{ color: 'red' }}
 				>
-					Đánh giá sản phẩm
+					{t('Review.Title')}
 				</MTitle>
 				<div className='flex justify-end px-2'></div>
 				{reviews.length < 1 ? (
-					<div className='p-2'>Chưa có đánh giá</div>
+					<div className='p-2'>{t('Review.NoReview')}</div>
 				) : (
 					<div className='p-2'>
 						<MRow gutter={[16, 16]}>

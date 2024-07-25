@@ -9,10 +9,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBasketShopping } from '@fortawesome/free-solid-svg-icons';
 import MButton from '@/components/MButton';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 const CartPageComponent = () => {
 	const cart = useAppSelector(getCartState);
 	const router = useRouter();
+	const t = useTranslations('CartPage');
+
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(gettingCart());
@@ -29,7 +32,7 @@ const CartPageComponent = () => {
 					&nbsp; Back
 				</MButton>
 				<h2 className='text-3xl text-red-400  py-4'>
-					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; Giỏ hàng
+					<FontAwesomeIcon icon={faBasketShopping} /> &nbsp; {t('MyCart')}
 				</h2>
 				<div>{cart?.items?.length < 1 ? <CartEmpty /> : <TableCartProducts data={cart?.items} />}</div>
 			</div>

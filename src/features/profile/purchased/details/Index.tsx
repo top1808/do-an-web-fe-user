@@ -1,5 +1,4 @@
 'use client';
-
 import MBadge from '@/components/MBadge';
 import MButton from '@/components/MButton';
 import MCard from '@/components/MCard';
@@ -11,6 +10,7 @@ import { ORDER_STATUS, PAYMENT_METHOD } from '@/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getOrderState, gettingOrderInfo } from '@/redux/reducers/orderReducer';
 import { customMoney, formatDate } from '@/utils/FunctionHelpers';
+import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -18,6 +18,8 @@ interface PurchasedDetailsPageProps {}
 
 const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 	const order = useAppSelector(getOrderState);
+	const t = useTranslations('ProfilePage');
+
 	const { orderDetails } = order;
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -35,7 +37,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 				title={
 					<div className='py-2'>
 						<MRow>
-							<MCol span={8}>Chi tiết đơn hàng</MCol>
+							<MCol span={8}>{t('OrderDetail')}</MCol>
 							<MCol
 								span={16}
 								className='text-blue-500'
@@ -44,7 +46,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							</MCol>
 						</MRow>
 						<MRow>
-							<MCol span={8}>Ngày đặt hàng</MCol>
+							<MCol span={8}>{t('CreateAt')}</MCol>
 							<MCol
 								span={16}
 								className='text-blue-500'
@@ -54,7 +56,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 						</MRow>
 						{orderDetails?.deliveryDate && (
 							<MRow>
-								<MCol span={8}>Dự kiến giao hàng</MCol>
+								<MCol span={8}>{t('ExpectedDelivery')}</MCol>
 								<MCol
 									span={16}
 									className='text-blue-500'
@@ -64,7 +66,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							</MRow>
 						)}
 						<MRow>
-							<MCol span={8}>Địa chỉ giao hàng</MCol>
+							<MCol span={8}>{t('DeliverAddress')}</MCol>
 							<MCol
 								span={16}
 								className='text-blue-500'
@@ -73,16 +75,16 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							</MCol>
 						</MRow>
 						<MRow>
-							<MCol span={8}>Tình trạng đơn hàng</MCol>
+							<MCol span={8}>{t('Status.Title')}</MCol>
 							<MCol span={16}>
 								<MBadge
-									count={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.label}
+									count={t(`Status.${ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.label}`)}
 									color={ORDER_STATUS.find((p) => p.value === orderDetails?.status)?.color}
-								></MBadge>
+								/>
 							</MCol>
 						</MRow>
 						<MRow>
-							<MCol span={8}>Hình thức thanh toán</MCol>
+							<MCol span={8}>{t('PaymentMethod')}</MCol>
 							<MCol
 								span={16}
 								className='text-blue-500'
@@ -154,7 +156,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							span={4}
 							className='text-end'
 						>
-							Tổng tiền hàng:
+							{`${t('DeliveryFee')} :`}
 						</MCol>
 					</MRow>
 					<MRow className='flex-row-reverse text-base font-bold'>
@@ -168,7 +170,7 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							span={4}
 							className='text-end'
 						>
-							Phí vận chuyển:
+							{`${t('TotalPrice')} :`}
 						</MCol>
 					</MRow>
 					{!!orderDetails?.voucherCode && (
@@ -198,11 +200,11 @@ const PurchasedDetailsPage = (props: PurchasedDetailsPageProps) => {
 							span={4}
 							className='text-end'
 						>
-							Tổng thanh toán:
+							{`${t('TotalPaid')} :`}
 						</MCol>
 					</MRow>
 					<div className='text-center'>
-						<MButton onClick={() => router.back()}>Quay lại</MButton>
+						<MButton onClick={() => router.back()}>{t('Back')}</MButton>
 					</div>
 				</div>
 			</MCard>

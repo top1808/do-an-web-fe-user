@@ -320,10 +320,10 @@ const Footer = () => {
 									span={24}
 									className='mb-4'
 								>
-									<MText className='text-xl font-bold'>Liên kết và thanh toán</MText>
+									<MText className='text-xl font-bold'>{t('LinksAndPayments')}</MText>
 								</MCol>
 								<MCol span={24}>
-									<MText className='text-base  font-semibold'>Chúng tôi kết nối thanh toán qua</MText>
+									<MText className='text-base  font-semibold'>{t('AccecptedPayments')}</MText>
 								</MCol>
 								<MCol>
 									<Image
@@ -338,7 +338,7 @@ const Footer = () => {
 									/>
 								</MCol>
 								<MCol span={24}>
-									<MText className='text-base  font-semibold'>Chúng tôi liên kết với dịch vụ giao hàng</MText>
+									<MText className='text-base  font-semibold'>{t('AccecptedDelivery')}</MText>
 								</MCol>
 								<MCol>
 									<Image

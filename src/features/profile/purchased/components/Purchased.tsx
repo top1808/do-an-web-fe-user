@@ -69,13 +69,13 @@ const Purchased = () => {
 
 	const columns: ColumnsType<Order> = [
 		{
-			title: 'Mã đơn hàng',
+			title: <>{t('OrderID')}</>,
 			dataIndex: 'orderCode',
 			key: 'orderCode',
 			width: 200,
 		},
 		{
-			title: 'Tổng tiền',
+			title: <>{t('TotalPrice')}</>,
 			dataIndex: 'totalPrice',
 			key: 'totalPrice',
 			width: 150,
@@ -84,13 +84,13 @@ const Purchased = () => {
 			render: customMoney,
 		},
 		{
-			title: 'Địa chỉ giao hàng',
+			title: <>{t('DeliverAddress')}</>,
 			dataIndex: 'deliveryAddress',
 			key: 'deliveryAddress',
 			width: 220,
 		},
 		{
-			title: 'Ngày đặt hàng',
+			title: <>{t('CreateAt')}</>,
 			dataIndex: 'createdAt',
 			key: 'createdAt',
 			align: 'center',
@@ -104,7 +104,7 @@ const Purchased = () => {
 			render: (item: string) => (item ? dayjs(item).format('DD/MM/YYYY') : 'Chưa xác định'),
 		},
 		{
-			title: 'Dự kiến giao hàng',
+			title: <>{t('ExpectedDelivery')}</>,
 			dataIndex: 'deliveryDate',
 			key: 'deliveryDate',
 			align: 'center',
@@ -112,14 +112,14 @@ const Purchased = () => {
 			render: (item: string) => (item ? dayjs(item).format('DD/MM/YYYY') : 'Chưa xác định'),
 		},
 		{
-			title: 'Hình thức thanh toán',
+			title: <>{t('PaymentMethod')}</>,
 			dataIndex: 'paymentMethod',
 			key: 'paymentMethod',
 			width: 200,
 			render: (item: string) => PAYMENT_METHOD.find((p) => p.value === item)?.label,
 		},
 		{
-			title: 'Tình trạng đơn hàng',
+			title: <>{t('Status.Title')}</>,
 			dataIndex: 'status',
 			key: 'status',
 			width: 200,
@@ -127,32 +127,32 @@ const Purchased = () => {
 			align: 'center',
 			filters: [
 				{
-					text: 'Đang xử lý',
+					text: <>{t('Status.Processing')}</>,
 					value: 'processing',
 				},
 				{
-					text: 'Đã xác nhận',
+					text: <>{t('Status.Confirmed')}</>,
 					value: 'confirmed',
 				},
 				{
-					text: 'Đang giao hàng',
+					text: <>{t('Status.Delivering')}</>,
 					value: 'delivering',
 				},
 				{
-					text: 'Đã giao hàng',
+					text: <>{t('Status.Delivered')}</>,
 					value: 'delivered',
 				},
 				{
-					text: 'Đã hủy',
+					text: <>{t('Status.Canceled')}</>,
 					value: 'canceled',
 				},
 			],
 			onFilter: (value, record) => record.status === value,
 			render: (item: string) => (
 				<MBadge
-					count={ORDER_STATUS.find((p) => p.value === item)?.label}
+					count={t(`Status.${ORDER_STATUS.find((p) => p.value === item)?.label}`)}
 					color={ORDER_STATUS.find((p) => p.value === item)?.color}
-				></MBadge>
+				/>
 			),
 		},
 		{

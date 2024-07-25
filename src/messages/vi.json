@@ -68,7 +68,9 @@
 		"VNPay": "VNPay",
 		"Done": "Hoàn tất",
 		"Note": "Ghi chú",
-		"Checkout": "Tiếp tục thanh toán"
+		"Checkout": "Tiếp tục thanh toán",
+		"SubTotal": "Thành tiền",
+		"Image": "Hình ảnh"
 	},
 	"ProfilePage": {
 		"Account": "Thông tin tài khoản",
@@ -86,9 +88,21 @@
 		"OrderID": "Mã đơn hàng",
 		"TotalPrice": "Tổng tiền",
 		"DeliverAddress": "Địa chỉ giao hàng",
+		"Back": "Quay lại",
 		"CreateAt": "Ngày tạo đơn",
 		"PaymentMethod": "Phương thức thanh toán",
-		"Status": "Trạng thái",
+		"Status": {
+			"Title": "Trạng thái",
+			"Processing": "Đang xử lý",
+			"Confirmed": "Đã xác nhận",
+			"Delivering": "Đang giao hàng",
+			"Delivered": "Đã giao hàng",
+			"Received": "Đã nhận hàng",
+			"Canceled": "Đã hủy"
+		},
+		"OrderDetail": "Chi tiết hóa đơn",
+		"DeliveryFee": "Phí vận chuyển",
+		"TotalPaid": "Tổng thanh toán",
 		"Action": "Hành động",
 		"ExpectedDelivery": "Giao hàng dự kiến",
 		"Upload": "Tải lên",
@@ -141,5 +155,45 @@
 		"LinksAndPayments": "Liên kết và thanh toán",
 		"AccecptedPayments": "Chúng tôi kết nối thanh toán qua",
 		"AccecptedDelivery": "Chúng tôi liên kết với dịch vụ giao hàng"
+	},
+	"Category": {
+		"Tất cả": "Tất cả",
+		"Thời trang nữ": "Thời trang nữ",
+		"Đồng hồ": "Đồng hồ",
+		"Đồ trẻ em": "Đồ trẻ em",
+		"Thời trang nam": "hời trang nam",
+		"Giày dép": "Giày dép",
+		"Phụ kiện & Trang sức nữ": "Phụ kiện & Trang sức nữ",
+		"Balo": "Balo",
+		"Túi ví": "Túi ví"
+	},
+	"SearchAndFilter": {
+		"SearchAndFilter": "Sắp xếp và lọc",
+		"ASC": "Tăng dần",
+		"DESC": "Giảm dần",
+		"Price": "Giá",
+		"Default": "Mặc định",
+		"PriceRange": "Giá khoảng từ",
+		"Apply": "Áp dụng",
+		"Rating": "Đánh giá",
+		"Up": "trở lên",
+		"MinPrice": "Giá từ...",
+		"MaxPrice": "Đến giá..."
+	},
+	"Product": {
+		"Description": "Mô tả",
+		"Sold": "Đã bán: {quantity} sản phẩm",
+		"Left": "Còn lại: {quantity} sản phẩm",
+		"AddToCart": "Thêm vào giỏ hàng",
+		"PayNow": "Thanh toán ngay",
+		"Quantity": "Số lượng",
+		"ViewDeliveryDtatus": "Xem tình trạng giao hàng ở đơn hàng",
+		"ReturnPolicy": "Đổi 1 lấy 1 trong vòng 3 ngày",
+		"CheckPolicy": "Kiểm tra hàng trước khi thanh toán",
+		"Review": {
+			"Title": "Đánh giá sản phẩm",
+			"NoReview": "Chưa có đánh giá"
+		},
+		"RelatedProducts": "Sản phẩm liên quan"
 	}
 }
