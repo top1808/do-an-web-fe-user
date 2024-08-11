@@ -55,8 +55,16 @@ const DetailProductComponent: React.FC<DetailProductComponent> = (props) => {
 			quantity: quantity,
 			price: productSKU.promotionPrice ? productSKU.promotionPrice : productSKU.price,
 		};
-		session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
-		isPaying && setIsPayingNow(true);
+		// session ? dispatch(addingItemToCart(data as Product)) : toast.warning('Vui lòng đăng nhập để thêm vào giỏ hàng !');
+		// if (session) {
+		dispatch(addingItemToCart(data as Product));
+		// } else {
+		// 	const userCart: ProductSKU[] = JSON.parse(localStorage.getItem('userCart') || '[]');
+		// 	const checkIfExist = userCart?.find((item) => item.barcode === data.barcode);
+		// 	const newCart = checkIfExist ? userCart?.map((item) => ({ ...item, quantity: item.barcode === checkIfExist?.barcode ? (item?.quantity || 0) + 1 : item.quantity })) : [...userCart, data];
+		// 	localStorage.setItem('userCart', JSON.stringify(newCart));
+		// }
+		// isPaying && setIsPayingNow(true);
 	}
 	useEffect(() => {
 		if (isPayingNow) {

@@ -30,6 +30,7 @@ import { validateEmail, validatePhoneNumber } from '@/utils/Validator';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faSackDollar } from '@fortawesome/free-solid-svg-icons';
 import Loading from '@/components/Loading';
+import { useSession } from 'next-auth/react';
 
 const PaymentPage = () => {
 	const cart = useAppSelector(getCartState);
@@ -41,6 +42,8 @@ const PaymentPage = () => {
 	const [form] = Form.useForm();
 	const params = useSearchParams();
 	const [services, setServices] = useState<DefaultOptionType[]>([]);
+
+	const { data: session } = useSession();
 
 	const getServiceDelivery = async (districID: string) => {
 		const body: ParamsGetService = {
@@ -120,7 +123,7 @@ const PaymentPage = () => {
 			},
 		};
 		if (dataPost.paymentMethod === 'vnpay') {
-			paymentWithVPN(dataPost);
+			paymentWithVPN({ ...dataPost, totalPrice: (dataPost?.totalPrice || 0) - (voucher?.voucherApply?.discountValue || 0) });
 		} else {
 			dispatch(paying(dataPost));
 		}
@@ -132,9 +135,9 @@ const PaymentPage = () => {
 			customerEmail: auth.currentUserInfo?.email || form.getFieldValue('customerEmail') || '',
 			deliveryAddress: auth.currentUserInfo?.address || form.getFieldValue('deliveryAddress') || '',
 			note: form.getFieldValue('note') || '',
-			paymentMethod: 'cash',
+			paymentMethod: !session ? 'vnpay' : 'cash',
 		});
-	}, [form, auth]);
+	}, [form, auth, session]);
 
 	useEffect(() => {
 		dispatch(gettingProvinces());
@@ -176,11 +179,7 @@ const PaymentPage = () => {
 				localStorage.removeItem('tempDataPayement');
 				toast.error('Payment failed');
 			}
-		} else {
-			localStorage.removeItem('tempDataPayement');
-			toast.error('Payment failed ! Please try again');
 		}
-		console.log(params);
 	}, [dispatch, params]);
 	return (
 		<>
@@ -381,7 +380,8 @@ const PaymentPage = () => {
 										className='px-2'
 										optionType='default'
 										options={[
-											...PAYMENT_METHOD.map(({ label, value }) => ({
+											// eslint-disable-next-line no-unsafe-optional-chaining
+											...(PAYMENT_METHOD?.filter((item) => session || (!session && item.value !== 'cash'))).map(({ label, value }) => ({
 												label: t(label),
 												value: value,
 											})),

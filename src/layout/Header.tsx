@@ -206,10 +206,12 @@ const Header = () => {
 					<ul className='flex justify-center gap-4 h-full text-lg items-center w-full md:gap-8'>
 						<li>
 							<Link
-								href={session?.user ? '/cart' : '/login'}
+								// href={session?.user ? '/cart' : '/login'}
+								href={'/cart'}
 								className='rounded-xl'
 							>
 								<MBadge
+									// count={!session?.user ? JSON.parse(localStorage.getItem('userCart') || '[]')?.length : cart?.items?.length}
 									count={cart?.items?.length}
 									showZero
 									overflowCount={10}

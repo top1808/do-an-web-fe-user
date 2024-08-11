@@ -14,4 +14,7 @@ export interface User {
 	userProvince?: Address;
 	userDistrict?: Address;
 	userWard?: Address;
+	province?: Address;
+	district?: Address;
+	ward?: Address;
 }

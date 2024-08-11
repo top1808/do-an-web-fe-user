@@ -8,7 +8,7 @@ import { onGetPusherNotification } from '@/lib/pusher';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import MChatComponent from '@/components/MChatComponent';
-import { toggleChat } from '@/redux/reducers/modalReducer';
+import { getModalState, toggleChat } from '@/redux/reducers/modalReducer';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getAuthState } from '@/redux/reducers/authReducer';
 
@@ -18,6 +18,7 @@ interface LayoutProps {
 
 const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 	const auth = useAppSelector(getAuthState);
+	const modal = useAppSelector(getModalState);
 
 	const dispatch = useAppDispatch();
 
@@ -41,7 +42,7 @@ const MLayoutUser: React.FC<LayoutProps> = ({ children }) => {
 				<MChatComponent />
 			</div>
 			<Footer />
-			{auth?.currentUser && (
+			{!modal.isOpenChat && (
 				<FloatButton
 					shape='circle'
 					type='primary'

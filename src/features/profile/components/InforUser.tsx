@@ -25,15 +25,15 @@ const InforUser = () => {
 	const onSubmit = (data: any) => {
 		const body: FormChangeInfor = {
 			...data,
-			userProvince: {
+			province: {
 				value: data?.userProvince as number,
 				label: address.provinces?.find((d: Address) => d.value === data.userProvince)?.label || '',
 			},
-			userDistrict: {
+			district: {
 				value: data?.userDistrict as number,
 				label: address.districts?.find((d: Address) => d.value === data.userDistrict)?.label || '',
 			},
-			userWard: {
+			ward: {
 				value: data?.userWard as number,
 				label: address.wards?.find((d: Address) => d.value === data.userWard)?.label || '',
 			},
@@ -47,26 +47,25 @@ const InforUser = () => {
 	}, [dispatch]);
 	useEffect(() => {
 		form.setFieldsValue({
-			userProvince: currentUserInfo?.userProvince?.value,
-			userDistrict: currentUserInfo?.userDistrict?.value,
-			userWard: currentUserInfo?.userWard?.value,
+			userProvince: currentUserInfo?.userProvince?.value || currentUserInfo?.province?.value,
+			// userDistrict: currentUserInfo?.userDistrict?.value || currentUserInfo?.district?.value,
+			// userWard: currentUserInfo?.userWard?.value || currentUserInfo?.ward?.value,
 			name: currentUserInfo?.name,
 			email: currentUserInfo?.email,
 			phoneNumber: currentUserInfo?.phoneNumber,
 			address: currentUserInfo?.address,
 			image: currentUserInfo?.image,
 		});
-	}, [
-		currentUserInfo?.address,
-		currentUserInfo?.email,
-		currentUserInfo?.image,
-		currentUserInfo?.name,
-		currentUserInfo?.phoneNumber,
-		currentUserInfo?.userDistrict,
-		currentUserInfo?.userProvince,
-		currentUserInfo?.userWard,
-		form,
-	]);
+		// const setAddress = async () => {
+		// 	if (currentUserInfo?.province) {
+		// 		await dispatch(gettingDistricts(currentUserInfo?.province?.value as string));
+		// 		if (currentUserInfo?.district) {
+		// 			await dispatch(gettingWards(currentUserInfo?.district?.value as string));
+		// 		}
+		// 	}
+		// }
+		// setAddress();
+	}, [dispatch, currentUserInfo, form]);
 
 	return (
 		<Form
@@ -162,7 +161,7 @@ const InforUser = () => {
 									<MInput placeholder='Enter your phone number' />
 								</Form.Item>
 							</MRow>
-							<MRow justify={'end'}>
+							{/* <MRow justify={'end'}>
 								<MCol
 									span={7}
 									className='flex justify-end'
@@ -223,7 +222,7 @@ const InforUser = () => {
 										/>
 									</Form.Item>
 								</MCol>
-							</MRow>
+							</MRow> */}
 							<MRow
 								justify={'start'}
 								align={'middle'}

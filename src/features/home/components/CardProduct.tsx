@@ -58,13 +58,13 @@ const CardProduct: React.FC<CardProductProps> = ({ data, isSale, link, isTop }) 
 				)}
 				{isTop && (
 					<>
-						<div className='absolute top-1 right-0 px-2 py-1 bg-red-400 rounded'>
+						<div className='absolute top-1 right-0 px-2 py-1 bg-green-400 rounded'>
 							<p className='font-bold text-xs text-white'>{`TOP`}</p>
 						</div>
 					</>
 				)}
 				{data.discounts && (
-					<div className='absolute top-1 left-0 px-2 py-1 bg-red-400 text-xs/[0.75rem] rounded'>
+					<div className='absolute top-1 left-0 px-2 py-1 bg-yellow-400 text-xs/[0.75rem] rounded'>
 						<p className='font-bold text-white '>{`Sale`}</p>
 					</div>
 				)}

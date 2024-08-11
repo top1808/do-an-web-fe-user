@@ -21,7 +21,11 @@ const SearchFilter = () => {
 	const pathname = usePathname();
 	const t = useTranslations('SearchAndFilter');
 	const searchParams = useSearchParams();
-	const [rangePrice, setRangePrice] = useState<RangePrice>({});
+	const [rangePrice, setRangePrice] = useState<RangePrice>({
+		maxPrice: Number(searchParams.get('maxPrice')) || null,
+		minPrice: Number(searchParams.get('minPrice')) || null,
+	});
+
 	const items: MenuItem[] = [
 		{
 			key: '5',

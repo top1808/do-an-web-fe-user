@@ -21,6 +21,9 @@ interface FormChangeInfor {
 	userProvince?: Address;
 	userDistrict?: Address;
 	userWard?: Address;
+	province?: Address;
+	district?: Address;
+	ward?: Address;
 }
 
 interface FormRegister extends FormLogin {
